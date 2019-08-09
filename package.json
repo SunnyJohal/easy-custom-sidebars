@@ -1,0 +1,29 @@
+{
+  "name": "easy-custom-sidebars",
+  "version": "2.0.0",
+  "description": "Replace any sidebar/widget area in any WordPress theme (no coding required).",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SunnyJohal/easy-custom-sidebars.git"
+  },
+  "keywords": [
+    "custom sidebars",
+    "replace theme sidebars",
+    "unlimited sidebars",
+    "wordpress sidebar manager",
+    "wordpress"
+  ],
+  "author": "Titanium Themes <support@titaniumthemes.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SunnyJohal/easy-custom-sidebars/issues"
+  },
+  "homepage": "https://github.com/SunnyJohal/easy-custom-sidebars#readme"
+}
