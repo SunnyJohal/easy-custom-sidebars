@@ -2,7 +2,7 @@
 
 Welcome to the Easy Custom Sidebars development repository.
 
-## Looking
+## Looking to install this plugin on your site?
 
 This repository is for development of the plugin. If you are looking to install and use this plugin on your WordPress website then please visit the official [Plugin Download Page](https://wordpress.org/support/plugin/easy-custom-sidebars/).
 
