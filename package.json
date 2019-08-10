@@ -7,7 +7,12 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "wp-scripts start",
+    "start:custom": "wp-scripts start src/scripts/index.js --output-path=src/dist",
+    "build": "wp-scripts build",
+    "test": "wp-scripts test-unit-js",
+    "test:help": "wp-scripts test-unit-js --help",
+    "test:watch": "wp-scripts test-unit-js --watch"
   },
   "repository": {
     "type": "git",
@@ -25,5 +30,12 @@
   "bugs": {
     "url": "https://github.com/SunnyJohal/easy-custom-sidebars/issues"
   },
-  "homepage": "https://github.com/SunnyJohal/easy-custom-sidebars#readme"
+  "homepage": "https://github.com/SunnyJohal/easy-custom-sidebars#readme",
+  "devDependencies": {
+    "@wordpress/scripts": "^3.4.0"
+  },
+  "dependencies": {
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
+  }
 }
