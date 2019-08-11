@@ -1,3 +1,5 @@
+![Build Status](https://api.travis-ci.org/SunnyJohal/easy-custom-sidebars.svg)
+
 # Easy Custom Sidebars
 
 Welcome to the Easy Custom Sidebars development repository.
