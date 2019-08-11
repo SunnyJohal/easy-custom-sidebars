@@ -41,10 +41,10 @@ function load_all_plugin_files() {
 		__NAMESPACE__ . '\load_file',
 		[
 			'admin',
+			'api',
 			'customizer',
+			'data',
 			'frontend',
-			'posttype',
-			'rest-api',
 		]
 	);
 

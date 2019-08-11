@@ -61,10 +61,10 @@ class ECS_Test_Plugin_Includes extends WP_UnitTestCase {
 	public function provide_valid_file_names() {
 		return [
 			[ 'admin', 'Should load /src/includes/admin.php' ],
+			[ 'api', 'Should load /src/includes/api.php' ],
 			[ 'customizer', 'Should load /src/includes/customizer.php' ],
+			[ 'data', 'Should load /src/includes/data.php' ],
 			[ 'frontend', 'Should load /src/includes/frontend.php' ],
-			[ 'posttype', 'Should load /src/includes/posttype.php' ],
-			[ 'rest-api', 'Should load /src/includes/rest-api.php' ],
 		];
 	}
 

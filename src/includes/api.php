@@ -1,12 +1,12 @@
 <?php
 /**
- * Customizer
+ * API
  *
- * Registers any functionality to use within
- * the customizer.
+ * Registers any functionality to use/extend
+ * the WordPress REST API.
  *
  * @package Easy_Custom_Sidebars
  * @author  Sunny Johal - Titanium Themes <support@titaniumthemes.com>
  */
 
-namespace ECS\Customizer;
+namespace ECS\Api;
