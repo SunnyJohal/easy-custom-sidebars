@@ -1,8 +1,12 @@
 <?php
 /**
- * Class ECS_Test_Plugin_Includes
+ * Test Plugin Data
  *
  * @package Easy_Custom_Sidebars
+ */
+
+/**
+ * Class ECS_Test_Plugin_Includes
  */
 class ECS_Test_Plugin_Includes extends WP_UnitTestCase {
 	/**
@@ -41,7 +45,7 @@ class ECS_Test_Plugin_Includes extends WP_UnitTestCase {
 	 * Check Plugin Meta Data
 	 *
 	 * @param string $meta_key Array key for plugin data.
-	 * @param string $expected Array key for plugin data.
+	 * @param string $expected Value for the plugin data with the $meta_key.
 	 *
 	 * @dataProvider provide_plugin_metadata()
 	 */

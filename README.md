@@ -8,7 +8,9 @@ Easy Custom Sidebars is a WordPress Plugin. It's a simple and easy way to replac
 
 ## Looking to install this plugin on your site?
 
-This repository is for development of the plugin. If you are looking to install and use this plugin on your WordPress website then please visit the official [Plugin Download Page](https://wordpress.org/support/plugin/easy-custom-sidebars/).
+**DO NOT USE IN PRODUCTION**
+
+This repository is for development of a complete rewrite of this plugin. If you are looking to install and use this plugin on your WordPress website then please visit the official [Plugin Download Page](https://wordpress.org/support/plugin/easy-custom-sidebars/).
 
 ## Getting Up and Running
 
