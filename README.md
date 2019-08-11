@@ -1,4 +1,4 @@
-![Build Status](https://api.travis-ci.org/SunnyJohal/easy-custom-sidebars.svg)
+[![Build Status](https://travis-ci.org/SunnyJohal/easy-custom-sidebars.svg?branch=master)](https://travis-ci.org/SunnyJohal/easy-custom-sidebars)
 
 # Easy Custom Sidebars
 

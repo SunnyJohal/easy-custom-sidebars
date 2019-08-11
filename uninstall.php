@@ -7,6 +7,7 @@
  * removal.
  *
  * @package Easy_Custom_Sidebars
+ * @author  Sunny Johal - Titanium Themes <support@titaniumthemes.com>
  */
 
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
