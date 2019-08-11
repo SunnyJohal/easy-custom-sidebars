@@ -8,12 +8,12 @@
 /**
  * Class ECS_Test_Plugin_Includes
  */
-class ECS_Test_Plugin_Includes extends WP_UnitTestCase {
+class ECS_Test_Plugin_Metadata extends WP_UnitTestCase {
 	/**
 	 * Runs before each test.
 	 */
 	public function setUp() {
-		$this->plugin_file_path = dirname( dirname( dirname( __FILE__ ) ) ) . '/easy-custom-sidebars.php';
+		$this->plugin_file_path = dirname( dirname( dirname( __DIR__ ) ) ) . '/easy-custom-sidebars.php';
 		$this->plugin_data      = get_plugin_data( $this->plugin_file_path );
 	}
 
@@ -21,14 +21,8 @@ class ECS_Test_Plugin_Includes extends WP_UnitTestCase {
 	 * Runs after each test.
 	 */
 	public function tearDown() {
+		unset( $this->plugin_file_path );
 		unset( $this->plugin_data );
-	}
-
-	/**
-	 * Make sure main plugin file is present.
-	 */
-	public function test_plugin_file_exists() {
-		$this->assertFileExists( $this->plugin_file_path );
 	}
 
 	/**
@@ -78,4 +72,3 @@ class ECS_Test_Plugin_Includes extends WP_UnitTestCase {
 		];
 	}
 }
-
