@@ -34,6 +34,8 @@ load_all_plugin_files();
  * plugin to function.
  *
  * @throws WP_Error Error message if and file was not found.
+ * @return boolean True if all files were loaded, false if not.
+ *
  * @since 2.0.0
  */
 function load_all_plugin_files() {
@@ -44,7 +46,9 @@ function load_all_plugin_files() {
 			'api',
 			'customizer',
 			'data',
+			'deprecated',
 			'frontend',
+			'setup',
 		]
 	);
 
@@ -79,7 +83,7 @@ function load_file( $file_name ) {
 	return new \WP_Error(
 		'file_not_found',
 		sprintf(
-			/* translators: plugin include file error path. */
+			/* translators: file_not_found plugin error with file path. */
 			__( 'Could not locate the plugin file: %s', 'easy-custom-sidebars' ),
 			$file
 		)

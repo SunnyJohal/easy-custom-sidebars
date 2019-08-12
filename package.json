@@ -7,9 +7,10 @@
     "test": "tests"
   },
   "scripts": {
-    "start": "wp-scripts start",
-    "start:custom": "wp-scripts start src/scripts/index.js --output-path=src/dist",
-    "build": "wp-scripts build",
+    "start": "wp-scripts start src/scripts/admin/admin.js --output-path=src/dist --config webpack.config.js",
+    "prestart": "rm -rf src/dist",
+    "build": "wp-scripts build src/scripts/admin/admin.js --output-path=src/dist --config webpack.config.js",
+    "prebuild": "rm -rf src/dist",
     "test": "wp-scripts test-unit-js",
     "test:help": "wp-scripts test-unit-js --help",
     "test:watch": "wp-scripts test-unit-js --watch"
@@ -32,10 +33,12 @@
   },
   "homepage": "https://github.com/SunnyJohal/easy-custom-sidebars#readme",
   "devDependencies": {
-    "@wordpress/scripts": "^3.4.0"
+    "@wordpress/scripts": "^3.4.0",
+    "css-loader": "^3.2.0",
+    "mini-css-extract-plugin": "^0.8.0",
+    "style-loader": "^1.0.0"
   },
   "dependencies": {
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "@wordpress/element": "^2.6.0"
   }
 }

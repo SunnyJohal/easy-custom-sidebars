@@ -64,7 +64,9 @@ class ECS_Test_Plugin_Includes extends WP_UnitTestCase {
 			[ 'api', 'Should load /src/includes/api.php' ],
 			[ 'customizer', 'Should load /src/includes/customizer.php' ],
 			[ 'data', 'Should load /src/includes/data.php' ],
+			[ 'deprecated', 'Should load /src/includes/deprecated.php' ],
 			[ 'frontend', 'Should load /src/includes/frontend.php' ],
+			[ 'setup', 'Should load /src/includes/setup.php' ],
 		];
 	}
 
