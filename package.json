@@ -33,12 +33,10 @@
   },
   "homepage": "https://github.com/SunnyJohal/easy-custom-sidebars#readme",
   "devDependencies": {
-    "@wordpress/scripts": "^3.4.0",
+    "@wordpress/scripts": "^5.1.0",
     "css-loader": "^3.2.0",
     "mini-css-extract-plugin": "^0.8.0",
     "style-loader": "^1.0.0"
   },
-  "dependencies": {
-    "@wordpress/element": "^2.6.0"
-  }
+  "dependencies": {}
 }

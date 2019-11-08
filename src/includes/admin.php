@@ -54,7 +54,10 @@ function enqueue_admin_scripts() {
 		wp_enqueue_style(
 			'easy-custom-sidebars/admin',
 			Setup\get_plugin_src_url() . 'dist/admin.css',
-			false,
+			[
+				'wp-components',
+				'wp-editor',
+			],
 			'2.0.0'
 		);
 
@@ -66,7 +69,9 @@ function enqueue_admin_scripts() {
 				'react',
 				'react-dom',
 				'wp-api-fetch',
+				'wp-components',
 				'wp-element',
+				'wp-hooks',
 				'wp-i18n',
 			],
 			'2.0.0',

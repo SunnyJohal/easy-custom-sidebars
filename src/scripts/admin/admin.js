@@ -1,13 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Panel, PanelBody, PanelRow } from '@wordpress/components';
 import './admin.css';
 
 const App = () => {
   return (
-    <div>
-      <h1 className="ecs-heading">
-        This is being rendered by React with react being fetched externally.
-      </h1>
+    <div style={{ maxWidth: '320px' }}>
+      <h1 className="ecs-heading">Custom Sidebars</h1>
+      <Panel header="My Panel">
+        <PanelBody title="My Block Settings" initialOpen={true}>
+          <PanelRow>My Panel Inputs and Labels</PanelRow>
+        </PanelBody>
+      </Panel>
     </div>
   );
 };
