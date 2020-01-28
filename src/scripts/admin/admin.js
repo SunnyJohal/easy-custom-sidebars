@@ -1,13 +1,13 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import apiFetch from "@wordpress/api-fetch";
-import { getPath } from "@wordpress/url";
-import getQueryFromUrl from "./helpers/getQueryFromUrl";
-import "./admin.css";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import apiFetch from '@wordpress/api-fetch';
+import { getPath } from '@wordpress/url';
+import getQueryFromUrl from './helpers/getQueryFromUrl';
+import './admin.css';
 
 const App = () => {
-  apiFetch({ path: "/wp/v2/posts" }).then(posts => {
+  apiFetch({ path: '/wp/v2/posts' }).then(posts => {
     console.log(posts);
   });
 
@@ -26,19 +26,15 @@ function Controller() {
           <Link to="/themes.php?page=easy-custom-sidebars">Home</Link>
         </li>
         <li>
-          <Link to="/themes.php?page=easy-custom-sidebars&screen=about">
-            About
-          </Link>
+          <Link to="/themes.php?page=easy-custom-sidebars&screen=about">About</Link>
         </li>
         <li>
-          <Link to="/themes.php?page=easy-custom-sidebars&screen=dashboard">
-            Dashboard
-          </Link>
+          <Link to="/themes.php?page=easy-custom-sidebars&screen=dashboard">Dashboard</Link>
         </li>
       </ul>
 
       <hr />
-      <Screen name={getQueryFromUrl("screen")} />
+      <Screen name={getQueryFromUrl('screen')} />
     </div>
   );
 }
@@ -55,4 +51,4 @@ function Screen({ name }) {
   );
 }
 
-ReactDOM.render(<App />, document.getElementById("ecs-root"));
+ReactDOM.render(<App />, document.getElementById('ecs-root'));
