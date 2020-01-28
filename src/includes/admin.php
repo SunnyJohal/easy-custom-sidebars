@@ -54,28 +54,42 @@ function enqueue_admin_scripts() {
 		wp_enqueue_style(
 			'easy-custom-sidebars/admin',
 			Setup\get_plugin_src_url() . 'dist/admin.css',
-			[
+			array(
 				'wp-components',
 				'wp-editor',
-			],
+			),
 			'2.0.0'
 		);
 
-		// Admin js.
+		// Load scripts and translations.
 		wp_enqueue_script(
 			'easy-custom-sidebars/admin',
 			Setup\get_plugin_src_url() . 'dist/admin.js',
-			[
+			array(
 				'react',
 				'react-dom',
 				'wp-api-fetch',
 				'wp-components',
+				'wp-data',
+				'wp-data-controls',
 				'wp-element',
 				'wp-hooks',
 				'wp-i18n',
-			],
+				'wp-url',
+			),
 			'2.0.0',
 			true
+		);
+
+		wp_add_inline_script(
+			'easy-custom-sidebars/admin',
+			'easy_custom_sidebars = { admin_url: "' . admin_url() . '" }',
+			'before'
+		);
+
+		wp_set_script_translations(
+			'easy-custom-sidebars/admin',
+			'easy-custom-sidebars'
 		);
 	}
 }
@@ -117,11 +131,11 @@ function add_help_tabs() {
 
 	// Content.
 	$screen->add_help_tab(
-		[
+		array(
 			'id'      => 'overview',
 			'title'   => __( 'Overview', 'easy-custom-sidebars' ),
 			'content' => get_help_tab_content(),
-		]
+		)
 	);
 
 	// Sidebar.

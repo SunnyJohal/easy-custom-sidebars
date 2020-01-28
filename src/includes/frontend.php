@@ -10,3 +10,23 @@
  */
 
 namespace ECS\Frontend;
+
+// Conditions
+// => Front Page.
+// => Search Results.
+// => Author Archive.
+// => Author Archive All.
+// => Date Archive.
+// => Page.
+// => Page Templates.
+// => All Pages.
+// => Post Type Single.
+// => All Posts in Category.
+// => Post Format.
+// => All Posts in Post Type.
+// => Taxonomy Term.
+// => All Taxonomy Terms in Taxonomy.
+// => Post Type Archive.
+
+// Need to add:
+// WooCommerce Integration.

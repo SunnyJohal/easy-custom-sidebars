@@ -1,100 +1,57 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect
-} from "react-router-dom";
-
-// import { Panel, PanelBody, PanelRow } from '@wordpress/components';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import apiFetch from "@wordpress/api-fetch";
+import { getPath } from "@wordpress/url";
+import getQueryFromUrl from "./helpers/getQueryFromUrl";
 import "./admin.css";
 
-// Redux State
-// List of sidebars.
-// Selected sidebar to edit.
-
-// Potential Actions
-// Create sidebar
-// Select sidebar to edit.
-// Add item.
-
-// Steps for navigation.
-// Dynamically get the admin url path and add it to the router basename.
-// Add a rewrite rule in the server that
-// 1. Redirects the request to the settings page/Loads the settings template.
-// 2. Preserves the query params.
-
-// Steps for @wordpress/data.
-// 1. Define any middleware.
-// 2. Import and combine all of the reducers.
-// 3. Create the central store that will hold the app state.
-// 4. Define any action creators that will dispatch any actions to the store.
 const App = () => {
+  apiFetch({ path: "/wp/v2/posts" }).then(posts => {
+    console.log(posts);
+  });
+
   return (
-    <Router basename="/plugins-site/wp-admin/themes.php?page=easy-custom-sidebars">
-      <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-        </ul>
-
-        <hr />
-
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-
-          <Route path="/about">
-            <About />
-          </Route>
-
-          <Route path="/dashboard">
-            <Dashboard />
-          </Route>
-
-          <Route path="*">
-            <Redirect to="/" />
-          </Route>
-        </Switch>
-      </div>
+    <Router basename={getPath(easy_custom_sidebars.admin_url)}>
+      <Controller />
     </Router>
   );
 };
 
-// You can think of these components as "pages"
-// in your app.
-
-function Home() {
+function Controller() {
   return (
     <div>
-      <h2>Home</h2>
+      <ul>
+        <li>
+          <Link to="/themes.php?page=easy-custom-sidebars">Home</Link>
+        </li>
+        <li>
+          <Link to="/themes.php?page=easy-custom-sidebars&screen=about">
+            About
+          </Link>
+        </li>
+        <li>
+          <Link to="/themes.php?page=easy-custom-sidebars&screen=dashboard">
+            Dashboard
+          </Link>
+        </li>
+      </ul>
+
+      <hr />
+      <Screen name={getQueryFromUrl("screen")} />
     </div>
   );
 }
 
-function About() {
-  return (
+// Break this components into "pages"
+// in the app.
+function Screen({ name }) {
+  return name ? (
     <div>
-      <h2>About</h2>
+      <p>The current screen id is {name}</p>
     </div>
-  );
-}
-
-function Dashboard() {
-  return (
-    <div>
-      <h2>Dashboard</h2>
-    </div>
+  ) : (
+    <div>This is the home screen</div>
   );
 }
 

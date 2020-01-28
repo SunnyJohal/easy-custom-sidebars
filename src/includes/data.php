@@ -23,7 +23,7 @@ namespace ECS\Data;
 function register_post_type_for_sidebars() {
 	register_post_type(
 		'sidebar_instance',
-		[
+		array(
 			'labels'                => get_post_type_labels(),
 			'public'                => false,
 			'hierarchical'          => false,
@@ -33,7 +33,7 @@ function register_post_type_for_sidebars() {
 			'show_in_rest'          => true,
 			'rest_base'             => 'ecs_sidebars',
 			'rest_controller_class' => 'WP_REST_Posts_Controller',
-		]
+		)
 	);
 }
 add_action( 'init', __NAMESPACE__ . '\\register_post_type_for_sidebars' );
@@ -48,7 +48,7 @@ add_action( 'init', __NAMESPACE__ . '\\register_post_type_for_sidebars' );
  * @since 2.0.0
  */
 function get_post_type_labels() {
-	return [
+	return array(
 		'name'                  => __( 'Sidebars', 'easy-custom-sidebars' ),
 		'singular_name'         => __( 'Sidebar', 'easy-custom-sidebars' ),
 		'all_items'             => __( 'All Sidebars', 'easy-custom-sidebars' ),
@@ -74,5 +74,5 @@ function get_post_type_labels() {
 		'not_found_in_trash'    => __( 'No sidebars found in trash', 'easy-custom-sidebars' ),
 		'parent_item_colon'     => __( 'Parent Sidebar:', 'easy-custom-sidebars' ),
 		'menu_name'             => __( 'Sidebars', 'easy-custom-sidebars' ),
-	];
+	);
 }

@@ -3,33 +3,13 @@
  * Plugin Setup
  *
  * Contains information about the file structure of
- * the plugin along with any custom rewrite logic.
+ * the plugin along with any setup logic.
  *
  * @package Easy_Custom_Sidebars
  * @author  Sunny Johal - Titanium Themes <support@titaniumthemes.com>
  */
 
 namespace ECS\Setup;
-
-/**
- * Add Plugin Settings Rewrite Rule
- */
-function add_plugin_rewrite_rules() {
-	// What do I want to do.
-	// 1. Have a catch-all route easy-custom-sidebars/ that goes to the plugin settings page.
-	// 2. Have the react app boot up in it's place to manage state and pick up the url variables.
-	// 3. Not have any warnings/errors whenever I load a route.
-
-	// Issues.
-	// 1. WordPress/Browser is rewriting the trailing slash to a html entity.
-	// 2. Currently, any catch all page is triggering a can't access capability error.
-
-	// Distinctions.
-
-	// Options.
-	// 1. Manually register each route with WordPress on the PHP side.
-}
-add_action( 'init', __NAMESPACE__ . '\\add_plugin_rewrite_rules' );
 
 /**
  * Get Plugin File URL
