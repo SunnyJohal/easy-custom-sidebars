@@ -11,6 +11,11 @@
 
 namespace ECS\Frontend;
 
+// function maybe_swap_widgets() {
+// get_widget_area_replacement()
+// }
+// function get_widget_area_replacement( $sidebar_index ) {}
+
 // Conditions
 // => Front Page.
 // => Search Results.

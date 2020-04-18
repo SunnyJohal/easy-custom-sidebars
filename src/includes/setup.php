@@ -12,6 +12,92 @@
 namespace ECS\Setup;
 
 /**
+ * Register All Custom Sidebars
+ *
+ * Registers all custom sidebars as widget areas
+ * within WordPress. All custom sidebars that are
+ * replacing default sidebars will inherit the
+ * properties of the default sidebar.
+ *
+ * @since 2.0.0
+ */
+function register_all_custom_sidebars() {
+	$custom_sidebars = new \WP_Query(
+		[
+			'post_type'      => 'sidebar_instance',
+			'posts_per_page' => -1,
+			'orderby'        => 'title',
+			'order'          => 'ASC',
+		]
+	);
+
+	if ( $custom_sidebars->have_posts() ) {
+		while ( $custom_sidebars->have_posts() ) {
+			$custom_sidebars->the_post();
+			register_sidebar( get_sidebar_args( get_the_ID() ) );
+		}
+		wp_reset_postdata();
+	}
+}
+add_action( 'widgets_init', __NAMESPACE__ . '\\register_all_custom_sidebars' );
+
+/**
+ * Register Custom Sidebar
+ *
+ * All custom sidebars will inherit the properties
+ * of the original sidebar it is replacing. This
+ * function must be used inside the loop.
+ *
+ * TODO: Handle permanent sidebars created by the plugin.
+ *
+ * @uses global $wp_registered_sidebars
+ * @param int $post_id ID of the current 'sidebar-instance'
+ *                     post in the loop.
+ * @since 2.0.0
+ */
+function get_sidebar_args( $post_id ) {
+	global $wp_registered_sidebars;
+
+	$sidebar_id          = get_post_meta( $post_id, 'sidebar_id', true );
+	$original_sidebar_id = get_post_meta( $post_id, 'sidebar_replacement_id', true );
+	$description         = get_post_meta( $post_id, 'sidebar_description', true );
+
+	$args = [
+		'ecs_custom_sidebar' => 'true',
+		'name'               => get_the_title(),
+		'id'                 => empty( $sidebar_id ) ? "ecs-sidebar-{$post_id}" : $sidebar_id,
+		'description'        => $description,
+	];
+
+	if ( isset( $wp_registered_sidebars[ $original_sidebar_id ] ) ) {
+		$original_sidebar = $wp_registered_sidebars[ $original_sidebar_id ];
+
+		$args = wp_parse_args(
+			[
+				'class'         => $original_sidebar['class'],
+				'before_widget' => $original_sidebar['before_widget'],
+				'after_widget'  => $original_sidebar['after_widget'],
+				'before_title'  => $original_sidebar['before_title'],
+				'after_title'   => $original_sidebar['after_title'],
+			],
+			$args
+		);
+	} else {
+		$args = wp_parse_args(
+			[
+				'before_widget' => '<div class="widget %2$s"><div class="widget-content">',
+				'after_widget'  => "</div></div>\n",
+				'before_title'  => '<h2 class="widget-title">',
+				'after_title'   => '</h2>\n',
+			],
+			$args
+		);
+	}
+
+	return $args;
+}
+
+/**
  * Get Plugin File URL
  *
  * Gets the URL to the /src/ directory

@@ -3,13 +3,31 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import apiFetch from '@wordpress/api-fetch';
 import { getPath } from '@wordpress/url';
-import getQueryFromUrl from './helpers/getQueryFromUrl';
+import getQueryFromUrl from './utils/getQueryFromUrl';
 import './admin.css';
 
+// TODO: Move view logic to containers and components.
 const App = () => {
-  apiFetch({ path: '/wp/v2/posts' }).then(posts => {
-    console.log(posts);
+  // Sidebar example fetch.
+  apiFetch({ path: '/wp/v2/easy_custom_sidebars' }).then(posts => {
+    let sidebars = {};
+    posts.forEach(post => {
+      sidebars[post.id] = post;
+    });
+    console.log(sidebars);
   });
+
+  // Post meta example fetch.
+  // path: '/wp/v2/types'      => Gets the posttypes
+  // path: '/wp/v2/taxonomies' => Gets the taxonomies
+  // path: '/wp/v2/categories' => Gets the terms
+  // path: '/wp/v2/users'      => Gets the authors
+
+  // $this->setup_post_type_meta_boxes();
+  // $this->setup_category_posts_boxes();
+  // $this->setup_taxonomy_meta_boxes();
+  // $this->setup_author_meta_box();
+  // $this->setup_template_meta_box();
 
   return (
     <Router basename={getPath(easy_custom_sidebars.admin_url)}>
@@ -19,7 +37,14 @@ const App = () => {
 };
 
 function Controller() {
-  return (
+  const screen = getQueryFromUrl('screen');
+
+  return screen === 'about' ? (
+    <div>
+      <h1>Put the about content here!</h1>
+      <p>Reset some post meta to indicate it updating?</p>
+    </div>
+  ) : (
     <div>
       <ul>
         <li>
@@ -34,7 +59,7 @@ function Controller() {
       </ul>
 
       <hr />
-      <Screen name={getQueryFromUrl('screen')} />
+      <Screen name={screen} />
     </div>
   );
 }

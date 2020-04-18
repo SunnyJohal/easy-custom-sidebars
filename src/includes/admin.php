@@ -37,7 +37,7 @@ add_action( 'admin_menu', __NAMESPACE__ . '\\add_plugin_settings_page' );
  * @since 2.0.0
  */
 function get_plugin_settings_page() {
-	echo '<div id="ecs-root"></div>';
+	echo '<div id="ecs-root" class="wrap"></div>';
 }
 
 /**
@@ -71,7 +71,7 @@ function enqueue_admin_scripts() {
 				'wp-api-fetch',
 				'wp-components',
 				'wp-data',
-				'wp-data-control',
+				'wp-data-controls',
 				'wp-element',
 				'wp-hooks',
 				'wp-i18n',

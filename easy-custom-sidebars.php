@@ -13,7 +13,7 @@
  * @package     Easy_Custom_Sidebars
  * @author      Sunny Johal - Titanium Themes <support@titaniumthemes.com>
  * @license     GPL-2.0+
- * @copyright   Copyright (c) 2019, Titanium Themes
+ * @copyright   Copyright (c) 2020, Titanium Themes
  * @version     2.0.0
  */
 
@@ -52,7 +52,6 @@ function load_all_plugin_files() {
 		]
 	);
 
-	// Make sure no errors exist.
 	return ! in_array(
 		true,
 		array_map( 'is_wp_error', $files_loaded ),
@@ -79,7 +78,6 @@ function load_file( $file_name ) {
 		return true;
 	}
 
-	// Return a WP_Error if the file was not located.
 	return new \WP_Error(
 		'file_not_found',
 		sprintf(

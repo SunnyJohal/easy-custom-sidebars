@@ -24,55 +24,56 @@ function register_post_type_for_sidebars() {
 	register_post_type(
 		'sidebar_instance',
 		[
-			'labels'                => get_post_type_labels(),
-			'public'                => false,
+			'labels'                => [
+				'name'          => __( 'Sidebars', 'easy-custom-sidebars' ),
+				'singular_name' => __( 'Sidebar', 'easy-custom-sidebars' ),
+			],
+			'public'                => true,
 			'hierarchical'          => false,
 			'rewrite'               => false,
 			'delete_with_user'      => false,
 			'query_var'             => false,
 			'show_in_rest'          => true,
-			'rest_base'             => 'ecs_sidebars',
+			'rest_base'             => 'easy_custom_sidebars',
 			'rest_controller_class' => 'WP_REST_Posts_Controller',
+			'supports'              => [
+				'custom-fields',
+				'title',
+			],
 		]
 	);
 }
 add_action( 'init', __NAMESPACE__ . '\\register_post_type_for_sidebars' );
 
 /**
- * Get Posttype Labels
+ * Register Meta
  *
- * By default, post labels are used for non-hierarchical post
- * types and page labels for hierarchical ones.
+ * Register metadata to indicate all of the areas
+ * (posts/taxonomies/templates/archives etc) in
+ * the site that this sidebar is replacing.
  *
- * @return array $labels Labels for this post type.
  * @since 2.0.0
  */
-function get_post_type_labels() {
-	return [
-		'name'                  => __( 'Sidebars', 'easy-custom-sidebars' ),
-		'singular_name'         => __( 'Sidebar', 'easy-custom-sidebars' ),
-		'all_items'             => __( 'All Sidebars', 'easy-custom-sidebars' ),
-		'archives'              => __( 'Sidebar Archives', 'easy-custom-sidebars' ),
-		'attributes'            => __( 'Sidebar Attributes', 'easy-custom-sidebars' ),
-		'insert_into_item'      => __( 'Insert into sidebar', 'easy-custom-sidebars' ),
-		'uploaded_to_this_item' => __( 'Uploaded to this sidebar', 'easy-custom-sidebars' ),
-		'featured_image'        => _x( 'Featured Image', 'sidebar_instance', 'easy-custom-sidebars' ),
-		'set_featured_image'    => _x( 'Set featured image', 'sidebar_instance', 'easy-custom-sidebars' ),
-		'remove_featured_image' => _x( 'Remove featured image', 'sidebar_instance', 'easy-custom-sidebars' ),
-		'use_featured_image'    => _x( 'Use as featured image', 'sidebar_instance', 'easy-custom-sidebars' ),
-		'filter_items_list'     => __( 'Filter sidebars list', 'easy-custom-sidebars' ),
-		'items_list_navigation' => __( 'Sidebar list navigation', 'easy-custom-sidebars' ),
-		'items_list'            => __( 'Sidebars list', 'easy-custom-sidebars' ),
-		'new_item'              => __( 'New Sidebar', 'easy-custom-sidebars' ),
-		'add_new'               => __( 'Add New', 'easy-custom-sidebars' ),
-		'add_new_item'          => __( 'Add New Sidebar', 'easy-custom-sidebars' ),
-		'edit_item'             => __( 'Edit Sidebar', 'easy-custom-sidebars' ),
-		'view_item'             => __( 'View Sidebar', 'easy-custom-sidebars' ),
-		'view_items'            => __( 'View Sidebars', 'easy-custom-sidebars' ),
-		'search_items'          => __( 'Search sidebars', 'easy-custom-sidebars' ),
-		'not_found'             => __( 'No sidebars found', 'easy-custom-sidebars' ),
-		'not_found_in_trash'    => __( 'No sidebars found in trash', 'easy-custom-sidebars' ),
-		'parent_item_colon'     => __( 'Parent Sidebar:', 'easy-custom-sidebars' ),
-		'menu_name'             => __( 'Sidebars', 'easy-custom-sidebars' ),
-	];
+function register_metadata_for_sidebars() {
+	register_meta(
+		'post',
+		'sidebar_attachments',
+		[
+			'type'         => 'string',
+			'single'       => true,
+			'show_in_rest' => [
+				'schema' => [
+					'items' => [
+						'type'       => 'object',
+						'properties' => [
+							'menu-item-db-id'  => [ 'type' => 'string' ],
+							'menu-item-object' => [ 'type' => 'string' ],
+							'menu-item-type'   => [ 'type' => 'string' ],
+						],
+					],
+				],
+			],
+		]
+	);
 }
+add_action( 'init', __NAMESPACE__ . '\\register_metadata_for_sidebars' );
