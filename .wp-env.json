@@ -1,0 +1,7 @@
+{
+  "port": 3000,
+  "testsPort": 3001,
+  "core": null,
+  "plugins": ["."],
+  "debug": true
+}

@@ -8,14 +8,15 @@ fi
 DB_NAME=$1
 DB_USER=$2
 DB_PASS=$3
-DB_HOST=${4-localhost}
+DB_HOST=${4-mysql}
 WP_VERSION=${5-latest}
-SKIP_DB_CREATE=${6-false}
+SKIP_DB_CREATE=${6-true}
 
 TMPDIR=${TMPDIR-/tmp}
 TMPDIR=$(echo $TMPDIR | sed -e "s/\/$//")
 WP_TESTS_DIR=${WP_TESTS_DIR-$TMPDIR/wordpress-tests-lib}
 WP_CORE_DIR=${WP_CORE_DIR-$TMPDIR/wordpress/}
+WP_UPLOAD_DIR=${WP_CORE_DIR-$TMPDIR/wordpress/wp-content/uploads}
 
 download() {
     if [ `which curl` ]; then
@@ -91,6 +92,9 @@ install_wp() {
 		download https://wordpress.org/${ARCHIVE_NAME}.tar.gz  $TMPDIR/wordpress.tar.gz
 		tar --strip-components=1 -zxmf $TMPDIR/wordpress.tar.gz -C $WP_CORE_DIR
 	fi
+
+	# Make the uploads directory
+	mkdir -p $WP_UPLOAD_DIR
 
 	download https://raw.github.com/markoheijnen/wp-mysqli/master/db.php $WP_CORE_DIR/wp-content/db.php
 }

@@ -13,7 +13,7 @@ class ECS_Test_Plugin_Includes extends WP_UnitTestCase {
 	 * Runs before each test.
 	 */
 	public function setUp() {
-		$this->plugin_file_path = dirname( dirname( dirname( __DIR__ ) ) ) . '/easy-custom-sidebars.php';
+		$this->plugin_file_path = dirname( dirname( __DIR__ ) ) . '/easy-custom-sidebars.php';
 	}
 
 	/**

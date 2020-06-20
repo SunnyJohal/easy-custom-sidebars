@@ -7,13 +7,16 @@
     "test": "tests"
   },
   "scripts": {
-    "start": "wp-scripts start src/scripts/admin/admin.js --output-path=src/dist --config webpack.config.js",
+    "start": "wp-scripts start --output-path=src/dist",
     "prestart": "rm -rf src/dist",
-    "build": "wp-scripts build src/scripts/admin/admin.js --output-path=src/dist --config webpack.config.js",
+    "build": "wp-scripts build --output-path=src/dist",
     "prebuild": "rm -rf src/dist",
     "test": "wp-scripts test-unit-js",
     "test:help": "wp-scripts test-unit-js --help",
-    "test:watch": "wp-scripts test-unit-js --watch"
+    "test:watch": "wp-scripts test-unit-js --watch",
+    "test-unit-php": "wp-env run phpunit 'phpunit -c /var/www/html/wp-content/plugins/easy-custom-sidebars/phpunit.xml.dist --verbose'",
+    "setup": "wp-env start",
+    "wp-env": "wp-env"
   },
   "repository": {
     "type": "git",
@@ -33,12 +36,10 @@
   },
   "homepage": "https://github.com/SunnyJohal/easy-custom-sidebars#readme",
   "devDependencies": {
-    "@wordpress/scripts": "^6.2.0",
-    "css-loader": "^3.4.2",
-    "mini-css-extract-plugin": "^0.9.0",
-    "style-loader": "^1.1.2"
+    "@wordpress/env": "^1.5.0",
+    "@wordpress/scripts": "^11.0.0"
   },
   "dependencies": {
-    "react-router-dom": "^5.1.2"
+    "react-router-dom": "^5.2.0"
   }
 }

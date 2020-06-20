@@ -50,6 +50,7 @@ function get_plugin_settings_page() {
  */
 function enqueue_admin_scripts() {
 	if ( is_plugin_settings_page() ) {
+
 		// Admin css.
 		wp_enqueue_style(
 			'easy-custom-sidebars/admin',
