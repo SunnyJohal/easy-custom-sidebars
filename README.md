@@ -29,6 +29,14 @@ $ yarn setup
 This simple command will:
 
 - Install all node and composer dependancies.
-- Run the `wp-env` plugin to setup a development env and spin up the relevant docker containers.
+- Run the `wp-env` plugin to spin up the relevant docker containers for local development.
 
 Once complete you should be able to visit [`http://localhost:3000/`](http://localhost:3000/) in your browser to see the local test site.
+
+### Development
+
+- WIP
+
+### Testing
+
+- WIP
