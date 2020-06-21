@@ -43,7 +43,11 @@ Once complete you should be able to visit [`http://localhost:3000/`](http://loca
 $ yarn start
 ```
 
-This command will: WIP
+This command will:
+
+- Clean the src/dist directory if it exists.
+- Rebuild the js files and put them in the `src/dist` directory.
+- Watch the project files and rebuild the compiled code in `src/dist`.
 
 ### Testing
 
