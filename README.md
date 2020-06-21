@@ -62,10 +62,19 @@ This command will:
 - Spin up a temporary container to execute the phpUnit tests.
 - Run all unit tests.
 - Show the test results.
-- Stop the temporary container.
+- Shutdown the temporary container.
 
 **NOTE:** We plan to add phpunit-watcher to the container in the future to be able to start phpUnit in watch mode.
 
 #### Jest Unit Testing
 
-To run the
+To run the unit tests for js files run the command:
+
+```sh
+$ yarn test
+```
+
+This command will:
+
+- Start up jest and run any tests in the `test` directory.
+- Watch the project files and re-run the tests when they change (or new tests are added).
