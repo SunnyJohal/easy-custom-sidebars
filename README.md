@@ -12,13 +12,23 @@ Easy Custom Sidebars is a WordPress Plugin. It's a simple and easy way to replac
 
 **DO NOT USE IN PRODUCTION**
 
-This repository is for development of a complete rewrite of this plugin. If you are looking to install and use this plugin on your WordPress website then please visit the official [Plugin Download Page](https://wordpress.org/support/plugin/easy-custom-sidebars/).
+This repository is for development of a complete rewrite of this plugin. If you are looking to install and use this plugin on your WordPress website then please visit the official [Plugin Download Page](https://wordpress.org/support/plugin/easy-custom-sidebars/), where the latest stable version is available to download.
 
 ## Getting Up and Running
 
-We have a basic development environment that you can quickly get up and running with a few commands. First off, you will need to download and install [Docker](https://www.docker.com/products/docker-desktop), if you don't have it already. After that, there are a few commands to run:
+We have a basic development environment that you can quickly get up and running with a few commands. First off, you will need to download and install [Docker](https://www.docker.com/products/docker-desktop) and [Yarn](https://classic.yarnpkg.com/en/docs/install#mac-stable) package manager, if you don't have it already. After that, there are a few commands to run:
 
-## Work in progress
+### Setup
 
-- This is a complete rewrite of the plugin.
-- Need to update docs to make it easier to setup a dev environment.
+Once you have cloned the repo run the command:
+
+```sh
+$ yarn setup
+```
+
+This simple command will:
+
+- Install all node and composer dependancies.
+- Run the `wp-env` plugin to setup a development env and spin up the relevant docker containers.
+
+Once complete you should be able to visit [`http://localhost:3000/`](http://localhost:3000/) in your browser to see the local test site.
