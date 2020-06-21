@@ -16,17 +16,21 @@ This repository is for development of a complete rewrite of this plugin. If you 
 
 ## Getting Up and Running
 
-We have a basic development environment that you can quickly get up and running with a few commands. First off, you will need to download and install [Docker](https://www.docker.com/products/docker-desktop) and [Yarn](https://classic.yarnpkg.com/en/docs/install#mac-stable) package manager, if you don't have it already. After that, there are a few commands to run:
+### Prerequisites
+
+We've made it easy to setup local development with a simple command. We assume that you have already downloaded and installed [Docker](https://www.docker.com/products/docker-desktop) and [Yarn](https://classic.yarnpkg.com/en/docs/install#mac-stable) package manager, if you don't have it already. After that, there are a few commands to run:
 
 ### Setup
 
-Once you have cloned the repo run the command:
+We've made it easy to setup local development with a simple command to run once you have cloned the repo:
 
 ```sh
 $ yarn setup
 ```
 
-This simple command will:
+**NOTE:** Please be patient this command can take some time to execute.
+
+This command will:
 
 - Install all node and composer dependancies.
 - Run the `wp-env` plugin to spin up the relevant docker containers for local development.
@@ -35,8 +39,33 @@ Once complete you should be able to visit [`http://localhost:3000/`](http://loca
 
 ### Development
 
-- WIP
+```sh
+$ yarn start
+```
+
+This command will: WIP
 
 ### Testing
 
-- WIP
+#### PHPUnit Testing
+
+All tests are located in the `phpunit/tests` directory in the project. Any new tests need to be in this directory in order to run properly. phpUnit will automatically run any tests for php files when the filename has the following structure: `test-{NAME}.php`
+
+To run the phpUnit tests run the command:
+
+```sh
+$ yarn test-unit-php
+```
+
+This command will:
+
+- Spin up a temporary container to execute the phpUnit tests.
+- Run all unit tests.
+- Show the test results.
+- Stop the temporary container.
+
+**NOTE:** We plan to add phpunit-watcher to the container in the future to be able to start phpUnit in watch mode.
+
+#### Jest Unit Testing
+
+To run the
