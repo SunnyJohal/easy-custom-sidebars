@@ -15,7 +15,9 @@
     "test:help": "wp-scripts test-unit-js --help",
     "test:watch": "wp-scripts test-unit-js --watch",
     "test-unit-php": "wp-env run phpunit 'phpunit -c /var/www/html/wp-content/plugins/easy-custom-sidebars/phpunit.xml.dist --verbose'",
+    "presetup": "yarn install && composer install",
     "setup": "wp-env start",
+    "destroy": "wp-env destroy",
     "wp-env": "wp-env"
   },
   "repository": {
