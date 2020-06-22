@@ -53,17 +53,15 @@ before_install:
 
 install:
   # Build Easy Custom Sidebars.
-  - yarn install && composer install
+  - yarn setup
 
 jobs:
   include:
     - name: JavaScript Unit Tests
       env: INSTALL_WORDPRESS=false
       script:
-        - yarn install
         - yarn test-unit-js -- --ci --maxWorkers=2 --cacheDirectory="$HOME/.jest-cache"
 
     - name: PHP Unit Tests
       script:
-        - yarn install
         - yarn test-unit-php && yarn test-unit-php-multisite
