@@ -1,4 +1,7 @@
-language: generic
+language: php
+
+php:
+  - 7.4.7
 
 services:
   - docker
@@ -43,12 +46,11 @@ before_install:
       chmod +x docker-compose
       sudo mv docker-compose /usr/local/bin
     fi
-  - yarn setup
   - printenv
 
 install:
   # Build Easy Custom Sidebars.
-  - yarn build
+  - yarn setup
 
 jobs:
   include:
@@ -57,14 +59,6 @@ jobs:
         - yarn build
 
     - name: PHP Unit Tests
-      script:
-        - yarn install
-        - yarn test-unit-php && yarn test-unit-php-multisite
-
-    # This will be removed now that WordPress recommends
-    # php7 as a minimum requirement.
-    - name: PHP Unit Tests (PHP 5.6)
-      env: LOCAL_PHP=5.6
       script:
         - yarn install
         - yarn test-unit-php && yarn test-unit-php-multisite
