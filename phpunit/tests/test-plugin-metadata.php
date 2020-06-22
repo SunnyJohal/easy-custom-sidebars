@@ -30,7 +30,7 @@ class ECS_Test_Plugin_Metadata extends WP_UnitTestCase {
 	 */
 	public function test_get_plugin_data() {
 		$this->assertTrue(
-			! is_array( $this->plugin_data ),
+			is_array( $this->plugin_data ),
 			'Plugin data should be an array'
 		);
 	}

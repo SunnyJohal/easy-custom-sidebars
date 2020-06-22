@@ -17,6 +17,7 @@ cache:
     - $HOME/.jest-cache
     - $HOME/.npm
     - $HOME/.nvm/.cache
+    - $HOME/.cache/yarn
 
 branches:
   only:
@@ -24,9 +25,9 @@ branches:
 
 env:
   global:
-    - WP_DEVELOP_DIR: ./wordpress
-    - LOCAL_SCRIPT_DEBUG: false
-    - INSTALL_WORDPRESS: true
+    - WP_DEVELOP_DIR=./wordpress
+    - LOCAL_SCRIPT_DEBUG=false
+    - INSTALL_WORDPRESS=true
 
 # Make sure NodeGit gets the correct C libs.
 addons:
