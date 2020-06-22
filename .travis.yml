@@ -12,6 +12,7 @@ notifications:
     on_failure: change
 
 cache:
+  yarn: true
   directories:
     - $HOME/.composer/cache
     - $HOME/.jest-cache
@@ -29,7 +30,6 @@ env:
     - WP_DEVELOP_DIR=./wordpress
     - LOCAL_SCRIPT_DEBUG=false
     - INSTALL_WORDPRESS=true
-    - YARN_CACHE_FOLDER=$HOME/.yarn-cache
 
 # Make sure NodeGit gets the correct C libs.
 addons:
