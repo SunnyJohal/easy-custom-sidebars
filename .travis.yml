@@ -46,7 +46,7 @@ before_install:
       chmod +x docker-compose
       sudo mv docker-compose /usr/local/bin
     fi
-  - printenv
+  - yarn install
 
 install:
   # Build Easy Custom Sidebars.
@@ -56,6 +56,7 @@ jobs:
   include:
     - name: Build Artifacts
       install:
+        - yarn install
         - yarn build
 
     - name: PHP Unit Tests
