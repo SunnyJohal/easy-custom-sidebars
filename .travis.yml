@@ -54,11 +54,6 @@ install:
 
 jobs:
   include:
-    - name: Build Artifacts
-      install:
-        - yarn install
-        - yarn build
-
     - name: PHP Unit Tests
       script:
         - yarn install
