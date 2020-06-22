@@ -53,7 +53,7 @@ before_install:
 
 install:
   # Build Easy Custom Sidebars.
-  - yarn setup
+  - yarn install && composer install
 
 jobs:
   include:
