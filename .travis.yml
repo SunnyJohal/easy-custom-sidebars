@@ -49,7 +49,7 @@ before_install:
       chmod +x docker-compose
       sudo mv docker-compose /usr/local/bin
     fi
-  - yarn install
+  # - yarn install
 
 install:
   # Build Easy Custom Sidebars.
