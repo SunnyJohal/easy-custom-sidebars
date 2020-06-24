@@ -18,12 +18,29 @@ add_filter(
 			return $value;
 		}
 
-		// TODO: Shape data from old saved data to the new form.	
+		// TODO: Shape data from old saved data to the new form.
 		return $value;
 	},
 	10,
 	4
 );
 
-// TODO: Handle legacy sidebar ids, new ids will be
-// generated dynamically from the post id.
+/**
+ * Preserve Legacy Sidebar IDs
+ *
+ * Handle legacy sidebar ids, new ids will be
+ * generated dynamically from the post id.
+ *
+ * @param string $sidebar_id Generated sidebar_id slug used in register_sidebar().
+ * @param int    $post_id ID of a 'sidebar_instance' post.
+ */
+function preserve_legacy_sidebar_id( $sidebar_id, $post_id ) {
+	$old_sidebar_id = get_post_meta( $post_id, 'sidebar_id', true );
+
+	if ( ! empty( $old_sidebar_id ) ) {
+		return $old_sidebar_id;
+	}
+
+	return $sidebar_id;
+}
+add_filter( 'ecs_sidebar_id', __NAMESPACE__ . '\\preserve_legacy_sidebar_id', 10, 2 );

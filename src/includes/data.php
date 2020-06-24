@@ -57,11 +57,38 @@ add_action( 'init', __NAMESPACE__ . '\\register_post_type_for_sidebars' );
 function register_metadata_for_sidebars() {
 	register_meta(
 		'post',
+		'sidebar_replacement_id',
+		[
+			'object_subtype'    => 'sidebar_instance',
+			'type'              => 'string',
+			'description'       => __( 'The unique identifier of the existing sidebar that this custom sidebar will replace.', 'easy-custom-sidebars' ),
+			'single'            => true,
+			'sanitize_callback' => 'sanitize_text_field',
+			'show_in_rest'      => true,
+		]
+	);
+
+	register_meta(
+		'post',
+		'sidebar_description',
+		[
+			'object_subtype'    => 'sidebar_instance',
+			'type'              => 'string',
+			'description'       => __( 'Description of the sidebar, displayed in the Widgets interface.', 'easy-custom-sidebars' ),
+			'single'            => true,
+			'sanitize_callback' => 'sanitize_text_field',
+			'show_in_rest'      => true,
+		]
+	);
+
+	register_meta(
+		'post',
 		'sidebar_attachments',
 		[
-			'type'         => 'string',
-			'single'       => true,
-			'show_in_rest' => [
+			'object_subtype' => 'sidebar_instance',
+			'type'           => 'string',
+			'single'         => true,
+			'show_in_rest'   => [
 				'schema' => [
 					'items' => [
 						'type'       => 'object',
@@ -77,3 +104,18 @@ function register_metadata_for_sidebars() {
 	);
 }
 add_action( 'init', __NAMESPACE__ . '\\register_metadata_for_sidebars' );
+
+/**
+ * Get Sidebar Id.
+ *
+ * Gets the unique identifier by which
+ * the custom sidebar will be when
+ * register_sidebar() is invoked.
+ *
+ * @param int $post_id ID of a 'sidebar_instance' post.
+ *
+ * @return string Custom sidebar id.
+ */
+function get_sidebar_id( $post_id ) {
+	return apply_filters( 'ecs_sidebar_id', "ecs-sidebar-{$post_id}", $post_id );
+}

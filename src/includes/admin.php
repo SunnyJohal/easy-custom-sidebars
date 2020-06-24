@@ -50,6 +50,7 @@ function get_plugin_settings_page() {
  */
 function enqueue_admin_scripts() {
 	if ( is_plugin_settings_page() ) {
+		$admin_asset = include plugin_dir_path( __FILE__ ) . '../dist/admin.asset.php';
 
 		// Admin css.
 		wp_enqueue_style(
@@ -59,26 +60,15 @@ function enqueue_admin_scripts() {
 				'wp-components',
 				'wp-editor',
 			],
-			'2.0.0'
+			$admin_asset['version']
 		);
 
 		// Load scripts and translations.
 		wp_enqueue_script(
 			'easy-custom-sidebars/admin',
 			Setup\get_plugin_src_url() . 'dist/admin.js',
-			[
-				'react',
-				'react-dom',
-				'wp-api-fetch',
-				'wp-components',
-				'wp-data',
-				'wp-data-controls',
-				'wp-element',
-				'wp-hooks',
-				'wp-i18n',
-				'wp-url',
-			],
-			'2.0.0',
+			$admin_asset['dependencies'],
+			$admin_asset['version'],
 			true
 		);
 

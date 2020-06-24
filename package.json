@@ -7,6 +7,7 @@
     "test": "tests"
   },
   "scripts": {
+    "dev": "yarn setup && yarn start",
     "start": "wp-scripts start --output-path=src/dist",
     "prestart": "rm -rf src/dist",
     "build": "wp-scripts build --output-path=src/dist",
