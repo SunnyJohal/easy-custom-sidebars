@@ -2,6 +2,6 @@
   "port": 3000,
   "testsPort": 3001,
   "core": null,
-  "plugins": ["."],
+  "plugins": [".", "https://downloads.wordpress.org/plugin/query-monitor.3.6.0.zip"],
   "debug": true
 }

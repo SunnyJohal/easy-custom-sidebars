@@ -11,6 +11,8 @@
 
 namespace ECS\Setup;
 
+use ECS\Data;
+
 /**
  * Register All Custom Sidebars
  *
@@ -58,15 +60,14 @@ add_action( 'widgets_init', __NAMESPACE__ . '\\register_all_custom_sidebars' );
 function get_sidebar_args( $post_id ) {
 	global $wp_registered_sidebars;
 
-	$sidebar_id          = get_post_meta( $post_id, 'sidebar_id', true );
 	$original_sidebar_id = get_post_meta( $post_id, 'sidebar_replacement_id', true );
 	$description         = get_post_meta( $post_id, 'sidebar_description', true );
 
 	$args = [
 		'ecs_custom_sidebar' => 'true',
-		'name'               => get_the_title(),
-		'id'                 => empty( $sidebar_id ) ? "ecs-sidebar-{$post_id}" : $sidebar_id,
-		'description'        => $description,
+		'name'               => get_the_title( $post_id ),
+		'id'                 => Data\get_sidebar_id( $post_id ),
+		'description'        => Data\get_sidebar_description( $post_id ),
 	];
 
 	if ( isset( $wp_registered_sidebars[ $original_sidebar_id ] ) ) {

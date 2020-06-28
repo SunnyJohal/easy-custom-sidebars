@@ -92,4 +92,24 @@ class ECS_Test_Data extends WP_UnitTestCase {
 			'ecs-sidebar-' . self::$post_id
 		);
 	}
+
+	/**
+	 * Test Get Sidebar Description
+	 */
+	public function test_get_sidebar_description() {
+		$description = 'This is an example sidebar description';
+		update_post_meta( self::$post_id, 'sidebar_description', $description );
+
+		// Valid sidebar id.
+		$this->assertEquals(
+			Data\get_sidebar_description( self::$post_id ),
+			$description
+		);
+
+		// Invalid sidebar id.
+		$this->assertEquals(
+			Data\get_sidebar_description( 0 ),
+			false
+		);
+	}
 }

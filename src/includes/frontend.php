@@ -11,9 +11,15 @@
 
 namespace ECS\Frontend;
 
+// Data structure for item_ids[] array stored as meta key: 'sidebar_attachments'
+// type [menu-item-type]
+// id   []
+// data
+
 // function maybe_swap_widgets() {
 // get_widget_area_replacement()
 // }
+
 // function get_widget_area_replacement( $sidebar_index ) {}
 
 // Conditions

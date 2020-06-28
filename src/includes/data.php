@@ -28,7 +28,7 @@ function register_post_type_for_sidebars() {
 				'name'          => __( 'Sidebars', 'easy-custom-sidebars' ),
 				'singular_name' => __( 'Sidebar', 'easy-custom-sidebars' ),
 			],
-			'public'                => true,
+			'public'                => false,
 			'hierarchical'          => false,
 			'rewrite'               => false,
 			'delete_with_user'      => false,
@@ -118,4 +118,20 @@ add_action( 'init', __NAMESPACE__ . '\\register_metadata_for_sidebars' );
  */
 function get_sidebar_id( $post_id ) {
 	return apply_filters( 'ecs_sidebar_id', "ecs-sidebar-{$post_id}", $post_id );
+}
+
+/**
+ * Get Sidebar Description
+ *
+ * Gets the description text that will be
+ * displayed in the Widgets interface.
+ *
+ * @param int $post_id ID of a 'sidebar_instance' post.
+ */
+function get_sidebar_description( $post_id ) {
+	return apply_filters(
+		'ecs_sidebar_description',
+		get_post_meta( $post_id, 'sidebar_description', true ),
+		$post_id
+	);
 }

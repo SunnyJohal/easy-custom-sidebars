@@ -26,8 +26,16 @@ class ECS_Test_Deprecated extends WP_UnitTestCase {
 	 *
 	 * @param object $factory Factory obj for generating WordPress fixtures.
 	 */
-	public function wpSetUpBeforeClass( $factory ) {
+	public static function wpSetUpBeforeClass( $factory ) {
 		self::$post_id = $factory->post->create( [ 'post_type' => 'sidebar_instance' ] );
+	}
+
+	/**
+	 * Test Get Sidebar
+	 */
+	public function todo_test_get_sidebar_attachments() {
+		// Test that the old data is transformed into the new one.
+		// 
 	}
 
 	/**
