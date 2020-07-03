@@ -109,8 +109,8 @@ add_action( 'init', __NAMESPACE__ . '\\register_metadata_for_sidebars' );
  * Get Sidebar Id.
  *
  * Gets the unique identifier by which
- * the custom sidebar will be when
- * register_sidebar() is invoked.
+ * the custom sidebar will be registered
+ * when register_sidebar() is invoked.
  *
  * @param int $post_id ID of a 'sidebar_instance' post.
  *

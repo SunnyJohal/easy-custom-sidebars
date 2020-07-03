@@ -2,7 +2,7 @@ import { combineReducers } from '@wordpress/data';
 
 export const getSidebars = (state = [], action) => {
   switch (action.type) {
-    case 'ecs/GET_SIDEBARS':
+    case 'GET_SIDEBARS':
       return state;
 
     default:

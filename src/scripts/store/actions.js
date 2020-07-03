@@ -2,16 +2,16 @@
  * Sidebar Actions
  * @param {*} name
  */
-export const createSidebar = name => {
+export const createSidebar = (name) => {
   return {
-    type: 'ecs/CREATE_SIDEBAR',
+    type: 'CREATE_SIDEBAR',
     payload: name
   };
 };
 
 export const updateSidebar = (id, name, attachments, settings) => {
   return {
-    type: 'ecs/UPDATE_SIDEBAR',
+    type: 'UPDATE_SIDEBAR',
     payload: {
       id,
       name,
@@ -21,16 +21,16 @@ export const updateSidebar = (id, name, attachments, settings) => {
   };
 };
 
-export const deleteSidebar = id => {
+export const deleteSidebar = (id) => {
   return {
-    type: 'ecs/DELETE_SIDEBAR',
+    type: 'DELETE_SIDEBAR',
     payload: { id }
   };
 };
 
-export const addToSidebar = (id, attachment) => {
+export const addAttachmentToSidebar = (id, attachment) => {
   return {
-    type: 'ecs/ADD_TO_SIDEBAR',
+    type: 'ADD_ATTACHMENT_TO_SIDEBAR',
     payload: {
       id,
       attachment
@@ -64,5 +64,8 @@ export const addToSidebar = (id, attachment) => {
 // Remove attachment from sidebar.
 
 export default {
-  deleteSidebar
+  createSidebar,
+  updateSidebar,
+  deleteSidebar,
+  addAttachmentToSidebar
 };

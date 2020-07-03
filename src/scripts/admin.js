@@ -1,10 +1,21 @@
+/**
+ * External Dependancies
+ */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
+
+/**
+ * WordPress Dependancies
+ */
 import apiFetch from '@wordpress/api-fetch';
 import { getPath } from '@wordpress/url';
+
+/**
+ * Internal Dependancies
+ */
 import getQueryFromUrl from './utils/getQueryFromUrl';
-import './admin.css';
+import About from './views/pages/About';
 
 // TODO: Move view logic to containers and components.
 const App = () => {
@@ -39,24 +50,29 @@ const App = () => {
 function Controller() {
   const screen = getQueryFromUrl('screen');
 
+  const Nav = () => (
+    <ul>
+      <li>
+        <Link to="/themes.php?page=easy-custom-sidebars">Home</Link>
+      </li>
+      <li>
+        <Link to="/themes.php?page=easy-custom-sidebars&screen=about">About</Link>
+      </li>
+      <li>
+        <Link to="/themes.php?page=easy-custom-sidebars&screen=dashboard">Dashboard</Link>
+      </li>
+    </ul>
+  );
+
+  if (screen === 'dashboard') {
+    return <Redirect to="/themes.php?page=easy-custom-sidebars&screen=about" />;
+  }
+
   return screen === 'about' ? (
-    <div>
-      <h1>Put the about content here!</h1>
-      <p>Reset some post meta to indicate it updating?</p>
-    </div>
+    <About />
   ) : (
     <div>
-      <ul>
-        <li>
-          <Link to="/themes.php?page=easy-custom-sidebars">Home</Link>
-        </li>
-        <li>
-          <Link to="/themes.php?page=easy-custom-sidebars&screen=about">About</Link>
-        </li>
-        <li>
-          <Link to="/themes.php?page=easy-custom-sidebars&screen=dashboard">Dashboard</Link>
-        </li>
-      </ul>
+      <Nav />
 
       <hr />
       <Screen name={screen} />
@@ -67,6 +83,7 @@ function Controller() {
 // Break this components into "pages"
 // in the app.
 function Screen({ name }) {
+  // Switch statement?
   return name ? (
     <div>
       <p>The current screen id is {name}</p>
