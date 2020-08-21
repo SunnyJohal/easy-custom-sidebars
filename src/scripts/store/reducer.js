@@ -1,9 +1,29 @@
 import { combineReducers } from '@wordpress/data';
 
-export const getSidebars = (state = [], action) => {
+/**
+ * Sidebar Reducers
+ * @param {*} state
+ * @param {*} action
+ */
+export const sidebarsReducer = (state = {}, action) => {
   switch (action.type) {
-    case 'GET_SIDEBARS':
-      return state;
+    case 'CREATE_SIDEBAR':
+      return { ...state };
+      break;
+
+    case 'UPDATE_SIDEBAR':
+      return { ...state };
+      break;
+
+    case 'DELETE_SIDEBAR':
+      const allSidebars = { ...state };
+      delete allSidebars[action.payload.id];
+      return allSidebars;
+      break;
+
+    case 'HYDRATE_SIDEBARS':
+      return action.payload.sidebars;
+      break;
 
     default:
       return state;
@@ -11,5 +31,5 @@ export const getSidebars = (state = [], action) => {
 };
 
 export default combineReducers({
-  sidebars: getSidebars
+  sidebars: sidebarsReducer
 });

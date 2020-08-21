@@ -32,8 +32,9 @@ const WhatsNewContent = () => {
         <div className="column" style={{ backgroundColor: 'rgba(255,255,255,0.8)' }}>
           <h2>{__('Our new WordPress theme is almost ready!', 'easy-custom-sidebars')}</h2>
           <p>
-            Want to know when we launch? Awesome! <a href="https://titaniumthemes.com">Visit our website</a> and enter
-            your details and we will e-mail you as soon as we are ready.
+            {__('Want to know when we launch? Awesome! ', 'easy-custom-sidebars')}
+            <a href="https://titaniumthemes.com">{__('Visit our website', 'easy-custom-sidebars')}</a>
+            {__(' and enter your details and we will e-mail you as soon as we are ready.', 'easy-custom-sidebars')}
           </p>
           <Button href="https://titaniumthemes.com" target="_blank" isPrimary style={{ marginTop: 32 }}>
             {__('Find out more', 'easy-custom-sidebars')}

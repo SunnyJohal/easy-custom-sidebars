@@ -34,7 +34,7 @@ function register_post_type_for_sidebars() {
 			'delete_with_user'      => false,
 			'query_var'             => false,
 			'show_in_rest'          => true,
-			'rest_base'             => 'easy_custom_sidebars',
+			'rest_base'             => 'easy-custom-sidebars',
 			'rest_controller_class' => 'WP_REST_Posts_Controller',
 			'supports'              => [
 				'custom-fields',
@@ -93,9 +93,9 @@ function register_metadata_for_sidebars() {
 					'items' => [
 						'type'       => 'object',
 						'properties' => [
-							'menu-item-db-id'  => [ 'type' => 'string' ],
-							'menu-item-object' => [ 'type' => 'string' ],
-							'menu-item-type'   => [ 'type' => 'string' ],
+							'attachment-id'     => [ 'type' => 'string' ],
+							'attachment-object' => [ 'type' => 'string' ],
+							'attachment-type'   => [ 'type' => 'string' ],
 						],
 					],
 				],
@@ -132,6 +132,23 @@ function get_sidebar_description( $post_id ) {
 	return apply_filters(
 		'ecs_sidebar_description',
 		get_post_meta( $post_id, 'sidebar_description', true ),
+		$post_id
+	);
+}
+
+
+/**
+ * Get Sidebar Attachments
+ *
+ * @param int $post_id ID of a 'sidebar_instance' post.
+ */
+function get_sidebar_attachments( $post_id ) {
+	$attachments = get_post_meta( $post_id, 'sidebar_attachments', true );
+	$attachments = empty( $attachments ) ? [] : $attachments;
+
+	return apply_filters(
+		'ecs_sidebar_attachments',
+		$attachments,
 		$post_id
 	);
 }

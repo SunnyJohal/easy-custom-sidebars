@@ -112,4 +112,20 @@ class ECS_Test_Data extends WP_UnitTestCase {
 			false
 		);
 	}
+
+	/**
+	 * Test Get Sidebar Description.
+	 */
+	public function test_get_sidebar_attachments() {
+		// Test case: no attachments exist.
+		$this->assertEmpty(
+			Data\get_sidebar_attachments( self::$post_id )
+		);
+
+		$this->assertIsArray(
+			Data\get_sidebar_attachments( self::$post_id )
+		);
+
+		// Sidebar with attachments.
+	}
 }

@@ -132,8 +132,9 @@ function add_help_tabs() {
 	// Sidebar.
 	$screen->set_help_sidebar(
 		'<p><strong>' . __( 'For more information:', 'easy-custom-sidebars' ) . '</strong></p>' .
-		'<p><a href="http://codex.wordpress.org/Function_Reference/register_sidebar" target="_blank">' . __( 'Documentation on Registering Sidebars', 'easy-custom-sidebars' ) . '</a></p>' .
-		'<p><a href="http://wordpress.org/support/" target="_blank">' . __( 'Support Forums', 'easy-custom-sidebars' ) . '</a></p>'
+		'<p><a href="' . admin_url( 'themes.php?page=easy-custom-sidebars&screen=about' ) . '">' . __( 'About Easy Custom Sidebars', 'easy-custom-sidebars' ) . '</a></p>' .
+		'<p><a href="https://wordpress.org/support/plugin/easy-custom-sidebars/" target="_blank">' . __( 'Support Forums', 'easy-custom-sidebars' ) . '</a></p>' .
+		'<p><a href="http://codex.wordpress.org/Function_Reference/register_sidebar" target="_blank">' . __( 'Documentation on Registering Sidebars', 'easy-custom-sidebars' ) . '</a></p>'
 	);
 }
 add_action(

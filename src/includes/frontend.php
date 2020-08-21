@@ -36,8 +36,12 @@ $_ecs_all_replacements = [];
 
 // Data structure for item_ids[] array stored as meta key: 'sidebar_attachments'
 // type [menu-item-type]
-// id   []
+// id   [menu-item-db-id]
 // data
+
+// 'menu-item-db-id'  => [ 'type' => 'string' ],
+// 'menu-item-object' => [ 'type' => 'string' ],
+// 'menu-item-type'   => [ 'type' => 'string' ],
 
 /**
  * Maybe Swap Widgets
@@ -79,6 +83,13 @@ function registered_sidebars_exist() {
 	global $wp_registered_sidebars;
 	return ! empty( $wp_registered_sidebars );
 }
+
+// TODO: Remove after testing.
+add_action('wp_body_open', function() {
+	?>
+	<h1>ok this is a test <?php echo wp_count_posts( 'sidebar_instance' )->publish; ?></h1>
+	<?php
+});
 
 /**
  * Sidebar Replacements Determined

@@ -1,17 +1,18 @@
 import { registerStore } from '@wordpress/data';
 import { controls } from '@wordpress/data-controls';
 import reducer from './reducer';
-import selectors from './selectors';
-import actions from './actions';
+import * as selectors from './selectors';
+import * as actions from './actions';
+import * as resolvers from './resolvers';
 
-const STORE_KEY = 'easy-custom-sidebars';
+export const STORE_KEY = 'ecs/sidebars';
 
 const store = registerStore(STORE_KEY, {
   reducer,
   selectors,
   actions,
   controls,
-  resolvers: {}
+  resolvers
 });
 
 export default store;

@@ -11,18 +11,42 @@
 
 namespace ECS\Api;
 
+use ECS\Data;
+
+/**
+ * Add Metabox Batch Endpoint
+ *
+ * @todo implement method.
+ */
 add_action(
 	'rest_api_init',
 	function() {
-		// TODO: Expand the attachment data as normalised json.
+	}
+);
+
+/**
+ * Add Bulk Delete Endpoint
+ *
+ * @todo implement method
+ */
+add_action(
+	'rest_api_init',
+	function() {
+	}
+);
+
+/**
+ * Add Attachment Details
+ */
+add_action(
+	'rest_api_init',
+	function() {
 		register_rest_field(
 			'sidebar_instance',
-			'ecs_attachment_details',
+			'ecs_attachments',
 			[
 				'get_callback' => function( $post ) {
-					// TODO: Call a function that will return an
-					// array of attachments with consistent props.
-					return $post->id;
+					return Data\get_sidebar_attachments( $post['id'] );
 				},
 			]
 		);

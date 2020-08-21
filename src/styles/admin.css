@@ -1,6 +1,19 @@
+/* External Dependancies */
+@import '../../node_modules/bootstrap/dist/css/bootstrap-grid.css';
+
+/* Internal Dependancies */
 @import './about.css';
 
 /* Admin Page CSS */
 .ecs-heading {
   color: #c5000e;
+}
+
+/* Settings Page */
+.ecs-settings__replacement-id .components-base-control__label {
+  display: block;
+}
+
+.ecs-settings__description {
+  max-width: 400px;
 }
