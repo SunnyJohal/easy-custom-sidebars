@@ -1,7 +1,7 @@
 /**
  * External dependancies
  */
-import { Prompt } from 'react-router-dom';
+import { Prompt, useHistory } from 'react-router-dom';
 
 /**
  * WordPress dependancies
@@ -67,6 +67,8 @@ const MyTabPanel = () => (
 );
 
 const CreateSidebar = () => {
+  let history = useHistory();
+
   const [isSaving, setIsSaving] = useState(false);
   const [sidebarName, setSidebarName] = useState('');
   const [description, setDescription] = useState('');
@@ -91,7 +93,8 @@ const CreateSidebar = () => {
             </div>
           </div>
 
-          <div className="col-12 col-md-5 col-xl-3">
+          {/* Metaboxes */}
+          <div className="col-12 col-md-5 col-xl-3 mb-4 mb-md-0">
             <Panel>
               <PanelBody title="Pages" initialOpen={true}>
                 <PanelRow>
@@ -103,6 +106,8 @@ const CreateSidebar = () => {
               </PanelBody>
             </Panel>
           </div>
+
+          {/* Sidebar Settings */}
           <div className="col">
             <Card className="ecs-settings">
               {/* Sidebar name and save action. */}

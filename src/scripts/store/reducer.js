@@ -8,7 +8,7 @@ import { combineReducers } from '@wordpress/data';
 export const sidebarsReducer = (state = {}, action) => {
   switch (action.type) {
     case 'CREATE_SIDEBAR':
-      return { ...state };
+      return { ...state, [action.payload.id]: action.payload.sidebar };
       break;
 
     case 'UPDATE_SIDEBAR':
@@ -16,7 +16,7 @@ export const sidebarsReducer = (state = {}, action) => {
       break;
 
     case 'DELETE_SIDEBAR':
-      const allSidebars = { ...state };
+      let allSidebars = { ...state };
       delete allSidebars[action.payload.id];
       return allSidebars;
       break;

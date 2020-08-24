@@ -4611,6 +4611,7 @@ var _marked = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0
 // Hydrate.
 
 var hydrateSidebars = function hydrateSidebars(sidebars) {
+  console.log('hydration is this, create should match this output', sidebars);
   return {
     type: 'HYDRATE_SIDEBARS',
     payload: {
@@ -4647,7 +4648,7 @@ function createSidebar(_ref) {
             type: 'CREATE_SIDEBAR',
             payload: {
               id: sidebar.id,
-              name: sidebar.title.rendered
+              sidebar: sidebar
             }
           });
 
@@ -4830,7 +4831,7 @@ var sidebarsReducer = function sidebarsReducer() {
 
   switch (action.type) {
     case 'CREATE_SIDEBAR':
-      return _objectSpread({}, state);
+      return _objectSpread(_objectSpread({}, state), {}, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, action.payload.id, action.payload.sidebar));
       break;
 
     case 'UPDATE_SIDEBAR':
@@ -5462,6 +5463,8 @@ var MyTabPanel = function MyTabPanel() {
 };
 
 var CreateSidebar = function CreateSidebar() {
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["useHistory"])();
+
   var _useState = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
       _useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState, 2),
       isSaving = _useState2[0],
@@ -5500,7 +5503,7 @@ var CreateSidebar = function CreateSidebar() {
     status: "info",
     isDismissible: false
   }, "Create your new sidebar replacement below and click the create sidebar button to save your changes."))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-    className: "col-12 col-md-5 col-xl-3"
+    className: "col-12 col-md-5 col-xl-3 mb-4 mb-md-0"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["Panel"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["PanelBody"], {
     title: "Pages",
     initialOpen: true
@@ -5705,6 +5708,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ManageSidebars = function ManageSidebars() {
+  var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["useHistory"])();
   var sidebars = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_3__["useSelect"])(function (select) {
     return select(_store__WEBPACK_IMPORTED_MODULE_4__["STORE_KEY"]).getSidebars();
   });
@@ -5715,26 +5719,67 @@ var ManageSidebars = function ManageSidebars() {
   var _useDispatch = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_3__["useDispatch"])(_store__WEBPACK_IMPORTED_MODULE_4__["STORE_KEY"]),
       deleteSidebar = _useDispatch.deleteSidebar;
 
-  var list = Object.keys(sidebars).map(function (id) {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("li", {
+  var sidebarList = Object.keys(sidebars).map(function (id, index, arr) {
+    var isLastItem = index === arr.length - 1;
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       key: id
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", null, sidebars[id].title.rendered), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "row"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "col-4"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h4", {
+      className: "mt-0 mb-1"
+    }, sidebars[id].title.rendered), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
       to: "".concat(Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_5__["default"])('edit', {
         sidebar: id
       }))
-    }, "Edit"), " |", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
-      onClick: function onClick() {
-        return deleteSidebar(id);
+    }, "Edit"), " |", ' ', Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+      href: "#",
+      onClick: function onClick(e) {
+        e.preventDefault();
+        deleteSidebar(id);
       }
-    }, "Delete"));
+    }, "Delete"))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "col"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("select", {
+      style: {
+        minWidth: 400
+      }
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("option", {
+      value: ""
+    }, "Test"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("option", {
+      value: ""
+    }, "Test"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("option", {
+      value: ""
+    }, "Test")))), isLastItem ? null : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["CardDivider"], {
+      className: "my-3"
+    }));
   });
-  return hasFinishedResolution ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "container-fluid"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Card"], {
+  return hasFinishedResolution ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Card"], {
+    className: "mb-3"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["CardBody"], {
+    className: "d-block py-0 px-3"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "row"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "col"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "Manage your sidebars here or ", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Button"], null, "Create a new Sidebar"))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h1", null, "This is the manage sidebars screen"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("ul", null, list), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, "Manage your sidebars here or", ' ', Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+    isPrimary: true,
+    className: "ml-2",
+    onClick: function onClick() {
+      history.push(Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_5__["default"])('create'));
+    }
+  }, "Create a new Sidebar")))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Card"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["CardHeader"], {
+    className: "d-block px-3"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "row"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "col-4"
+  }, "Sidebar"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "col"
+  }, "Default Sidebar to Replace"))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["CardBody"], {
+    className: "px-3"
+  }, sidebarList)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Button"], {
     isDestructive: true
   }, "Delete All Sidebars")) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, "Loading...");
 };

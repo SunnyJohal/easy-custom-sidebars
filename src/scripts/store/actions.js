@@ -14,6 +14,8 @@ import { STORE_KEY } from '../store';
  */
 // Hydrate.
 export const hydrateSidebars = sidebars => {
+  console.log('hydration is this, create should match this output', sidebars);
+
   return {
     type: 'HYDRATE_SIDEBARS',
     payload: { sidebars }
@@ -32,7 +34,7 @@ export function* createSidebar({ name, attachments, settings }) {
     type: 'CREATE_SIDEBAR',
     payload: {
       id: sidebar.id,
-      name: sidebar.title.rendered
+      sidebar
     }
   };
 }
