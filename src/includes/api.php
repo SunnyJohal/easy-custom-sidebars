@@ -25,13 +25,34 @@ add_action(
 );
 
 /**
- * Add Bulk Delete Endpoint
+ * Bulk Sidebar Delete Endpoint
  *
  * @todo implement method
  */
 add_action(
 	'rest_api_init',
 	function() {
+	}
+);
+
+/**
+ * Get Registered Sidebars Endpoint
+ *
+ * @todo implement method
+ */
+add_action(
+	'rest_api_init',
+	function() {
+		register_rest_route(
+			'easy-custom-sidebars/v1',
+			'/default-sidebars',
+			[
+				'methods'  => 'GET',
+				'callback' => function () {
+					return Data\get_default_registered_sidebars();
+				},
+			]
+		);
 	}
 );
 

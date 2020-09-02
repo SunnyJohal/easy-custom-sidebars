@@ -30,6 +30,23 @@ export const sidebarsReducer = (state = {}, action) => {
   }
 };
 
+/**
+ * Default Sidebar Reducers
+ * @param {object} state
+ * @param {object} action
+ */
+export const defaultSidebarsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'HYDRATE_DEFAULT_SIDEBARS':
+      return action.payload.defaultSidebars;
+      break;
+
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
-  sidebars: sidebarsReducer
+  sidebars: sidebarsReducer,
+  defaultSidebars: defaultSidebarsReducer
 });

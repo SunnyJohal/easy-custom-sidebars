@@ -18,7 +18,7 @@ const Nav = () => {
   return (
     <>
       <h1 className="wp-heading-inline">Sidebars</h1>
-      <a className="page-title-action hide-if-no-customize" href="#">
+      <a className="page-title-action hide-if-no-customize ml-2" href="#">
         Manage with Live Preview
       </a>
       <hr className="wp-header-end" />

@@ -28,18 +28,6 @@ class ECS_Test_Data extends WP_UnitTestCase {
 	 */
 	protected static $user_id;
 
-
-	/**
-	 * Runs the routine before each test is executed.
-	 */
-	public function setUp() {
-		parent::setUp();
-
-		global $wp_rest_server;
-		$wp_rest_server = new Spy_REST_Server();
-		do_action( 'rest_api_init', $wp_rest_server );
-	}
-
 	/**
 	 * Setup before any class tests are run.
 	 *
@@ -114,6 +102,25 @@ class ECS_Test_Data extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test Get Sidebar Replacement ID
+	 */
+	public function test_get_sidebar_replacement_id() {
+		$replacement_id = 'sidebar-1';
+		update_post_meta( self::$post_id, 'sidebar_replacement_id', $replacement_id );
+
+		$this->assertEquals(
+			Data\get_sidebar_replacement_id( self::$post_id ),
+			$replacement_id
+		);
+
+		// Invalid sidebar id.
+		$this->assertEquals(
+			Data\get_sidebar_replacement_id( 0 ),
+			false
+		);
+	}
+
+	/**
 	 * Test Get Sidebar Description.
 	 */
 	public function test_get_sidebar_attachments() {
@@ -127,5 +134,24 @@ class ECS_Test_Data extends WP_UnitTestCase {
 		);
 
 		// Sidebar with attachments.
+	}
+
+	/**
+	 * Test Get Default Registered Sidebars
+	 */
+	public function test_get_default_registered_sidebars() {
+		$default_sidebars = Data\get_default_registered_sidebars();
+
+		// Need to register some defaults.
+		// Need to register a custom sidebar.
+
+		// Check data type.
+		$this->assertIsArray( $default_sidebars );
+		$this->assertNotEmpty( $default_sidebars );
+
+		// Only return the default sidebars.
+		foreach ( $default_sidebars as $sidebar ) {
+			$this->assertTrue( empty( $sidebar['ecs_custom_sidebar'] ) );
+		}
 	}
 }

@@ -7,7 +7,7 @@ import { addQueryArgs } from '@wordpress/url';
 /**
  * Internal dependancies
  */
-import { hydrateSidebars } from './actions';
+import { hydrateSidebars, hydrateDefaultSidebars } from './actions';
 
 // You implement control action creators in either action
 // creators or resolvers that are defined as generators
@@ -38,5 +38,18 @@ export function* getSidebars() {
 
 export function* getSidebar(id) {
   console.log('ok this resolver is getting called so check for existance', id);
+  return;
+}
+
+export function* getDefaultSidebars() {
+  const path = 'easy-custom-sidebars/v1/default-sidebars';
+  const defaultSidebars = yield apiFetch({ path });
+
+  console.log('default sidebars from gen is firing with', defaultSidebars);
+
+  if (defaultSidebars) {
+    return hydrateDefaultSidebars(defaultSidebars);
+  }
+
   return;
 }

@@ -1,11 +1,12 @@
 /**
  * External dependancies
  */
-import { Prompt, useHistory } from 'react-router-dom';
+import { Prompt, withRouter } from 'react-router-dom';
 
 /**
  * WordPress dependancies
  */
+import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import {
@@ -29,6 +30,7 @@ import {
  * Internal dependancies
  */
 import { STORE_KEY } from '../../store';
+import getScreenLink from '../../utils/getScreenLink';
 
 // Happy path.
 // 1. Make the api request.
@@ -66,15 +68,35 @@ const MyTabPanel = () => (
   </TabPanel>
 );
 
-const CreateSidebar = () => {
-  let history = useHistory();
-
+const CreateSidebar = props => {
   const [isSaving, setIsSaving] = useState(false);
   const [sidebarName, setSidebarName] = useState('');
   const [description, setDescription] = useState('');
   const [replacementId, setReplacementId] = useState('');
 
+  const defaultSidebars = useSelect(select => {
+    return select(STORE_KEY).getDefaultSidebars();
+  }, {});
+
+  let defaultSidebarOptions = Object.keys(defaultSidebars).map(id => {
+    return {
+      label: defaultSidebars[id].name,
+      value: id
+    };
+  });
+
+  defaultSidebarOptions.push({
+    label: replacementId ? '— Deactivate Sidebar —' : '— Select a Sidebar —',
+    value: ''
+  });
+
   const { createSidebar } = useDispatch(STORE_KEY);
+
+  const resetSidebar = () => {
+    setSidebarName('');
+    setDescription('');
+    setReplacementId('');
+  };
 
   return (
     <div>
@@ -129,8 +151,8 @@ const CreateSidebar = () => {
                         // Lock sidebar creation while saving.
                         console.log('ok create the sidebar and redirect, maybe show a spinner', sidebarName);
 
-                        createSidebar({ name: sidebarName }).then(data => {
-                          console.log('ok created with', data);
+                        createSidebar({ name: sidebarName }).then(action => {
+                          props.history.push(`${getScreenLink('edit', { sidebar: action.payload.sidebar.id })}`);
                         });
 
                         // Reset sidebar.
@@ -152,22 +174,20 @@ const CreateSidebar = () => {
                 </p>
                 <CardDivider className="my-4" />
 
+                <h3>Sidebar Properties</h3>
+
                 <SelectControl
                   className="ecs-settings__replacement-id mb-3"
                   label="Sidebar to Replace"
                   value={replacementId}
-                  options={[
-                    { label: 'Big', value: '100%' },
-                    { label: 'Medium', value: '50%' },
-                    { label: 'Small', value: '25%' }
-                  ]}
+                  options={defaultSidebarOptions}
                   onChange={replacementId => setReplacementId(replacementId)}
                 />
 
                 <TextareaControl
                   label="Sidebar Description"
                   className="ecs-settings__description"
-                  help="Enter some text"
+                  help="Description of the sidebar, displayed in the Widgets interface."
                   value={description}
                   onChange={description => setDescription(description)}
                 />
@@ -177,11 +197,24 @@ const CreateSidebar = () => {
               <CardFooter className="d-block">
                 <div className="row justify-content-between">
                   <div className="col-auto">
-                    <Button isDestructive>Delete Sidebar</Button>
+                    <Button
+                      isDestructive
+                      onClick={() => {
+                        const confirmDelete = confirm(
+                          `You are about to permanently delete this sidebar. 'Cancel' to stop, 'OK' to delete.`
+                        );
+
+                        if (confirmDelete === true) {
+                          resetSidebar();
+                        }
+                      }}
+                    >
+                      {__('Delete Sidebar', 'easy-custom-sidebars')}
+                    </Button>
                   </div>
                   <div className="col-auto">
                     <Button isPrimary onClick={() => {}}>
-                      Create Sidebar
+                      {__('Create Sidebar', 'easy-custom-sidebars')}
                     </Button>
                   </div>
                 </div>
@@ -195,4 +228,4 @@ const CreateSidebar = () => {
   );
 };
 
-export default CreateSidebar;
+export default withRouter(CreateSidebar);

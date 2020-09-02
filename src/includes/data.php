@@ -136,6 +136,21 @@ function get_sidebar_description( $post_id ) {
 	);
 }
 
+/**
+ * Get Sidebar Replacement ID
+ *
+ * Gets the id of the default registered sidebar
+ * that this custom sidebar is replacing.
+ *
+ * @param int $post_id ID of a 'sidebar_instance' post.
+ */
+function get_sidebar_replacement_id( $post_id ) {
+	return apply_filters(
+		'ecs_sidebar_replacement_id',
+		get_post_meta( $post_id, 'sidebar_replacement_id', true ),
+		$post_id
+	);
+}
 
 /**
  * Get Sidebar Attachments
@@ -150,5 +165,24 @@ function get_sidebar_attachments( $post_id ) {
 		'ecs_sidebar_attachments',
 		$attachments,
 		$post_id
+	);
+}
+
+/**
+ * Get Default Registered Sidebars
+ *
+ * Gets every sidebar that wasn't
+ * registered by this plugin.
+ *
+ * @return array sidebars.
+ */
+function get_default_registered_sidebars() {
+	global $wp_registered_sidebars;
+
+	return array_filter(
+		$wp_registered_sidebars,
+		function ( $sidebar ) {
+			return empty( $sidebar['ecs_custom_sidebar'] );
+		}
 	);
 }

@@ -84,7 +84,7 @@ function registered_sidebars_exist() {
 	return ! empty( $wp_registered_sidebars );
 }
 
-// TODO: Remove after testing.
+// @todo: Remove after testing.
 add_action('wp_body_open', function() {
 	?>
 	<h1>ok this is a test <?php echo wp_count_posts( 'sidebar_instance' )->publish; ?></h1>

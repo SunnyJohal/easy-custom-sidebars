@@ -64,7 +64,7 @@ function get_sidebar_args( $post_id ) {
 	$description         = get_post_meta( $post_id, 'sidebar_description', true );
 
 	$args = [
-		'ecs_custom_sidebar' => 'true',
+		'ecs_custom_sidebar' => true,
 		'name'               => get_the_title( $post_id ),
 		'id'                 => Data\get_sidebar_id( $post_id ),
 		'description'        => Data\get_sidebar_description( $post_id ),

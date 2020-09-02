@@ -14,8 +14,6 @@ import { STORE_KEY } from '../store';
  */
 // Hydrate.
 export const hydrateSidebars = sidebars => {
-  console.log('hydration is this, create should match this output', sidebars);
-
   return {
     type: 'HYDRATE_SIDEBARS',
     payload: { sidebars }
@@ -56,6 +54,28 @@ export const updateSidebar = ({ id, name, attachments, settings }) => {
 };
 
 /**
+ * Update Sidebar Replacement
+ * @param {*} id
+ */
+export function* updateSidebarReplacement({ id, replacementId }) {
+  const path = `/wp/v2/easy-custom-sidebars/${id}`;
+  const sidebar = yield apiFetch({
+    path,
+    method: 'POST',
+    data: {
+      meta: {}
+    }
+  });
+
+  return {
+    type: 'UPDATE_SIDEBAR_REPLACEMENT',
+    payload: {
+      id
+    }
+  };
+}
+
+/**
  * Delete Sidebar
  * @param {int} id Post ID of sidebar to delete.
  */
@@ -93,6 +113,17 @@ export const deleteSidebarAttachment = (id, attachment) => {
       id,
       attachment
     }
+  };
+};
+
+/**
+ * Default Sidebar Actions
+ * @param {*} name
+ */
+export const hydrateDefaultSidebars = defaultSidebars => {
+  return {
+    type: 'HYDRATE_DEFAULT_SIDEBARS',
+    payload: { defaultSidebars }
   };
 };
 

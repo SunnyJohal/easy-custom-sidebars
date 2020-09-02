@@ -4425,13 +4425,27 @@ html {
   color: #c5000e;
 }
 
-/* Settings Page */
+/* Create/Edit Settings Page */
 .ecs-settings__replacement-id .components-base-control__label {
   display: block;
 }
 
 .ecs-settings__description {
   max-width: 400px;
+}
+
+/* Manage Sidebars */
+.ecs-manage-sidebars__sidebar-name a {
+  color: #444;
+  text-decoration: none;
+}
+
+.ecs-manage-sidebars__sidebar .components-base-control__field {
+  margin: 0;
+}
+
+.ecs-manage-sidebars__sidebar .components-spinner {
+  margin: 0;
 }
 
 
