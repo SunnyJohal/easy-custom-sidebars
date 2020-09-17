@@ -154,4 +154,5 @@ class ECS_Test_Data extends WP_UnitTestCase {
 			$this->assertTrue( empty( $sidebar['ecs_custom_sidebar'] ) );
 		}
 	}
+
 }

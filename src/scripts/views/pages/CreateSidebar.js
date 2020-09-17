@@ -20,7 +20,6 @@ import {
   PanelBody,
   PanelRow,
   SelectControl,
-  TabPanel,
   __experimentalInputControl as InputControl,
   TextareaControl,
   Notice
@@ -31,42 +30,7 @@ import {
  */
 import { STORE_KEY } from '../../store';
 import getScreenLink from '../../utils/getScreenLink';
-
-// Happy path.
-// 1. Make the api request.
-// 2. Get the ID. Clear the inputs.
-// 3. Redirect to the edit page.
-
-const onSelect = tabName => {
-  console.log('Selecting tab', tabName);
-};
-
-const MyTabPanel = () => (
-  <TabPanel
-    className="my-tab-panel"
-    activeClass="active-tab"
-    onSelect={onSelect}
-    tabs={[
-      {
-        name: 'tab1',
-        title: 'Most Recent',
-        className: 'tab-one'
-      },
-      {
-        name: 'tab2',
-        title: 'View All',
-        className: 'tab-two'
-      },
-      {
-        name: 'tab3',
-        title: 'Search',
-        className: 'tab-three'
-      }
-    ]}
-  >
-    {tab => <p>{tab.title}</p>}
-  </TabPanel>
-);
+import PostTypeMetabox from '../components/metaboxes/PostTypeMetabox';
 
 const CreateSidebar = props => {
   const [isSaving, setIsSaving] = useState(false);
@@ -74,9 +38,13 @@ const CreateSidebar = props => {
   const [description, setDescription] = useState('');
   const [replacementId, setReplacementId] = useState('');
 
+  const hasFinishedResolution = useSelect(select => {
+    return select(STORE_KEY).hasFinishedResolution('getDefaultSidebars');
+  });
+
   const defaultSidebars = useSelect(select => {
     return select(STORE_KEY).getDefaultSidebars();
-  }, {});
+  });
 
   let defaultSidebarOptions = Object.keys(defaultSidebars).map(id => {
     return {
@@ -98,6 +66,15 @@ const CreateSidebar = props => {
     setReplacementId('');
   };
 
+  // TODO: Add for attachments.
+  const changesMade = () => {
+    if (sidebarName !== '' || description !== '' || replacementId !== '') {
+      return true;
+    }
+
+    return false;
+  };
+
   return (
     <div>
       <div className="container-fluid p-0">
@@ -117,15 +94,8 @@ const CreateSidebar = props => {
 
           {/* Metaboxes */}
           <div className="col-12 col-md-5 col-xl-3 mb-4 mb-md-0">
-            <Panel>
-              <PanelBody title="Pages" initialOpen={true}>
-                <PanelRow>
-                  <MyTabPanel />
-                </PanelRow>
-              </PanelBody>
-              <PanelBody title="Posts" initialOpen={false}>
-                <PanelRow>Need to put the tab panel in here</PanelRow>
-              </PanelBody>
+            <Panel className="ecs-metaboxes">
+              <PostTypeMetabox />
             </Panel>
           </div>
 
@@ -155,11 +125,10 @@ const CreateSidebar = props => {
                           props.history.push(`${getScreenLink('edit', { sidebar: action.payload.sidebar.id })}`);
                         });
 
-                        // Reset sidebar.
-                        setSidebarName('');
+                        resetSidebar();
                       }}
                     >
-                      Create Sidebar
+                      {__('Create Sidebar', 'easy-custom-sidebars')}
                     </Button>
                   </div>
                 </div>
@@ -167,14 +136,28 @@ const CreateSidebar = props => {
 
               {/* Sidebar attachments and settings. */}
               <CardBody>
-                <h3>Sidebar Replacements</h3>
+                <h3>{__('Sidebar Replacements', 'easy-custom-sidebars')}</h3>
                 <p>
                   Add items from the column on the left. Please ensure that any items added to this sidebar contain the
                   default 'Sidebar to Replace' widget area selected in the sidebar properties below.
                 </p>
+
+                {/* Attachments. */}
+                {/* 
+                  Sortable.
+                  Add attachment to the sidebar.
+                  Find out the shape of data.
+
+                  Key Data:
+                  - menu-item-object-id (id of the post or the taxonomy term etc)
+                  - menu-item-object (posttype slug or taxonomy slug or template hierarchy)
+                  - menu-item-type: post_type | post_type_all | category_posts | taxonomy | taxonomy_all | author_archive | template_hierarchy
+                */}
+
                 <CardDivider className="my-4" />
 
-                <h3>Sidebar Properties</h3>
+                {/* Properties. */}
+                <h3>{__('Sidebar Properties', 'easy-custom-sidebars')}</h3>
 
                 <SelectControl
                   className="ecs-settings__replacement-id mb-3"
@@ -223,7 +206,11 @@ const CreateSidebar = props => {
           </div>
         </div>
       </div>
-      <Prompt message={'are you sure you want to navigate away?'} beforeUnload={true} />
+      <Prompt
+        when={changesMade()}
+        message={__('are you sure you want to navigate away?', 'easy-custom-sidebars')}
+        beforeUnload={true}
+      />
     </div>
   );
 };

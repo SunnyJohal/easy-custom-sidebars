@@ -4434,6 +4434,16 @@ html {
   max-width: 400px;
 }
 
+/* Metaboxes */
+.ecs-metaboxes {
+  border-color: #e1e4e7;
+}
+
+.ecs-metaboxes .components-panel__body {
+  border-top-color: #e1e4e7;
+  border-bottom-color: #e1e4e7;
+}
+
 /* Manage Sidebars */
 .ecs-manage-sidebars__sidebar-name a {
   color: #444;
@@ -4446,6 +4456,20 @@ html {
 
 .ecs-manage-sidebars__sidebar .components-spinner {
   margin: 0;
+}
+
+.ecs-manage-sidebars__actions .components-spinner {
+  margin: 0;
+  margin-left: 0.5rem;
+}
+
+/* Sidebar selector */
+.ecs-sidebar-selector .components-base-control__field {
+  margin: 0;
+}
+
+.ecs-sidebar-selector .components-select-control__input {
+  min-height: 36px;
 }
 
 

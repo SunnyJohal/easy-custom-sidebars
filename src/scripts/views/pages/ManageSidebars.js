@@ -16,81 +16,50 @@ import { useState } from '@wordpress/element';
  */
 import { STORE_KEY } from '../../store';
 import getScreenLink from '../../utils/getScreenLink';
+import ManageSidebarsLoader from '../components/loaders/ManageSidebarsLoader';
+import SidebarRow from '../components/SidebarRow';
 
 const ManageSidebars = props => {
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const hasFinishedResolution = useSelect(select => {
     return select(STORE_KEY).hasFinishedResolution('getSidebars');
   });
+
+  const { deleteAllSidebars } = useDispatch(STORE_KEY);
 
   const sidebars = useSelect(select => {
     return select(STORE_KEY).getSidebars();
   });
 
-  const { deleteSidebar } = useDispatch(STORE_KEY);
+  const sidebarList = Object.keys(sidebars)
+    .sort((a, b) => {
+      const firstTitle = sidebars[a].title.rendered.toUpperCase();
+      const secondTitle = sidebars[b].title.rendered.toUpperCase();
 
-  const defaultSidebars = useSelect(select => {
-    return select(STORE_KEY).getDefaultSidebars();
-  });
+      if (firstTitle < secondTitle) {
+        return -1;
+      }
 
-  const sidebarList = Object.keys(sidebars).map((id, index, arr) => {
-    let defaultSidebarOptions = Object.keys(defaultSidebars).map(id => {
-      return {
-        label: defaultSidebars[id].name,
-        value: id
-      };
+      if (firstTitle > secondTitle) {
+        return 1;
+      }
+
+      return 0;
+    })
+    .map((id, index, arr) => {
+      const isLastItem = index === arr.length - 1;
+
+      return (
+        <SidebarRow
+          key={id}
+          sidebarId={id}
+          sidebarTitle={sidebars[id].title.rendered}
+          sidebarReplacementId={sidebars[id].meta.sidebar_replacement_id}
+          appendDivider={!isLastItem}
+        />
+      );
     });
-
-    defaultSidebarOptions.push({
-      label: undefined ? '— Deactivate Sidebar —' : '— Select a Sidebar —',
-      value: ''
-    });
-
-    const isLastItem = index === arr.length - 1;
-
-    return (
-      <div className="ecs-manage-sidebars__sidebar" key={id}>
-        <div className="row align-items-center">
-          <div className="col-4">
-            <h4 className="ecs-manage-sidebars__sidebar-name mt-0 mb-1">
-              <Link to={`${getScreenLink('edit', { sidebar: id })}`}>{sidebars[id].title.rendered}</Link>
-            </h4>
-            <div className="ecs-manage-sidebars__sidebar-actions">
-              <Link to={`${getScreenLink('edit', { sidebar: id })}`}>{__('Edit', 'easy-custom-sidebars')}</Link> |{' '}
-              <a
-                href="#"
-                onClick={e => {
-                  e.preventDefault();
-                  deleteSidebar(id);
-                }}
-              >
-                {__('Delete', 'easy-custom-sidebars')}
-              </a>
-            </div>
-          </div>
-          <div className="col">
-            <div className="row no-wrap align-items-center">
-              <div className="col">
-                <SelectControl
-                  style={{ maxWidth: 400, width: '100%' }}
-                  className="ecs-settings__replacement-id"
-                  label="Sidebar to Replace"
-                  hideLabelFromVision={true}
-                  value={''}
-                  options={defaultSidebarOptions}
-                  onChange={replacementId => console.log('selected thing is')}
-                />
-              </div>
-
-              <div className="col-auto pl-0">
-                <Spinner />
-              </div>
-            </div>
-          </div>
-        </div>
-        {isLastItem ? null : <CardDivider className="my-3" />}
-      </div>
-    );
-  });
 
   return hasFinishedResolution ? (
     <div>
@@ -100,14 +69,16 @@ const ManageSidebars = props => {
           <div className="row">
             <div className="col">
               <p>
-                <span className="d-inline-block mr-2">Manage your sidebars here or</span>
+                <span className="d-inline-block mr-2">
+                  {__('Manage your sidebar replacements here or', 'easy-custom-sidebars')}
+                </span>
                 <Button
                   isPrimary
                   onClick={() => {
                     props.history.push(getScreenLink('create'));
                   }}
                 >
-                  Create a new Sidebar
+                  {__('Create a new Sidebar', 'easy-custom-sidebars')}
                 </Button>
               </p>
             </div>
@@ -119,19 +90,55 @@ const ManageSidebars = props => {
       <Card className="ecs-manage-sidebars">
         <CardHeader className="d-block px-3">
           <div className="row">
-            <div className="col-4">Sidebar</div>
-            <div className="col">Default Sidebar to Replace</div>
+            <div className="col-4">{__('Sidebar', 'easy-custom-sidebars')}</div>
+            <div className="col">{__('Default Sidebar to Replace', 'easy-custom-sidebar')}</div>
           </div>
         </CardHeader>
-        <CardBody className="px-3">{sidebarList}</CardBody>
+        <CardBody className="px-3">
+          {sidebarList.length === 0 && (
+            <p>
+              {__('No sidebars exist.', 'easy-custom-sidebars')}{' '}
+              <Link to={`${getScreenLink('create')}`}>{__('Create your first sidebar', 'easy-custom-sidebars')}</Link>
+            </p>
+          )}
+          {sidebarList}
+        </CardBody>
       </Card>
 
-      <Button isDestructive className="ecs-manage-sidebars__btn-delete mt-3">
-        {__('Delete All Sidebars', 'easy-custom-sidebars')}
-      </Button>
+      {Object.keys(sidebars).length > 0 && (
+        <div className="ecs-manage-sidebars__actions d-flex align-items-center mt-3">
+          <Button
+            isDestructive
+            className="ecs-manage-sidebars__actions-delete"
+            onClick={() => {
+              const userConfirmedDeletion = confirm(
+                __(
+                  `Warning! You are about to permanently delete all sidebars. 'Cancel' to stop, 'OK' to delete.`,
+                  'easy-custom-sidebars'
+                )
+              );
+
+              if (userConfirmedDeletion) {
+                setIsDeleting(true);
+                deleteAllSidebars()
+                  .then(() => {
+                    setIsDeleting(false);
+                  })
+                  .catch(err => {
+                    setIsDeleting(false);
+                  });
+              }
+            }}
+            disabled={isDeleting}
+          >
+            {__('Delete All Sidebars', 'easy-custom-sidebars')}
+          </Button>
+          {isDeleting && <Spinner />}
+        </div>
+      )}
     </div>
   ) : (
-    <div>Loading...</div>
+    <ManageSidebarsLoader />
   );
 };
 

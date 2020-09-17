@@ -25,20 +25,29 @@ add_action(
 );
 
 /**
- * Bulk Sidebar Delete Endpoint
- *
- * @todo implement method
+ * DELETE: Bulk Sidebar Delete Endpoint
  */
 add_action(
 	'rest_api_init',
 	function() {
+		register_rest_route(
+			'easy-custom-sidebars/v1',
+			'sidebar_instances',
+			[
+				'methods'             => 'DELETE',
+				'callback'            => function () {
+					return Data\delete_all_sidebars();
+				},
+				'permission_callback' => function() {
+					return current_user_can( 'edit_theme_options' );
+				},
+			]
+		);
 	}
 );
 
 /**
- * Get Registered Sidebars Endpoint
- *
- * @todo implement method
+ * GET: Registered Sidebars Endpoint
  */
 add_action(
 	'rest_api_init',
@@ -47,9 +56,12 @@ add_action(
 			'easy-custom-sidebars/v1',
 			'/default-sidebars',
 			[
-				'methods'  => 'GET',
-				'callback' => function () {
+				'methods'             => 'GET',
+				'callback'            => function () {
 					return Data\get_default_registered_sidebars();
+				},
+				'permission_callback' => function() {
+					return current_user_can( 'edit_theme_options' );
 				},
 			]
 		);

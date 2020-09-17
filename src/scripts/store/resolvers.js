@@ -36,16 +36,9 @@ export function* getSidebars() {
   return;
 }
 
-export function* getSidebar(id) {
-  console.log('ok this resolver is getting called so check for existance', id);
-  return;
-}
-
 export function* getDefaultSidebars() {
   const path = 'easy-custom-sidebars/v1/default-sidebars';
   const defaultSidebars = yield apiFetch({ path });
-
-  console.log('default sidebars from gen is firing with', defaultSidebars);
 
   if (defaultSidebars) {
     return hydrateDefaultSidebars(defaultSidebars);

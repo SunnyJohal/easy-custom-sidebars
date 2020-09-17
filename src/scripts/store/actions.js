@@ -41,17 +41,28 @@ export function* createSidebar({ name, attachments, settings }) {
  * Update Sidebar
  * @param {object} sidebar Sidebar properties and attachments.
  */
-export const updateSidebar = ({ id, name, attachments, settings }) => {
+export function* updateSidebar({ id, name, attachments, replacementId }) {
+  const path = `/wp/v2/easy-custom-sidebars/${id}`;
+
+  const sidebar = yield apiFetch({
+    path,
+    method: 'POST',
+    data: {
+      title: name,
+      meta: {
+        sidebar_replacement_id: replacementId
+      }
+    }
+  });
+
   return {
     type: 'UPDATE_SIDEBAR',
     payload: {
-      id,
-      name,
-      attachments,
-      settings
+      id: sidebar.id,
+      sidebar
     }
   };
-};
+}
 
 /**
  * Update Sidebar Replacement
@@ -59,18 +70,22 @@ export const updateSidebar = ({ id, name, attachments, settings }) => {
  */
 export function* updateSidebarReplacement({ id, replacementId }) {
   const path = `/wp/v2/easy-custom-sidebars/${id}`;
+
   const sidebar = yield apiFetch({
     path,
     method: 'POST',
     data: {
-      meta: {}
+      meta: {
+        sidebar_replacement_id: replacementId
+      }
     }
   });
 
   return {
     type: 'UPDATE_SIDEBAR_REPLACEMENT',
     payload: {
-      id
+      id,
+      sidebar
     }
   };
 }
@@ -80,14 +95,26 @@ export function* updateSidebarReplacement({ id, replacementId }) {
  * @param {int} id Post ID of sidebar to delete.
  */
 export function* deleteSidebar(id) {
-  // Delete on server.
   const path = `/wp/v2/easy-custom-sidebars/${id}`;
   const deletedSidebar = yield apiFetch({ path, method: 'DELETE' });
 
-  // Delete in state.
   return {
     type: 'DELETE_SIDEBAR',
     payload: { id, deletedSidebar }
+  };
+}
+
+/**
+ * Delete All Sidebars
+ * @param {int} id Post ID of sidebar to delete.
+ */
+export function* deleteAllSidebars() {
+  const path = 'easy-custom-sidebars/v1/sidebar_instances';
+  const completed = yield apiFetch({ path, method: 'DELETE' });
+
+  return {
+    type: 'DELETE_ALL_SIDEBARS',
+    payload: { completed }
   };
 }
 

@@ -15,10 +15,21 @@ export const sidebarsReducer = (state = {}, action) => {
       return { ...state };
       break;
 
+    case 'UPDATE_SIDEBAR_REPLACEMENT':
+      return {
+        ...state,
+        [action.payload.id]: action.payload.sidebar
+      };
+      break;
+
     case 'DELETE_SIDEBAR':
       let allSidebars = { ...state };
       delete allSidebars[action.payload.id];
       return allSidebars;
+      break;
+
+    case 'DELETE_ALL_SIDEBARS':
+      return {};
       break;
 
     case 'HYDRATE_SIDEBARS':

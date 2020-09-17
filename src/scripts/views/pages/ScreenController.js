@@ -1,12 +1,13 @@
 /**
  * External dependancies
  */
-import { Prompt } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 /**
  * Internal dependancies
  */
 import getQueryFromUrl from '../../utils/getQueryFromUrl';
+import getScreenLink from '../../utils/getScreenLink';
 import About from './About';
 import CreateSidebar from './CreateSidebar';
 import EditSidebar from './EditSidebar';
@@ -51,8 +52,7 @@ function ScreenController() {
     default:
       return (
         <div>
-          <Nav />
-          <ManageSidebars />
+          <Redirect to={`${getScreenLink('edit')}`} />
         </div>
       );
       break;

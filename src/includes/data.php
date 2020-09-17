@@ -186,3 +186,27 @@ function get_default_registered_sidebars() {
 		}
 	);
 }
+
+/**
+ * Delete All Sidebars
+ *
+ * @return boolean true after all sidebars have been deleted.
+ */
+function delete_all_sidebars() {
+	$all_sidebars = new \WP_Query(
+		[
+			'post_type'      => 'sidebar_instance',
+			'posts_per_page' => -1,
+		]
+	);
+
+	if ( $all_sidebars->have_posts() ) {
+		while ( $all_sidebars->have_posts() ) {
+			$all_sidebars->the_post();
+			wp_delete_post( get_the_ID(), true );
+		}
+		wp_reset_postdata();
+	}
+
+	return true;
+}

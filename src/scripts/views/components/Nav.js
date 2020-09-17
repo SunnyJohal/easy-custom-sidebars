@@ -1,49 +1,69 @@
 /**
  * External dependancies
  */
-import { Link } from 'react-router-dom';
+import { NavLink, Link, withRouter } from 'react-router-dom';
 
 /**
  * WordPress dependancies
  */
 import { __ } from '@wordpress/i18n';
+import { TabPanel } from '@wordpress/components';
+import { getQueryArg } from '@wordpress/url';
 
 /**
  * Internal dependances
  */
 import getScreenLink from '../../utils/getScreenLink';
+import getQueryFromUrl from '../../utils/getQueryFromUrl';
+
+const isActive = (match, location, screen) => {
+  return getQueryArg(location.search, 'screen') === screen;
+};
 
 // Modify the edit link.
-const Nav = () => {
+const Nav = props => {
   return (
     <>
-      <h1 className="wp-heading-inline">Sidebars</h1>
+      <h1 className="wp-heading-inline">{__('Sidebars', 'easy-custom-sidebars')}</h1>
       <a className="page-title-action hide-if-no-customize ml-2" href="#">
         Manage with Live Preview
       </a>
+
       <hr className="wp-header-end" />
-      <ul>
-        <li>
-          <Link to={getScreenLink()}>{__('Home', 'easy-custom-sidebars')}</Link>
-        </li>
-        <li>
-          <Link to={getScreenLink('about')}>{__('About', 'easy-custom-sidebars')}</Link>
-        </li>
-        <li>
-          <Link to={getScreenLink('create')}>{__('Create Sidebar', 'easy-custom-sidebars')}</Link>
-        </li>
-        <li>
-          <Link to={getScreenLink('edit')}>{__('Edit Sidebar', 'easy-custom-sidebars')}</Link>
-        </li>
-        <li>
-          <Link to={getScreenLink('manage')}>{__('Manage Sidebars', 'easy-custom-sidebars')}</Link>
-        </li>
-      </ul>
+
+      <div className="components-tab-panel__tabs my-3">
+        <NavLink
+          to={getScreenLink('create')}
+          isActive={(match, location) => isActive(match, location, 'create')}
+          className="components-button components-tab-panel__tabs-item"
+          activeClassName="is-active"
+        >
+          {__('Create Sidebar', 'easy-custom-sidebars')}
+        </NavLink>
+
+        <NavLink
+          to={getScreenLink('edit')}
+          isActive={(match, location) => isActive(match, location, 'edit')}
+          className="components-button components-tab-panel__tabs-item"
+          activeClassName="is-active"
+        >
+          {__('Edit Sidebars', 'easy-custom-sidebars')}
+        </NavLink>
+
+        <NavLink
+          to={getScreenLink('manage')}
+          isActive={(match, location) => isActive(match, location, 'manage')}
+          className="components-button components-tab-panel__tabs-item"
+          activeClassName="is-active"
+        >
+          {__('Manage Replacements', 'easy-custom-sidebars')}
+        </NavLink>
+      </div>
     </>
   );
 };
 
-export default Nav;
+export default withRouter(Nav);
 
 // NEW SIDEBAR - POST
 // wp.apiFetch({
