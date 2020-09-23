@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.5.0",
+    "react-beautiful-dnd": "^13.0.0",
     "react-beforeunload": "^2.2.4",
     "react-loading-skeleton": "^2.1.1",
     "react-router-dom": "^5.2.0"

@@ -31,6 +31,7 @@ import {
 import { STORE_KEY } from '../../store';
 import getScreenLink from '../../utils/getScreenLink';
 import PostTypeMetabox from '../components/metaboxes/PostTypeMetabox';
+import SidebarAttachments from '../components/SidebarAttachments';
 
 const CreateSidebar = props => {
   const [isSaving, setIsSaving] = useState(false);
@@ -143,6 +144,7 @@ const CreateSidebar = props => {
                 </p>
 
                 {/* Attachments. */}
+                <SidebarAttachments />
                 {/* 
                   Sortable.
                   Add attachment to the sidebar.
