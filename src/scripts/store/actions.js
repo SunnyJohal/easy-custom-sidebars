@@ -158,6 +158,19 @@ export const hydrateDefaultSidebars = defaultSidebars => {
  * Metabox Actions
  * @param {*} name
  */
+export const hydratePostTypes = posttypes => {
+  return {
+    type: 'HYDRATE_POSTTYPES',
+    payload: { posttypes }
+  };
+};
+
+export const hydrateTaxonomies = taxonomies => {
+  return {
+    type: 'HYDRATE_TAXONOMIES',
+    payload: { taxonomies }
+  };
+};
 
 // Metabox Events:
 // GET Posttypes Metabox items.

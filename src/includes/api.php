@@ -85,3 +85,29 @@ add_action(
 		);
 	}
 );
+
+/**
+ * Add Taxonomies to the REST API.
+ */
+add_filter(
+	'register_taxonomy_args',
+	function ( $args, $taxonomy_name ) {
+		$enabled_taxonomies = [
+			'mp-event_category',
+			'mp-event_tag',
+			'product_cat',
+			'product_tag',
+		];
+
+		if (
+			in_array( $taxonomy_name, $enabled_taxonomies, true ) ||
+			! empty( $args['public'] ) && 'post_format' !== $taxonomy_name
+		) {
+			$args['show_in_rest'] = true;
+		}
+
+		return $args;
+	},
+	10,
+	2
+);

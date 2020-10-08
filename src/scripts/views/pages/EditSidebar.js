@@ -32,11 +32,7 @@ import getQueryFromUrl from '../../utils/getQueryFromUrl';
 import getScreenLink from '../../utils/getScreenLink';
 import SidebarSelector from '../components/SidebarSelector';
 import EditSidebarsLoader from '../components/loaders/EditSidebarsLoader';
-
-const getAllSidebars = (sidebars = {}) => {
-  // Sort sidebars by name.
-  //
-};
+import SidebarAttachments from '../components/SidebarAttachments';
 
 const EditSidebar = props => {
   const hasFinishedResolution = useSelect(select => {
@@ -98,6 +94,7 @@ const EditSidebar = props => {
   const { deleteSidebar, updateSidebar } = useDispatch(STORE_KEY);
 
   const [isSaving, setIsSaving] = useState(false);
+  const [attachments, setAttachments] = useState([]);
   const [sidebarName, setSidebarName] = useState('');
   const [description, setDescription] = useState('');
   const [replacementId, setReplacementId] = useState('');
@@ -180,6 +177,7 @@ const EditSidebar = props => {
                 </p>
 
                 {/* Attachments. */}
+                <SidebarAttachments attachments={attachments} setAttachments={setAttachments} />
                 {/* 
                   Sortable.
                   Add attachment to the sidebar.

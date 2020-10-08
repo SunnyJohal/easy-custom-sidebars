@@ -30,11 +30,16 @@ import {
  */
 import { STORE_KEY } from '../../store';
 import getScreenLink from '../../utils/getScreenLink';
-import PostTypeMetabox from '../components/metaboxes/PostTypeMetabox';
+import PostTypesMetabox from '../components/metaboxes/PostTypesMetabox';
+import AllCategoryPostsMetabox from '../components/metaboxes/AllCategoryPostsMetabox';
+import TaxonomiesMetabox from '../components/metaboxes/TaxonomiesMetabox';
+import AuthorArchiveMetabox from '../components/metaboxes/AuthorArchiveMetabox';
+import TemplateHierarchyMetabox from '../components/metaboxes/TemplateHierarchyMetabox';
 import SidebarAttachments from '../components/SidebarAttachments';
 
 const CreateSidebar = props => {
   const [isSaving, setIsSaving] = useState(false);
+  const [attachments, setAttachments] = useState([]);
   const [sidebarName, setSidebarName] = useState('');
   const [description, setDescription] = useState('');
   const [replacementId, setReplacementId] = useState('');
@@ -96,7 +101,11 @@ const CreateSidebar = props => {
           {/* Metaboxes */}
           <div className="col-12 col-md-5 col-xl-3 mb-4 mb-md-0">
             <Panel className="ecs-metaboxes">
-              <PostTypeMetabox />
+              <PostTypesMetabox attachments={attachments} setAttachments={setAttachments} />
+              <AllCategoryPostsMetabox attachments={attachments} setAttachments={setAttachments} />
+              <TaxonomiesMetabox attachments={attachments} setAttachments={setAttachments} />
+              <AuthorArchiveMetabox attachments={attachments} setAttachments={setAttachments} />
+              <TemplateHierarchyMetabox attachments={attachments} setAttachments={setAttachments} />
             </Panel>
           </div>
 
@@ -144,7 +153,8 @@ const CreateSidebar = props => {
                 </p>
 
                 {/* Attachments. */}
-                <SidebarAttachments />
+                <SidebarAttachments attachments={attachments} setAttachments={setAttachments} />
+
                 {/* 
                   Sortable.
                   Add attachment to the sidebar.

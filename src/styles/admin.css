@@ -28,6 +28,10 @@
   border-bottom-color: #e1e4e7;
 }
 
+.ecs-metaboxes .components-panel__body-title .components-panel__body-toggle {
+  text-transform: capitalize;
+}
+
 /* Manage Sidebars */
 .ecs-manage-sidebars__sidebar-name a {
   color: #444;

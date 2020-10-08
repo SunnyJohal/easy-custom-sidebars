@@ -57,7 +57,31 @@ export const defaultSidebarsReducer = (state = {}, action) => {
   }
 };
 
+export const postTypesReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'HYDRATE_POSTTYPES':
+      return action.payload.posttypes;
+      break;
+
+    default:
+      return state;
+  }
+};
+
+export const taxonomiesReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'HYDRATE_TAXONOMIES':
+      return action.payload.taxonomies;
+      break;
+
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   sidebars: sidebarsReducer,
-  defaultSidebars: defaultSidebarsReducer
+  defaultSidebars: defaultSidebarsReducer,
+  posttypes: postTypesReducer,
+  taxonomies: taxonomiesReducer
 });

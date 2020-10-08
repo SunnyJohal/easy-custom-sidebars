@@ -11,12 +11,12 @@ import { useSelect, useDispatch } from '@wordpress/data';
 import { useState, useEffect } from '@wordpress/element';
 import { Button, Panel, PanelBody, PanelRow } from '@wordpress/components';
 
-const getItems = (count, offset = 0) => {
-  // This is where to fetch the list from.
+const getAttachments = (count, offset = 0) => {
   return Array.from({ length: count }, (v, k) => k).map(k => {
     return {
       id: `item-${k + offset}-${new Date().getTime()}`,
-      content: `item ${k + offset}`
+      content: `item ${k + offset}`,
+      example: 'This can be anything'
     };
   });
 };
@@ -25,23 +25,6 @@ const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
-  return result;
-};
-
-/**
- * Moves an item from one list to another list.
- */
-const move = (source, destination, droppableSource, droppableDestination) => {
-  const sourceClone = Array.from(source);
-  const destClone = Array.from(destination);
-  const [removed] = sourceClone.splice(droppableSource.index, 1);
-
-  destClone.splice(droppableDestination.index, 0, removed);
-
-  const result = {};
-  result[droppableSource.droppableId] = sourceClone;
-  result[droppableDestination.droppableId] = destClone;
-
   return result;
 };
 
@@ -67,105 +50,95 @@ const getListStyle = isDraggingOver => {
     background: isDraggingOver ? '#fafafa' : '',
     // padding: grid,
     width: '100%',
-    maxWidth: 400
+    maxWidth: 420
   };
 };
 
 const SidebarAttachments = props => {
-  const [state, setState] = useState([getItems(10)]);
+  const { attachments, setAttachments } = props;
 
-  function onDragEnd(result) {
-    const { source, destination } = result;
-
-    // Dropped outside the list.
+  function reorderAttachments({ source, destination }) {
+    // Dropped outside of list.
     if (!destination) {
       return;
     }
-    const sInd = +source.droppableId;
-    const dInd = +destination.droppableId;
 
-    if (sInd === dInd) {
-      const items = reorder(state[sInd], source.index, destination.index);
-      const newState = [...state];
-      newState[sInd] = items;
-      setState(newState);
-    } else {
-      const result = move(state[sInd], state[dInd], source, destination);
-      const newState = [...state];
-      newState[sInd] = result[sInd];
-      newState[dInd] = result[dInd];
-
-      setState(newState.filter(group => group.length));
-    }
+    setAttachments(reorder(attachments, source.index, destination.index));
   }
 
   return (
     <div className="ecs-sidebar-attachments">
-      <button
-        type="button"
+      <Button
+        className="mb-2"
+        isPrimary
         onClick={() => {
-          setState([...state, []]);
+          setAttachments([...attachments, ...getAttachments(1, attachments.length)]);
         }}
       >
-        Add new group
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          setState([...state, getItems(1)]);
-        }}
-      >
-        Add new item
-      </button>
+        Add New Item
+      </Button>
       <div className="ecs-sidebar-attachments__container d-flex">
-        <DragDropContext className="ecs-sidebar-attachments__drag-drop-context" onDragEnd={onDragEnd}>
-          {state.map((el, ind) => (
-            <Droppable className="ecs-sidebar-attachments__drag-drop-droppable" key={ind} droppableId={`${ind}`}>
-              {(provided, snapshot) => (
-                <div
-                  className="ecs-sidebar-attachments__drag-drop-list"
-                  ref={provided.innerRef}
-                  style={getListStyle(snapshot.isDraggingOver)}
-                  {...provided.droppableProps}
-                >
-                  {el.map((item, index) => (
-                    <Draggable key={item.id} draggableId={item.id} index={index}>
-                      {(provided, snapshot) => (
-                        <div
-                          className="ecs-sidebar-attachments__drag-drop-item"
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
-                        >
-                          <Panel>
-                            <PanelBody title={item.content} initialOpen={false} icon="sort">
-                              <PanelRow>
-                                <Button
-                                  isSecondary
-                                  onClick={() => {
-                                    const newState = [...state];
-                                    newState[ind].splice(index, 1);
-                                    setState(newState.filter(group => group.length));
-                                  }}
-                                >
-                                  {__('Delete', 'easy-custom-sidebars')}
-                                </Button>
-                                Need to put the tab panel in herezzz
-                              </PanelRow>
-                            </PanelBody>
-                          </Panel>
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          ))}
+        {/* Flat list. */}
+        <DragDropContext className="ecs-sidebar-attachments__drag-drop-context" onDragEnd={reorderAttachments}>
+          <Droppable droppableId="ecs-sidebar-attachments">
+            {(provided, snapshot) => (
+              <div
+                className="ecs-sidebar-attachments__drag-drop-list"
+                ref={provided.innerRef}
+                style={getListStyle(snapshot.isDraggingOver)}
+                {...provided.droppableProps}
+              >
+                {attachments.map((item, index) => (
+                  <Draggable key={item.id} draggableId={item.id} index={index}>
+                    {(provided, snapshot) => (
+                      <div
+                        className="ecs-sidebar-attachments__drag-drop-item"
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
+                      >
+                        <Panel>
+                          <PanelBody title={`${item.content} (Type)`} initialOpen={false} icon="sort">
+                            <PanelRow>
+                              <Button
+                                isLink
+                                onClick={() => {
+                                  const allAttachments = [...attachments];
+                                  allAttachments.splice(index, 1);
+                                  setAttachments(allAttachments);
+                                }}
+                              >
+                                {__('Visit Link', 'easy-custom-sidebars')}
+                              </Button>
+                              <Button
+                                isDestructive
+                                onClick={() => {
+                                  const allAttachments = [...attachments];
+                                  allAttachments.splice(index, 1);
+                                  setAttachments(allAttachments);
+                                }}
+                              >
+                                {__('Delete', 'easy-custom-sidebars')}
+                              </Button>
+                            </PanelRow>
+                          </PanelBody>
+                        </Panel>
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
         </DragDropContext>
       </div>
+      {attachments.length > 0 && (
+        <Button className="mt-3" isDestructive onClick={() => setAttachments([])}>
+          {__('Delete All Attachments', 'easy-custom-sidebars')}
+        </Button>
+      )}
     </div>
   );
 };

@@ -21,3 +21,14 @@ export const getSidebar = (state, id) => {
 export const getDefaultSidebars = state => {
   return state.defaultSidebars || {};
 };
+
+/**
+ * Metabox Selectors
+ */
+export const getPostTypes = state => {
+  return state.posttypes || {};
+};
+
+export const getTaxonomies = state => {
+  return state.taxonomies || {};
+};
