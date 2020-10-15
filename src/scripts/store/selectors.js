@@ -14,6 +14,15 @@ export const getSidebar = (state, id) => {
 };
 
 /**
+ * Sidebar Attachment Selectors
+ * @param {*} name
+ */
+
+export const getAttachmentsForSidebar = (state, id) => {
+  return state.attachments[id] || [];
+};
+
+/**
  * Default Sidebar Selectors
  * @param {*} name
  */
@@ -32,3 +41,15 @@ export const getPostTypes = state => {
 export const getTaxonomies = state => {
   return state.taxonomies || {};
 };
+
+export const getTemplates = state => {};
+
+export const getPostTypePosts = (state, posttype, page) => {
+  console.log('this is firing', posttype, page);
+};
+
+export const getTaxonomyTerms = (state, taxonomy, page) => {};
+
+export const getCategories = (state, page) => {};
+
+export const getUsers = (state, page) => {};

@@ -8,7 +8,6 @@ import { addQueryArgs } from '@wordpress/url';
  * Internal dependancies
  */
 import { hydrateSidebars, hydrateDefaultSidebars, hydratePostTypes, hydrateTaxonomies } from './actions';
-import { taxonomiesReducer } from './reducer';
 
 export function* getSidebars() {
   const path = addQueryArgs('/wp/v2/easy-custom-sidebars', { per_page: -1, order: 'asc', orderby: 'title' });

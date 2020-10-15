@@ -14,17 +14,6 @@ namespace ECS\Api;
 use ECS\Data;
 
 /**
- * Add Metabox Batch Endpoint
- *
- * @todo implement method.
- */
-add_action(
-	'rest_api_init',
-	function() {
-	}
-);
-
-/**
  * DELETE: Bulk Sidebar Delete Endpoint
  */
 add_action(
@@ -80,6 +69,54 @@ add_action(
 			[
 				'get_callback' => function( $post ) {
 					return Data\get_sidebar_attachments( $post['id'] );
+				},
+			]
+		);
+	}
+);
+
+add_action(
+	'rest_api_init',
+	function() {
+		register_rest_route(
+			'easy-custom-sidebars/v1',
+			'/attachments/(?P<id>\d+)',
+			[
+				'methods'             => 'GET',
+				'callback'            => function ( $request ) {
+					return Data\get_sidebar_attachments( $request->get_param( 'id' ), true );
+				},
+				'args'                => [
+					'id' => [
+						'validate_callback' => function ( $param, $request, $key ) {
+							return is_numeric( $param );
+						},
+					],
+				],
+				'permission_callback' => function() {
+					return current_user_can( 'edit_theme_options' );
+				},
+			]
+		);
+	}
+);
+
+/**
+ * Page Templates Endpoint
+ */
+add_action(
+	'rest_api_init',
+	function() {
+		register_rest_route(
+			'easy-custom-sidebars/v1',
+			'/page-templates',
+			[
+				'methods'             => 'GET',
+				'callback'            => function () {
+					return Data\get_page_templates();
+				},
+				'permission_callback' => function() {
+					return current_user_can( 'edit_theme_options' );
 				},
 			]
 		);

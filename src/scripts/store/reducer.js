@@ -42,6 +42,32 @@ export const sidebarsReducer = (state = {}, action) => {
 };
 
 /**
+ * Sidebar Attachment Reducers
+ * @param {*} state
+ * @param {*} action
+ */
+export const sidebarAttachmentsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'FETCH_SIDEBAR_ATTACHMENTS':
+      return { ...state, [action.payload.id]: action.payload.attachments };
+      break;
+
+    case 'DELETE_SIDEBAR':
+      let allAttachments = { ...state };
+      delete allAttachments[action.payload.id];
+      return allAttachments;
+      break;
+
+    case 'DELETE_ALL_SIDEBARS':
+      return {};
+      break;
+
+    default:
+      return state;
+  }
+};
+
+/**
  * Default Sidebar Reducers
  * @param {object} state
  * @param {object} action
@@ -81,6 +107,7 @@ export const taxonomiesReducer = (state = {}, action) => {
 
 export default combineReducers({
   sidebars: sidebarsReducer,
+  sidebarAttachments: sidebarAttachmentsReducer,
   defaultSidebars: defaultSidebarsReducer,
   posttypes: postTypesReducer,
   taxonomies: taxonomiesReducer

@@ -155,4 +155,13 @@ class ECS_Test_Data extends WP_UnitTestCase {
 		}
 	}
 
+	/**
+	 * Test Get Page Templates.
+	 */
+	public function test_get_page_templates() {
+		$page_templates = Data\get_page_templates();
+
+		$this->assertIsArray( $page_templates );
+		$this->assertEqualSets( $page_templates, wp_get_theme()->get_page_templates() );
+	}
 }

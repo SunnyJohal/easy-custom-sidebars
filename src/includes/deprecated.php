@@ -12,17 +12,29 @@
 namespace ECS\Deprecated;
 
 add_filter(
-	'get_post_metadata',
-	function ( $value, $post_id, $meta_key, $single ) {
-		if ( 'sidebar_attachments' !== $meta_key ) {
-			return $value;
-		}
+	'ecs_sidebar_attachments',
+	function( $attachments, $post_id, $with_metadata ) {
+		return array_map(
+			function ( $attachment ) {
+				if (
+					array_key_exists( 'menu-item-object-id', $attachment ) &&
+					array_key_exists( 'menu-item-object', $attachment ) &&
+					array_key_exists( 'menu-item-type', $attachment )
+				) {
+					return [
+						'id'              => $attachment['menu-item-object-id'],
+						'data_type'       => $attachment['menu-item-object'],
+						'attachment_type' => $attachment['menu-item-type'],
+					];
+				}
 
-		// TODO: Shape data from old saved data to the new form.
-		return $value;
+				return $attachment;
+			},
+			$attachments
+		);
 	},
 	10,
-	4
+	3
 );
 
 /**

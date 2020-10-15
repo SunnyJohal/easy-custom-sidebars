@@ -2,6 +2,7 @@
  * WordPress dependencies.
  */
 import { apiFetch } from '@wordpress/data-controls';
+import { addQueryArgs } from '@wordpress/url';
 
 /**
  * Internal dependancies
@@ -109,7 +110,7 @@ export function* deleteSidebar(id) {
  * @param {int} id Post ID of sidebar to delete.
  */
 export function* deleteAllSidebars() {
-  const path = 'easy-custom-sidebars/v1/sidebar_instances';
+  const path = '/easy-custom-sidebars/v1/sidebar_instances';
   const completed = yield apiFetch({ path, method: 'DELETE' });
 
   return {
@@ -119,10 +120,19 @@ export function* deleteAllSidebars() {
 }
 
 /**
- * Add Attachment to Sidebar
+ * Get Sidebar Attachments
  * @param {int} id Post ID of sidebar.
- * @param {array} attachment Attachment details.
  */
+export function* getSidebarAttachments(id) {
+  const path = `/easy-custom-sidebars/v1/attachments/${id}`;
+  const attachments = yield apiFetch({ path });
+
+  return {
+    type: 'FETCH_SIDEBAR_ATTACHMENTS',
+    payload: { id, attachments }
+  };
+}
+
 export const addSidebarAttachment = (id, attachment) => {
   return {
     type: 'ADD_SIDEBAR_ATTACHMENT',
@@ -172,9 +182,57 @@ export const hydrateTaxonomies = taxonomies => {
   };
 };
 
+// @todo: Use body wherevever we have requested the full page.
+export function* getPostTypePosts({ slug, page = 1 }) {
+  const path = addQueryArgs(`/wp/v2/${slug}`, { page, _envelope: 1 });
+
+  const posts = yield apiFetch({ path, method: 'GET' });
+
+  return {
+    type: 'FETCH_POSTS',
+    payload: { slug, page, posts }
+  };
+}
+
+// @todo: Use body wherevever we have requested the full page.
+export function* getTaxonomyTerms({ taxonomy, page = 1 }) {
+  const path = addQueryArgs(`/wp/v2/${slug}`, { page, _envelope: 1 });
+}
+
+// @todo: Use body wherevever we have requested the full page.
+export function* getCategories({ page = 1 }) {
+  const path = addQueryArgs(`/wp/v2/categories`, { page, _envelope: 1 });
+}
+
+// @todo: Use body wherevever we have requested the full page.
+export function* getUsers({ page = 1 }) {
+  const path = addQueryArgs(`/wp/v2/users`, { page, _envelope: 1 });
+}
+
+export function* getTemplates() {
+  // @todo: create custom endpoint.
+  const path = `/wp/v2/easy-custom-sidebars/${id}`;
+}
+
+// Fields to note:
+// Total pages.
+// Current page.
+// Per Page?
+// Items.
+// Total items.
+
+// X-WP-Total: 50
+// X-WP-TotalPages: 5
+
+// Edge cases.
+// Deleted items.
+
 // Metabox Events:
 // GET Posttypes Metabox items.
 // GET Taxonomies Metabox items.
+// GET AllPostsInCategory Metabox Items.
+// GET Author Metabox items.
+// GET Template Metabox items.
 // Show/Hide Metabox. (This needs to be persistent).
 // Paginate items in metabox.
 // Search items in metabox (inc pagination on results).

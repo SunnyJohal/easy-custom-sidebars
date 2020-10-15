@@ -11,9 +11,6 @@
 
 namespace ECS\Customizer;
 
-// prepare_sidebars_for_customizer()
-// add_action( 'wp_footer', array( $this, 'prepare_sidebars_for_customizer' ) );
-
 function prepare_sidebars_for_customizer() {
 	// 1. Check if you are in the customizer.
 	// 2. Call dynamic_sidebar() for each replacement

@@ -34,15 +34,6 @@ $_ecs_replacements_determined = false;
  */
 $_ecs_all_replacements = [];
 
-// Data structure for item_ids[] array stored as meta key: 'sidebar_attachments'
-// type [menu-item-type]
-// id   [menu-item-db-id]
-// data
-
-// 'menu-item-db-id'  => [ 'type' => 'string' ],
-// 'menu-item-object' => [ 'type' => 'string' ],
-// 'menu-item-type'   => [ 'type' => 'string' ],
-
 /**
  * Maybe Swap Widgets
  *

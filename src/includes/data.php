@@ -93,9 +93,9 @@ function register_metadata_for_sidebars() {
 					'items' => [
 						'type'       => 'object',
 						'properties' => [
-							'attachment-id'     => [ 'type' => 'string' ],
-							'attachment-object' => [ 'type' => 'string' ],
-							'attachment-type'   => [ 'type' => 'string' ],
+							'id'              => [ 'type' => 'string' ],
+							'data_type'       => [ 'type' => 'string' ],
+							'attachment_type' => [ 'type' => 'string' ],
 						],
 					],
 				],
@@ -155,18 +155,75 @@ function get_sidebar_replacement_id( $post_id ) {
 /**
  * Get Sidebar Attachments
  *
- * @param int $post_id ID of a 'sidebar_instance' post.
+ * @param int     $post_id ID of a 'sidebar_instance' post.
+ * @param boolean $with_metadata This.
  */
-function get_sidebar_attachments( $post_id ) {
+function get_sidebar_attachments( $post_id, $with_metadata = false ) {
 	$attachments = get_post_meta( $post_id, 'sidebar_attachments', true );
 	$attachments = empty( $attachments ) ? [] : $attachments;
 
 	return apply_filters(
 		'ecs_sidebar_attachments',
 		$attachments,
-		$post_id
+		$post_id,
+		$with_metadata
 	);
 }
+
+add_filter(
+	'ecs_sidebar_attachments',
+	function( $attachments, $post_id, $with_metadata ) {
+		if ( ! $with_metadata ) {
+			return $attachments;
+		}
+
+		return array_map(
+			function ( $attachment ) {
+				// Fallback for deleted items.
+				$attachment['title'] = __( '(Not Found)', 'easy-custom-sidebars' );
+				$attachment['label'] = __( 'Deleted', 'easy-custom-sidebars' );
+				$attachment['link']  = site_url();
+
+				// Post Type: Single.
+				if ( 'post_type' === $attachment['attachment_type'] ) {
+					$post_type = get_post_type_object( $attachment['data_type'] );
+
+					if ( $post_type ) {
+						$attachment['title'] = get_the_title( $attachment['id'] );
+						$attachment['label'] = $post_type->labels->singular_name;
+						$attachment['link']  = get_page_link( $attachment['id'] );
+					}
+				}
+
+				// Post Type: All.
+				if ( 'post_type_all' === $attachment['attachment_type'] ) {
+					$post_type = get_post_type_object( $attachment['data_type'] );
+
+					/* translators: Sidebar attachment title (plural). */
+					$attachment['title'] = sprintf( __( 'All %s', 'easy-custom-sidebars' ), $post_type->labels->name );
+					$attachment['label'] = $post_type->labels->name;
+					$attachment['link']  = get_admin_url( null, 'edit.php?post_type=' . $attachment['data_type'] );
+
+				}
+
+				// Post Type: Post.
+				// Post Type: Other.
+				// Post Type All.
+				// Post Type Archive.
+				// Taxonomy.
+				// Taxonomy All.
+				// Category Posts.
+				// Author Archive.
+				// Template Hierarchy.
+
+				return $attachment;
+			},
+			$attachments
+		);
+	},
+	10,
+	3
+);
 
 /**
  * Get Default Registered Sidebars
@@ -209,4 +266,13 @@ function delete_all_sidebars() {
 	}
 
 	return true;
+}
+
+/**
+ * Get All Page Templates
+ *
+ * @return array assoc array of registered templates.
+ */
+function get_page_templates() {
+	return wp_get_theme()->get_page_templates();
 }

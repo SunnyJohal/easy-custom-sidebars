@@ -33,9 +33,66 @@ class ECS_Test_Deprecated extends WP_UnitTestCase {
 	/**
 	 * Test Get Sidebar
 	 */
-	public function todo_test_get_sidebar_attachments() {
-		// Test that the old data is transformed into the new one.
-		// 
+	public function test_get_sidebar_attachments() {
+		$legacy_fields = [
+			'menu-item-db-id',
+			'menu-item-object-id',
+			'menu-item-object',
+			'menu-item-parent-id',
+			'menu-item-position',
+			'menu-item-type',
+		];
+
+		// Example attachments in legacy format.
+		$attachments = [
+			[
+				'menu-item-db-id'     => 1,
+				'menu-item-object-id' => 1,
+				'menu-item-object'    => 'post',
+				'menu-item-parent-id' => 0,
+				'menu-item-position'  => 0,
+				'menu-item-type'      => 'post_type',
+			],
+			[
+				'menu-item-db-id'     => 1,
+				'menu-item-object-id' => 1,
+				'menu-item-object'    => 'post',
+				'menu-item-parent-id' => 0,
+				'menu-item-position'  => 0,
+				'menu-item-type'      => 'post_type_all',
+			],
+			[
+				'menu-item-db-id'     => 15,
+				'menu-item-object-id' => 15,
+				'menu-item-object'    => 'category',
+				'menu-item-parent-id' => 0,
+				'menu-item-position'  => 0,
+				'menu-item-type'      => 'category_posts',
+			],
+		];
+
+		add_post_meta( self::$post_id, 'sidebar_attachments', $attachments );
+
+		$saved_attachments = Data\get_sidebar_attachments( self::$post_id );
+
+		foreach ( $saved_attachments as $attachment ) {
+			// menu-item-object-id is now id.
+			$this->assertArrayHasKey( 'id', $attachment );
+
+			// menu-item-object is now data_type.
+			$this->assertArrayHasKey( 'data_type', $attachment );
+
+			// menu-item-type is now attachment_type.
+			$this->assertArrayHasKey( 'attachment_type', $attachment );
+
+			// Make sure legacy fields aren't present.
+			$this->assertArrayNotHasKey( 'menu-item-db-id', $attachment );
+			$this->assertArrayNotHasKey( 'menu-item-object-id', $attachment );
+			$this->assertArrayNotHasKey( 'menu-item-object', $attachment );
+			$this->assertArrayNotHasKey( 'menu-item-parent-id', $attachment );
+			$this->assertArrayNotHasKey( 'menu-item-position', $attachment );
+			$this->assertArrayNotHasKey( 'menu-item-type', $attachment );
+		}
 	}
 
 	/**

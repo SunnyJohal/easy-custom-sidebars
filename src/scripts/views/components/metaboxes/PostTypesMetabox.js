@@ -14,14 +14,24 @@ const PostTypePosts = props => {
   const { name, slug, rest_base } = props;
 
   const [items, setItems] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
 
+  const posts = useSelect(select => {
+    return select(STORE_KEY).getPostTypePosts('test', 'page');
+  });
+
   return (
     <div>
-      <h1>
-        This is the {name} - {num}
-      </h1>
+      <InputControl
+        label={`Search ${name}`}
+        value={searchQuery}
+        onChange={(query = '') => {
+          setSearchQuery(query);
+        }}
+      />
+      {searchQuery ? <h1>Put in the search results here for {name}</h1> : <h1>This is the {name}</h1>}
     </div>
   );
 };
@@ -43,8 +53,6 @@ const PostTypesMetabox = props => {
 
     return (
       <PanelBody title={name} key={slug} initialOpen={isFirstItem}>
-        <InputControl label={`Search ${name}`} onChange={search => {}} />
-
         <PanelRow>
           So the name is {name} and the rest base is {rest_base}
         </PanelRow>
