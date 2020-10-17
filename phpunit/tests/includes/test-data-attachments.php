@@ -35,6 +35,13 @@ class ECS_Test_Data_Attachments extends WP_UnitTestCase {
 	protected static $page_id;
 
 	/**
+	 * ID of test product created.
+	 *
+	 * @var int $page_id
+	 */
+	protected static $taxonomy_term_id;
+
+	/**
 	 * ID of temp user created for tests.
 	 *
 	 * @var int $user_id
@@ -47,9 +54,10 @@ class ECS_Test_Data_Attachments extends WP_UnitTestCase {
 	 * @param object $factory Factory obj for generating WordPress fixtures.
 	 */
 	public static function wpSetUpBeforeClass( $factory ) {
-		self::$sidebar_id = $factory->post->create( [ 'post_type' => 'sidebar_instance' ] );
-		self::$post_id    = $factory->post->create( [ 'post_type' => 'post' ] );
-		self::$page_id    = $factory->post->create( [ 'post_type' => 'page' ] );
+		self::$sidebar_id       = $factory->post->create( [ 'post_type' => 'sidebar_instance' ] );
+		self::$post_id          = $factory->post->create( [ 'post_type' => 'post' ] );
+		self::$page_id          = $factory->post->create( [ 'post_type' => 'page' ] );
+		self::$taxonomy_term_id = $factory->category->create( [ 'name' => 'Category Name' ] );
 	}
 
 	/**
@@ -216,4 +224,206 @@ class ECS_Test_Data_Attachments extends WP_UnitTestCase {
 			}
 		}
 	}
+
+	/**
+	 * Test attachments: Post Type Archive.
+	 */
+	public function test_post_type_archive_attachment() {
+		$attachments = [
+			[
+				'id'              => 1,
+				'data_type'       => 'post',
+				'attachment_type' => 'post_type_archive',
+			],
+			[
+				'id'              => 1,
+				'data_type'       => 'missing-posttype',
+				'attachment_type' => 'post_type_archive',
+			],
+		];
+
+		add_post_meta( self::$sidebar_id, 'sidebar_attachments', $attachments );
+		$saved_attachments = Data\get_sidebar_attachments( self::$sidebar_id, true );
+
+		foreach ( $saved_attachments as $attachment ) {
+			$this->assertArrayHasKey( 'id', $attachment );
+			$this->assertArrayHasKey( 'data_type', $attachment );
+			$this->assertArrayHasKey( 'attachment_type', $attachment );
+			$this->assertArrayHasKey( 'title', $attachment );
+			$this->assertArrayHasKey( 'label', $attachment );
+			$this->assertArrayHasKey( 'link', $attachment );
+
+			if ( 'post' === $attachment['data_type'] ) {
+				$this->assertEquals(
+					'Posts Archive',
+					$attachment['title']
+				);
+
+				$this->assertEquals(
+					'Posts Archive',
+					$attachment['label']
+				);
+
+				$this->assertEquals(
+					get_admin_url( null, 'edit.php?post_type=post' ),
+					$attachment['link']
+				);
+			}
+
+			if ( 'missing-posttype' === $attachment['data_type'] ) {
+				$this->assertEquals(
+					'(Not Found)',
+					$attachment['title']
+				);
+
+				$this->assertEquals(
+					'Deleted',
+					$attachment['label']
+				);
+
+				$this->assertEquals(
+					site_url(),
+					$attachment['link']
+				);
+			}
+		}
+	}
+
+	/**
+	 * Test attachments: Post Type Archive.
+	 */
+	public function test_taxonomy_attachment() {
+		$term = get_term( self::$taxonomy_term_id, 'category' );
+
+		$attachments = [
+			[
+				'id'              => $term->term_id,
+				'data_type'       => 'category',
+				'attachment_type' => 'taxonomy',
+			],
+			[
+				'id'              => $term->term_id,
+				'data_type'       => 'invalidcategory',
+				'attachment_type' => 'taxonomy',
+			],
+		];
+
+		add_post_meta( self::$sidebar_id, 'sidebar_attachments', $attachments );
+		$saved_attachments = Data\get_sidebar_attachments( self::$sidebar_id, true );
+
+		foreach ( $saved_attachments as $attachment ) {
+			$this->assertArrayHasKey( 'id', $attachment );
+			$this->assertArrayHasKey( 'data_type', $attachment );
+			$this->assertArrayHasKey( 'attachment_type', $attachment );
+			$this->assertArrayHasKey( 'title', $attachment );
+			$this->assertArrayHasKey( 'label', $attachment );
+			$this->assertArrayHasKey( 'link', $attachment );
+
+			// Valid term.
+			if ( 'category' === $attachment['data_type'] ) {
+				$this->assertEquals(
+					$term->name,
+					$attachment['title']
+				);
+
+				$this->assertEquals(
+					get_taxonomy( $term->taxonomy )->labels->singular_name,
+					$attachment['label']
+				);
+
+				$this->assertEquals(
+					get_term_link( $term->term_id ),
+					$attachment['link']
+				);
+			}
+
+			// Invalid term.
+			if ( 'invalidcategory' === $attachment['data_type'] ) {
+				$this->assertEquals(
+					'(Not Found)',
+					$attachment['title']
+				);
+
+				$this->assertEquals(
+					'Deleted',
+					$attachment['label']
+				);
+
+				$this->assertEquals(
+					site_url(),
+					$attachment['link']
+				);
+			}
+		}
+	}
+
+	/**
+	 * Test attachments: Taxonomy All.
+	 */
+	public function test_taxonomy_all_attachment() {
+		$attachments = [
+			[
+				'id'              => 1,
+				'data_type'       => 'category',
+				'attachment_type' => 'taxonomy_all',
+			],
+			[
+				'id'              => 1,
+				'data_type'       => 'invalidtaxonomy',
+				'attachment_type' => 'taxonomy_all',
+			],
+		];
+
+		add_post_meta( self::$sidebar_id, 'sidebar_attachments', $attachments );
+		$saved_attachments = Data\get_sidebar_attachments( self::$sidebar_id, true );
+
+		foreach ( $saved_attachments as $attachment ) {
+			$this->assertArrayHasKey( 'id', $attachment );
+			$this->assertArrayHasKey( 'data_type', $attachment );
+			$this->assertArrayHasKey( 'attachment_type', $attachment );
+			$this->assertArrayHasKey( 'title', $attachment );
+			$this->assertArrayHasKey( 'label', $attachment );
+			$this->assertArrayHasKey( 'link', $attachment );
+
+			if ( 'category' === $attachment['data_type'] ) {
+				$this->assertEquals(
+					'All Categories',
+					$attachment['title']
+				);
+
+				$this->assertEquals(
+					'All Categories',
+					$attachment['label']
+				);
+
+				$this->assertEquals(
+					get_admin_url( null, 'edit-tags.php?taxonomy=category' ),
+					$attachment['link']
+				);
+			}
+
+			if ( 'invalidtaxonomy' === $attachment['data_type'] ) {
+				$this->assertEquals(
+					'(Not Found)',
+					$attachment['title']
+				);
+
+				$this->assertEquals(
+					'Deleted',
+					$attachment['label']
+				);
+
+				$this->assertEquals(
+					site_url(),
+					$attachment['link']
+				);
+			}
+		}
+	}
+
+	public function todo_test_category_posts_attachment() {}
+
+	public function todo_author_archive_attachment() {}
+
+	public function todo_template_hierarchy_attachment() {}
 }

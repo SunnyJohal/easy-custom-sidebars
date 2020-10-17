@@ -170,6 +170,10 @@ function get_sidebar_attachments( $post_id, $with_metadata = false ) {
 	);
 }
 
+/**
+ * Add Attachment Metadata
+ * @todo Escape the output.
+ */
 add_filter(
 	'ecs_sidebar_attachments',
 	function( $attachments, $post_id, $with_metadata ) {
@@ -199,11 +203,50 @@ add_filter(
 				if ( 'post_type_all' === $attachment['attachment_type'] ) {
 					$post_type = get_post_type_object( $attachment['data_type'] );
 
-					/* translators: Sidebar attachment title (plural). */
-					$attachment['title'] = sprintf( __( 'All %s', 'easy-custom-sidebars' ), $post_type->labels->name );
-					$attachment['label'] = $post_type->labels->name;
-					$attachment['link']  = get_admin_url( null, 'edit.php?post_type=' . $attachment['data_type'] );
+					if ( $post_type ) {
+						/* translators: Sidebar attachment title (plural). */
+						$attachment['title'] = sprintf( __( 'All %s', 'easy-custom-sidebars' ), $post_type->labels->name );
+						$attachment['label'] = $post_type->labels->name;
+						$attachment['link']  = get_admin_url( null, 'edit.php?post_type=' . $attachment['data_type'] );
+					}
+				}
 
+				// Post Type Archive.
+				if ( 'post_type_archive' === $attachment['attachment_type'] ) {
+					$post_type = get_post_type_object( $attachment['data_type'] );
+
+					if ( $post_type ) {
+						/* translators: Sidebar attachment title (plural). */
+						$attachment['title'] = sprintf( __( '%s Archive', 'easy-custom-sidebars' ), $post_type->labels->name );
+						/* translators: Sidebar attachment label (plural). */
+						$attachment['label'] = sprintf( __( '%s Archive', 'easy-custom-sidebars' ), $post_type->labels->name );
+						$attachment['link']  = get_admin_url( null, 'edit.php?post_type=' . $attachment['data_type'] );
+					}
+				}
+
+				// Taxonomy.
+				if ( 'taxonomy' === $attachment['attachment_type'] ) {
+					$term = get_term( $attachment['id'], $attachment['data_type'] );
+
+					if ( $term && ! is_wp_error( $term ) ) {
+						$attachment['title'] = $term->name;
+						$attachment['label'] = get_taxonomy( $term->taxonomy )->labels->singular_name;
+						$attachment['link']  = get_term_link( $term->term_id );
+					}
+				}
+
+				// Taxonomy All.
+				if ( 'taxonomy_all' === $attachment['attachment_type'] ) {
+					$taxonomy = get_taxonomy( $attachment['data_type'] );
+
+					if ( $taxonomy ) {
+						/* translators: Sidebar attachment title (plural). */
+						$attachment['title'] = sprintf( __( 'All %s', 'easy-custom-sidebars' ), $taxonomy->labels->name );
+
+						/* translators: Sidebar attachment label (plural). */
+						$attachment['label'] = sprintf( __( 'All %s', 'easy-custom-sidebars' ), $taxonomy->labels->name );
+						$attachment['link']  = get_admin_url( null, "edit-tags.php?taxonomy={$taxonomy->name}" );
+					}
 				}
 
 				// Post Type: Post.
