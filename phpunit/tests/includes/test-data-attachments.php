@@ -58,6 +58,7 @@ class ECS_Test_Data_Attachments extends WP_UnitTestCase {
 		self::$post_id          = $factory->post->create( [ 'post_type' => 'post' ] );
 		self::$page_id          = $factory->post->create( [ 'post_type' => 'page' ] );
 		self::$taxonomy_term_id = $factory->category->create( [ 'name' => 'Category Name' ] );
+		self::$user_id          = $factory->user->create();
 	}
 
 	/**
@@ -421,9 +422,245 @@ class ECS_Test_Data_Attachments extends WP_UnitTestCase {
 		}
 	}
 
-	public function todo_test_category_posts_attachment() {}
+	/**
+	 * Test attachments: Category Posts.
+	 */
+	public function test_category_posts_attachment() {
+		$term = get_term( self::$taxonomy_term_id, 'category' );
 
-	public function todo_author_archive_attachment() {}
+		$attachments = [
+			[
+				'id'              => $term->term_id,
+				'data_type'       => 'category',
+				'attachment_type' => 'category_posts',
+			],
+			[
+				'id'              => $term->term_id,
+				'data_type'       => 'invalidcategory',
+				'attachment_type' => 'category_posts',
+			],
+		];
 
-	public function todo_template_hierarchy_attachment() {}
+		add_post_meta( self::$sidebar_id, 'sidebar_attachments', $attachments );
+		$saved_attachments = Data\get_sidebar_attachments( self::$sidebar_id, true );
+
+		foreach ( $saved_attachments as $attachment ) {
+			$this->assertArrayHasKey( 'id', $attachment );
+			$this->assertArrayHasKey( 'data_type', $attachment );
+			$this->assertArrayHasKey( 'attachment_type', $attachment );
+			$this->assertArrayHasKey( 'title', $attachment );
+			$this->assertArrayHasKey( 'label', $attachment );
+			$this->assertArrayHasKey( 'link', $attachment );
+
+			if ( 'category' === $attachment['data_type'] ) {
+				$this->assertEquals(
+					$term->name,
+					$attachment['title']
+				);
+
+				$this->assertEquals(
+					'All Posts In Category',
+					$attachment['label']
+				);
+
+				$this->assertEquals(
+					get_admin_url( null, "edit.php?taxonomy={$term->slug}" ),
+					$attachment['link']
+				);
+			}
+
+			if ( 'invalidtaxonomy' === $attachment['data_type'] ) {
+				$this->assertEquals(
+					'(Not Found)',
+					$attachment['title']
+				);
+
+				$this->assertEquals(
+					'Deleted',
+					$attachment['label']
+				);
+
+				$this->assertEquals(
+					site_url(),
+					$attachment['link']
+				);
+			}
+		}
+	}
+
+	/**
+	 * Test attachments: Category Posts.
+	 */
+	public function test_author_archive_attachment() {
+		$user = get_userdata( self::$user_id );
+
+		$attachments = [
+			[
+				'id'              => self::$user_id,
+				'data_type'       => 'user',
+				'attachment_type' => 'author_archive',
+			],
+			[
+				'id'              => 'invalid',
+				'data_type'       => 'user',
+				'attachment_type' => 'author_archive',
+			],
+		];
+
+		add_post_meta( self::$sidebar_id, 'sidebar_attachments', $attachments );
+		$saved_attachments = Data\get_sidebar_attachments( self::$sidebar_id, true );
+
+		foreach ( $saved_attachments as $attachment ) {
+			$this->assertArrayHasKey( 'id', $attachment );
+			$this->assertArrayHasKey( 'data_type', $attachment );
+			$this->assertArrayHasKey( 'attachment_type', $attachment );
+			$this->assertArrayHasKey( 'title', $attachment );
+			$this->assertArrayHasKey( 'label', $attachment );
+			$this->assertArrayHasKey( 'link', $attachment );
+
+			if ( self::$user_id === $attachment['id'] ) {
+				$this->assertEquals(
+					$user->display_name,
+					$attachment['title']
+				);
+
+				$this->assertEquals(
+					'Author Archive',
+					$attachment['label']
+				);
+
+				$this->assertEquals(
+					get_author_posts_url( self::$user_id ),
+					$attachment['link']
+				);
+			}
+
+			if ( 0 === $attachment['id'] ) {
+				$this->assertEquals(
+					'(Not Found)',
+					$attachment['title']
+				);
+
+				$this->assertEquals(
+					'Deleted',
+					$attachment['label']
+				);
+
+				$this->assertEquals(
+					site_url(),
+					$attachment['link']
+				);
+			}
+		}
+	}
+
+	/**
+	 * Test attachments: Template Hierarchy
+	 */
+	public function test_template_hierarchy_attachment() {
+		$attachments = [
+			[
+				'id'              => 0,
+				'data_type'       => '404',
+				'attachment_type' => 'template_hierarchy',
+			],
+			[
+				'id'              => 0,
+				'data_type'       => 'author_archive_all',
+				'attachment_type' => 'template_hierarchy',
+			],
+			[
+				'id'              => 0,
+				'data_type'       => 'index_page',
+				'attachment_type' => 'template_hierarchy',
+			],
+			[
+				'id'              => 0,
+				'data_type'       => 'date_archive',
+				'attachment_type' => 'template_hierarchy',
+			],
+			[
+				'id'              => 0,
+				'data_type'       => 'search_results',
+				'attachment_type' => 'template_hierarchy',
+			],
+		];
+
+		add_post_meta( self::$sidebar_id, 'sidebar_attachments', $attachments );
+		$saved_attachments = Data\get_sidebar_attachments( self::$sidebar_id, true );
+
+		foreach ( $saved_attachments as $attachment ) {
+			$this->assertArrayHasKey( 'id', $attachment );
+			$this->assertArrayHasKey( 'data_type', $attachment );
+			$this->assertArrayHasKey( 'attachment_type', $attachment );
+			$this->assertArrayHasKey( 'title', $attachment );
+			$this->assertArrayHasKey( 'label', $attachment );
+			$this->assertArrayHasKey( 'link', $attachment );
+
+			// Common fields.
+			$this->assertEquals(
+				'Template',
+				$attachment['label']
+			);
+
+			$this->assertEquals(
+				get_admin_url( null, 'edit.php?post_type=page' ),
+				$attachment['link']
+			);
+
+			// 404.
+			if ( '404' === $attachment['data_type'] ) {
+				$this->assertEquals(
+					'404 (Page Not Found)',
+					$attachment['title']
+				);
+			}
+
+			// Author archive all.
+			if ( 'author_archive_all' === $attachment['data_type'] ) {
+				$this->assertEquals(
+					'Author Archive',
+					$attachment['title']
+				);
+			}
+
+			// Index page.
+			if ( 'index_page' === $attachment['data_type'] ) {
+				$this->assertEquals(
+					'Blog Index Page',
+					$attachment['title']
+				);
+			}
+
+			// Date archive.
+			if ( 'date_archive' === $attachment['data_type'] ) {
+				$this->assertEquals(
+					'Date Archive',
+					$attachment['title']
+				);
+			}
+
+			// Search archive.
+			if ( 'search_results' === $attachment['data_type'] ) {
+				$this->assertEquals(
+					'Search Results',
+					$attachment['title']
+				);
+			}
+		}
+	}
+
+	/**
+	 * Test attachments: Template Hierarchy Page Templates
+	 * @todo register page templates test.
+	 */
+	public function ignore_test_template_hierarchy_page_templates_attachment() {
+		$attachments = [
+			[
+				'id'              => 0,
+				'data_type'       => 'page-template-templates/template-cover.php',
+				'attachment_type' => 'template_hierarchy',
+			],
+		];
+	}
 }

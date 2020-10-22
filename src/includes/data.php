@@ -172,7 +172,6 @@ function get_sidebar_attachments( $post_id, $with_metadata = false ) {
 
 /**
  * Add Attachment Metadata
- * @todo Escape the output.
  */
 add_filter(
 	'ecs_sidebar_attachments',
@@ -249,15 +248,69 @@ add_filter(
 					}
 				}
 
-				// Post Type: Post.
-				// Post Type: Other.
-				// Post Type All.
-				// Post Type Archive.
-				// Taxonomy.
-				// Taxonomy All.
-				// Category Posts.
+				// All Posts in category.
+				if ( 'category_posts' === $attachment['attachment_type'] ) {
+					$term = get_term( $attachment['id'], $attachment['data_type'] );
+
+					if ( $term && ! is_wp_error( $term ) ) {
+						$attachment['title'] = $term->name;
+						$attachment['label'] = __( 'All Posts In Category', 'easy-custom-sidebars' );
+						$attachment['link']  = get_admin_url( null, "edit.php?taxonomy={$term->slug}" );
+					}
+				}
+
 				// Author Archive.
-				// Template Hierarchy.
+				if ( 'author_archive' === $attachment['attachment_type'] ) {
+					$user = get_userdata( $attachment['id'] );
+
+					if ( $user ) {
+						$attachment['title'] = $user->display_name;
+						$attachment['label'] = __( 'Author Archive', 'easy-custom-sidebars' );
+						$attachment['link']  = get_author_posts_url( $user->ID );
+					}
+				}
+
+				// Template hierarchy.
+				if ( 'template_hierarchy' === $attachment['attachment_type'] ) {
+					$attachment['label'] = __( 'Template', 'easy-custom-sidebars' );
+					$attachment['link']  = get_admin_url( null, 'edit.php?post_type=page' );
+
+					// Template hierarchy: default.
+					switch ( $attachment['data_type'] ) {
+						case '404':
+							$attachment['title'] = __( '404 (Page Not Found)', 'easy-custom-sidebars' );
+							break;
+
+						case 'author_archive_all':
+							$attachment['title'] = __( 'Author Archive', 'easy-custom-sidebars' );
+							break;
+
+						case 'index_page':
+							$attachment['title'] = __( 'Blog Index Page', 'easy-custom-sidebars' );
+							break;
+
+						case 'date_archive':
+							$attachment['title'] = __( 'Date Archive', 'easy-custom-sidebars' );
+							break;
+
+						case 'search_results':
+							$attachment['title'] = __( 'Search Results', 'easy-custom-sidebars' );
+							break;
+					}
+
+					// Template hierarchy: page templates.
+					$registered_page_templates   = wp_get_theme()->get_page_templates();
+					$is_page_template_attachment = \strpos( $attachment['data_type'], 'page-template-' ) !== false;
+
+					if ( $is_page_template_attachment ) {
+						foreach ( $registered_page_templates as $name => $filename ) {
+							if ( "page-template-{$name}" === $attachment['data_type'] ) {
+								/* translators: Sidebar attachment title for page template attachments. */
+								$attachment['title'] = \sprintf( __( 'Page Template: %s', 'easy-custom-sidebars' ), $filename );
+							}
+						}
+					}
+				}
 
 				return $attachment;
 			},

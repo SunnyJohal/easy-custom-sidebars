@@ -14,7 +14,7 @@
     "prebuild": "rm -rf src/dist",
     "test": "wp-scripts test-unit-js --watch",
     "test-unit-js": "wp-scripts test-unit-js",
-    "test-unit-php": "wp-env run phpunit 'phpunit -c /var/www/html/wp-content/plugins/easy-custom-sidebars/phpunit.xml.dist --verbose'",
+    "test-unit-php": "wp-env run phpunit 'phpunit -c /var/www/html/wp-content/plugins/easy-custom-sidebars/phpunit.xml.dist --verbose --colors=always'",
     "test-unit-php-multisite": "wp-env run phpunit 'WP_MULTISITE=1 phpunit -c /var/www/html/wp-content/plugins/easy-custom-sidebars/phpunit.xml.dist --verbose'",
     "presetup": "yarn install && composer install",
     "setup": "wp-env start",
