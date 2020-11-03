@@ -30,18 +30,25 @@ import {
 import { STORE_KEY } from '../../store';
 import getQueryFromUrl from '../../utils/getQueryFromUrl';
 import getScreenLink from '../../utils/getScreenLink';
+import removeDuplicateAttachments from '../../utils/removeDuplicateAttachments';
 import SidebarSelector from '../components/SidebarSelector';
 import EditSidebarsLoader from '../components/loaders/EditSidebarsLoader';
+import Metaboxes from '../components/metaboxes';
 import SidebarAttachments from '../components/SidebarAttachments';
 
 const EditSidebar = props => {
   const hasFinishedResolution = useSelect(select => {
-    return select(STORE_KEY).hasFinishedResolution('getSidebars');
+    select(STORE_KEY).getPostTypes();
+    select(STORE_KEY).getTaxonomies();
+
+    return [
+      select(STORE_KEY).hasFinishedResolution('getPostTypes'),
+      select(STORE_KEY).hasFinishedResolution('getTaxonomies'),
+      select(STORE_KEY).hasFinishedResolution('getSidebars')
+    ].every(called => called);
   });
 
-  const defaultSidebars = useSelect(select => {
-    return select(STORE_KEY).getDefaultSidebars();
-  });
+  const defaultSidebars = useSelect(select => select(STORE_KEY).getDefaultSidebars());
 
   let defaultSidebarOptions = Object.keys(defaultSidebars).map(id => {
     return {
@@ -83,9 +90,7 @@ const EditSidebar = props => {
     props.history.push(getScreenLink('create'));
   }
 
-  const sidebar = useSelect(select => {
-    return select(STORE_KEY).getSidebar(sidebarToEdit);
-  });
+  const sidebar = useSelect(select => select(STORE_KEY).getSidebar(sidebarToEdit));
 
   // If no sidebar is passed in the url.
   // Attempt to get the first sidebar to edit.
@@ -98,6 +103,8 @@ const EditSidebar = props => {
   const [sidebarName, setSidebarName] = useState('');
   const [description, setDescription] = useState('');
   const [replacementId, setReplacementId] = useState('');
+
+  const setUniqueAttachments = newAttachments => setAttachments(removeDuplicateAttachments(newAttachments));
 
   // Sync state with saved sidebar.
   useEffect(() => {
@@ -119,16 +126,7 @@ const EditSidebar = props => {
 
           {/* Metaboxes */}
           <div className="col-12 col-md-5 col-xl-3 mb-4 mb-md-0">
-            <Panel className="ecs-metaboxes">
-              <PanelBody title="Pages" initialOpen={true}>
-                <PanelRow>
-                  <PanelRow>Need to put the tab panel in here</PanelRow>
-                </PanelRow>
-              </PanelBody>
-              <PanelBody title="Posts" initialOpen={false}>
-                <PanelRow>Need to put the tab panel in here</PanelRow>
-              </PanelBody>
-            </Panel>
+            <Metaboxes attachments={attachments} setAttachments={setUniqueAttachments} />
           </div>
 
           {/* Sidebar Settings */}
@@ -169,7 +167,8 @@ const EditSidebar = props => {
               {/* Sidebar attachment and settings */}
               <CardBody>
                 <h3>
-                  {__('Sidebar Replacements for:', 'easy-custom-sidebars')} {sidebar.title.rendered}
+                  {__('Sidebar Replacements for:', 'easy-custom-sidebars')}{' '}
+                  {Object.keys(sidebar).length > 0 ? sidebar.title.rendered : ''}
                 </h3>
                 <p>
                   Add items from the column on the left. Please ensure that any items added to this sidebar contain the
@@ -177,12 +176,11 @@ const EditSidebar = props => {
                 </p>
 
                 {/* Attachments. */}
-                <SidebarAttachments attachments={attachments} setAttachments={setAttachments} />
+                <SidebarAttachments attachments={attachments} setAttachments={setUniqueAttachments} />
                 {/* 
                   Sortable.
                   Add attachment to the sidebar.
                   Find out the shape of data.
-                  
                 */}
 
                 <CardDivider className="my-4" />

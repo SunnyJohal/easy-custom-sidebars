@@ -74,7 +74,7 @@ function enqueue_admin_scripts() {
 
 		wp_add_inline_script(
 			'easy-custom-sidebars/admin',
-			'easy_custom_sidebars = { admin_url: "' . admin_url() . '" }',
+			'easy_custom_sidebars = { admin_url: "' . admin_url() . '", num_sidebars: ' . wp_count_posts( 'sidebar_instance' )->publish . ' }',
 			'before'
 		);
 

@@ -48,7 +48,7 @@ export const sidebarsReducer = (state = {}, action) => {
  */
 export const sidebarAttachmentsReducer = (state = {}, action) => {
   switch (action.type) {
-    case 'FETCH_SIDEBAR_ATTACHMENTS':
+    case 'SIDEBAR_ATTACHMENTS_REQUEST':
       return { ...state, [action.payload.id]: action.payload.attachments };
       break;
 
@@ -105,10 +105,75 @@ export const taxonomiesReducer = (state = {}, action) => {
   }
 };
 
+const initialMetaboxState = {
+  posttypes: {},
+  taxonomies: {},
+  categories: {},
+  postCategories: {},
+  users: {},
+  templates: {}
+};
+
+export const metaboxReducer = (state = initialMetaboxState, action) => {
+  switch (action.type) {
+    case 'HYDRATE_POSTTYPE_POSTS':
+      let existingItems = {};
+      const { slug, page, posts, totalItems, totalPages } = action.payload;
+
+      if (slug in state.posttypes && 'itemsByPage' in state.posttypes[slug]) {
+        existingItems = state.posttypes[slug].itemsByPage;
+      }
+
+      let posttypeData = {
+        [slug]: {
+          totalItems,
+          totalPages,
+          itemsByPage: {
+            ...existingItems,
+            [page]: posts
+          }
+        }
+      };
+
+      return {
+        ...state,
+        posttypes: {
+          ...state.posttypes,
+          ...posttypeData
+        }
+      };
+      break;
+
+    case 'HYDRATE_TAXONOMY_TERMS':
+      return state;
+      break;
+
+    case 'HYDRATE_CATEGORIES':
+      return state;
+      break;
+
+    case 'HYDRATE_POST_CATEGORIES':
+      return state;
+      break;
+
+    case 'HYDRATE_USERS':
+      return state;
+      break;
+
+    case 'HYDATE_TEMPLATES':
+      return state;
+      break;
+
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   sidebars: sidebarsReducer,
   sidebarAttachments: sidebarAttachmentsReducer,
   defaultSidebars: defaultSidebarsReducer,
   posttypes: postTypesReducer,
-  taxonomies: taxonomiesReducer
+  taxonomies: taxonomiesReducer,
+  metaboxes: metaboxReducer
 });

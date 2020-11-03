@@ -193,7 +193,7 @@ add_filter(
 
 					if ( $post_type ) {
 						$attachment['title'] = get_the_title( $attachment['id'] );
-						$attachment['label'] = $post_type->labels->singular_name;
+						$attachment['label'] = $post_type->labels->name;
 						$attachment['link']  = get_page_link( $attachment['id'] );
 					}
 				}
@@ -229,7 +229,7 @@ add_filter(
 
 					if ( $term && ! is_wp_error( $term ) ) {
 						$attachment['title'] = $term->name;
-						$attachment['label'] = get_taxonomy( $term->taxonomy )->labels->singular_name;
+						$attachment['label'] = get_taxonomy( $term->taxonomy )->labels->name;
 						$attachment['link']  = get_term_link( $term->term_id );
 					}
 				}

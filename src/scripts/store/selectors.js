@@ -42,14 +42,14 @@ export const getTaxonomies = state => {
   return state.taxonomies || {};
 };
 
-export const getTemplates = state => {};
-
-export const getPostTypePosts = (state, posttype, page) => {
-  console.log('this is firing', posttype, page);
+export const getPostTypePosts = (state, { slug, rest_base, page }) => {
+  return state.metaboxes.posttypes[slug] || {};
 };
 
-export const getTaxonomyTerms = (state, taxonomy, page) => {};
+export const getTaxonomyTerms = (state, { slug, rest_base, page }) => {};
 
 export const getCategories = (state, page) => {};
 
 export const getUsers = (state, page) => {};
+
+export const getTemplates = state => {};

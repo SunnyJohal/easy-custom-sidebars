@@ -7,8 +7,17 @@ import { addQueryArgs } from '@wordpress/url';
 /**
  * Internal dependancies
  */
-import { hydrateSidebars, hydrateDefaultSidebars, hydratePostTypes, hydrateTaxonomies } from './actions';
+import {
+  hydrateSidebars,
+  hydrateDefaultSidebars,
+  hydratePostTypes,
+  hydrateTaxonomies,
+  hydratePostTypePosts
+} from './actions';
 
+/**
+ * Sidebar Retrieval Resolvers
+ */
 export function* getSidebars() {
   const path = addQueryArgs('/wp/v2/easy-custom-sidebars', { per_page: -1, order: 'asc', orderby: 'title' });
   const sidebars = yield apiFetch({ path });
@@ -35,6 +44,9 @@ export function* getDefaultSidebars() {
   return;
 }
 
+/**
+ * Posttype and Taxonomy Resolvers
+ */
 export function* getPostTypes() {
   const path = '/wp/v2/types';
   const posttypes = yield apiFetch({ path });
@@ -53,4 +65,38 @@ export function* getTaxonomies() {
   if (taxonomies) {
     return hydrateTaxonomies(taxonomies);
   }
+
+  return;
 }
+
+/**
+ * Metabox Resolvers
+ */
+export function* getPostTypePosts({ slug, rest_base, page }) {
+  const path = addQueryArgs(`/wp/v2/${rest_base}`, {
+    page,
+    _envelope: 1,
+    _fields: ['id', 'title', 'type', 'link']
+  });
+  const posts = yield apiFetch({ path, method: 'GET' });
+
+  if (posts && 200 === posts.status) {
+    let postsById = {};
+
+    for (let post of posts.body) {
+      postsById[post.id] = post;
+    }
+
+    return hydratePostTypePosts({
+      slug,
+      page,
+      posts: postsById,
+      totalItems: posts.headers['X-WP-Total'],
+      totalPages: posts.headers['X-WP-TotalPages']
+    });
+  }
+
+  return;
+}
+
+export function* getTaxonomyTerms({ slug }) {}

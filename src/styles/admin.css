@@ -23,9 +23,14 @@
   border-color: #e1e4e7;
 }
 
+.ecs-metaboxes .components-spinner {
+  margin: 0;
+}
+
 .ecs-metaboxes .components-panel__body {
   border-top-color: #e1e4e7;
   border-bottom-color: #e1e4e7;
+  overflow: hidden;
 }
 
 .ecs-metaboxes .components-panel__body-title .components-panel__body-toggle {

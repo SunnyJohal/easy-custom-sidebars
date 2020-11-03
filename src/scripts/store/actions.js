@@ -128,7 +128,7 @@ export function* getSidebarAttachments(id) {
   const attachments = yield apiFetch({ path });
 
   return {
-    type: 'FETCH_SIDEBAR_ATTACHMENTS',
+    type: 'SIDEBAR_ATTACHMENTS_REQUEST',
     payload: { id, attachments }
   };
 }
@@ -183,35 +183,95 @@ export const hydrateTaxonomies = taxonomies => {
 };
 
 // @todo: Use body wherevever we have requested the full page.
-export function* getPostTypePosts({ slug, page = 1 }) {
-  const path = addQueryArgs(`/wp/v2/${slug}`, { page, _envelope: 1 });
-
-  const posts = yield apiFetch({ path, method: 'GET' });
-
+export const hydratePostTypePosts = ({ slug, page, posts, totalItems, totalPages }) => {
   return {
-    type: 'FETCH_POSTS',
-    payload: { slug, page, posts }
+    type: 'HYDRATE_POSTTYPE_POSTS',
+    payload: {
+      slug,
+      page,
+      posts,
+      totalItems,
+      totalPages
+    }
   };
-}
+};
 
 // @todo: Use body wherevever we have requested the full page.
 export function* getTaxonomyTerms({ taxonomy, page = 1 }) {
-  const path = addQueryArgs(`/wp/v2/${slug}`, { page, _envelope: 1 });
+  const path = addQueryArgs(`/wp/v2/${taxonomy}`, { page, _envelope: 1 });
+  const terms = yield apiFetch({ path, method: 'GET' });
+
+  return {
+    type: 'TAXONOMY_TERMS_REQUEST',
+    payload: {
+      taxonomy,
+      page,
+      terms: terms.body,
+      totalTerms: terms.headers['X-WP-Total'],
+      totalPages: terms.headers['X-WP-TotalPages']
+    }
+  };
 }
 
 // @todo: Use body wherevever we have requested the full page.
 export function* getCategories({ page = 1 }) {
   const path = addQueryArgs(`/wp/v2/categories`, { page, _envelope: 1 });
+  const categories = yield apiFetch({ path, method: 'GET' });
+
+  return {
+    type: 'CATEGORIES_REQUEST',
+    payload: {
+      page,
+      categories: categories.body,
+      totalCategories: categories.headers['X-WP-Total'],
+      totalPages: categories.headers['X-WP-TotalPages']
+    }
+  };
+}
+
+// @todo: Use body wherevever we have requested the full page.
+export function* getPostCategories({ page = 1 }) {
+  const path = addQueryArgs(`/wp/v2/categories`, { page, _envelope: 1 });
+  const categories = yield apiFetch({ path, method: 'GET' });
+
+  return {
+    type: 'POSTS_CATEGORIES_REQUEST',
+    payload: {
+      page,
+      categories: categories.body,
+      totalCategories: categories.headers['X-WP-Total'],
+      totalPages: categories.headers['X-WP-TotalPages']
+    }
+  };
 }
 
 // @todo: Use body wherevever we have requested the full page.
 export function* getUsers({ page = 1 }) {
   const path = addQueryArgs(`/wp/v2/users`, { page, _envelope: 1 });
+  const users = yield apiFetch({ path, method: 'GET' });
+
+  return {
+    type: 'USERS_REQUEST',
+    payload: {
+      page,
+      users: users.body,
+      totalUsers: users.headers['X-WP-Total'],
+      totalPages: users.headers['X-WP-TotalPages']
+    }
+  };
 }
 
+// @todo: Use body wherevever we have requested the full page.
 export function* getTemplates() {
   // @todo: create custom endpoint.
-  const path = `/wp/v2/easy-custom-sidebars/${id}`;
+  const path = `/easy-custom-sidebars/v1/page-templates`;
+  const templates = yield apiFetch({ path, method: 'GET' });
+  return {
+    type: 'TEMPLATES_REQUEST',
+    payload: {
+      templates
+    }
+  };
 }
 
 // Fields to note:
@@ -223,6 +283,18 @@ export function* getTemplates() {
 
 // X-WP-Total: 50
 // X-WP-TotalPages: 5
+
+// SEARCH EXAMPLE:
+// wp.apiFetch({
+//   path: '/wp/v2/product?_envelope=1&search=shirt',
+//   method: 'GET'
+// }).then((response) => console.log(response));
+
+// A MORE EFFICENT QUERY.
+// wp.apiFetch({
+//   path: '/wp/v2/posts?page=2&_envelope=1&_fields=title,date,id,link',
+//   method: 'GET'
+// }).then((response) => console.log(response));
 
 // Edge cases.
 // Deleted items.

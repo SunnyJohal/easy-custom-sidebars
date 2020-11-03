@@ -30,11 +30,9 @@ import {
  */
 import { STORE_KEY } from '../../store';
 import getScreenLink from '../../utils/getScreenLink';
-import PostTypesMetabox from '../components/metaboxes/PostTypesMetabox';
-import AllCategoryPostsMetabox from '../components/metaboxes/AllCategoryPostsMetabox';
-import TaxonomiesMetabox from '../components/metaboxes/TaxonomiesMetabox';
-import AuthorArchiveMetabox from '../components/metaboxes/AuthorArchiveMetabox';
-import TemplateHierarchyMetabox from '../components/metaboxes/TemplateHierarchyMetabox';
+import removeDuplicateAttachments from '../../utils/removeDuplicateAttachments';
+import CreateSidebarLoader from '../components/loaders/CreateSidebarLoader';
+import Metaboxes from '../components/metaboxes';
 import SidebarAttachments from '../components/SidebarAttachments';
 
 const CreateSidebar = props => {
@@ -44,13 +42,21 @@ const CreateSidebar = props => {
   const [description, setDescription] = useState('');
   const [replacementId, setReplacementId] = useState('');
 
+  const setUniqueAttachments = newAttachments => setAttachments(removeDuplicateAttachments(newAttachments));
+
   const hasFinishedResolution = useSelect(select => {
-    return select(STORE_KEY).hasFinishedResolution('getDefaultSidebars');
+    select(STORE_KEY).getDefaultSidebars();
+    select(STORE_KEY).getPostTypes();
+    select(STORE_KEY).getTaxonomies();
+
+    return [
+      select(STORE_KEY).hasFinishedResolution('getPostTypes'),
+      select(STORE_KEY).hasFinishedResolution('getTaxonomies'),
+      select(STORE_KEY).hasFinishedResolution('getDefaultSidebars')
+    ].every(called => called);
   });
 
-  const defaultSidebars = useSelect(select => {
-    return select(STORE_KEY).getDefaultSidebars();
-  });
+  const defaultSidebars = useSelect(select => select(STORE_KEY).getDefaultSidebars());
 
   let defaultSidebarOptions = Object.keys(defaultSidebars).map(id => {
     return {
@@ -81,7 +87,7 @@ const CreateSidebar = props => {
     return false;
   };
 
-  return (
+  return hasFinishedResolution ? (
     <div>
       <div className="container-fluid p-0">
         <div className="row">
@@ -93,20 +99,17 @@ const CreateSidebar = props => {
               }}
             >
               <Notice className="m-0" status="info" isDismissible={false}>
-                Create your new sidebar replacement below and click the create sidebar button to save your changes.
+                {__(
+                  'Create your new sidebar replacement below and click the create sidebar button to save your changes.',
+                  'easy-custom-sidebars'
+                )}
               </Notice>
             </div>
           </div>
 
           {/* Metaboxes */}
           <div className="col-12 col-md-5 col-xl-3 mb-4 mb-md-0">
-            <Panel className="ecs-metaboxes">
-              <PostTypesMetabox attachments={attachments} setAttachments={setAttachments} />
-              <AllCategoryPostsMetabox attachments={attachments} setAttachments={setAttachments} />
-              <TaxonomiesMetabox attachments={attachments} setAttachments={setAttachments} />
-              <AuthorArchiveMetabox attachments={attachments} setAttachments={setAttachments} />
-              <TemplateHierarchyMetabox attachments={attachments} setAttachments={setAttachments} />
-            </Panel>
+            <Metaboxes attachments={attachments} setAttachments={setUniqueAttachments} />
           </div>
 
           {/* Sidebar Settings */}
@@ -153,7 +156,7 @@ const CreateSidebar = props => {
                 </p>
 
                 {/* Attachments. */}
-                <SidebarAttachments attachments={attachments} setAttachments={setAttachments} />
+                <SidebarAttachments attachments={attachments} setAttachments={setUniqueAttachments} />
 
                 {/* 
                   Sortable.
@@ -224,6 +227,8 @@ const CreateSidebar = props => {
         beforeUnload={true}
       />
     </div>
+  ) : (
+    <CreateSidebarLoader />
   );
 };
 

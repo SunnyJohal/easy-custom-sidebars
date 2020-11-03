@@ -109,7 +109,7 @@ class ECS_Test_Data_Attachments extends WP_UnitTestCase {
 			);
 
 			$this->assertEquals(
-				'Page',
+				'Pages',
 				$attachment['label']
 			);
 
@@ -149,7 +149,7 @@ class ECS_Test_Data_Attachments extends WP_UnitTestCase {
 			);
 
 			$this->assertEquals(
-				'Post',
+				'Posts',
 				$attachment['label']
 			);
 
@@ -328,7 +328,7 @@ class ECS_Test_Data_Attachments extends WP_UnitTestCase {
 				);
 
 				$this->assertEquals(
-					get_taxonomy( $term->taxonomy )->labels->singular_name,
+					get_taxonomy( $term->taxonomy )->labels->name,
 					$attachment['label']
 				);
 

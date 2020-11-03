@@ -20,12 +20,9 @@ import getScreenLink from '../../utils/getScreenLink';
 
 const SidebarSelector = props => {
   const { selectedSidebarId } = props;
-
   const [switchToSidebar, setSwitchToSidebar] = useState(selectedSidebarId);
 
-  const sidebars = useSelect(select => {
-    return select(STORE_KEY).getSidebars();
-  });
+  const sidebars = useSelect(select => select(STORE_KEY).getSidebars());
 
   const allSidebars = Object.keys(sidebars)
     .sort((a, b) => {

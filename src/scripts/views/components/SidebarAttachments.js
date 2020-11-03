@@ -1,25 +1,15 @@
 /**
  * External dependancies
  */
+import uniqWith from 'lodash.uniqwith';
+import isEqual from 'lodash.isequal';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 /**
  * WordPress dependancies
  */
 import { __ } from '@wordpress/i18n';
-import { useSelect, useDispatch } from '@wordpress/data';
-import { useState, useEffect } from '@wordpress/element';
 import { Button, Panel, PanelBody, PanelRow } from '@wordpress/components';
-
-const getAttachments = (count, offset = 0) => {
-  return Array.from({ length: count }, (v, k) => k).map(k => {
-    return {
-      id: `item-${k + offset}-${new Date().getTime()}`,
-      content: `item ${k + offset}`,
-      example: 'This can be anything'
-    };
-  });
-};
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
@@ -31,16 +21,9 @@ const reorder = (list, startIndex, endIndex) => {
 const grid = 8;
 
 const getItemStyle = (isDragging, draggableStyle) => {
-  // Some basic styles to make the items look a bit nicer.
   return {
     userSelect: 'none',
-    // padding: grid * 2,
     margin: `0 0 ${grid}px 0`,
-
-    // Change background color if dragging.
-    background: isDragging ? 'lightgreen' : '',
-
-    // Styles we need to apply on draggables.
     ...draggableStyle
   };
 };
@@ -48,9 +31,10 @@ const getItemStyle = (isDragging, draggableStyle) => {
 const getListStyle = isDraggingOver => {
   return {
     background: isDraggingOver ? '#fafafa' : '',
-    // padding: grid,
+    padding: grid,
     width: '100%',
-    maxWidth: 420
+    maxWidth: 420,
+    marginLeft: `-${grid}px`
   };
 };
 
@@ -68,7 +52,7 @@ const SidebarAttachments = props => {
 
   return (
     <div className="ecs-sidebar-attachments">
-      <Button
+      {/* <Button
         className="mb-2"
         isPrimary
         onClick={() => {
@@ -76,7 +60,7 @@ const SidebarAttachments = props => {
         }}
       >
         Add New Item
-      </Button>
+      </Button> */}
       <div className="ecs-sidebar-attachments__container d-flex">
         {/* Flat list. */}
         <DragDropContext className="ecs-sidebar-attachments__drag-drop-context" onDragEnd={reorderAttachments}>
@@ -89,7 +73,7 @@ const SidebarAttachments = props => {
                 {...provided.droppableProps}
               >
                 {attachments.map((item, index) => (
-                  <Draggable key={item.id} draggableId={item.id} index={index}>
+                  <Draggable key={index} draggableId={`item-${index}`} index={index}>
                     {(provided, snapshot) => (
                       <div
                         className="ecs-sidebar-attachments__drag-drop-item"
@@ -99,16 +83,9 @@ const SidebarAttachments = props => {
                         style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
                       >
                         <Panel>
-                          <PanelBody title={`${item.content} (Type)`} initialOpen={false} icon="sort">
+                          <PanelBody title={`${item.title} (${item.label})`} initialOpen={false} icon="sort">
                             <PanelRow>
-                              <Button
-                                isLink
-                                onClick={() => {
-                                  const allAttachments = [...attachments];
-                                  allAttachments.splice(index, 1);
-                                  setAttachments(allAttachments);
-                                }}
-                              >
+                              <Button isLink href={item.link} target="_blank">
                                 {__('Visit Link', 'easy-custom-sidebars')}
                               </Button>
                               <Button

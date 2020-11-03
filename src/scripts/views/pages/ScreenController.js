@@ -50,9 +50,10 @@ function ScreenController() {
       break;
 
     default:
+      let defaultRedirect = easy_custom_sidebars.num_sidebars > 0 ? 'edit' : 'create';
       return (
         <div>
-          <Redirect to={`${getScreenLink('edit')}`} />
+          <Redirect to={`${getScreenLink(defaultRedirect)}`} />
         </div>
       );
       break;
