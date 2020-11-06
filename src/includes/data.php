@@ -86,14 +86,14 @@ function register_metadata_for_sidebars() {
 		'sidebar_attachments',
 		[
 			'object_subtype' => 'sidebar_instance',
-			'type'           => 'string',
+			'type'           => 'array',
 			'single'         => true,
 			'show_in_rest'   => [
 				'schema' => [
 					'items' => [
 						'type'       => 'object',
 						'properties' => [
-							'id'              => [ 'type' => 'string' ],
+							'id'              => [ 'type' => 'number' ],
 							'data_type'       => [ 'type' => 'string' ],
 							'attachment_type' => [ 'type' => 'string' ],
 						],

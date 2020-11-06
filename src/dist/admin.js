@@ -21266,7 +21266,7 @@ react_dom__WEBPACK_IMPORTED_MODULE_2___default.a.render(Object(_wordpress_elemen
 /*!**************************************!*\
   !*** ./src/scripts/store/actions.js ***!
   \**************************************/
-/*! exports provided: hydrateSidebars, createSidebar, updateSidebar, updateSidebarReplacement, deleteSidebar, deleteAllSidebars, getSidebarAttachments, addSidebarAttachment, deleteSidebarAttachment, hydrateDefaultSidebars, hydratePostTypes, hydrateTaxonomies, hydratePostTypePosts, getTaxonomyTerms, getCategories, getPostCategories, getUsers, getTemplates */
+/*! exports provided: hydrateSidebars, createSidebar, updateSidebar, updateSidebarReplacement, deleteSidebar, deleteAllSidebars, hydrateSidebarAttachments, hydrateDefaultSidebars, hydratePostTypes, hydrateTaxonomies, hydratePostTypePosts, getTaxonomyTerms, getCategories, getPostCategories, getUsers, getTemplates */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21277,9 +21277,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateSidebarReplacement", function() { return updateSidebarReplacement; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteSidebar", function() { return deleteSidebar; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteAllSidebars", function() { return deleteAllSidebars; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSidebarAttachments", function() { return getSidebarAttachments; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addSidebarAttachment", function() { return addSidebarAttachment; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteSidebarAttachment", function() { return deleteSidebarAttachment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hydrateSidebarAttachments", function() { return hydrateSidebarAttachments; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hydrateDefaultSidebars", function() { return hydrateDefaultSidebars; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hydratePostTypes", function() { return hydratePostTypes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hydrateTaxonomies", function() { return hydrateTaxonomies; });
@@ -21295,7 +21293,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_data_controls__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data_controls__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/url */ "@wordpress/url");
 /* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_url__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store */ "./src/scripts/store/index.js");
 
 
 var _marked = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(createSidebar),
@@ -21303,20 +21300,14 @@ var _marked = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0
     _marked3 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(updateSidebarReplacement),
     _marked4 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(deleteSidebar),
     _marked5 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(deleteAllSidebars),
-    _marked6 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(getSidebarAttachments),
-    _marked7 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(getTaxonomyTerms),
-    _marked8 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(getCategories),
-    _marked9 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(getPostCategories),
-    _marked10 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(getUsers),
-    _marked11 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(getTemplates);
+    _marked6 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(getTaxonomyTerms),
+    _marked7 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(getCategories),
+    _marked8 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(getPostCategories),
+    _marked9 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(getUsers),
+    _marked10 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(getTemplates);
 
 /**
  * WordPress dependencies.
- */
-
-
-/**
- * Internal dependancies
  */
 
 
@@ -21340,34 +21331,47 @@ var hydrateSidebars = function hydrateSidebars(sidebars) {
  */
 
 function createSidebar(_ref) {
-  var name, attachments, settings, path, sidebar;
+  var name, attachments, description, replacementId, sidebarAttachments, path, sidebar;
   return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function createSidebar$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
-          name = _ref.name, attachments = _ref.attachments, settings = _ref.settings;
+          name = _ref.name, attachments = _ref.attachments, description = _ref.description, replacementId = _ref.replacementId;
+          sidebarAttachments = attachments.map(function (attachment) {
+            return {
+              id: attachment.id,
+              data_type: attachment.data_type,
+              attachment_type: attachment.attachment_type
+            };
+          });
           path = '/wp/v2/easy-custom-sidebars';
-          _context.next = 4;
+          _context.next = 5;
           return Object(_wordpress_data_controls__WEBPACK_IMPORTED_MODULE_1__["apiFetch"])({
             path: path,
             method: 'POST',
             data: {
               title: name,
-              status: 'publish'
+              status: 'publish',
+              meta: {
+                sidebar_replacement_id: replacementId,
+                sidebar_description: description,
+                sidebar_attachments: sidebarAttachments
+              }
             }
           });
 
-        case 4:
+        case 5:
           sidebar = _context.sent;
           return _context.abrupt("return", {
             type: 'CREATE_SIDEBAR',
             payload: {
               id: sidebar.id,
-              sidebar: sidebar
+              sidebar: sidebar,
+              attachments: attachments
             }
           });
 
-        case 6:
+        case 7:
         case "end":
           return _context.stop();
       }
@@ -21380,36 +21384,46 @@ function createSidebar(_ref) {
  */
 
 function updateSidebar(_ref2) {
-  var id, name, attachments, replacementId, path, sidebar;
+  var id, name, attachments, replacementId, sidebarAttachments, path, sidebar;
   return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function updateSidebar$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
           id = _ref2.id, name = _ref2.name, attachments = _ref2.attachments, replacementId = _ref2.replacementId;
+          sidebarAttachments = attachments.map(function (attachment) {
+            return {
+              id: attachment.id,
+              data_type: attachment.data_type,
+              attachment_type: attachment.attachment_type
+            };
+          });
           path = "/wp/v2/easy-custom-sidebars/".concat(id);
-          _context2.next = 4;
+          _context2.next = 5;
           return Object(_wordpress_data_controls__WEBPACK_IMPORTED_MODULE_1__["apiFetch"])({
             path: path,
             method: 'POST',
             data: {
               title: name,
               meta: {
-                sidebar_replacement_id: replacementId
+                sidebar_replacement_id: replacementId,
+                sidebar_description: description,
+                sidebar_attachments: sidebarAttachments
               }
             }
           });
 
-        case 4:
+        case 5:
           sidebar = _context2.sent;
           return _context2.abrupt("return", {
             type: 'UPDATE_SIDEBAR',
             payload: {
               id: sidebar.id,
-              sidebar: sidebar
+              sidebar: sidebar,
+              attachments: attachments
             }
           });
 
-        case 6:
+        case 7:
         case "end":
           return _context2.stop();
       }
@@ -21527,54 +21541,16 @@ function deleteAllSidebars() {
   }, _marked5);
 }
 /**
- * Get Sidebar Attachments
+ * Sidebar Attachments Actions
  * @param {int} id Post ID of sidebar.
  */
 
-function getSidebarAttachments(id) {
-  var path, attachments;
-  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function getSidebarAttachments$(_context6) {
-    while (1) {
-      switch (_context6.prev = _context6.next) {
-        case 0:
-          path = "/easy-custom-sidebars/v1/attachments/".concat(id);
-          _context6.next = 3;
-          return Object(_wordpress_data_controls__WEBPACK_IMPORTED_MODULE_1__["apiFetch"])({
-            path: path
-          });
-
-        case 3:
-          attachments = _context6.sent;
-          return _context6.abrupt("return", {
-            type: 'SIDEBAR_ATTACHMENTS_REQUEST',
-            payload: {
-              id: id,
-              attachments: attachments
-            }
-          });
-
-        case 5:
-        case "end":
-          return _context6.stop();
-      }
-    }
-  }, _marked6);
-}
-var addSidebarAttachment = function addSidebarAttachment(id, attachment) {
+var hydrateSidebarAttachments = function hydrateSidebarAttachments(id, attachments) {
   return {
-    type: 'ADD_SIDEBAR_ATTACHMENT',
+    type: 'HYDRATE_SIDEBAR_ATTACHMENTS',
     payload: {
       id: id,
-      attachment: attachment
-    }
-  };
-};
-var deleteSidebarAttachment = function deleteSidebarAttachment(id, attachment) {
-  return {
-    type: 'DELETE_SIDEBAR_ATTACHMENT',
-    payload: {
-      id: id,
-      attachment: attachment
+      attachments: attachments
     }
   };
 };
@@ -21629,29 +21605,28 @@ var hydratePostTypePosts = function hydratePostTypePosts(_ref4) {
       totalPages: totalPages
     }
   };
-}; // @todo: Use body wherevever we have requested the full page.
-
+};
 function getTaxonomyTerms(_ref5) {
   var taxonomy, _ref5$page, page, path, terms;
 
-  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function getTaxonomyTerms$(_context7) {
+  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function getTaxonomyTerms$(_context6) {
     while (1) {
-      switch (_context7.prev = _context7.next) {
+      switch (_context6.prev = _context6.next) {
         case 0:
           taxonomy = _ref5.taxonomy, _ref5$page = _ref5.page, page = _ref5$page === void 0 ? 1 : _ref5$page;
           path = Object(_wordpress_url__WEBPACK_IMPORTED_MODULE_2__["addQueryArgs"])("/wp/v2/".concat(taxonomy), {
             page: page,
             _envelope: 1
           });
-          _context7.next = 4;
+          _context6.next = 4;
           return Object(_wordpress_data_controls__WEBPACK_IMPORTED_MODULE_1__["apiFetch"])({
             path: path,
             method: 'GET'
           });
 
         case 4:
-          terms = _context7.sent;
-          return _context7.abrupt("return", {
+          terms = _context6.sent;
+          return _context6.abrupt("return", {
             type: 'TAXONOMY_TERMS_REQUEST',
             payload: {
               taxonomy: taxonomy,
@@ -21664,20 +21639,56 @@ function getTaxonomyTerms(_ref5) {
 
         case 6:
         case "end":
+          return _context6.stop();
+      }
+    }
+  }, _marked6);
+}
+function getCategories(_ref6) {
+  var _ref6$page, page, path, categories;
+
+  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function getCategories$(_context7) {
+    while (1) {
+      switch (_context7.prev = _context7.next) {
+        case 0:
+          _ref6$page = _ref6.page, page = _ref6$page === void 0 ? 1 : _ref6$page;
+          path = Object(_wordpress_url__WEBPACK_IMPORTED_MODULE_2__["addQueryArgs"])("/wp/v2/categories", {
+            page: page,
+            _envelope: 1
+          });
+          _context7.next = 4;
+          return Object(_wordpress_data_controls__WEBPACK_IMPORTED_MODULE_1__["apiFetch"])({
+            path: path,
+            method: 'GET'
+          });
+
+        case 4:
+          categories = _context7.sent;
+          return _context7.abrupt("return", {
+            type: 'CATEGORIES_REQUEST',
+            payload: {
+              page: page,
+              categories: categories.body,
+              totalCategories: categories.headers['X-WP-Total'],
+              totalPages: categories.headers['X-WP-TotalPages']
+            }
+          });
+
+        case 6:
+        case "end":
           return _context7.stop();
       }
     }
   }, _marked7);
-} // @todo: Use body wherevever we have requested the full page.
+}
+function getPostCategories(_ref7) {
+  var _ref7$page, page, path, categories;
 
-function getCategories(_ref6) {
-  var _ref6$page, page, path, categories;
-
-  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function getCategories$(_context8) {
+  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function getPostCategories$(_context8) {
     while (1) {
       switch (_context8.prev = _context8.next) {
         case 0:
-          _ref6$page = _ref6.page, page = _ref6$page === void 0 ? 1 : _ref6$page;
+          _ref7$page = _ref7.page, page = _ref7$page === void 0 ? 1 : _ref7$page;
           path = Object(_wordpress_url__WEBPACK_IMPORTED_MODULE_2__["addQueryArgs"])("/wp/v2/categories", {
             page: page,
             _envelope: 1
@@ -21691,7 +21702,7 @@ function getCategories(_ref6) {
         case 4:
           categories = _context8.sent;
           return _context8.abrupt("return", {
-            type: 'CATEGORIES_REQUEST',
+            type: 'POSTS_CATEGORIES_REQUEST',
             payload: {
               page: page,
               categories: categories.body,
@@ -21706,17 +21717,16 @@ function getCategories(_ref6) {
       }
     }
   }, _marked8);
-} // @todo: Use body wherevever we have requested the full page.
+}
+function getUsers(_ref8) {
+  var _ref8$page, page, path, users;
 
-function getPostCategories(_ref7) {
-  var _ref7$page, page, path, categories;
-
-  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function getPostCategories$(_context9) {
+  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function getUsers$(_context9) {
     while (1) {
       switch (_context9.prev = _context9.next) {
         case 0:
-          _ref7$page = _ref7.page, page = _ref7$page === void 0 ? 1 : _ref7$page;
-          path = Object(_wordpress_url__WEBPACK_IMPORTED_MODULE_2__["addQueryArgs"])("/wp/v2/categories", {
+          _ref8$page = _ref8.page, page = _ref8$page === void 0 ? 1 : _ref8$page;
+          path = Object(_wordpress_url__WEBPACK_IMPORTED_MODULE_2__["addQueryArgs"])("/wp/v2/users", {
             page: page,
             _envelope: 1
           });
@@ -21727,46 +21737,8 @@ function getPostCategories(_ref7) {
           });
 
         case 4:
-          categories = _context9.sent;
+          users = _context9.sent;
           return _context9.abrupt("return", {
-            type: 'POSTS_CATEGORIES_REQUEST',
-            payload: {
-              page: page,
-              categories: categories.body,
-              totalCategories: categories.headers['X-WP-Total'],
-              totalPages: categories.headers['X-WP-TotalPages']
-            }
-          });
-
-        case 6:
-        case "end":
-          return _context9.stop();
-      }
-    }
-  }, _marked9);
-} // @todo: Use body wherevever we have requested the full page.
-
-function getUsers(_ref8) {
-  var _ref8$page, page, path, users;
-
-  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function getUsers$(_context10) {
-    while (1) {
-      switch (_context10.prev = _context10.next) {
-        case 0:
-          _ref8$page = _ref8.page, page = _ref8$page === void 0 ? 1 : _ref8$page;
-          path = Object(_wordpress_url__WEBPACK_IMPORTED_MODULE_2__["addQueryArgs"])("/wp/v2/users", {
-            page: page,
-            _envelope: 1
-          });
-          _context10.next = 4;
-          return Object(_wordpress_data_controls__WEBPACK_IMPORTED_MODULE_1__["apiFetch"])({
-            path: path,
-            method: 'GET'
-          });
-
-        case 4:
-          users = _context10.sent;
-          return _context10.abrupt("return", {
             type: 'USERS_REQUEST',
             payload: {
               page: page,
@@ -21778,29 +21750,29 @@ function getUsers(_ref8) {
 
         case 6:
         case "end":
-          return _context10.stop();
+          return _context9.stop();
       }
     }
-  }, _marked10);
+  }, _marked9);
 } // @todo: Use body wherevever we have requested the full page.
 
 function getTemplates() {
   var path, templates;
-  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function getTemplates$(_context11) {
+  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function getTemplates$(_context10) {
     while (1) {
-      switch (_context11.prev = _context11.next) {
+      switch (_context10.prev = _context10.next) {
         case 0:
           // @todo: create custom endpoint.
           path = "/easy-custom-sidebars/v1/page-templates";
-          _context11.next = 3;
+          _context10.next = 3;
           return Object(_wordpress_data_controls__WEBPACK_IMPORTED_MODULE_1__["apiFetch"])({
             path: path,
             method: 'GET'
           });
 
         case 3:
-          templates = _context11.sent;
-          return _context11.abrupt("return", {
+          templates = _context10.sent;
+          return _context10.abrupt("return", {
             type: 'TEMPLATES_REQUEST',
             payload: {
               templates: templates
@@ -21809,10 +21781,10 @@ function getTemplates() {
 
         case 5:
         case "end":
-          return _context11.stop();
+          return _context10.stop();
       }
     }
-  }, _marked11);
+  }, _marked10);
 } // Fields to note:
 // Total pages.
 // Current page.
@@ -21970,7 +21942,15 @@ var sidebarAttachmentsReducer = function sidebarAttachmentsReducer() {
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    case 'SIDEBAR_ATTACHMENTS_REQUEST':
+    case 'HYDRATE_SIDEBAR_ATTACHMENTS':
+      return _objectSpread(_objectSpread({}, state), {}, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, action.payload.id, action.payload.attachments));
+      break;
+
+    case 'CREATE_SIDEBAR':
+      return _objectSpread(_objectSpread({}, state), {}, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, action.payload.id, action.payload.attachments));
+      break;
+
+    case 'UPDATE_SIDEBAR':
       return _objectSpread(_objectSpread({}, state), {}, _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({}, action.payload.id, action.payload.attachments));
       break;
 
@@ -22110,13 +22090,14 @@ var metaboxReducer = function metaboxReducer() {
 /*!****************************************!*\
   !*** ./src/scripts/store/resolvers.js ***!
   \****************************************/
-/*! exports provided: getSidebars, getDefaultSidebars, getPostTypes, getTaxonomies, getPostTypePosts, getTaxonomyTerms */
+/*! exports provided: getSidebars, getDefaultSidebars, getAttachmentsForSidebar, getPostTypes, getTaxonomies, getPostTypePosts, getTaxonomyTerms */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSidebars", function() { return getSidebars; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDefaultSidebars", function() { return getDefaultSidebars; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAttachmentsForSidebar", function() { return getAttachmentsForSidebar; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPostTypes", function() { return getPostTypes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTaxonomies", function() { return getTaxonomies; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPostTypePosts", function() { return getPostTypePosts; });
@@ -22132,10 +22113,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var _marked = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(getSidebars),
     _marked2 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(getDefaultSidebars),
-    _marked3 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(getPostTypes),
-    _marked4 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(getTaxonomies),
-    _marked5 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(getPostTypePosts),
-    _marked6 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(getTaxonomyTerms);
+    _marked3 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(getAttachmentsForSidebar),
+    _marked4 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(getPostTypes),
+    _marked5 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(getTaxonomies),
+    _marked6 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(getPostTypePosts),
+    _marked7 = /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(getTaxonomyTerms);
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
@@ -22167,7 +22149,8 @@ function getSidebars() {
           path = Object(_wordpress_url__WEBPACK_IMPORTED_MODULE_2__["addQueryArgs"])('/wp/v2/easy-custom-sidebars', {
             per_page: -1,
             order: 'asc',
-            orderby: 'title'
+            orderby: 'title',
+            _fields: ['id', 'title', 'meta']
           });
           _context.next = 3;
           return Object(_wordpress_data_controls__WEBPACK_IMPORTED_MODULE_1__["apiFetch"])({
@@ -22241,62 +22224,75 @@ function getDefaultSidebars() {
   }, _marked2);
 }
 /**
- * Posttype and Taxonomy Resolvers
+ * Sidebar Attachment Resolvers
+ * @param {*} name
  */
 
-function getPostTypes() {
-  var path, posttypes;
-  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function getPostTypes$(_context3) {
+function getAttachmentsForSidebar(id) {
+  var path, attachments;
+  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function getAttachmentsForSidebar$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
-          path = '/wp/v2/types';
-          _context3.next = 3;
+          if (id) {
+            _context3.next = 2;
+            break;
+          }
+
+          return _context3.abrupt("return");
+
+        case 2:
+          path = "easy-custom-sidebars/v1/attachments/".concat(id);
+          _context3.next = 5;
           return Object(_wordpress_data_controls__WEBPACK_IMPORTED_MODULE_1__["apiFetch"])({
             path: path
           });
 
-        case 3:
-          posttypes = _context3.sent;
+        case 5:
+          attachments = _context3.sent;
 
-          if (!posttypes) {
-            _context3.next = 6;
+          if (!attachments) {
+            _context3.next = 8;
             break;
           }
 
-          return _context3.abrupt("return", Object(_actions__WEBPACK_IMPORTED_MODULE_3__["hydratePostTypes"])(posttypes));
+          return _context3.abrupt("return", Object(_actions__WEBPACK_IMPORTED_MODULE_3__["hydrateSidebarAttachments"])(id, attachments));
 
-        case 6:
+        case 8:
           return _context3.abrupt("return");
 
-        case 7:
+        case 9:
         case "end":
           return _context3.stop();
       }
     }
   }, _marked3);
 }
-function getTaxonomies() {
-  var path, taxonomies;
-  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function getTaxonomies$(_context4) {
+/**
+ * Posttype and Taxonomy Resolvers
+ */
+
+function getPostTypes() {
+  var path, posttypes;
+  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function getPostTypes$(_context4) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
-          path = '/wp/v2/taxonomies';
+          path = '/wp/v2/types';
           _context4.next = 3;
           return Object(_wordpress_data_controls__WEBPACK_IMPORTED_MODULE_1__["apiFetch"])({
             path: path
           });
 
         case 3:
-          taxonomies = _context4.sent;
+          posttypes = _context4.sent;
 
-          if (!taxonomies) {
+          if (!posttypes) {
             _context4.next = 6;
             break;
           }
 
-          return _context4.abrupt("return", Object(_actions__WEBPACK_IMPORTED_MODULE_3__["hydrateTaxonomies"])(taxonomies));
+          return _context4.abrupt("return", Object(_actions__WEBPACK_IMPORTED_MODULE_3__["hydratePostTypes"])(posttypes));
 
         case 6:
           return _context4.abrupt("return");
@@ -22308,6 +22304,38 @@ function getTaxonomies() {
     }
   }, _marked4);
 }
+function getTaxonomies() {
+  var path, taxonomies;
+  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function getTaxonomies$(_context5) {
+    while (1) {
+      switch (_context5.prev = _context5.next) {
+        case 0:
+          path = '/wp/v2/taxonomies';
+          _context5.next = 3;
+          return Object(_wordpress_data_controls__WEBPACK_IMPORTED_MODULE_1__["apiFetch"])({
+            path: path
+          });
+
+        case 3:
+          taxonomies = _context5.sent;
+
+          if (!taxonomies) {
+            _context5.next = 6;
+            break;
+          }
+
+          return _context5.abrupt("return", Object(_actions__WEBPACK_IMPORTED_MODULE_3__["hydrateTaxonomies"])(taxonomies));
+
+        case 6:
+          return _context5.abrupt("return");
+
+        case 7:
+        case "end":
+          return _context5.stop();
+      }
+    }
+  }, _marked5);
+}
 /**
  * Metabox Resolvers
  */
@@ -22315,27 +22343,30 @@ function getTaxonomies() {
 function getPostTypePosts(_ref) {
   var slug, rest_base, page, path, posts, postsById, _iterator2, _step2, post;
 
-  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function getPostTypePosts$(_context5) {
+  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function getPostTypePosts$(_context6) {
     while (1) {
-      switch (_context5.prev = _context5.next) {
+      switch (_context6.prev = _context6.next) {
         case 0:
           slug = _ref.slug, rest_base = _ref.rest_base, page = _ref.page;
           path = Object(_wordpress_url__WEBPACK_IMPORTED_MODULE_2__["addQueryArgs"])("/wp/v2/".concat(rest_base), {
             page: page,
+            per_page: 10,
+            order: 'asc',
+            orderby: 'title',
             _envelope: 1,
             _fields: ['id', 'title', 'type', 'link']
           });
-          _context5.next = 4;
+          _context6.next = 4;
           return Object(_wordpress_data_controls__WEBPACK_IMPORTED_MODULE_1__["apiFetch"])({
             path: path,
             method: 'GET'
           });
 
         case 4:
-          posts = _context5.sent;
+          posts = _context6.sent;
 
           if (!(posts && 200 === posts.status)) {
-            _context5.next = 10;
+            _context6.next = 10;
             break;
           }
 
@@ -22353,7 +22384,7 @@ function getPostTypePosts(_ref) {
             _iterator2.f();
           }
 
-          return _context5.abrupt("return", Object(_actions__WEBPACK_IMPORTED_MODULE_3__["hydratePostTypePosts"])({
+          return _context6.abrupt("return", Object(_actions__WEBPACK_IMPORTED_MODULE_3__["hydratePostTypePosts"])({
             slug: slug,
             page: page,
             posts: postsById,
@@ -22362,29 +22393,29 @@ function getPostTypePosts(_ref) {
           }));
 
         case 10:
-          return _context5.abrupt("return");
+          return _context6.abrupt("return");
 
         case 11:
-        case "end":
-          return _context5.stop();
-      }
-    }
-  }, _marked5);
-}
-function getTaxonomyTerms(_ref2) {
-  var slug;
-  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function getTaxonomyTerms$(_context6) {
-    while (1) {
-      switch (_context6.prev = _context6.next) {
-        case 0:
-          slug = _ref2.slug;
-
-        case 1:
         case "end":
           return _context6.stop();
       }
     }
   }, _marked6);
+}
+function getTaxonomyTerms(_ref2) {
+  var slug;
+  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function getTaxonomyTerms$(_context7) {
+    while (1) {
+      switch (_context7.prev = _context7.next) {
+        case 0:
+          slug = _ref2.slug;
+
+        case 1:
+        case "end":
+          return _context7.stop();
+      }
+    }
+  }, _marked7);
 }
 
 /***/ }),
@@ -22393,7 +22424,7 @@ function getTaxonomyTerms(_ref2) {
 /*!****************************************!*\
   !*** ./src/scripts/store/selectors.js ***!
   \****************************************/
-/*! exports provided: getSidebars, getSidebar, getAttachmentsForSidebar, getDefaultSidebars, getPostTypes, getTaxonomies, getPostTypePosts, getTaxonomyTerms, getCategories, getUsers, getTemplates */
+/*! exports provided: getSidebars, getSidebar, getAttachmentsForSidebar, getDefaultSidebars, getPostTypes, getTaxonomies, getPostTypePosts, getTaxonomyTerms, getCategories, getPostCategories, getUsers, getTemplates */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -22407,6 +22438,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPostTypePosts", function() { return getPostTypePosts; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTaxonomyTerms", function() { return getTaxonomyTerms; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCategories", function() { return getCategories; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPostCategories", function() { return getPostCategories; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUsers", function() { return getUsers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTemplates", function() { return getTemplates; });
 // the selector returns a value from the state using the arguments provided.
@@ -22427,7 +22459,7 @@ var getSidebar = function getSidebar(state, id) {
  */
 
 var getAttachmentsForSidebar = function getAttachmentsForSidebar(state, id) {
-  return state.attachments[id] || [];
+  return state.sidebarAttachments[id] || [];
 };
 /**
  * Default Sidebar Selectors
@@ -22457,10 +22489,20 @@ var getTaxonomyTerms = function getTaxonomyTerms(state, _ref2) {
   var slug = _ref2.slug,
       rest_base = _ref2.rest_base,
       page = _ref2.page;
+  return state.metaboxes.taxonomies[slug] || {};
 };
-var getCategories = function getCategories(state, page) {};
-var getUsers = function getUsers(state, page) {};
-var getTemplates = function getTemplates(state) {};
+var getCategories = function getCategories(state, page) {
+  return state.metaboxes.categories || {};
+};
+var getPostCategories = function getPostCategories(state, page) {
+  return state.metaboxes.postCategories || {};
+};
+var getUsers = function getUsers(state, page) {
+  return state.metaboxes.users || {};
+};
+var getTemplates = function getTemplates(state) {
+  return state.metaboxes.templates || {};
+};
 
 /***/ }),
 
@@ -22547,6 +22589,38 @@ var removeDuplicateAttachments = function removeDuplicateAttachments(attachments
 
 /***/ }),
 
+/***/ "./src/scripts/utils/sortItemsByTitle.js":
+/*!***********************************************!*\
+  !*** ./src/scripts/utils/sortItemsByTitle.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var sortItemsByTitle = function sortItemsByTitle(items) {
+  return Object.keys(items).map(function (id) {
+    return items[id];
+  }).sort(function (a, b) {
+    var firstTitle = a.title.rendered.toUpperCase();
+    var secondTitle = b.title.rendered.toUpperCase();
+
+    if (firstTitle < secondTitle) {
+      return -1;
+    }
+
+    if (firstTitle > secondTitle) {
+      return 1;
+    }
+
+    return 0;
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (sortItemsByTitle);
+
+/***/ }),
+
 /***/ "./src/scripts/views/components/Nav.js":
 /*!*********************************************!*\
   !*** ./src/scripts/views/components/Nav.js ***!
@@ -22561,12 +22635,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/url */ "@wordpress/url");
-/* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_url__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _utils_getScreenLink__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../utils/getScreenLink */ "./src/scripts/utils/getScreenLink.js");
-/* harmony import */ var _utils_getQueryFromUrl__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../utils/getQueryFromUrl */ "./src/scripts/utils/getQueryFromUrl.js");
+/* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/url */ "@wordpress/url");
+/* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_url__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _utils_getScreenLink__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/getScreenLink */ "./src/scripts/utils/getScreenLink.js");
 
 
 /**
@@ -22579,16 +22650,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 /**
  * Internal dependances
  */
 
 
 
-
 var _isActive = function isActive(match, location, screen) {
-  return Object(_wordpress_url__WEBPACK_IMPORTED_MODULE_4__["getQueryArg"])(location.search, 'screen') === screen;
+  return Object(_wordpress_url__WEBPACK_IMPORTED_MODULE_3__["getQueryArg"])(location.search, 'screen') === screen;
 }; // Modify the edit link.
 
 
@@ -22598,26 +22667,26 @@ var Nav = function Nav(props) {
   }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Sidebars', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
     className: "page-title-action hide-if-no-customize ml-2",
     href: "#"
-  }, "Manage with Live Preview"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("hr", {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Manage with Live Preview', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("hr", {
     className: "wp-header-end"
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "components-tab-panel__tabs my-3"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-    to: Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_5__["default"])('create'),
+    to: Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_4__["default"])('create'),
     isActive: function isActive(match, location) {
       return _isActive(match, location, 'create');
     },
     className: "components-button components-tab-panel__tabs-item",
     activeClassName: "is-active"
   }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Create Sidebar', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-    to: Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_5__["default"])('edit'),
+    to: Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_4__["default"])('edit'),
     isActive: function isActive(match, location) {
       return _isActive(match, location, 'edit');
     },
     className: "components-button components-tab-panel__tabs-item",
     activeClassName: "is-active"
   }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Edit Sidebar', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-    to: Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_5__["default"])('manage'),
+    to: Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_4__["default"])('manage'),
     isActive: function isActive(match, location) {
       return _isActive(match, location, 'manage');
     },
@@ -22649,15 +22718,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var lodash_uniqwith__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lodash.uniqwith */ "./node_modules/lodash.uniqwith/index.js");
-/* harmony import */ var lodash_uniqwith__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(lodash_uniqwith__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var lodash_isequal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash.isequal */ "./node_modules/lodash.isequal/index.js");
-/* harmony import */ var lodash_isequal__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(lodash_isequal__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-beautiful-dnd */ "./node_modules/react-beautiful-dnd/dist/react-beautiful-dnd.esm.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-beautiful-dnd */ "./node_modules/react-beautiful-dnd/dist/react-beautiful-dnd.esm.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__);
 
 
 
@@ -22671,8 +22736,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 /**
  * External dependancies
  */
-
-
 
 /**
  * WordPress dependancies
@@ -22694,7 +22757,7 @@ var reorder = function reorder(list, startIndex, endIndex) {
 
 var grid = 8;
 
-var getItemStyle = function getItemStyle(isDragging, draggableStyle) {
+var getItemStyle = function getItemStyle(_, draggableStyle) {
   return _objectSpread({
     userSelect: 'none',
     margin: "0 0 ".concat(grid, "px 0")
@@ -22731,10 +22794,10 @@ var SidebarAttachments = function SidebarAttachments(props) {
     className: "ecs-sidebar-attachments"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", {
     className: "ecs-sidebar-attachments__container d-flex"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_7__["DragDropContext"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_5__["DragDropContext"], {
     className: "ecs-sidebar-attachments__drag-drop-context",
     onDragEnd: reorderAttachments
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_7__["Droppable"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_5__["Droppable"], {
     droppableId: "ecs-sidebar-attachments"
   }, function (provided, snapshot) {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])("div", _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
@@ -22742,7 +22805,7 @@ var SidebarAttachments = function SidebarAttachments(props) {
       ref: provided.innerRef,
       style: getListStyle(snapshot.isDraggingOver)
     }, provided.droppableProps), attachments.map(function (item, index) {
-      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_7__["Draggable"], {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_5__["Draggable"], {
         key: index,
         draggableId: "item-".concat(index),
         index: index
@@ -22752,15 +22815,15 @@ var SidebarAttachments = function SidebarAttachments(props) {
           ref: provided.innerRef
         }, provided.draggableProps, provided.dragHandleProps, {
           style: getItemStyle(snapshot.isDragging, provided.draggableProps.style)
-        }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Panel"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["PanelBody"], {
-          title: "".concat(item.title, " (").concat(item.label, ")"),
+        }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["Panel"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["PanelBody"], {
+          title: "".concat(item.title ? item.title : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('(No Title)'), " (").concat(item.label, ")"),
           initialOpen: false,
           icon: "sort"
-        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["PanelRow"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Button"], {
+        }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["PanelRow"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["Button"], {
           isLink: true,
           href: item.link,
           target: "_blank"
-        }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__["__"])('Visit Link', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Button"], {
+        }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('Visit Link', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["Button"], {
           isDestructive: true,
           onClick: function onClick() {
             var allAttachments = _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(attachments);
@@ -22768,16 +22831,16 @@ var SidebarAttachments = function SidebarAttachments(props) {
             allAttachments.splice(index, 1);
             setAttachments(allAttachments);
           }
-        }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__["__"])('Delete', 'easy-custom-sidebars'))))));
+        }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('Delete', 'easy-custom-sidebars'))))));
       });
     }), provided.placeholder);
-  }))), attachments.length > 0 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Button"], {
+  }))), attachments.length > 0 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_4__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["Button"], {
     className: "mt-3",
     isDestructive: true,
     onClick: function onClick() {
       return setAttachments([]);
     }
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__["__"])('Delete All Attachments', 'easy-custom-sidebars')));
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('Delete All Attachments', 'easy-custom-sidebars')));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (SidebarAttachments);
@@ -23523,6 +23586,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/url */ "@wordpress/url");
 /* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_wordpress_url__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../store */ "./src/scripts/store/index.js");
+/* harmony import */ var _utils_sortItemsByTitle__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../utils/sortItemsByTitle */ "./src/scripts/utils/sortItemsByTitle.js");
 
 
 
@@ -23553,28 +23617,81 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
 
+/**
+ * All Posttypes Metabox
+ */
+
+var PostTypesMetabox = function PostTypesMetabox(_ref) {
+  var attachments = _ref.attachments,
+      setAttachments = _ref.setAttachments;
+  var posttypes = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__["useSelect"])(function (select) {
+    return select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).getPostTypes();
+  });
+  var publicPosttypes = Object.keys(posttypes).filter(function (posttype) {
+    return !['attachment', 'sidebar_instance', 'wp_block'].includes(posttype);
+  });
+  var metaboxes = publicPosttypes.map(function (posttypeName, i) {
+    var isFirstItem = i === 0;
+    var _posttypes$posttypeNa = posttypes[posttypeName],
+        name = _posttypes$posttypeNa.name,
+        rest_base = _posttypes$posttypeNa.rest_base,
+        slug = _posttypes$posttypeNa.slug;
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelBody"], {
+      title: name,
+      key: slug,
+      initialOpen: isFirstItem
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PostTypePosts, {
+      name: name,
+      slug: slug,
+      rest_base: rest_base,
+      attachments: attachments,
+      setAttachments: setAttachments
+    }));
+  });
+  return metaboxes;
+};
+/**
+ * Posttype Posts
+ */
+
+
 var PostTypePosts = function PostTypePosts(props) {
   var name = props.name,
       slug = props.slug,
       rest_base = props.rest_base;
 
-  var _useState = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["useState"])(''),
+  var _useState = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["useState"])([]),
       _useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default()(_useState, 2),
-      searchQuery = _useState2[0],
-      setSearchQuery = _useState2[1];
+      items = _useState2[0],
+      setItems = _useState2[1];
+
+  var _useState3 = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["useState"])([]),
+      _useState4 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default()(_useState3, 2),
+      searchResults = _useState4[0],
+      setSearchResults = _useState4[1];
+
+  var _useState5 = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["useState"])(''),
+      _useState6 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default()(_useState5, 2),
+      searchQuery = _useState6[0],
+      setSearchQuery = _useState6[1];
 
   var _useDebounce = Object(use_debounce__WEBPACK_IMPORTED_MODULE_4__["useDebounce"])(searchQuery, 200),
       _useDebounce2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default()(_useDebounce, 1),
       searchTerm = _useDebounce2[0];
 
-  var _useState3 = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["useState"])({
+  var _useState7 = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["useState"])(true),
+      _useState8 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default()(_useState7, 2),
+      isFetchingData = _useState8[0],
+      setIsFetchingData = _useState8[1];
+
+  var _useState9 = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["useState"])({
     slug: slug,
     rest_base: rest_base,
     page: 1
   }),
-      _useState4 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default()(_useState3, 2),
-      paginationCursor = _useState4[0],
-      setPaginationCursor = _useState4[1];
+      _useState10 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default()(_useState9, 2),
+      paginationCursor = _useState10[0],
+      setPaginationCursor = _useState10[1];
 
   var prevPageCursor = _objectSpread(_objectSpread({}, paginationCursor), {}, {
     page: paginationCursor.page - 1
@@ -23583,21 +23700,6 @@ var PostTypePosts = function PostTypePosts(props) {
   var nextPageCursor = _objectSpread(_objectSpread({}, paginationCursor), {}, {
     page: paginationCursor.page + 1
   });
-
-  var _useState5 = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["useState"])([]),
-      _useState6 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default()(_useState5, 2),
-      items = _useState6[0],
-      setItems = _useState6[1];
-
-  var _useState7 = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["useState"])([]),
-      _useState8 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default()(_useState7, 2),
-      searchResults = _useState8[0],
-      setSearchResults = _useState8[1];
-
-  var _useState9 = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["useState"])(true),
-      _useState10 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default()(_useState9, 2),
-      isFetchingData = _useState10[0],
-      setIsFetchingData = _useState10[1];
 
   var totalPages = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__["useSelect"])(function (select) {
     return select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).getPostTypePosts(paginationCursor).totalPages;
@@ -23612,9 +23714,7 @@ var PostTypePosts = function PostTypePosts(props) {
 
     if (itemsByPage && itemsByPage[page]) {
       var _items = itemsByPage[page];
-      return Object.keys(_items).map(function (id) {
-        return _items[id];
-      });
+      return Object(_utils_sortItemsByTitle__WEBPACK_IMPORTED_MODULE_11__["default"])(_items);
     }
 
     if (!itemsByPage && page === 1) {
@@ -23643,19 +23743,18 @@ var PostTypePosts = function PostTypePosts(props) {
   }, [posts]); // Search test
 
   Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {
-    if (searchQuery) {
+    if (searchTerm) {
       setIsFetchingData(true);
       var path = Object(_wordpress_url__WEBPACK_IMPORTED_MODULE_9__["addQueryArgs"])("/wp/v2/search", {
         page: 1,
-        per_page: 12,
-        search: searchQuery,
+        per_page: 10,
+        search: searchTerm,
         subtype: slug
       });
       _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_8___default()({
         path: path
       }).then(function (searchResults) {
         var results = searchResults.map(function (result) {
-          setIsFetchingData(false);
           return {
             id: result.id,
             title: {
@@ -23668,44 +23767,19 @@ var PostTypePosts = function PostTypePosts(props) {
           };
         });
         setSearchResults(results);
+        setIsFetchingData(false);
       });
+    } else {
+      setIsFetchingData(false);
     }
   }, [searchTerm]);
-  var results = items.map(function (item, i) {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("li", {
-      key: item.id
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["CheckboxControl"], {
-      label: item.title.rendered,
-      checked: item.checked ? true : false,
-      onChange: function onChange(checked) {
-        var updatedItems = _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(items);
-
-        updatedItems[i].checked = checked;
-        setItems(updatedItems);
-      }
-    }));
-  });
-  var attachmentsFound = searchResults.map(function (item, i) {
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("li", {
-      key: item.id
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["CheckboxControl"], {
-      label: item.title.rendered,
-      checked: item.checked ? true : false,
-      onChange: function onChange(checked) {
-        var updatedItems = _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(searchResults);
-
-        updatedItems[i].checked = checked;
-        setSearchResults(updatedItems);
-      }
-    }));
-  });
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "row align-items-end"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "col"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["__experimentalInputControl"], {
     isFloatingLabel: true,
-    label: "Search ".concat(name),
+    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__["sprintf"])(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__["__"])('Search %s', 'easy-custom-sidebars'), name),
     value: searchQuery,
     onChange: function onChange() {
       var query = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
@@ -23715,37 +23789,25 @@ var PostTypePosts = function PostTypePosts(props) {
     className: "col-auto pl-0 py-1"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["Spinner"], {
     className: "m-0"
-  }))), results.length > 0 && !searchQuery ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("ul", null, results)) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelRow"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("ul", null, attachmentsFound))), !searchQuery && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelRow"], null, paginationCursor.page > 1 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["Button"], {
-    isTertiary: true,
-    onClick: function onClick() {
+  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelRow"], null, items.length > 0 && !searchQuery ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PostTypeAttachments, {
+    items: items,
+    setItems: setItems
+  }) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["Fragment"], null, searchTerm && !isFetchingData && searchResults.length === 0 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__["sprintf"])(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__["__"])('No results found for "%s"', 'easy-custom-sidebars'), searchTerm)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PostTypeAttachments, {
+    items: searchResults,
+    setItems: setSearchResults
+  }))), !searchQuery && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PostsTypesPagination, {
+    page: paginationCursor.page,
+    totalPages: totalPages,
+    nextPage: function nextPage() {
+      return setPaginationCursor(nextPageCursor);
+    },
+    prevPage: function prevPage() {
       return setPaginationCursor(prevPageCursor);
     }
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__["__"])('« Prev', 'easy-custom-sidebars')), paginationCursor.page === 1 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", null), paginationCursor.page < totalPages && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["Button"], {
-    isTertiary: true,
-    onClick: function onClick() {
-      return setPaginationCursor(nextPageCursor);
-    }
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__["__"])('Next »', 'easy-custom-sidebars'))), !searchQuery && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelRow"], null, items.every(function (item) {
-    return !item.checked;
-  }) ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["Button"], {
-    isLink: true,
-    onClick: function onClick() {
-      setItems(items.map(function (item) {
-        item.checked = true;
-        return item;
-      }));
-    }
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__["__"])('Select All', 'easy-custom-sidebars')) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["Button"], {
-    isLink: true,
-    onClick: function onClick() {
-      setItems(items.map(function (item) {
-        item.checked = false;
-        return item;
-      }));
-    }
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__["__"])('Clear Selection', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["Button"], {
-    isSecondary: true,
-    onClick: function onClick() {
+  }), !searchQuery && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PostTypesActions, {
+    items: items,
+    setItems: setItems,
+    addToSidebar: function addToSidebar() {
       var newAttachments = items.filter(function (item) {
         return item.checked;
       }).map(function (item) {
@@ -23755,36 +23817,15 @@ var PostTypePosts = function PostTypePosts(props) {
           label: name,
           link: item.link,
           data_type: slug,
-          attachment_type: 'post_type'
+          attachment_type: item.attachment_type
         };
       });
       props.setAttachments([].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(props.attachments), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(newAttachments)));
-      setItems(items.map(function (item) {
-        item.checked = false;
-        return item;
-      }));
     }
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__["__"])('Add to Sidebar', 'easy-custom-sidebars'))), searchQuery && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelRow"], null, searchResults.every(function (item) {
-    return !item.checked;
-  }) ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["Button"], {
-    isLink: true,
-    onClick: function onClick() {
-      setSearchResults(searchResults.map(function (item) {
-        item.checked = true;
-        return item;
-      }));
-    }
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__["__"])('Select All', 'easy-custom-sidebars')) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["Button"], {
-    isLink: true,
-    onClick: function onClick() {
-      setSearchResults(searchResults.map(function (item) {
-        item.checked = false;
-        return item;
-      }));
-    }
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__["__"])('Clear Selection', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["Button"], {
-    isSecondary: true,
-    onClick: function onClick() {
+  }), searchQuery && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PostTypesActions, {
+    items: searchResults,
+    setItems: setSearchResults,
+    addToSidebar: function addToSidebar() {
       var newAttachments = searchResults.filter(function (item) {
         return item.checked;
       }).map(function (item) {
@@ -23798,42 +23839,88 @@ var PostTypePosts = function PostTypePosts(props) {
         };
       });
       props.setAttachments([].concat(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(props.attachments), _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(newAttachments)));
-      setSearchResults(searchResults.map(function (item) {
+    }
+  }));
+};
+
+var PostTypeAttachments = function PostTypeAttachments(_ref2) {
+  var items = _ref2.items,
+      setItems = _ref2.setItems;
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("ul", null, items.map(function (_ref3, i) {
+    var id = _ref3.id,
+        title = _ref3.title,
+        checked = _ref3.checked;
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("li", {
+      key: id
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["CheckboxControl"], {
+      label: title.rendered,
+      checked: checked ? true : false,
+      onChange: function onChange(checked) {
+        var updatedItems = _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default()(items);
+
+        updatedItems[i].checked = checked;
+        setItems(updatedItems);
+      }
+    }));
+  }));
+};
+/**
+ * Posts Pagination Component
+ */
+
+
+var PostsTypesPagination = function PostsTypesPagination(_ref4) {
+  var page = _ref4.page,
+      totalPages = _ref4.totalPages,
+      nextPage = _ref4.nextPage,
+      prevPage = _ref4.prevPage;
+
+  if (0 === totalPages) {
+    return null;
+  }
+
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelRow"], {
+    className: "mt-0 mb-3"
+  }, page > 1 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["Button"], {
+    isTertiary: true,
+    onClick: prevPage
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__["__"])('« Prev', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+    className: "ecs-metabox__pagination-indicator"
+  }, totalPages > 0 ? Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__["sprintf"])(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__["__"])('Page %1s of %2s', 'easy-custom-sidebars'), page, totalPages) : null), page < totalPages && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["Button"], {
+    isTertiary: true,
+    onClick: nextPage
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__["__"])('Next »', 'easy-custom-sidebars')));
+};
+/**
+ * Posts Metabox Actions Component
+ */
+
+
+var PostTypesActions = function PostTypesActions(props) {
+  var items = props.items,
+      setItems = props.setItems,
+      addToSidebar = props.addToSidebar;
+  var noItemSelected = items.every(function (item) {
+    return !item.checked;
+  });
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelRow"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["Button"], {
+    isLink: true,
+    onClick: function onClick() {
+      return setItems(items.map(function (item) {
+        item.checked = noItemSelected ? true : false;
+        return item;
+      }));
+    }
+  }, noItemSelected ? Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__["__"])('Select All', 'easy-custom-sidebars') : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__["__"])('Clear Selection', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["Button"], {
+    isSecondary: true,
+    onClick: function onClick() {
+      addToSidebar();
+      setItems(items.map(function (item) {
         item.checked = false;
         return item;
       }));
     }
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__["__"])('Add to Sidebar', 'easy-custom-sidebars'))));
-};
-
-var PostTypesMetabox = function PostTypesMetabox(props) {
-  var attachments = props.attachments,
-      setAttachments = props.setAttachments;
-  var posttypes = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__["useSelect"])(function (select) {
-    return select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).getPostTypes();
-  });
-  var publicPosttypes = Object.keys(posttypes).filter(function (posttype) {
-    return !['attachment', 'sidebar_instance', 'wp_block'].includes(posttype);
-  });
-  var metaboxes = publicPosttypes.map(function (posttypeName, i) {
-    var isFirstItem = i === 0;
-    var _posttypes$posttypeNa = posttypes[posttypeName],
-        name = _posttypes$posttypeNa.name,
-        rest_base = _posttypes$posttypeNa.rest_base,
-        slug = _posttypes$posttypeNa.slug;
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelBody"], {
-      title: name,
-      key: slug,
-      initialOpen: isFirstItem
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PostTypePosts, {
-      name: name,
-      slug: slug,
-      rest_base: rest_base,
-      attachments: attachments,
-      setAttachments: setAttachments
-    }));
-  });
-  return metaboxes;
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__["__"])('Add to Sidebar', 'easy-custom-sidebars')));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (PostTypesMetabox);
@@ -24227,18 +24314,19 @@ var CreateSidebar = function CreateSidebar(props) {
       replacementId = _useState10[0],
       setReplacementId = _useState10[1];
 
+  var _useState11 = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
+      _useState12 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState11, 2),
+      sidebarNameError = _useState12[0],
+      setSidebarNameError = _useState12[1];
+
   var setUniqueAttachments = function setUniqueAttachments(newAttachments) {
     return setAttachments(Object(_utils_removeDuplicateAttachments__WEBPACK_IMPORTED_MODULE_8__["default"])(newAttachments));
   };
 
-  var hasFinishedResolution = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__["useSelect"])(function (select) {
-    select(_store__WEBPACK_IMPORTED_MODULE_6__["STORE_KEY"]).getDefaultSidebars();
-    select(_store__WEBPACK_IMPORTED_MODULE_6__["STORE_KEY"]).getPostTypes();
-    select(_store__WEBPACK_IMPORTED_MODULE_6__["STORE_KEY"]).getTaxonomies();
-    return [select(_store__WEBPACK_IMPORTED_MODULE_6__["STORE_KEY"]).hasFinishedResolution('getPostTypes'), select(_store__WEBPACK_IMPORTED_MODULE_6__["STORE_KEY"]).hasFinishedResolution('getTaxonomies'), select(_store__WEBPACK_IMPORTED_MODULE_6__["STORE_KEY"]).hasFinishedResolution('getDefaultSidebars')].every(function (called) {
-      return called;
-    });
-  });
+  var hasAttachments = function hasAttachments() {
+    return attachments.length > 0;
+  };
+
   var defaultSidebars = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__["useSelect"])(function (select) {
     return select(_store__WEBPACK_IMPORTED_MODULE_6__["STORE_KEY"]).getDefaultSidebars();
   });
@@ -24249,43 +24337,84 @@ var CreateSidebar = function CreateSidebar(props) {
     };
   });
   defaultSidebarOptions.push({
-    label: replacementId ? '— Deactivate Sidebar —' : '— Select a Sidebar —',
+    label: replacementId ? Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('— Deactivate Sidebar —', 'easy-custom-sidebars') : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('— Select a Sidebar —', 'easy-custom-sidebars'),
     value: ''
   });
+  var dataLoaded = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__["useSelect"])(function (select) {
+    select(_store__WEBPACK_IMPORTED_MODULE_6__["STORE_KEY"]).getDefaultSidebars();
+    select(_store__WEBPACK_IMPORTED_MODULE_6__["STORE_KEY"]).getPostTypes();
+    select(_store__WEBPACK_IMPORTED_MODULE_6__["STORE_KEY"]).getTaxonomies();
+    return [select(_store__WEBPACK_IMPORTED_MODULE_6__["STORE_KEY"]).hasFinishedResolution('getPostTypes'), select(_store__WEBPACK_IMPORTED_MODULE_6__["STORE_KEY"]).hasFinishedResolution('getTaxonomies'), select(_store__WEBPACK_IMPORTED_MODULE_6__["STORE_KEY"]).hasFinishedResolution('getDefaultSidebars')].every(function (called) {
+      return called;
+    });
+  });
+  Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
+    if (sidebarName) {
+      setSidebarNameError(false);
+    }
+  }, [sidebarName]); // TODO: Lock sidebar creation while saving.
+  // TODO: Maybe show a spinner.
+  // TODO: Pass in all fields.
 
   var _useDispatch = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__["useDispatch"])(_store__WEBPACK_IMPORTED_MODULE_6__["STORE_KEY"]),
       createSidebar = _useDispatch.createSidebar;
 
+  var createSidebarAndRedirect = function createSidebarAndRedirect() {
+    if (isSaving) {
+      return;
+    }
+
+    if (!sidebarName) {
+      setSidebarNameError(true);
+    }
+
+    if (sidebarName) {
+      setIsSaving(true);
+      var newSidebar = {
+        name: sidebarName,
+        attachments: attachments,
+        description: description,
+        replacementId: replacementId
+      };
+      createSidebar(newSidebar).then(function (action) {
+        resetSidebar();
+        props.history.push("".concat(Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_7__["default"])('edit', {
+          sidebar: action.payload.sidebar.id
+        })));
+      });
+    }
+  };
+
   var resetSidebar = function resetSidebar() {
     setSidebarName('');
+    setAttachments([]);
     setDescription('');
     setReplacementId('');
   }; // TODO: Add for attachments.
 
 
   var changesMade = function changesMade() {
-    if (sidebarName !== '' || description !== '' || replacementId !== '') {
-      return true;
-    }
-
-    return false;
+    var changesMade = [sidebarName !== '', description !== '', replacementId !== '', attachments.length !== 0];
+    return changesMade.some(function (hasChanged) {
+      return hasChanged;
+    });
   };
 
-  return hasFinishedResolution ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  return dataLoaded ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "container-fluid p-0"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "row"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "col-12 mb-3"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-    style: {
-      boxShadow: '0 1px 1px rgba(0, 0, 0, 0.08)'
-    }
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["Notice"], {
     className: "m-0",
     status: "info",
     isDismissible: false
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Create your new sidebar replacement below and click the create sidebar button to save your changes.', 'easy-custom-sidebars')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Create your new sidebar replacement below and click the create sidebar button to save your changes.', 'easy-custom-sidebars')), sidebarNameError && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["Notice"], {
+    className: "m-0 mt-2",
+    status: "error",
+    isDismissible: false
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Please enter a valid name for your sidebar.', 'easy-custom-sidebars'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "col-12 col-md-5 col-xl-3 mb-4 mb-md-0"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_components_metaboxes__WEBPACK_IMPORTED_MODULE_10__["default"], {
     attachments: attachments,
@@ -24311,20 +24440,10 @@ var CreateSidebar = function CreateSidebar(props) {
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "col-auto"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["Button"], {
+    isBusy: isSaving,
     isPrimary: true,
-    onClick: function onClick() {
-      // Lock sidebar creation while saving.
-      console.log('ok create the sidebar and redirect, maybe show a spinner', sidebarName);
-      createSidebar({
-        name: sidebarName
-      }).then(function (action) {
-        props.history.push("".concat(Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_7__["default"])('edit', {
-          sidebar: action.payload.sidebar.id
-        })));
-      });
-      resetSidebar();
-    }
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Create Sidebar', 'easy-custom-sidebars'))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["CardBody"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h3", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Sidebar Replacements', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, "Add items from the column on the left. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below."), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_components_SidebarAttachments__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    onClick: createSidebarAndRedirect
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Create Sidebar', 'easy-custom-sidebars'))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["CardBody"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h3", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Sidebar Replacements', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, hasAttachments() ? Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])("Drag each item into the order you prefer. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below. Drag each item into the order you prefer.", 'easy-custom-sidebars') : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])("Add items from the column on the left. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below.", 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_components_SidebarAttachments__WEBPACK_IMPORTED_MODULE_11__["default"], {
     attachments: attachments,
     setAttachments: setUniqueAttachments
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["CardDivider"], {
@@ -24354,7 +24473,7 @@ var CreateSidebar = function CreateSidebar(props) {
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["Button"], {
     isDestructive: true,
     onClick: function onClick() {
-      var confirmDelete = confirm("You are about to permanently delete this sidebar. 'Cancel' to stop, 'OK' to delete.");
+      var confirmDelete = confirm(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])("You are about to permanently delete this sidebar. 'Cancel' to stop, 'OK' to delete.", 'easy-custom-sidebars'));
 
       if (confirmDelete === true) {
         resetSidebar();
@@ -24363,8 +24482,9 @@ var CreateSidebar = function CreateSidebar(props) {
   }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Delete Sidebar', 'easy-custom-sidebars'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "col-auto"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["Button"], {
+    isBusy: isSaving,
     isPrimary: true,
-    onClick: function onClick() {}
+    onClick: createSidebarAndRedirect
   }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Create Sidebar', 'easy-custom-sidebars'))))))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Prompt"], {
     when: changesMade(),
     message: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('are you sure you want to navigate away?', 'easy-custom-sidebars'),
@@ -24520,8 +24640,15 @@ var EditSidebar = function EditSidebar(props) {
 
   var setUniqueAttachments = function setUniqueAttachments(newAttachments) {
     return setAttachments(Object(_utils_removeDuplicateAttachments__WEBPACK_IMPORTED_MODULE_9__["default"])(newAttachments));
-  }; // Sync state with saved sidebar.
+  }; // Sync saved attachment state.
 
+
+  var savedAttachments = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__["useSelect"])(function (select) {
+    return select(_store__WEBPACK_IMPORTED_MODULE_6__["STORE_KEY"]).getAttachmentsForSidebar(sidebarToEdit);
+  });
+  Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
+    return setAttachments(savedAttachments);
+  }, [savedAttachments.length]); // Sync state with saved sidebar.
 
   Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
     if (Object.keys(sidebar).length > 0) {
@@ -24570,8 +24697,6 @@ var EditSidebar = function EditSidebar(props) {
       console.log('ok create the sidebar and redirect, maybe show a spinner', sidebarName); // createSidebar({ name: sidebarName }).then(action => {
       //   props.history.push(`${getScreenLink('edit', { sidebar: action.payload.sidebar.id })}`);
       // });
-
-      resetSidebar();
     }
   }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Save Sidebar', 'easy-custom-sidebars'))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["CardBody"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h3", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Sidebar Replacements for:', 'easy-custom-sidebars'), ' ', Object.keys(sidebar).length > 0 ? sidebar.title.rendered : ''), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, "Add items from the column on the left. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below."), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_components_SidebarAttachments__WEBPACK_IMPORTED_MODULE_13__["default"], {
     attachments: attachments,
@@ -24604,10 +24729,6 @@ var EditSidebar = function EditSidebar(props) {
     isDestructive: true,
     onClick: function onClick() {
       var confirmDelete = confirm("You are about to permanently delete this sidebar. 'Cancel' to stop, 'OK' to delete.");
-
-      if (confirmDelete === true) {
-        resetSidebar();
-      }
     }
   }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Delete Sidebar', 'easy-custom-sidebars'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "col-auto"

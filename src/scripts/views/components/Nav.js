@@ -1,20 +1,18 @@
 /**
  * External dependancies
  */
-import { NavLink, Link, withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 
 /**
  * WordPress dependancies
  */
 import { __ } from '@wordpress/i18n';
-import { TabPanel } from '@wordpress/components';
 import { getQueryArg } from '@wordpress/url';
 
 /**
  * Internal dependances
  */
 import getScreenLink from '../../utils/getScreenLink';
-import getQueryFromUrl from '../../utils/getQueryFromUrl';
 
 const isActive = (match, location, screen) => {
   return getQueryArg(location.search, 'screen') === screen;
@@ -26,7 +24,7 @@ const Nav = props => {
     <>
       <h1 className="wp-heading-inline">{__('Sidebars', 'easy-custom-sidebars')}</h1>
       <a className="page-title-action hide-if-no-customize ml-2" href="#">
-        Manage with Live Preview
+        {__('Manage with Live Preview', 'easy-custom-sidebars')}
       </a>
 
       <hr className="wp-header-end" />

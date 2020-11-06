@@ -19,7 +19,7 @@ export const getSidebar = (state, id) => {
  */
 
 export const getAttachmentsForSidebar = (state, id) => {
-  return state.attachments[id] || [];
+  return state.sidebarAttachments[id] || [];
 };
 
 /**
@@ -46,10 +46,22 @@ export const getPostTypePosts = (state, { slug, rest_base, page }) => {
   return state.metaboxes.posttypes[slug] || {};
 };
 
-export const getTaxonomyTerms = (state, { slug, rest_base, page }) => {};
+export const getTaxonomyTerms = (state, { slug, rest_base, page }) => {
+  return state.metaboxes.taxonomies[slug] || {};
+};
 
-export const getCategories = (state, page) => {};
+export const getCategories = (state, page) => {
+  return state.metaboxes.categories || {};
+};
 
-export const getUsers = (state, page) => {};
+export const getPostCategories = (state, page) => {
+  return state.metaboxes.postCategories || {};
+};
 
-export const getTemplates = state => {};
+export const getUsers = (state, page) => {
+  return state.metaboxes.users || {};
+};
+
+export const getTemplates = state => {
+  return state.metaboxes.templates || {};
+};

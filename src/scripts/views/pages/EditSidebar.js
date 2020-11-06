@@ -18,9 +18,6 @@ import {
   CardFooter,
   __experimentalInputControl as InputControl,
   SelectControl,
-  Panel,
-  PanelBody,
-  PanelRow,
   TextareaControl
 } from '@wordpress/components';
 
@@ -106,6 +103,10 @@ const EditSidebar = props => {
 
   const setUniqueAttachments = newAttachments => setAttachments(removeDuplicateAttachments(newAttachments));
 
+  // Sync saved attachment state.
+  const savedAttachments = useSelect(select => select(STORE_KEY).getAttachmentsForSidebar(sidebarToEdit));
+  useEffect(() => setAttachments(savedAttachments), [savedAttachments.length]);
+
   // Sync state with saved sidebar.
   useEffect(() => {
     if (Object.keys(sidebar).length > 0) {
@@ -154,8 +155,6 @@ const EditSidebar = props => {
                         // createSidebar({ name: sidebarName }).then(action => {
                         //   props.history.push(`${getScreenLink('edit', { sidebar: action.payload.sidebar.id })}`);
                         // });
-
-                        resetSidebar();
                       }}
                     >
                       {__('Save Sidebar', 'easy-custom-sidebars')}
@@ -177,11 +176,6 @@ const EditSidebar = props => {
 
                 {/* Attachments. */}
                 <SidebarAttachments attachments={attachments} setAttachments={setUniqueAttachments} />
-                {/* 
-                  Sortable.
-                  Add attachment to the sidebar.
-                  Find out the shape of data.
-                */}
 
                 <CardDivider className="my-4" />
 
@@ -215,10 +209,6 @@ const EditSidebar = props => {
                         const confirmDelete = confirm(
                           `You are about to permanently delete this sidebar. 'Cancel' to stop, 'OK' to delete.`
                         );
-
-                        if (confirmDelete === true) {
-                          resetSidebar();
-                        }
                       }}
                     >
                       {__('Delete Sidebar', 'easy-custom-sidebars')}

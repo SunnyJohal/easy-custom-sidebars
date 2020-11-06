@@ -18,18 +18,52 @@ import { CheckboxControl, Spinner } from '@wordpress/components';
  * Internal dependancies
  */
 import { STORE_KEY } from '../../../store';
+import sortItemsByTitle from '../../../utils/sortItemsByTitle';
 
+/**
+ * All Posttypes Metabox
+ */
+const PostTypesMetabox = ({ attachments, setAttachments }) => {
+  const posttypes = useSelect(select => select(STORE_KEY).getPostTypes());
+
+  const publicPosttypes = Object.keys(posttypes).filter(
+    posttype => !['attachment', 'sidebar_instance', 'wp_block'].includes(posttype)
+  );
+
+  const metaboxes = publicPosttypes.map((posttypeName, i) => {
+    const isFirstItem = i === 0;
+    const { name, rest_base, slug } = posttypes[posttypeName];
+
+    return (
+      <PanelBody title={name} key={slug} initialOpen={isFirstItem}>
+        <PostTypePosts
+          name={name}
+          slug={slug}
+          rest_base={rest_base}
+          attachments={attachments}
+          setAttachments={setAttachments}
+        />
+      </PanelBody>
+    );
+  });
+
+  return metaboxes;
+};
+
+/**
+ * Posttype Posts
+ */
 const PostTypePosts = props => {
   const { name, slug, rest_base } = props;
+  const [items, setItems] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchTerm] = useDebounce(searchQuery, 200);
+  const [isFetchingData, setIsFetchingData] = useState(true);
+
   const [paginationCursor, setPaginationCursor] = useState({ slug, rest_base, page: 1 });
   const prevPageCursor = { ...paginationCursor, page: paginationCursor.page - 1 };
   const nextPageCursor = { ...paginationCursor, page: paginationCursor.page + 1 };
-  const [items, setItems] = useState([]);
-  const [searchResults, setSearchResults] = useState([]);
-  const [isFetchingData, setIsFetchingData] = useState(true);
-
   const totalPages = useSelect(select => select(STORE_KEY).getPostTypePosts(paginationCursor).totalPages) || 0;
 
   const posts = useSelect(
@@ -42,7 +76,7 @@ const PostTypePosts = props => {
 
       if (itemsByPage && itemsByPage[page]) {
         const items = itemsByPage[page];
-        return Object.keys(items).map(id => items[id]);
+        return sortItemsByTitle(items);
       }
 
       if (!itemsByPage && page === 1) {
@@ -71,18 +105,17 @@ const PostTypePosts = props => {
 
   // Search test
   useEffect(() => {
-    if (searchQuery) {
+    if (searchTerm) {
       setIsFetchingData(true);
       const path = addQueryArgs(`/wp/v2/search`, {
         page: 1,
-        per_page: 12,
-        search: searchQuery,
+        per_page: 10,
+        search: searchTerm,
         subtype: slug
       });
 
       apiFetch({ path }).then(searchResults => {
         const results = searchResults.map(result => {
-          setIsFetchingData(false);
           return {
             id: result.id,
             title: { rendered: result.title },
@@ -94,49 +127,21 @@ const PostTypePosts = props => {
         });
 
         setSearchResults(results);
+        setIsFetchingData(false);
       });
+    } else {
+      setIsFetchingData(false);
     }
   }, [searchTerm]);
 
-  const results = items.map((item, i) => {
-    return (
-      <li key={item.id}>
-        <CheckboxControl
-          label={item.title.rendered}
-          checked={item.checked ? true : false}
-          onChange={checked => {
-            const updatedItems = [...items];
-            updatedItems[i].checked = checked;
-            setItems(updatedItems);
-          }}
-        />
-      </li>
-    );
-  });
-
-  const attachmentsFound = searchResults.map((item, i) => {
-    return (
-      <li key={item.id}>
-        <CheckboxControl
-          label={item.title.rendered}
-          checked={item.checked ? true : false}
-          onChange={checked => {
-            const updatedItems = [...searchResults];
-            updatedItems[i].checked = checked;
-            setSearchResults(updatedItems);
-          }}
-        />
-      </li>
-    );
-  });
-
   return (
     <div>
+      {/* Search Input and Loading Indicator. */}
       <div className="row align-items-end">
         <div className="col">
           <InputControl
             isFloatingLabel
-            label={`Search ${name}`}
+            label={sprintf(__('Search %s', 'easy-custom-sidebars'), name)}
             value={searchQuery}
             onChange={(query = '') => {
               setSearchQuery(query);
@@ -150,193 +155,169 @@ const PostTypePosts = props => {
         )}
       </div>
 
-      {results.length > 0 && !searchQuery ? (
-        <div>
-          <ul>{results}</ul>
-        </div>
-      ) : (
-        <PanelRow>
-          <div>
-            <ul>{attachmentsFound}</ul>
-          </div>
-        </PanelRow>
-      )}
+      {/* Items || Search Results */}
+      <PanelRow>
+        {items.length > 0 && !searchQuery ? (
+          <PostTypeAttachments items={items} setItems={setItems} />
+        ) : (
+          <>
+            {searchTerm && !isFetchingData && searchResults.length === 0 && (
+              <div>{sprintf(__('No results found for "%s"', 'easy-custom-sidebars'), searchTerm)}</div>
+            )}
+            <PostTypeAttachments items={searchResults} setItems={setSearchResults} />
+          </>
+        )}
+      </PanelRow>
 
       {!searchQuery && (
-        <PanelRow>
-          {paginationCursor.page > 1 && (
-            <Button isTertiary onClick={() => setPaginationCursor(prevPageCursor)}>
-              {__('« Prev', 'easy-custom-sidebars')}
-            </Button>
-          )}
-
-          {paginationCursor.page === 1 && <div></div>}
-
-          {paginationCursor.page < totalPages && (
-            <Button isTertiary onClick={() => setPaginationCursor(nextPageCursor)}>
-              {__('Next »', 'easy-custom-sidebars')}
-            </Button>
-          )}
-        </PanelRow>
+        <PostsTypesPagination
+          page={paginationCursor.page}
+          totalPages={totalPages}
+          nextPage={() => setPaginationCursor(nextPageCursor)}
+          prevPage={() => setPaginationCursor(prevPageCursor)}
+        />
       )}
 
       {/* Add Attachments */}
       {!searchQuery && (
-        <PanelRow>
-          {items.every(item => !item.checked) ? (
-            <Button
-              isLink
-              onClick={() => {
-                setItems(
-                  items.map(item => {
-                    item.checked = true;
-                    return item;
-                  })
-                );
-              }}
-            >
-              {__('Select All', 'easy-custom-sidebars')}
-            </Button>
-          ) : (
-            <Button
-              isLink
-              onClick={() => {
-                setItems(
-                  items.map(item => {
-                    item.checked = false;
-                    return item;
-                  })
-                );
-              }}
-            >
-              {__('Clear Selection', 'easy-custom-sidebars')}
-            </Button>
-          )}
+        <PostTypesActions
+          items={items}
+          setItems={setItems}
+          addToSidebar={() => {
+            const newAttachments = items
+              .filter(item => item.checked)
+              .map(item => {
+                return {
+                  id: item.id,
+                  title: item.title.rendered,
+                  label: name,
+                  link: item.link,
+                  data_type: slug,
+                  attachment_type: item.attachment_type
+                };
+              });
 
-          <Button
-            isSecondary
-            onClick={() => {
-              const newAttachments = items
-                .filter(item => item.checked)
-                .map(item => {
-                  return {
-                    id: item.id,
-                    title: item.title.rendered,
-                    label: name,
-                    link: item.link,
-                    data_type: slug,
-                    attachment_type: 'post_type'
-                  };
-                });
-
-              props.setAttachments([...props.attachments, ...newAttachments]);
-
-              setItems(
-                items.map(item => {
-                  item.checked = false;
-                  return item;
-                })
-              );
-            }}
-          >
-            {__('Add to Sidebar', 'easy-custom-sidebars')}
-          </Button>
-        </PanelRow>
+            props.setAttachments([...props.attachments, ...newAttachments]);
+          }}
+        />
       )}
 
+      {/* Add Search Result Attachments */}
       {searchQuery && (
-        <PanelRow>
-          {searchResults.every(item => !item.checked) ? (
-            <Button
-              isLink
-              onClick={() => {
-                setSearchResults(
-                  searchResults.map(item => {
-                    item.checked = true;
-                    return item;
-                  })
-                );
-              }}
-            >
-              {__('Select All', 'easy-custom-sidebars')}
-            </Button>
-          ) : (
-            <Button
-              isLink
-              onClick={() => {
-                setSearchResults(
-                  searchResults.map(item => {
-                    item.checked = false;
-                    return item;
-                  })
-                );
-              }}
-            >
-              {__('Clear Selection', 'easy-custom-sidebars')}
-            </Button>
-          )}
+        <PostTypesActions
+          items={searchResults}
+          setItems={setSearchResults}
+          addToSidebar={() => {
+            const newAttachments = searchResults
+              .filter(item => item.checked)
+              .map(item => {
+                return {
+                  id: item.id,
+                  title: item.title.rendered,
+                  label: name,
+                  link: item.link,
+                  data_type: slug,
+                  attachment_type: 'post_type'
+                };
+              });
 
-          <Button
-            isSecondary
-            onClick={() => {
-              const newAttachments = searchResults
-                .filter(item => item.checked)
-                .map(item => {
-                  return {
-                    id: item.id,
-                    title: item.title.rendered,
-                    label: name,
-                    link: item.link,
-                    data_type: slug,
-                    attachment_type: 'post_type'
-                  };
-                });
-
-              props.setAttachments([...props.attachments, ...newAttachments]);
-
-              setSearchResults(
-                searchResults.map(item => {
-                  item.checked = false;
-                  return item;
-                })
-              );
-            }}
-          >
-            {__('Add to Sidebar', 'easy-custom-sidebars')}
-          </Button>
-        </PanelRow>
+            props.setAttachments([...props.attachments, ...newAttachments]);
+          }}
+        />
       )}
     </div>
   );
 };
 
-const PostTypesMetabox = props => {
-  const { attachments, setAttachments } = props;
-
-  const posttypes = useSelect(select => select(STORE_KEY).getPostTypes());
-
-  const publicPosttypes = Object.keys(posttypes).filter(
-    posttype => !['attachment', 'sidebar_instance', 'wp_block'].includes(posttype)
+const PostTypeAttachments = ({ items, setItems }) => {
+  return (
+    <ul>
+      {items.map(({ id, title, checked }, i) => {
+        return (
+          <li key={id}>
+            <CheckboxControl
+              label={title.rendered}
+              checked={checked ? true : false}
+              onChange={checked => {
+                const updatedItems = [...items];
+                updatedItems[i].checked = checked;
+                setItems(updatedItems);
+              }}
+            />
+          </li>
+        );
+      })}
+    </ul>
   );
+};
 
-  const metaboxes = publicPosttypes.map((posttypeName, i) => {
-    const isFirstItem = i === 0;
-    const { name, rest_base, slug } = posttypes[posttypeName];
+/**
+ * Posts Pagination Component
+ */
+const PostsTypesPagination = ({ page, totalPages, nextPage, prevPage }) => {
+  if (0 === totalPages) {
+    return null;
+  }
 
-    return (
-      <PanelBody title={name} key={slug} initialOpen={isFirstItem}>
-        <PostTypePosts
-          name={name}
-          slug={slug}
-          rest_base={rest_base}
-          attachments={attachments}
-          setAttachments={setAttachments}
-        />
-      </PanelBody>
-    );
-  });
+  return (
+    <PanelRow className="mt-0 mb-3">
+      {page > 1 && (
+        <Button isTertiary onClick={prevPage}>
+          {__('« Prev', 'easy-custom-sidebars')}
+        </Button>
+      )}
 
-  return metaboxes;
+      <div className="ecs-metabox__pagination-indicator">
+        {totalPages > 0 ? sprintf(__('Page %1s of %2s', 'easy-custom-sidebars'), page, totalPages) : null}
+      </div>
+
+      {page < totalPages && (
+        <Button isTertiary onClick={nextPage}>
+          {__('Next »', 'easy-custom-sidebars')}
+        </Button>
+      )}
+    </PanelRow>
+  );
+};
+
+/**
+ * Posts Metabox Actions Component
+ */
+const PostTypesActions = props => {
+  const { items, setItems, addToSidebar } = props;
+  const noItemSelected = items.every(item => !item.checked);
+
+  return (
+    <PanelRow>
+      <Button
+        isLink
+        onClick={() =>
+          setItems(
+            items.map(item => {
+              item.checked = noItemSelected ? true : false;
+              return item;
+            })
+          )
+        }
+      >
+        {noItemSelected ? __('Select All', 'easy-custom-sidebars') : __('Clear Selection', 'easy-custom-sidebars')}
+      </Button>
+      <Button
+        isSecondary
+        onClick={() => {
+          addToSidebar();
+          setItems(
+            items.map(item => {
+              item.checked = false;
+              return item;
+            })
+          );
+        }}
+      >
+        {__('Add to Sidebar', 'easy-custom-sidebars')}
+      </Button>
+    </PanelRow>
+  );
 };
 
 export default PostTypesMetabox;

@@ -10,6 +10,7 @@ import { addQueryArgs } from '@wordpress/url';
 import {
   hydrateSidebars,
   hydrateDefaultSidebars,
+  hydrateSidebarAttachments,
   hydratePostTypes,
   hydrateTaxonomies,
   hydratePostTypePosts
@@ -19,7 +20,12 @@ import {
  * Sidebar Retrieval Resolvers
  */
 export function* getSidebars() {
-  const path = addQueryArgs('/wp/v2/easy-custom-sidebars', { per_page: -1, order: 'asc', orderby: 'title' });
+  const path = addQueryArgs('/wp/v2/easy-custom-sidebars', {
+    per_page: -1,
+    order: 'asc',
+    orderby: 'title',
+    _fields: ['id', 'title', 'meta']
+  });
   const sidebars = yield apiFetch({ path });
 
   if (sidebars) {
@@ -39,6 +45,26 @@ export function* getDefaultSidebars() {
 
   if (defaultSidebars) {
     return hydrateDefaultSidebars(defaultSidebars);
+  }
+
+  return;
+}
+
+/**
+ * Sidebar Attachment Resolvers
+ * @param {*} name
+ */
+
+export function* getAttachmentsForSidebar(id) {
+  if (!id) {
+    return;
+  }
+
+  const path = `easy-custom-sidebars/v1/attachments/${id}`;
+  const attachments = yield apiFetch({ path });
+
+  if (attachments) {
+    return hydrateSidebarAttachments(id, attachments);
   }
 
   return;
@@ -75,9 +101,13 @@ export function* getTaxonomies() {
 export function* getPostTypePosts({ slug, rest_base, page }) {
   const path = addQueryArgs(`/wp/v2/${rest_base}`, {
     page,
+    per_page: 10,
+    order: 'asc',
+    orderby: 'title',
     _envelope: 1,
     _fields: ['id', 'title', 'type', 'link']
   });
+
   const posts = yield apiFetch({ path, method: 'GET' });
 
   if (posts && 200 === posts.status) {

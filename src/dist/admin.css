@@ -4453,6 +4453,14 @@ html {
   text-transform: capitalize;
 }
 
+.ecs-metaboxes .components-panel__row label {
+  display: inline-block;
+}
+
+.ecs-metabox__pagination-indicator {
+  color: rgba(0, 0, 0, 0.7);
+}
+
 /* Manage Sidebars */
 .ecs-manage-sidebars__sidebar-name a {
   color: #444;
@@ -4482,6 +4490,10 @@ html {
 }
 
 /* Sidebar attachments */
+.ecs-sidebar-attachments__drag-drop-item {
+  overflow: hidden;
+}
+
 .ecs-sidebar-attachments__drag-drop-item .components-panel__body-toggle {
   padding-right: 96px;
 }

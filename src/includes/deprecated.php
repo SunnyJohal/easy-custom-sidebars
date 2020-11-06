@@ -17,12 +17,12 @@ add_filter(
 		return array_map(
 			function ( $attachment ) {
 				if (
-					array_key_exists( 'menu-item-object-id', $attachment ) &&
+					array_key_exists( 'menu-item-db-id', $attachment ) &&
 					array_key_exists( 'menu-item-object', $attachment ) &&
 					array_key_exists( 'menu-item-type', $attachment )
 				) {
 					return [
-						'id'              => $attachment['menu-item-object-id'],
+						'id'              => $attachment['menu-item-db-id'],
 						'data_type'       => $attachment['menu-item-object'],
 						'attachment_type' => $attachment['menu-item-type'],
 					];

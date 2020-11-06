@@ -7,7 +7,7 @@ import { Prompt, withRouter } from 'react-router-dom';
  * WordPress dependancies
  */
 import { __ } from '@wordpress/i18n';
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import {
   Button,
@@ -16,9 +16,6 @@ import {
   CardDivider,
   CardHeader,
   CardFooter,
-  Panel,
-  PanelBody,
-  PanelRow,
   SelectControl,
   __experimentalInputControl as InputControl,
   TextareaControl,
@@ -41,20 +38,9 @@ const CreateSidebar = props => {
   const [sidebarName, setSidebarName] = useState('');
   const [description, setDescription] = useState('');
   const [replacementId, setReplacementId] = useState('');
-
+  const [sidebarNameError, setSidebarNameError] = useState(false);
   const setUniqueAttachments = newAttachments => setAttachments(removeDuplicateAttachments(newAttachments));
-
-  const hasFinishedResolution = useSelect(select => {
-    select(STORE_KEY).getDefaultSidebars();
-    select(STORE_KEY).getPostTypes();
-    select(STORE_KEY).getTaxonomies();
-
-    return [
-      select(STORE_KEY).hasFinishedResolution('getPostTypes'),
-      select(STORE_KEY).hasFinishedResolution('getTaxonomies'),
-      select(STORE_KEY).hasFinishedResolution('getDefaultSidebars')
-    ].every(called => called);
-  });
+  const hasAttachments = () => attachments.length > 0;
 
   const defaultSidebars = useSelect(select => select(STORE_KEY).getDefaultSidebars());
 
@@ -66,45 +52,91 @@ const CreateSidebar = props => {
   });
 
   defaultSidebarOptions.push({
-    label: replacementId ? '— Deactivate Sidebar —' : '— Select a Sidebar —',
+    label: replacementId
+      ? __('— Deactivate Sidebar —', 'easy-custom-sidebars')
+      : __('— Select a Sidebar —', 'easy-custom-sidebars'),
     value: ''
   });
 
+  const dataLoaded = useSelect(select => {
+    select(STORE_KEY).getDefaultSidebars();
+    select(STORE_KEY).getPostTypes();
+    select(STORE_KEY).getTaxonomies();
+
+    return [
+      select(STORE_KEY).hasFinishedResolution('getPostTypes'),
+      select(STORE_KEY).hasFinishedResolution('getTaxonomies'),
+      select(STORE_KEY).hasFinishedResolution('getDefaultSidebars')
+    ].every(called => called);
+  });
+
+  useEffect(() => {
+    if (sidebarName) {
+      setSidebarNameError(false);
+    }
+  }, [sidebarName]);
+
+  // TODO: Lock sidebar creation while saving.
+  // TODO: Maybe show a spinner.
+  // TODO: Pass in all fields.
   const { createSidebar } = useDispatch(STORE_KEY);
+  const createSidebarAndRedirect = () => {
+    if (isSaving) {
+      return;
+    }
+
+    if (!sidebarName) {
+      setSidebarNameError(true);
+    }
+
+    if (sidebarName) {
+      setIsSaving(true);
+
+      const newSidebar = {
+        name: sidebarName,
+        attachments,
+        description,
+        replacementId
+      };
+
+      createSidebar(newSidebar).then(action => {
+        resetSidebar();
+        props.history.push(`${getScreenLink('edit', { sidebar: action.payload.sidebar.id })}`);
+      });
+    }
+  };
 
   const resetSidebar = () => {
     setSidebarName('');
+    setAttachments([]);
     setDescription('');
     setReplacementId('');
   };
 
   // TODO: Add for attachments.
   const changesMade = () => {
-    if (sidebarName !== '' || description !== '' || replacementId !== '') {
-      return true;
-    }
-
-    return false;
+    const changesMade = [sidebarName !== '', description !== '', replacementId !== '', attachments.length !== 0];
+    return changesMade.some(hasChanged => hasChanged);
   };
 
-  return hasFinishedResolution ? (
+  return dataLoaded ? (
     <div>
       <div className="container-fluid p-0">
         <div className="row">
           {/* Notice Example */}
           <div className="col-12 mb-3">
-            <div
-              style={{
-                boxShadow: '0 1px 1px rgba(0, 0, 0, 0.08)'
-              }}
-            >
-              <Notice className="m-0" status="info" isDismissible={false}>
-                {__(
-                  'Create your new sidebar replacement below and click the create sidebar button to save your changes.',
-                  'easy-custom-sidebars'
-                )}
+            <Notice className="m-0" status="info" isDismissible={false}>
+              {__(
+                'Create your new sidebar replacement below and click the create sidebar button to save your changes.',
+                'easy-custom-sidebars'
+              )}
+            </Notice>
+
+            {sidebarNameError && (
+              <Notice className="m-0 mt-2" status="error" isDismissible={false}>
+                {__('Please enter a valid name for your sidebar.', 'easy-custom-sidebars')}
               </Notice>
-            </div>
+            )}
           </div>
 
           {/* Metaboxes */}
@@ -128,19 +160,7 @@ const CreateSidebar = props => {
                     />
                   </div>
                   <div className="col-auto">
-                    <Button
-                      isPrimary
-                      onClick={() => {
-                        // Lock sidebar creation while saving.
-                        console.log('ok create the sidebar and redirect, maybe show a spinner', sidebarName);
-
-                        createSidebar({ name: sidebarName }).then(action => {
-                          props.history.push(`${getScreenLink('edit', { sidebar: action.payload.sidebar.id })}`);
-                        });
-
-                        resetSidebar();
-                      }}
-                    >
+                    <Button isBusy={isSaving} isPrimary onClick={createSidebarAndRedirect}>
                       {__('Create Sidebar', 'easy-custom-sidebars')}
                     </Button>
                   </div>
@@ -151,23 +171,19 @@ const CreateSidebar = props => {
               <CardBody>
                 <h3>{__('Sidebar Replacements', 'easy-custom-sidebars')}</h3>
                 <p>
-                  Add items from the column on the left. Please ensure that any items added to this sidebar contain the
-                  default 'Sidebar to Replace' widget area selected in the sidebar properties below.
+                  {hasAttachments()
+                    ? __(
+                        `Drag each item into the order you prefer. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below. Drag each item into the order you prefer.`,
+                        'easy-custom-sidebars'
+                      )
+                    : __(
+                        `Add items from the column on the left. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below.`,
+                        'easy-custom-sidebars'
+                      )}
                 </p>
 
                 {/* Attachments. */}
                 <SidebarAttachments attachments={attachments} setAttachments={setUniqueAttachments} />
-
-                {/* 
-                  Sortable.
-                  Add attachment to the sidebar.
-                  Find out the shape of data.
-
-                  Key Data:
-                  - menu-item-object-id (id of the post or the taxonomy term etc)
-                  - menu-item-object (posttype slug or taxonomy slug or template hierarchy)
-                  - menu-item-type: post_type | post_type_all | category_posts | taxonomy | taxonomy_all | author_archive | template_hierarchy
-                */}
 
                 <CardDivider className="my-4" />
 
@@ -199,7 +215,10 @@ const CreateSidebar = props => {
                       isDestructive
                       onClick={() => {
                         const confirmDelete = confirm(
-                          `You are about to permanently delete this sidebar. 'Cancel' to stop, 'OK' to delete.`
+                          __(
+                            `You are about to permanently delete this sidebar. 'Cancel' to stop, 'OK' to delete.`,
+                            'easy-custom-sidebars'
+                          )
                         );
 
                         if (confirmDelete === true) {
@@ -211,7 +230,7 @@ const CreateSidebar = props => {
                     </Button>
                   </div>
                   <div className="col-auto">
-                    <Button isPrimary onClick={() => {}}>
+                    <Button isBusy={isSaving} isPrimary onClick={createSidebarAndRedirect}>
                       {__('Create Sidebar', 'easy-custom-sidebars')}
                     </Button>
                   </div>

@@ -5,11 +5,6 @@ import { apiFetch } from '@wordpress/data-controls';
 import { addQueryArgs } from '@wordpress/url';
 
 /**
- * Internal dependancies
- */
-import { STORE_KEY } from '../store';
-
-/**
  * Sidebar Actions
  * @param {*} name
  */
@@ -25,15 +20,34 @@ export const hydrateSidebars = sidebars => {
  * Create Sidebar
  * @param {string} name Name of sidebar.
  */
-export function* createSidebar({ name, attachments, settings }) {
+export function* createSidebar({ name, attachments, description, replacementId }) {
+  const sidebarAttachments = attachments.map(attachment => ({
+    id: attachment.id,
+    data_type: attachment.data_type,
+    attachment_type: attachment.attachment_type
+  }));
+
   const path = '/wp/v2/easy-custom-sidebars';
-  const sidebar = yield apiFetch({ path, method: 'POST', data: { title: name, status: 'publish' } });
+  const sidebar = yield apiFetch({
+    path,
+    method: 'POST',
+    data: {
+      title: name,
+      status: 'publish',
+      meta: {
+        sidebar_replacement_id: replacementId,
+        sidebar_description: description,
+        sidebar_attachments: sidebarAttachments
+      }
+    }
+  });
 
   return {
     type: 'CREATE_SIDEBAR',
     payload: {
       id: sidebar.id,
-      sidebar
+      sidebar,
+      attachments
     }
   };
 }
@@ -43,15 +57,22 @@ export function* createSidebar({ name, attachments, settings }) {
  * @param {object} sidebar Sidebar properties and attachments.
  */
 export function* updateSidebar({ id, name, attachments, replacementId }) {
-  const path = `/wp/v2/easy-custom-sidebars/${id}`;
+  const sidebarAttachments = attachments.map(attachment => ({
+    id: attachment.id,
+    data_type: attachment.data_type,
+    attachment_type: attachment.attachment_type
+  }));
 
+  const path = `/wp/v2/easy-custom-sidebars/${id}`;
   const sidebar = yield apiFetch({
     path,
     method: 'POST',
     data: {
       title: name,
       meta: {
-        sidebar_replacement_id: replacementId
+        sidebar_replacement_id: replacementId,
+        sidebar_description: description,
+        sidebar_attachments: sidebarAttachments
       }
     }
   });
@@ -60,7 +81,8 @@ export function* updateSidebar({ id, name, attachments, replacementId }) {
     type: 'UPDATE_SIDEBAR',
     payload: {
       id: sidebar.id,
-      sidebar
+      sidebar,
+      attachments
     }
   };
 }
@@ -120,36 +142,13 @@ export function* deleteAllSidebars() {
 }
 
 /**
- * Get Sidebar Attachments
+ * Sidebar Attachments Actions
  * @param {int} id Post ID of sidebar.
  */
-export function* getSidebarAttachments(id) {
-  const path = `/easy-custom-sidebars/v1/attachments/${id}`;
-  const attachments = yield apiFetch({ path });
-
+export const hydrateSidebarAttachments = (id, attachments) => {
   return {
-    type: 'SIDEBAR_ATTACHMENTS_REQUEST',
+    type: 'HYDRATE_SIDEBAR_ATTACHMENTS',
     payload: { id, attachments }
-  };
-}
-
-export const addSidebarAttachment = (id, attachment) => {
-  return {
-    type: 'ADD_SIDEBAR_ATTACHMENT',
-    payload: {
-      id,
-      attachment
-    }
-  };
-};
-
-export const deleteSidebarAttachment = (id, attachment) => {
-  return {
-    type: 'DELETE_SIDEBAR_ATTACHMENT',
-    payload: {
-      id,
-      attachment
-    }
   };
 };
 
@@ -196,7 +195,6 @@ export const hydratePostTypePosts = ({ slug, page, posts, totalItems, totalPages
   };
 };
 
-// @todo: Use body wherevever we have requested the full page.
 export function* getTaxonomyTerms({ taxonomy, page = 1 }) {
   const path = addQueryArgs(`/wp/v2/${taxonomy}`, { page, _envelope: 1 });
   const terms = yield apiFetch({ path, method: 'GET' });
@@ -213,7 +211,6 @@ export function* getTaxonomyTerms({ taxonomy, page = 1 }) {
   };
 }
 
-// @todo: Use body wherevever we have requested the full page.
 export function* getCategories({ page = 1 }) {
   const path = addQueryArgs(`/wp/v2/categories`, { page, _envelope: 1 });
   const categories = yield apiFetch({ path, method: 'GET' });
@@ -229,7 +226,6 @@ export function* getCategories({ page = 1 }) {
   };
 }
 
-// @todo: Use body wherevever we have requested the full page.
 export function* getPostCategories({ page = 1 }) {
   const path = addQueryArgs(`/wp/v2/categories`, { page, _envelope: 1 });
   const categories = yield apiFetch({ path, method: 'GET' });
@@ -245,7 +241,6 @@ export function* getPostCategories({ page = 1 }) {
   };
 }
 
-// @todo: Use body wherevever we have requested the full page.
 export function* getUsers({ page = 1 }) {
   const path = addQueryArgs(`/wp/v2/users`, { page, _envelope: 1 });
   const users = yield apiFetch({ path, method: 'GET' });

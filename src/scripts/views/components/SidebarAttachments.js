@@ -1,8 +1,6 @@
 /**
  * External dependancies
  */
-import uniqWith from 'lodash.uniqwith';
-import isEqual from 'lodash.isequal';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 /**
@@ -20,7 +18,7 @@ const reorder = (list, startIndex, endIndex) => {
 
 const grid = 8;
 
-const getItemStyle = (isDragging, draggableStyle) => {
+const getItemStyle = (_, draggableStyle) => {
   return {
     userSelect: 'none',
     margin: `0 0 ${grid}px 0`,
@@ -52,15 +50,6 @@ const SidebarAttachments = props => {
 
   return (
     <div className="ecs-sidebar-attachments">
-      {/* <Button
-        className="mb-2"
-        isPrimary
-        onClick={() => {
-          setAttachments([...attachments, ...getAttachments(1, attachments.length)]);
-        }}
-      >
-        Add New Item
-      </Button> */}
       <div className="ecs-sidebar-attachments__container d-flex">
         {/* Flat list. */}
         <DragDropContext className="ecs-sidebar-attachments__drag-drop-context" onDragEnd={reorderAttachments}>
@@ -83,7 +72,11 @@ const SidebarAttachments = props => {
                         style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
                       >
                         <Panel>
-                          <PanelBody title={`${item.title} (${item.label})`} initialOpen={false} icon="sort">
+                          <PanelBody
+                            title={`${item.title ? item.title : __('(No Title)')} (${item.label})`}
+                            initialOpen={false}
+                            icon="sort"
+                          >
                             <PanelRow>
                               <Button isLink href={item.link} target="_blank">
                                 {__('Visit Link', 'easy-custom-sidebars')}

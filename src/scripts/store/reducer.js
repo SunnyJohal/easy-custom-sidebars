@@ -48,7 +48,15 @@ export const sidebarsReducer = (state = {}, action) => {
  */
 export const sidebarAttachmentsReducer = (state = {}, action) => {
   switch (action.type) {
-    case 'SIDEBAR_ATTACHMENTS_REQUEST':
+    case 'HYDRATE_SIDEBAR_ATTACHMENTS':
+      return { ...state, [action.payload.id]: action.payload.attachments };
+      break;
+
+    case 'CREATE_SIDEBAR':
+      return { ...state, [action.payload.id]: action.payload.attachments };
+      break;
+
+    case 'UPDATE_SIDEBAR':
       return { ...state, [action.payload.id]: action.payload.attachments };
       break;
 

@@ -11,6 +11,8 @@
 
 namespace ECS\Frontend;
 
+use ECS\Data;
+
 /**
  * Private
  *
@@ -77,6 +79,26 @@ function registered_sidebars_exist() {
 
 // @todo: Remove after testing.
 add_action('wp_body_open', function() {
+	$all_sidebars = new \WP_Query(
+		[
+			'post_type'      => 'sidebar_instance',
+			'posts_per_page' => -1,
+		]
+	);
+
+	while ($all_sidebars->have_posts()) {
+		$all_sidebars->the_post();
+		echo '<h1>' . get_the_ID() . '</h1>';
+		echo '<pre>';
+		print_r( Data\get_sidebar_attachments( get_the_ID() ) );
+		echo '</pre>';
+		echo '<pre>';
+		print_r( Data\get_sidebar_attachments( get_the_ID(), true ) );
+		echo '</pre>';
+	}
+	wp_reset_postdata();
+
+	// Data\get_default_registered_sidebars();
 	?>
 	<h1>ok this is a test <?php echo wp_count_posts( 'sidebar_instance' )->publish; ?></h1>
 	<?php
