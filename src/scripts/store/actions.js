@@ -181,7 +181,6 @@ export const hydrateTaxonomies = taxonomies => {
   };
 };
 
-// @todo: Use body wherevever we have requested the full page.
 export const hydratePostTypePosts = ({ slug, page, posts, totalItems, totalPages }) => {
   return {
     type: 'HYDRATE_POSTTYPE_POSTS',
@@ -195,21 +194,18 @@ export const hydratePostTypePosts = ({ slug, page, posts, totalItems, totalPages
   };
 };
 
-export function* getTaxonomyTerms({ taxonomy, page = 1 }) {
-  const path = addQueryArgs(`/wp/v2/${taxonomy}`, { page, _envelope: 1 });
-  const terms = yield apiFetch({ path, method: 'GET' });
-
+export const hydrateTaxonomyTerms = ({ slug, page, terms, totalItems, totalPages }) => {
   return {
-    type: 'TAXONOMY_TERMS_REQUEST',
+    type: 'HYDRATE_TAXONOMY_TERMS',
     payload: {
-      taxonomy,
+      slug,
       page,
-      terms: terms.body,
-      totalTerms: terms.headers['X-WP-Total'],
-      totalPages: terms.headers['X-WP-TotalPages']
+      terms,
+      totalItems,
+      totalPages
     }
   };
-}
+};
 
 export function* getCategories({ page = 1 }) {
   const path = addQueryArgs(`/wp/v2/categories`, { page, _envelope: 1 });

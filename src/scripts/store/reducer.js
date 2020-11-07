@@ -125,35 +125,63 @@ const initialMetaboxState = {
 export const metaboxReducer = (state = initialMetaboxState, action) => {
   switch (action.type) {
     case 'HYDRATE_POSTTYPE_POSTS':
-      let existingItems = {};
-      const { slug, page, posts, totalItems, totalPages } = action.payload;
+      {
+        let existingItems = {};
+        const { slug, page, posts, totalItems, totalPages } = action.payload;
 
-      if (slug in state.posttypes && 'itemsByPage' in state.posttypes[slug]) {
-        existingItems = state.posttypes[slug].itemsByPage;
-      }
+        if (slug in state.posttypes && 'itemsByPage' in state.posttypes[slug]) {
+          existingItems = state.posttypes[slug].itemsByPage;
+        }
 
-      let posttypeData = {
-        [slug]: {
-          totalItems,
-          totalPages,
-          itemsByPage: {
-            ...existingItems,
-            [page]: posts
+        let posttypeData = {
+          [slug]: {
+            totalItems,
+            totalPages,
+            itemsByPage: {
+              ...existingItems,
+              [page]: posts
+            }
           }
-        }
-      };
+        };
 
-      return {
-        ...state,
-        posttypes: {
-          ...state.posttypes,
-          ...posttypeData
-        }
-      };
+        return {
+          ...state,
+          posttypes: {
+            ...state.posttypes,
+            ...posttypeData
+          }
+        };
+      }
       break;
 
     case 'HYDRATE_TAXONOMY_TERMS':
-      return state;
+      {
+        let existingItems = {};
+        const { slug, page, terms, totalItems, totalPages } = action.payload;
+
+        if (slug in state.taxonomies && 'itemsByPage' in state.taxonomies[slug]) {
+          existingItems = state.taxonomies[slug].itemsByPage;
+        }
+
+        let taxTermData = {
+          [slug]: {
+            totalItems,
+            totalPages,
+            itemsByPage: {
+              ...existingItems,
+              [page]: terms
+            }
+          }
+        };
+
+        return {
+          ...state,
+          taxonomies: {
+            ...state.taxonomies,
+            ...taxTermData
+          }
+        };
+      }
       break;
 
     case 'HYDRATE_CATEGORIES':

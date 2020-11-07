@@ -87,23 +87,37 @@ const PostTypePosts = props => {
   );
 
   useEffect(() => {
-    const allItemsAttachment = {
-      id: 0,
-      title: { rendered: sprintf(__('All %s', 'easy-custom-sidebars'), name) },
-      label: name,
-      link: addQueryArgs(`${easy_custom_sidebars.admin_url}/edit.php`, { post_type: slug }),
-      data_type: slug,
-      attachment_type: 'post_type_all',
-      checked: false
-    };
+    const allItemsAttachment = [
+      {
+        id: 0,
+        title: { rendered: sprintf(__('All %s', 'easy-custom-sidebars'), name) },
+        label: name,
+        link: addQueryArgs(`${easy_custom_sidebars.admin_url}edit.php`, { post_type: slug }),
+        data_type: slug,
+        attachment_type: 'post_type_all',
+        checked: false
+      }
+    ];
+
+    if (slug !== 'post') {
+      allItemsAttachment.push({
+        id: 0,
+        title: { rendered: sprintf(__('%s Archive', 'easy-custom-sidebars'), name) },
+        label: name,
+        link: addQueryArgs(`${easy_custom_sidebars.admin_url}edit.php`, { post_type: slug }),
+        data_type: slug,
+        attachment_type: 'post_type_archive',
+        checked: false
+      });
+    }
 
     if (posts && posts.length > 0) {
-      setItems([allItemsAttachment, ...posts]);
+      setItems([...allItemsAttachment, ...posts]);
       setIsFetchingData(false);
     }
   }, [posts]);
 
-  // Search test
+  // Search.
   useEffect(() => {
     if (searchTerm) {
       setIsFetchingData(true);
@@ -193,7 +207,7 @@ const PostTypePosts = props => {
                   label: name,
                   link: item.link,
                   data_type: slug,
-                  attachment_type: item.attachment_type
+                  attachment_type: item.attachment_type || 'post_type'
                 };
               });
 
@@ -234,7 +248,7 @@ const PostTypeAttachments = ({ items, setItems }) => {
     <ul>
       {items.map(({ id, title, checked }, i) => {
         return (
-          <li key={id}>
+          <li key={`${i}-${id}`}>
             <CheckboxControl
               label={title.rendered}
               checked={checked ? true : false}

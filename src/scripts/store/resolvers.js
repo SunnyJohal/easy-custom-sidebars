@@ -13,7 +13,8 @@ import {
   hydrateSidebarAttachments,
   hydratePostTypes,
   hydrateTaxonomies,
-  hydratePostTypePosts
+  hydratePostTypePosts,
+  hydrateTaxonomyTerms
 } from './actions';
 
 /**
@@ -129,4 +130,31 @@ export function* getPostTypePosts({ slug, rest_base, page }) {
   return;
 }
 
-export function* getTaxonomyTerms({ slug }) {}
+export function* getTaxonomyTerms({ slug, rest_base, page }) {
+  const path = addQueryArgs(`/wp/v2/${rest_base}`, {
+    page,
+    per_page: 10,
+    order: 'asc',
+    orderby: 'name',
+    _envelope: 1,
+    _fields: ['id', 'name', 'taxonomy', 'link']
+  });
+  const terms = yield apiFetch({ path, method: 'GET' });
+
+  if (terms && 200 === terms.status) {
+    let termsById = {};
+    for (let term of terms.body) {
+      termsById[term.id] = term;
+    }
+
+    return hydrateTaxonomyTerms({
+      slug,
+      page,
+      terms: termsById,
+      totalItems: terms.headers['X-WP-Total'],
+      totalPages: terms.headers['X-WP-TotalPages']
+    });
+  }
+
+  return;
+}
