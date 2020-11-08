@@ -233,26 +233,3 @@ const EditSidebar = props => {
 };
 
 export default withRouter(EditSidebar);
-
-// Sidebar example fetch.
-// apiFetch({ path: '/wp/v2/easy_custom_sidebars' }).then(posts => {
-//   let sidebars = {};
-//   posts.forEach(post => {
-//     sidebars[post.id] = post;
-//   });
-//   console.log('sidebars', posts);
-// });
-
-// Post meta example fetch.
-// path: '/wp/v2/types'      => Gets the posttypes
-// path: '/wp/v2/taxonomies' => Gets the taxonomies
-// path: '/wp/v2/categories' => Gets the terms
-// path: '/wp/v2/users'      => Gets the authors
-
-// Example urls with queries.
-
-// $this->setup_post_type_meta_boxes();
-// $this->setup_category_posts_boxes();
-// $this->setup_taxonomy_meta_boxes();
-// $this->setup_author_meta_box();
-// $this->setup_template_meta_box();

@@ -13,7 +13,6 @@ import CreateSidebar from './CreateSidebar';
 import EditSidebar from './EditSidebar';
 import ManageSidebars from './ManageSidebars';
 
-// Remove after.
 import Nav from '../components/Nav';
 
 function ScreenController() {
