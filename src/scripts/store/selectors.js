@@ -50,15 +50,7 @@ export const getTaxonomyTerms = (state, { slug, rest_base, page }) => {
   return state.metaboxes.taxonomies[slug] || {};
 };
 
-export const getCategories = (state, page) => {
-  return state.metaboxes.categories || {};
-};
-
-export const getPostCategories = (state, page) => {
-  return state.metaboxes.postCategories || {};
-};
-
-export const getUsers = (state, page) => {
+export const getUsers = (state, { page }) => {
   return state.metaboxes.users || {};
 };
 

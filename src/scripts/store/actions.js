@@ -207,107 +207,21 @@ export const hydrateTaxonomyTerms = ({ slug, page, terms, totalItems, totalPages
   };
 };
 
-export function* getCategories({ page = 1 }) {
-  const path = addQueryArgs(`/wp/v2/categories`, { page, _envelope: 1 });
-  const categories = yield apiFetch({ path, method: 'GET' });
-
+export const hydrateUsers = ({ page, users, totalItems, totalPages }) => {
   return {
-    type: 'CATEGORIES_REQUEST',
+    type: 'HYDRATE_USERS',
     payload: {
       page,
-      categories: categories.body,
-      totalCategories: categories.headers['X-WP-Total'],
-      totalPages: categories.headers['X-WP-TotalPages']
+      users,
+      totalItems,
+      totalPages
     }
   };
-}
+};
 
-export function* getPostCategories({ page = 1 }) {
-  const path = addQueryArgs(`/wp/v2/categories`, { page, _envelope: 1 });
-  const categories = yield apiFetch({ path, method: 'GET' });
-
+export const hydrateTemplates = ({ templates }) => {
   return {
-    type: 'POSTS_CATEGORIES_REQUEST',
-    payload: {
-      page,
-      categories: categories.body,
-      totalCategories: categories.headers['X-WP-Total'],
-      totalPages: categories.headers['X-WP-TotalPages']
-    }
+    type: 'HYDRATE_TEMPLATES',
+    payload: { templates }
   };
-}
-
-export function* getUsers({ page = 1 }) {
-  const path = addQueryArgs(`/wp/v2/users`, { page, _envelope: 1 });
-  const users = yield apiFetch({ path, method: 'GET' });
-
-  return {
-    type: 'USERS_REQUEST',
-    payload: {
-      page,
-      users: users.body,
-      totalUsers: users.headers['X-WP-Total'],
-      totalPages: users.headers['X-WP-TotalPages']
-    }
-  };
-}
-
-// @todo: Use body wherevever we have requested the full page.
-export function* getTemplates() {
-  // @todo: create custom endpoint.
-  const path = `/easy-custom-sidebars/v1/page-templates`;
-  const templates = yield apiFetch({ path, method: 'GET' });
-  return {
-    type: 'TEMPLATES_REQUEST',
-    payload: {
-      templates
-    }
-  };
-}
-
-// Fields to note:
-// Total pages.
-// Current page.
-// Per Page?
-// Items.
-// Total items.
-
-// X-WP-Total: 50
-// X-WP-TotalPages: 5
-
-// SEARCH EXAMPLE:
-// wp.apiFetch({
-//   path: '/wp/v2/product?_envelope=1&search=shirt',
-//   method: 'GET'
-// }).then((response) => console.log(response));
-
-// A MORE EFFICENT QUERY.
-// wp.apiFetch({
-//   path: '/wp/v2/posts?page=2&_envelope=1&_fields=title,date,id,link',
-//   method: 'GET'
-// }).then((response) => console.log(response));
-
-// Edge cases.
-// Deleted items.
-
-// Metabox Events:
-// GET Posttypes Metabox items.
-// GET Taxonomies Metabox items.
-// GET AllPostsInCategory Metabox Items.
-// GET Author Metabox items.
-// GET Template Metabox items.
-// Show/Hide Metabox. (This needs to be persistent).
-// Paginate items in metabox.
-// Search items in metabox (inc pagination on results).
-
-// $this->setup_post_type_meta_boxes();
-// $this->setup_category_posts_boxes();
-// $this->setup_taxonomy_meta_boxes();
-// $this->setup_author_meta_box();
-// $this->setup_template_meta_box();
-
-// Attachment Events:
-// Reorder attachment.
-// Add attachment to sidebar.
-// Prevent navigation when state changes for a sidebar.
-// Remove attachment from sidebar.
+};

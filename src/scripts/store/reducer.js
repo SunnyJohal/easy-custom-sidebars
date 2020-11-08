@@ -117,7 +117,6 @@ const initialMetaboxState = {
   posttypes: {},
   taxonomies: {},
   categories: {},
-  postCategories: {},
   users: {},
   templates: {}
 };
@@ -184,20 +183,30 @@ export const metaboxReducer = (state = initialMetaboxState, action) => {
       }
       break;
 
-    case 'HYDRATE_CATEGORIES':
-      return state;
-      break;
-
-    case 'HYDRATE_POST_CATEGORIES':
-      return state;
-      break;
-
     case 'HYDRATE_USERS':
-      return state;
+      {
+        let existingItems = {};
+        const { page, users, totalItems, totalPages } = action.payload;
+
+        if ('itemsByPage' in state.users) {
+          existingItems = state.users.itemsByPage;
+        }
+
+        let userData = {
+          totalItems,
+          totalPages,
+          itemsByPage: {
+            ...existingItems,
+            [page]: users
+          }
+        };
+
+        return { ...state, users: { ...state.users, ...userData } };
+      }
       break;
 
-    case 'HYDATE_TEMPLATES':
-      return state;
+    case 'HYDRATE_TEMPLATES':
+      return { ...state, templates: action.payload.templates };
       break;
 
     default:

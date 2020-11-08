@@ -47,7 +47,6 @@ const SidebarAttachments = props => {
 
     setAttachments(reorder(attachments, source.index, destination.index));
   }
-  console.log(attachments);
 
   return (
     <div className="ecs-sidebar-attachments">

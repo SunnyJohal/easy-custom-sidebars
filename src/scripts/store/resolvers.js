@@ -1,6 +1,7 @@
 /**
  * WordPress dependancies
  */
+import { __, sprintf } from '@wordpress/i18n';
 import { apiFetch } from '@wordpress/data-controls';
 import { addQueryArgs } from '@wordpress/url';
 
@@ -14,7 +15,9 @@ import {
   hydratePostTypes,
   hydrateTaxonomies,
   hydratePostTypePosts,
-  hydrateTaxonomyTerms
+  hydrateTaxonomyTerms,
+  hydrateUsers,
+  hydrateTemplates
 } from './actions';
 
 /**
@@ -154,6 +157,83 @@ export function* getTaxonomyTerms({ slug, rest_base, page }) {
       totalItems: terms.headers['X-WP-Total'],
       totalPages: terms.headers['X-WP-TotalPages']
     });
+  }
+
+  return;
+}
+
+export function* getUsers({ page }) {
+  const path = addQueryArgs(`/wp/v2/users`, {
+    page,
+    per_page: 10,
+    order: 'asc',
+    orderby: 'name',
+    _envelope: 1,
+    _fields: ['id', 'name', 'slug', 'link']
+  });
+  const users = yield apiFetch({ path, method: 'GET' });
+
+  if (users && 200 === users.status) {
+    let usersById = {};
+    for (let user of users.body) {
+      usersById[user.id] = user;
+    }
+
+    return hydrateUsers({
+      page,
+      users: usersById,
+      totalItems: users.headers['X-WP-Total'],
+      totalPages: users.headers['X-WP-TotalPages']
+    });
+  }
+
+  return;
+}
+
+export function* getTemplates() {
+  const path = addQueryArgs(`/easy-custom-sidebars/v1/page-templates`, { _envelope: 1 });
+  const pageTemplates = yield apiFetch({ path, method: 'GET' });
+
+  let templates = [
+    {
+      id: 0,
+      title: __('404 (Page Not Found)', 'easy-custom-sidebars'),
+      data_type: '404'
+    },
+    {
+      id: 0,
+      title: __('Author Archive', 'easy-custom-sidebars'),
+      data_type: 'author_archive_all'
+    },
+    {
+      id: 0,
+      title: __('Blog Index Page', 'easy-custom-sidebars'),
+      data_type: 'index_page'
+    },
+    {
+      id: 0,
+      title: __('Date Archive', 'easy-custom-sidebars'),
+      data_type: 'date_archive'
+    },
+    {
+      id: 0,
+      title: __('Search Results', 'easy-custom-sidebars'),
+      data_type: 'search_results'
+    }
+  ];
+
+  if (pageTemplates && 200 === pageTemplates.status) {
+    const allTemplates = pageTemplates.body;
+    templates = [
+      ...templates,
+      ...Object.keys(allTemplates).map(slug => ({
+        id: 0,
+        title: sprintf(__('Page Template: %s', 'easy-custom-sidebars'), allTemplates[slug]),
+        data_type: slug
+      }))
+    ];
+
+    return hydrateTemplates({ templates });
   }
 
   return;

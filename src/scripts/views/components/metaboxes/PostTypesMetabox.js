@@ -65,6 +65,11 @@ const PostTypePosts = props => {
   const prevPageCursor = { ...paginationCursor, page: paginationCursor.page - 1 };
   const nextPageCursor = { ...paginationCursor, page: paginationCursor.page + 1 };
   const totalPages = useSelect(select => select(STORE_KEY).getPostTypePosts(paginationCursor).totalPages) || 0;
+  const initalReqMade = useSelect(select =>
+    select(STORE_KEY).hasFinishedResolution('getPostTypePosts', [{ slug, rest_base, page: 1 }])
+  );
+
+  useEffect(() => setIsFetchingData(!initalReqMade), [initalReqMade]);
 
   const posts = useSelect(
     select => {
@@ -143,8 +148,6 @@ const PostTypePosts = props => {
         setSearchResults(results);
         setIsFetchingData(false);
       });
-    } else {
-      setIsFetchingData(false);
     }
   }, [searchTerm]);
 
@@ -171,12 +174,20 @@ const PostTypePosts = props => {
 
       {/* Items || Search Results */}
       <PanelRow>
+        {initalReqMade && items.length === 0 && (
+          <div>
+            <p>{sprintf(__('No %s have been created.', 'easy-custom-sidebars'), name)}</p>
+          </div>
+        )}
+
         {items.length > 0 && !searchQuery ? (
           <PostTypeAttachments items={items} setItems={setItems} />
         ) : (
           <>
             {searchTerm && !isFetchingData && searchResults.length === 0 && (
-              <div>{sprintf(__('No results found for "%s"', 'easy-custom-sidebars'), searchTerm)}</div>
+              <div>
+                <p>{sprintf(__('No results found for "%s"', 'easy-custom-sidebars'), searchTerm)}</p>
+              </div>
             )}
             <PostTypeAttachments items={searchResults} setItems={setSearchResults} />
           </>
@@ -244,6 +255,10 @@ const PostTypePosts = props => {
 };
 
 const PostTypeAttachments = ({ items, setItems }) => {
+  if (!items.length) {
+    return null;
+  }
+
   return (
     <ul>
       {items.map(({ id, title, checked }, i) => {

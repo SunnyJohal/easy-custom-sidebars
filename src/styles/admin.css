@@ -37,6 +37,10 @@
   text-transform: capitalize;
 }
 
+.ecs-metaboxes .components-panel__row > ul {
+  width: 100%;
+}
+
 .ecs-metaboxes .components-panel__row label {
   display: inline-block;
 }

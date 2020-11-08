@@ -62,6 +62,11 @@ const TaxonomyTerms = props => {
   const prevPageCursor = { ...paginationCursor, page: paginationCursor.page - 1 };
   const nextPageCursor = { ...paginationCursor, page: paginationCursor.page + 1 };
   const totalPages = useSelect(select => select(STORE_KEY).getTaxonomyTerms(paginationCursor).totalPages) || 0;
+  const initalReqMade = useSelect(select =>
+    select(STORE_KEY).hasFinishedResolution('getTaxonomyTerms', [{ slug, rest_base, page: 1 }])
+  );
+
+  useEffect(() => setIsFetchingData(!initalReqMade), [initalReqMade]);
 
   const terms = useSelect(
     select => {
@@ -124,8 +129,6 @@ const TaxonomyTerms = props => {
         setSearchResults(results);
         setIsFetchingData(false);
       });
-    } else {
-      setIsFetchingData(false);
     }
   }, [searchTerm]);
 
@@ -152,6 +155,12 @@ const TaxonomyTerms = props => {
 
       {/* Items || Search Results */}
       <PanelRow>
+        {initalReqMade && items.length === 0 && (
+          <div>
+            <p>{sprintf(__('No %s have been created.', 'easy-custom-sidebars'), name)}</p>
+          </div>
+        )}
+
         {items.length > 0 && !searchQuery ? (
           <TaxTermAttachments items={items} setItems={setItems} />
         ) : (
@@ -228,6 +237,9 @@ const TaxonomyTerms = props => {
  * Taxonomy Term Attachments
  */
 const TaxTermAttachments = ({ items, setItems }) => {
+  if (!items.length) {
+    return null;
+  }
   return (
     <ul>
       {items.map(({ id, name, checked }, i) => {
