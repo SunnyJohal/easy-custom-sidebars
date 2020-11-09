@@ -2,6 +2,7 @@
  * External dependancies
  */
 import { Prompt, withRouter } from 'react-router-dom';
+import { useBeforeunload } from 'react-beforeunload';
 
 /**
  * WordPress dependancies
@@ -76,11 +77,9 @@ const CreateSidebar = props => {
     }
   }, [sidebarName]);
 
-  // TODO: Lock sidebar creation while saving.
-  // TODO: Maybe show a spinner.
-  // TODO: Pass in all fields.
+  // Create sidebar.
   const { createSidebar } = useDispatch(STORE_KEY);
-  const createSidebarAndRedirect = () => {
+  const createSidebarAndRedirect = async () => {
     if (isSaving) {
       return;
     }
@@ -91,18 +90,9 @@ const CreateSidebar = props => {
 
     if (sidebarName) {
       setIsSaving(true);
-
-      const newSidebar = {
-        name: sidebarName,
-        attachments,
-        description,
-        replacementId
-      };
-
-      createSidebar(newSidebar).then(action => {
-        resetSidebar();
-        props.history.push(`${getScreenLink('edit', { sidebar: action.payload.sidebar.id })}`);
-      });
+      const newSidebar = await createSidebar({ name: sidebarName, attachments, description, replacementId });
+      resetSidebar();
+      props.history.push(`${getScreenLink('edit', { sidebar: newSidebar.payload.sidebar.id })}`);
     }
   };
 
@@ -113,11 +103,20 @@ const CreateSidebar = props => {
     setReplacementId('');
   };
 
-  // TODO: Add for attachments.
+  // Track any changes made.
   const changesMade = () => {
     const changesMade = [sidebarName !== '', description !== '', replacementId !== '', attachments.length !== 0];
     return changesMade.some(hasChanged => hasChanged);
   };
+
+  useBeforeunload(() => {
+    if (changesMade()) {
+      return __(
+        'You have made changes to this sidebar that are not saved. Are you sure you want to leave this page?',
+        'easy-custom-sidebars'
+      );
+    }
+  });
 
   return dataLoaded ? (
     <div>
@@ -242,7 +241,10 @@ const CreateSidebar = props => {
       </div>
       <Prompt
         when={changesMade()}
-        message={__('are you sure you want to navigate away?', 'easy-custom-sidebars')}
+        message={__(
+          'You have made changes to this sidebar that are not saved. Are you sure you want to leave this page?',
+          'easy-custom-sidebars'
+        )}
         beforeUnload={true}
       />
     </div>

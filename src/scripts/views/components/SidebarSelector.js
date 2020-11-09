@@ -8,23 +8,17 @@ import { Redirect, Link, withRouter } from 'react-router-dom';
  */
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 import { Button, Card, CardBody, SelectControl } from '@wordpress/components';
 
 /**
  * Internal dependancies
  */
 import { STORE_KEY } from '../../store';
-import getQueryFromUrl from '../../utils/getQueryFromUrl';
 import getScreenLink from '../../utils/getScreenLink';
 
-const SidebarSelector = props => {
-  const { selectedSidebarId } = props;
-  const [switchToSidebar, setSwitchToSidebar] = useState(selectedSidebarId);
-
-  const sidebars = useSelect(select => select(STORE_KEY).getSidebars());
-
-  const allSidebars = Object.keys(sidebars)
+const sortSidebarsByTitle = sidebars => {
+  return Object.keys(sidebars)
     .sort((a, b) => {
       const firstTitle = sidebars[a].title.rendered.toUpperCase();
       const secondTitle = sidebars[b].title.rendered.toUpperCase();
@@ -39,12 +33,19 @@ const SidebarSelector = props => {
 
       return 0;
     })
-    .map((id, index, arr) => {
-      return {
-        label: sidebars[id].title.rendered,
-        value: id
-      };
-    });
+    .map(id => ({
+      label: sidebars[id].title.rendered,
+      value: id
+    }));
+};
+
+const SidebarSelector = props => {
+  const { selectedSidebarId } = props;
+  const [switchToSidebar, setSwitchToSidebar] = useState(selectedSidebarId);
+  const [allSidebars, setAllSidebars] = useState([]);
+  const sidebars = useSelect(select => select(STORE_KEY).getSidebars());
+
+  useEffect(() => setAllSidebars(sortSidebarsByTitle(sidebars)), [sidebars]);
 
   return (
     <Card className="ecs-sidebar-selector">

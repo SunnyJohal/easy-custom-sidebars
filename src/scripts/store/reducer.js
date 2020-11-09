@@ -12,7 +12,7 @@ export const sidebarsReducer = (state = {}, action) => {
       break;
 
     case 'UPDATE_SIDEBAR':
-      return { ...state };
+      return { ...state, [action.payload.id]: action.payload.sidebar };
       break;
 
     case 'UPDATE_SIDEBAR_REPLACEMENT':

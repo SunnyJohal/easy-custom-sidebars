@@ -56,7 +56,7 @@ export function* createSidebar({ name, attachments, description, replacementId }
  * Update Sidebar
  * @param {object} sidebar Sidebar properties and attachments.
  */
-export function* updateSidebar({ id, name, attachments, replacementId }) {
+export function* updateSidebar({ id, name, attachments, description, replacementId }) {
   const sidebarAttachments = attachments.map(attachment => ({
     id: attachment.id,
     data_type: attachment.data_type,

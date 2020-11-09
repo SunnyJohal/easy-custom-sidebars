@@ -1,12 +1,13 @@
 /**
  * External dependancies
  */
-import { Redirect, Link, withRouter } from 'react-router-dom';
+import { Prompt, withRouter } from 'react-router-dom';
+import { useBeforeunload } from 'react-beforeunload';
 
 /**
  * WordPress dependancies
  */
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { useState, useEffect } from '@wordpress/element';
 import {
@@ -33,6 +34,23 @@ import EditSidebarsLoader from '../components/loaders/EditSidebarsLoader';
 import Metaboxes from '../components/metaboxes';
 import SidebarAttachments from '../components/SidebarAttachments';
 
+const sortSidebarsByTitle = sidebars => {
+  return Object.keys(sidebars).sort((a, b) => {
+    const firstTitle = sidebars[a].title.rendered.toUpperCase();
+    const secondTitle = sidebars[b].title.rendered.toUpperCase();
+
+    if (firstTitle < secondTitle) {
+      return -1;
+    }
+
+    if (firstTitle > secondTitle) {
+      return 1;
+    }
+
+    return 0;
+  });
+};
+
 const EditSidebar = props => {
   const hasFinishedResolution = useSelect(select => {
     select(STORE_KEY).getPostTypes();
@@ -55,53 +73,48 @@ const EditSidebar = props => {
   });
 
   defaultSidebarOptions.push({
-    label: replacementId ? '— Deactivate Sidebar —' : '— Select a Sidebar —',
+    label: replacementId
+      ? __('— Deactivate Sidebar —', 'easy-custom-sidebars')
+      : __('— Select a Sidebar —', 'easy-custom-sidebars'),
     value: ''
   });
 
-  const allSidebars = useSelect(select => {
-    return select(STORE_KEY).getSidebars();
-  });
-
+  const allSidebars = useSelect(select => select(STORE_KEY).getSidebars());
   let sidebarToEdit = getQueryFromUrl('sidebar');
 
   if (!sidebarToEdit && hasFinishedResolution) {
-    const [firstSidebar] = Object.keys(allSidebars).sort((a, b) => {
-      const firstTitle = allSidebars[a].title.rendered.toUpperCase();
-      const secondTitle = allSidebars[b].title.rendered.toUpperCase();
-
-      if (firstTitle < secondTitle) {
-        return -1;
-      }
-
-      if (firstTitle > secondTitle) {
-        return 1;
-      }
-
-      return 0;
-    });
+    const [firstSidebar] = sortSidebarsByTitle(allSidebars);
     sidebarToEdit = firstSidebar;
   }
 
-  if (hasFinishedResolution && Object.keys(allSidebars).length === 0) {
-    props.history.push(getScreenLink('create'));
-  }
+  useEffect(() => {
+    let isMounted = true;
+    if (hasFinishedResolution && Object.keys(allSidebars).length === 0) {
+      props.history.push(getScreenLink('create'));
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [allSidebars]);
+
+  // if (hasFinishedResolution && Object.keys(allSidebars).length === 0) {
+  //   props.history.push(getScreenLink('create'));
+  // }
 
   const sidebar = useSelect(select => select(STORE_KEY).getSidebar(sidebarToEdit));
-
-  // If no sidebar is passed in the url.
-  // Attempt to get the first sidebar to edit.
-  // If no sidebars exist then just redirect to the create screen.
-
-  const { deleteSidebar, updateSidebar } = useDispatch(STORE_KEY);
-
   const [isSaving, setIsSaving] = useState(false);
   const [attachments, setAttachments] = useState([]);
   const [sidebarName, setSidebarName] = useState('');
   const [description, setDescription] = useState('');
   const [replacementId, setReplacementId] = useState('');
+  const [changesMade, setChangesMade] = useState(false);
+  const [sidebarNameError, setSidebarNameError] = useState(false);
+  const hasAttachments = () => attachments.length > 0;
 
-  const setUniqueAttachments = newAttachments => setAttachments(removeDuplicateAttachments(newAttachments));
+  const setUniqueAttachments = newAttachments => {
+    setAttachments(removeDuplicateAttachments(newAttachments));
+    setChangesMade(true);
+  };
 
   // Sync saved attachment state.
   const savedAttachments = useSelect(select => select(STORE_KEY).getAttachmentsForSidebar(sidebarToEdit));
@@ -113,8 +126,71 @@ const EditSidebar = props => {
       setSidebarName(sidebar.title.rendered);
       setDescription(sidebar.meta.sidebar_description);
       setReplacementId(sidebar.meta.sidebar_replacement_id);
+      setChangesMade(false);
     }
   }, [sidebar]);
+
+  /**
+   * Update Sidebar
+   */
+  const { updateSidebar } = useDispatch(STORE_KEY);
+  const updateSidebarAndRedirect = async () => {
+    if (isSaving) {
+      return;
+    }
+
+    if (!sidebarName) {
+      setSidebarNameError(true);
+    }
+
+    if (sidebarName) {
+      setIsSaving(true);
+    }
+
+    const updatedSidebar = await updateSidebar({
+      id: sidebarToEdit,
+      name: sidebarName,
+      attachments,
+      description,
+      replacementId
+    });
+    setIsSaving(false);
+    setChangesMade(false);
+    console.log(`maybe show a toast here saying ${sidebarName} has been saved`, updatedSidebar);
+  };
+
+  /**
+   * Delete Sidebar
+   */
+  const { deleteSidebar } = useDispatch(STORE_KEY);
+  const deleteSidebarAndRedirect = async () => {
+    if (isSaving) {
+      return;
+    }
+
+    if (!sidebarName) {
+      setSidebarNameError(true);
+    }
+
+    if (sidebarName) {
+      setIsSaving(true);
+      setChangesMade(false);
+      await deleteSidebar(sidebarToEdit);
+      setIsSaving(false);
+    }
+  };
+
+  /**
+   * Prompt for unsaved changes.
+   */
+  useBeforeunload(() => {
+    if (changesMade) {
+      return __(
+        'You have made changes to this sidebar that are not saved. Are you sure you want to leave this page?',
+        'easy-custom-sidebars'
+      );
+    }
+  });
 
   return hasFinishedResolution ? (
     <div>
@@ -142,21 +218,14 @@ const EditSidebar = props => {
                       className="ecs-settings__sidebar-name"
                       label="Sidebar Name"
                       value={sidebarName}
-                      onChange={value => setSidebarName(value)}
+                      onChange={value => {
+                        setSidebarName(value);
+                        setChangesMade(true);
+                      }}
                     />
                   </div>
                   <div className="col-auto">
-                    <Button
-                      isPrimary
-                      onClick={() => {
-                        // Lock sidebar creation while saving.
-                        console.log('ok create the sidebar and redirect, maybe show a spinner', sidebarName);
-
-                        // createSidebar({ name: sidebarName }).then(action => {
-                        //   props.history.push(`${getScreenLink('edit', { sidebar: action.payload.sidebar.id })}`);
-                        // });
-                      }}
-                    >
+                    <Button isBusy={isSaving} isPrimary onClick={updateSidebarAndRedirect}>
                       {__('Save Sidebar', 'easy-custom-sidebars')}
                     </Button>
                   </div>
@@ -165,13 +234,17 @@ const EditSidebar = props => {
 
               {/* Sidebar attachment and settings */}
               <CardBody>
-                <h3>
-                  {__('Sidebar Replacements for:', 'easy-custom-sidebars')}{' '}
-                  {Object.keys(sidebar).length > 0 ? sidebar.title.rendered : ''}
-                </h3>
+                <h3>{sprintf(__('Sidebar Replacements for: %s'), sidebarName)}</h3>
                 <p>
-                  Add items from the column on the left. Please ensure that any items added to this sidebar contain the
-                  default 'Sidebar to Replace' widget area selected in the sidebar properties below.
+                  {hasAttachments()
+                    ? __(
+                        `Drag each item into the order you prefer. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below. Drag each item into the order you prefer.`,
+                        'easy-custom-sidebars'
+                      )
+                    : __(
+                        `Add items from the column on the left. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below.`,
+                        'easy-custom-sidebars'
+                      )}
                 </p>
 
                 {/* Attachments. */}
@@ -187,7 +260,10 @@ const EditSidebar = props => {
                   label={__('Sidebar to Replace', 'easy-custom-sidebars')}
                   value={replacementId}
                   options={defaultSidebarOptions}
-                  onChange={replacementId => setReplacementId(replacementId)}
+                  onChange={replacementId => {
+                    setReplacementId(replacementId);
+                    setChangesMade(true);
+                  }}
                 />
 
                 <TextareaControl
@@ -195,7 +271,10 @@ const EditSidebar = props => {
                   className="ecs-settings__description"
                   help={__('Description of the sidebar, displayed in the Widgets interface.', 'easy-custom-sidebars')}
                   value={description}
-                  onChange={description => setDescription(description)}
+                  onChange={description => {
+                    setDescription(description);
+                    setChangesMade(true);
+                  }}
                 />
               </CardBody>
 
@@ -209,6 +288,10 @@ const EditSidebar = props => {
                         const confirmDelete = confirm(
                           `You are about to permanently delete this sidebar. 'Cancel' to stop, 'OK' to delete.`
                         );
+
+                        if (confirmDelete === true) {
+                          deleteSidebarAndRedirect();
+                        }
                       }}
                     >
                       {__('Delete Sidebar', 'easy-custom-sidebars')}
@@ -216,7 +299,7 @@ const EditSidebar = props => {
                   </div>
 
                   <div className="col-auto">
-                    <Button isPrimary onClick={() => {}}>
+                    <Button isBusy={isSaving} isPrimary onClick={updateSidebarAndRedirect}>
                       {__('Save Sidebar', 'easy-custom-sidebars')}
                     </Button>
                   </div>
@@ -226,6 +309,14 @@ const EditSidebar = props => {
           </div>
         </div>
       </div>
+      <Prompt
+        when={changesMade}
+        message={__(
+          'You have made changes to this sidebar that are not saved. Are you sure you want to leave this page?',
+          'easy-custom-sidebars'
+        )}
+        beforeUnload={true}
+      />
     </div>
   ) : (
     <EditSidebarsLoader />

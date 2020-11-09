@@ -14,7 +14,7 @@ import { getQueryArg } from '@wordpress/url';
  */
 import getScreenLink from '../../utils/getScreenLink';
 
-const isActive = (match, location, screen) => {
+const isActive = (_, location, screen) => {
   return getQueryArg(location.search, 'screen') === screen;
 };
 
@@ -32,7 +32,7 @@ const Nav = props => {
       <div className="components-tab-panel__tabs my-3">
         <NavLink
           to={getScreenLink('create')}
-          isActive={(match, location) => isActive(match, location, 'create')}
+          isActive={(_, location) => isActive(_, location, 'create')}
           className="components-button components-tab-panel__tabs-item"
           activeClassName="is-active"
         >
@@ -41,7 +41,7 @@ const Nav = props => {
 
         <NavLink
           to={getScreenLink('edit')}
-          isActive={(match, location) => isActive(match, location, 'edit')}
+          isActive={(_, location) => isActive(_, location, 'edit')}
           className="components-button components-tab-panel__tabs-item"
           activeClassName="is-active"
         >
@@ -50,7 +50,7 @@ const Nav = props => {
 
         <NavLink
           to={getScreenLink('manage')}
-          isActive={(match, location) => isActive(match, location, 'manage')}
+          isActive={(_, location) => isActive(_, location, 'manage')}
           className="components-button components-tab-panel__tabs-item"
           activeClassName="is-active"
         >
