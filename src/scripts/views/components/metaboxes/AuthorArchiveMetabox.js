@@ -20,9 +20,23 @@ import { CheckboxControl, Spinner } from '@wordpress/components';
 import { STORE_KEY } from '../../../store';
 import sortItemsByName from '../../../utils/sortItemsByName';
 
-const AuthorArchiveMetabox = ({ attachments, setAttachments }) => {
+const AuthorArchiveMetabox = ({ attachments, setAttachments, openMetabox, setOpenMetabox }) => {
+  const panelId = `ecs-metabox-author-archives`;
+  const isActive = panelId === openMetabox;
+
   return (
-    <PanelBody title={__('Author Archives', 'easy-custom-sidebars')} initialOpen={false}>
+    <PanelBody
+      title={__('Author Archives', 'easy-custom-sidebars')}
+      initialOpen={false}
+      opened={isActive}
+      onToggle={() => {
+        if (isActive) {
+          setOpenMetabox(false);
+        } else {
+          setOpenMetabox(panelId);
+        }
+      }}
+    >
       <AuthorArchiveUsers
         name="Users"
         slug="users"

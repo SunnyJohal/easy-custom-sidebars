@@ -212,6 +212,26 @@ module.exports = _defineProperty;
 
 /***/ }),
 
+/***/ "./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _assertThisInitialized; });
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime/helpers/esm/extends.js":
 /*!************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/esm/extends.js ***!
@@ -714,28 +734,32 @@ var createCache = function createCache(options) {
 /*!*************************************************************!*\
   !*** ./node_modules/@emotion/core/dist/core.browser.esm.js ***!
   \*************************************************************/
-/*! exports provided: css, CacheProvider, ClassNames, Global, ThemeContext, jsx, keyframes, withEmotionCache */
+/*! exports provided: CacheProvider, ThemeContext, withEmotionCache, css, ClassNames, Global, createElement, jsx, keyframes */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CacheProvider", function() { return CacheProvider; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClassNames", function() { return ClassNames; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Global", function() { return Global; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ThemeContext", function() { return ThemeContext; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createElement", function() { return jsx; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "jsx", function() { return jsx; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "keyframes", function() { return keyframes; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "withEmotionCache", function() { return withEmotionCache; });
-/* harmony import */ var _babel_runtime_helpers_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/inheritsLoose */ "./node_modules/@babel/runtime/helpers/inheritsLoose.js");
-/* harmony import */ var _babel_runtime_helpers_inheritsLoose__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _emotion_cache__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @emotion/cache */ "./node_modules/@emotion/cache/dist/cache.browser.esm.js");
-/* harmony import */ var _emotion_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @emotion/utils */ "./node_modules/@emotion/utils/dist/utils.browser.esm.js");
-/* harmony import */ var _emotion_serialize__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @emotion/serialize */ "./node_modules/@emotion/serialize/dist/serialize.browser.esm.js");
-/* harmony import */ var _emotion_sheet__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @emotion/sheet */ "./node_modules/@emotion/sheet/dist/sheet.browser.esm.js");
-/* harmony import */ var _emotion_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @emotion/css */ "./node_modules/@emotion/css/dist/css.browser.esm.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "css", function() { return _emotion_css__WEBPACK_IMPORTED_MODULE_6__["default"]; });
+/* harmony import */ var _emotion_element_57a3a7a3_browser_esm_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./emotion-element-57a3a7a3.browser.esm.js */ "./node_modules/@emotion/core/dist/emotion-element-57a3a7a3.browser.esm.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CacheProvider", function() { return _emotion_element_57a3a7a3_browser_esm_js__WEBPACK_IMPORTED_MODULE_3__["C"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ThemeContext", function() { return _emotion_element_57a3a7a3_browser_esm_js__WEBPACK_IMPORTED_MODULE_3__["T"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "withEmotionCache", function() { return _emotion_element_57a3a7a3_browser_esm_js__WEBPACK_IMPORTED_MODULE_3__["w"]; });
+
+/* harmony import */ var _emotion_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @emotion/utils */ "./node_modules/@emotion/utils/dist/utils.browser.esm.js");
+/* harmony import */ var _emotion_serialize__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @emotion/serialize */ "./node_modules/@emotion/serialize/dist/serialize.browser.esm.js");
+/* harmony import */ var _emotion_sheet__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @emotion/sheet */ "./node_modules/@emotion/sheet/dist/sheet.browser.esm.js");
+/* harmony import */ var _emotion_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @emotion/css */ "./node_modules/@emotion/css/dist/css.browser.esm.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "css", function() { return _emotion_css__WEBPACK_IMPORTED_MODULE_7__["default"]; });
 
 
 
@@ -746,146 +770,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var EmotionCacheContext = Object(react__WEBPACK_IMPORTED_MODULE_1__["createContext"])( // we're doing this to avoid preconstruct's dead code elimination in this one case
-// because this module is primarily intended for the browser and node
-// but it's also required in react native and similar environments sometimes
-// and we could have a special build just for that
-// but this is much easier and the native packages
-// might use a different theme context in the future anyway
-typeof HTMLElement !== 'undefined' ? Object(_emotion_cache__WEBPACK_IMPORTED_MODULE_2__["default"])() : null);
-var ThemeContext = Object(react__WEBPACK_IMPORTED_MODULE_1__["createContext"])({});
-var CacheProvider = EmotionCacheContext.Provider;
-
-var withEmotionCache = function withEmotionCache(func) {
-  var render = function render(props, ref) {
-    return Object(react__WEBPACK_IMPORTED_MODULE_1__["createElement"])(EmotionCacheContext.Consumer, null, function (cache) {
-      return func(props, cache, ref);
-    });
-  }; // $FlowFixMe
-
-
-  return Object(react__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(render);
-};
-
-// thus we only need to replace what is a valid character for JS, but not for CSS
-
-var sanitizeIdentifier = function sanitizeIdentifier(identifier) {
-  return identifier.replace(/\$/g, '-');
-};
-
-var typePropName = '__EMOTION_TYPE_PLEASE_DO_NOT_USE__';
-var labelPropName = '__EMOTION_LABEL_PLEASE_DO_NOT_USE__';
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-
-var render = function render(cache, props, theme, ref) {
-  var cssProp = theme === null ? props.css : props.css(theme); // so that using `css` from `emotion` and passing the result to the css prop works
-  // not passing the registered cache to serializeStyles because it would
-  // make certain babel optimisations not possible
-
-  if (typeof cssProp === 'string' && cache.registered[cssProp] !== undefined) {
-    cssProp = cache.registered[cssProp];
-  }
-
-  var type = props[typePropName];
-  var registeredStyles = [cssProp];
-  var className = '';
-
-  if (typeof props.className === 'string') {
-    className = Object(_emotion_utils__WEBPACK_IMPORTED_MODULE_3__["getRegisteredStyles"])(cache.registered, registeredStyles, props.className);
-  } else if (props.className != null) {
-    className = props.className + " ";
-  }
-
-  var serialized = Object(_emotion_serialize__WEBPACK_IMPORTED_MODULE_4__["serializeStyles"])(registeredStyles);
-
-  if ( true && serialized.name.indexOf('-') === -1) {
-    var labelFromStack = props[labelPropName];
-
-    if (labelFromStack) {
-      serialized = Object(_emotion_serialize__WEBPACK_IMPORTED_MODULE_4__["serializeStyles"])([serialized, 'label:' + labelFromStack + ';']);
-    }
-  }
-
-  var rules = Object(_emotion_utils__WEBPACK_IMPORTED_MODULE_3__["insertStyles"])(cache, serialized, typeof type === 'string');
-  className += cache.key + "-" + serialized.name;
-  var newProps = {};
-
-  for (var key in props) {
-    if (hasOwnProperty.call(props, key) && key !== 'css' && key !== typePropName && ( false || key !== labelPropName)) {
-      newProps[key] = props[key];
-    }
-  }
-
-  newProps.ref = ref;
-  newProps.className = className;
-  var ele = Object(react__WEBPACK_IMPORTED_MODULE_1__["createElement"])(type, newProps);
-
-  return ele;
-};
-
-var Emotion =
-/* #__PURE__ */
-withEmotionCache(function (props, cache, ref) {
-  // use Context.read for the theme when it's stable
-  if (typeof props.css === 'function') {
-    return Object(react__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ThemeContext.Consumer, null, function (theme) {
-      return render(cache, props, theme, ref);
-    });
-  }
-
-  return render(cache, props, null, ref);
-});
-
-if (true) {
-  Emotion.displayName = 'EmotionCssPropInternal';
-} // $FlowFixMe
 
 
 var jsx = function jsx(type, props) {
   var args = arguments;
 
-  if (props == null || !hasOwnProperty.call(props, 'css')) {
+  if (props == null || !_emotion_element_57a3a7a3_browser_esm_js__WEBPACK_IMPORTED_MODULE_3__["h"].call(props, 'css')) {
     // $FlowFixMe
     return react__WEBPACK_IMPORTED_MODULE_1__["createElement"].apply(undefined, args);
   }
 
-  if ( true && typeof props.css === 'string' && // check if there is a css declaration
-  props.css.indexOf(':') !== -1) {
-    throw new Error("Strings are not allowed as css prop values, please wrap it in a css template literal from '@emotion/css' like this: css`" + props.css + "`");
-  }
-
   var argsLength = args.length;
   var createElementArgArray = new Array(argsLength);
-  createElementArgArray[0] = Emotion;
-  var newProps = {};
-
-  for (var key in props) {
-    if (hasOwnProperty.call(props, key)) {
-      newProps[key] = props[key];
-    }
-  }
-
-  newProps[typePropName] = type;
-
-  if (true) {
-    var error = new Error();
-
-    if (error.stack) {
-      // chrome
-      var match = error.stack.match(/at (?:Object\.|Module\.|)jsx.*\n\s+at (?:Object\.|)([A-Z][A-Za-z$]+) /);
-
-      if (!match) {
-        // safari and firefox
-        match = error.stack.match(/.*\n([A-Z][A-Za-z$]+)@/);
-      }
-
-      if (match) {
-        newProps[labelPropName] = sanitizeIdentifier(match[1]);
-      }
-    }
-  }
-
-  createElementArgArray[1] = newProps;
+  createElementArgArray[0] = _emotion_element_57a3a7a3_browser_esm_js__WEBPACK_IMPORTED_MODULE_3__["E"];
+  createElementArgArray[1] = Object(_emotion_element_57a3a7a3_browser_esm_js__WEBPACK_IMPORTED_MODULE_3__["c"])(type, props);
 
   for (var i = 2; i < argsLength; i++) {
     createElementArgArray[i] = args[i];
@@ -896,9 +794,7 @@ var jsx = function jsx(type, props) {
 };
 
 var warnedAboutCssPropForGlobal = false;
-var Global =
-/* #__PURE__ */
-withEmotionCache(function (props, cache) {
+var Global = /* #__PURE__ */Object(_emotion_element_57a3a7a3_browser_esm_js__WEBPACK_IMPORTED_MODULE_3__["w"])(function (props, cache) {
   if ( true && !warnedAboutCssPropForGlobal && ( // check for className as well since the user is
   // probably using the custom createElement which
   // means it will be turned into a className prop
@@ -911,17 +807,17 @@ withEmotionCache(function (props, cache) {
   var styles = props.styles;
 
   if (typeof styles === 'function') {
-    return Object(react__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ThemeContext.Consumer, null, function (theme) {
-      var serialized = Object(_emotion_serialize__WEBPACK_IMPORTED_MODULE_4__["serializeStyles"])([styles(theme)]);
-      return Object(react__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerGlobal, {
+    return /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_emotion_element_57a3a7a3_browser_esm_js__WEBPACK_IMPORTED_MODULE_3__["T"].Consumer, null, function (theme) {
+      var serialized = Object(_emotion_serialize__WEBPACK_IMPORTED_MODULE_5__["serializeStyles"])([styles(theme)]);
+      return /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerGlobal, {
         serialized: serialized,
         cache: cache
       });
     });
   }
 
-  var serialized = Object(_emotion_serialize__WEBPACK_IMPORTED_MODULE_4__["serializeStyles"])([styles]);
-  return Object(react__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerGlobal, {
+  var serialized = Object(_emotion_serialize__WEBPACK_IMPORTED_MODULE_5__["serializeStyles"])([styles]);
+  return /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerGlobal, {
     serialized: serialized,
     cache: cache
   });
@@ -930,10 +826,8 @@ withEmotionCache(function (props, cache) {
 // maintain place over rerenders.
 // initial render from browser, insertBefore context.sheet.tags[0] or if a style hasn't been inserted there yet, appendChild
 // initial client-side render from SSR, use place of hydrating tag
-var InnerGlobal =
-/*#__PURE__*/
-function (_React$Component) {
-  _babel_runtime_helpers_inheritsLoose__WEBPACK_IMPORTED_MODULE_0___default()(InnerGlobal, _React$Component);
+var InnerGlobal = /*#__PURE__*/function (_React$Component) {
+  Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(InnerGlobal, _React$Component);
 
   function InnerGlobal(props, context, updater) {
     return _React$Component.call(this, props, context, updater) || this;
@@ -942,7 +836,7 @@ function (_React$Component) {
   var _proto = InnerGlobal.prototype;
 
   _proto.componentDidMount = function componentDidMount() {
-    this.sheet = new _emotion_sheet__WEBPACK_IMPORTED_MODULE_5__["StyleSheet"]({
+    this.sheet = new _emotion_sheet__WEBPACK_IMPORTED_MODULE_6__["StyleSheet"]({
       key: this.props.cache.key + "-global",
       nonce: this.props.cache.sheet.nonce,
       container: this.props.cache.sheet.container
@@ -970,7 +864,7 @@ function (_React$Component) {
   _proto.insertStyles = function insertStyles$1() {
     if (this.props.serialized.next !== undefined) {
       // insert keyframes
-      Object(_emotion_utils__WEBPACK_IMPORTED_MODULE_3__["insertStyles"])(this.props.cache, this.props.serialized.next, true);
+      Object(_emotion_utils__WEBPACK_IMPORTED_MODULE_4__["insertStyles"])(this.props.cache, this.props.serialized.next, true);
     }
 
     if (this.sheet.tags.length) {
@@ -996,7 +890,7 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
 
 var keyframes = function keyframes() {
-  var insertable = _emotion_css__WEBPACK_IMPORTED_MODULE_6__["default"].apply(void 0, arguments);
+  var insertable = _emotion_css__WEBPACK_IMPORTED_MODULE_7__["default"].apply(void 0, arguments);
   var name = "animation-" + insertable.name; // $FlowFixMe
 
   return {
@@ -1058,7 +952,7 @@ var classnames = function classnames(args) {
 
 function merge(registered, css, className) {
   var registeredStyles = [];
-  var rawClassName = Object(_emotion_utils__WEBPACK_IMPORTED_MODULE_3__["getRegisteredStyles"])(registered, registeredStyles, className);
+  var rawClassName = Object(_emotion_utils__WEBPACK_IMPORTED_MODULE_4__["getRegisteredStyles"])(registered, registeredStyles, className);
 
   if (registeredStyles.length < 2) {
     return className;
@@ -1067,8 +961,8 @@ function merge(registered, css, className) {
   return rawClassName + css(registeredStyles);
 }
 
-var ClassNames = withEmotionCache(function (props, context) {
-  return Object(react__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ThemeContext.Consumer, null, function (theme) {
+var ClassNames = Object(_emotion_element_57a3a7a3_browser_esm_js__WEBPACK_IMPORTED_MODULE_3__["w"])(function (props, context) {
+  return /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_emotion_element_57a3a7a3_browser_esm_js__WEBPACK_IMPORTED_MODULE_3__["T"].Consumer, null, function (theme) {
     var hasRendered = false;
 
     var css = function css() {
@@ -1080,10 +974,10 @@ var ClassNames = withEmotionCache(function (props, context) {
         args[_key] = arguments[_key];
       }
 
-      var serialized = Object(_emotion_serialize__WEBPACK_IMPORTED_MODULE_4__["serializeStyles"])(args, context.registered);
+      var serialized = Object(_emotion_serialize__WEBPACK_IMPORTED_MODULE_5__["serializeStyles"])(args, context.registered);
 
       {
-        Object(_emotion_utils__WEBPACK_IMPORTED_MODULE_3__["insertStyles"])(context, serialized, false);
+        Object(_emotion_utils__WEBPACK_IMPORTED_MODULE_4__["insertStyles"])(context, serialized, false);
       }
 
       return context.key + "-" + serialized.name;
@@ -1112,6 +1006,168 @@ var ClassNames = withEmotionCache(function (props, context) {
     return ele;
   });
 });
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@emotion/core/dist/emotion-element-57a3a7a3.browser.esm.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@emotion/core/dist/emotion-element-57a3a7a3.browser.esm.js ***!
+  \*********************************************************************************/
+/*! exports provided: C, E, T, c, h, w */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "C", function() { return CacheProvider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "E", function() { return Emotion; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "T", function() { return ThemeContext; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return createEmotionProps; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return hasOwnProperty; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return withEmotionCache; });
+/* harmony import */ var _babel_runtime_helpers_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/inheritsLoose */ "./node_modules/@babel/runtime/helpers/inheritsLoose.js");
+/* harmony import */ var _babel_runtime_helpers_inheritsLoose__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _emotion_cache__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @emotion/cache */ "./node_modules/@emotion/cache/dist/cache.browser.esm.js");
+/* harmony import */ var _emotion_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @emotion/utils */ "./node_modules/@emotion/utils/dist/utils.browser.esm.js");
+/* harmony import */ var _emotion_serialize__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @emotion/serialize */ "./node_modules/@emotion/serialize/dist/serialize.browser.esm.js");
+
+
+
+
+
+
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+var EmotionCacheContext = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["createContext"])( // we're doing this to avoid preconstruct's dead code elimination in this one case
+// because this module is primarily intended for the browser and node
+// but it's also required in react native and similar environments sometimes
+// and we could have a special build just for that
+// but this is much easier and the native packages
+// might use a different theme context in the future anyway
+typeof HTMLElement !== 'undefined' ? Object(_emotion_cache__WEBPACK_IMPORTED_MODULE_2__["default"])() : null);
+var ThemeContext = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["createContext"])({});
+var CacheProvider = EmotionCacheContext.Provider;
+
+var withEmotionCache = function withEmotionCache(func) {
+  var render = function render(props, ref) {
+    return /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["createElement"])(EmotionCacheContext.Consumer, null, function (cache) {
+      return func(props, cache, ref);
+    });
+  }; // $FlowFixMe
+
+
+  return /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(render);
+};
+
+// thus we only need to replace what is a valid character for JS, but not for CSS
+
+var sanitizeIdentifier = function sanitizeIdentifier(identifier) {
+  return identifier.replace(/\$/g, '-');
+};
+
+var typePropName = '__EMOTION_TYPE_PLEASE_DO_NOT_USE__';
+var labelPropName = '__EMOTION_LABEL_PLEASE_DO_NOT_USE__';
+var createEmotionProps = function createEmotionProps(type, props) {
+  if ( true && typeof props.css === 'string' && // check if there is a css declaration
+  props.css.indexOf(':') !== -1) {
+    throw new Error("Strings are not allowed as css prop values, please wrap it in a css template literal from '@emotion/css' like this: css`" + props.css + "`");
+  }
+
+  var newProps = {};
+
+  for (var key in props) {
+    if (hasOwnProperty.call(props, key)) {
+      newProps[key] = props[key];
+    }
+  }
+
+  newProps[typePropName] = type; // TODO: check if this still works with all of those different JSX functions
+
+  if (true) {
+    var error = new Error();
+
+    if (error.stack) {
+      // chrome
+      var match = error.stack.match(/at (?:Object\.|Module\.|)(?:jsx|createEmotionProps).*\n\s+at (?:Object\.|)([A-Z][A-Za-z$]+) /);
+
+      if (!match) {
+        // safari and firefox
+        match = error.stack.match(/.*\n([A-Z][A-Za-z$]+)@/);
+      }
+
+      if (match) {
+        newProps[labelPropName] = sanitizeIdentifier(match[1]);
+      }
+    }
+  }
+
+  return newProps;
+};
+
+var render = function render(cache, props, theme, ref) {
+  var cssProp = theme === null ? props.css : props.css(theme); // so that using `css` from `emotion` and passing the result to the css prop works
+  // not passing the registered cache to serializeStyles because it would
+  // make certain babel optimisations not possible
+
+  if (typeof cssProp === 'string' && cache.registered[cssProp] !== undefined) {
+    cssProp = cache.registered[cssProp];
+  }
+
+  var type = props[typePropName];
+  var registeredStyles = [cssProp];
+  var className = '';
+
+  if (typeof props.className === 'string') {
+    className = Object(_emotion_utils__WEBPACK_IMPORTED_MODULE_3__["getRegisteredStyles"])(cache.registered, registeredStyles, props.className);
+  } else if (props.className != null) {
+    className = props.className + " ";
+  }
+
+  var serialized = Object(_emotion_serialize__WEBPACK_IMPORTED_MODULE_4__["serializeStyles"])(registeredStyles);
+
+  if ( true && serialized.name.indexOf('-') === -1) {
+    var labelFromStack = props[labelPropName];
+
+    if (labelFromStack) {
+      serialized = Object(_emotion_serialize__WEBPACK_IMPORTED_MODULE_4__["serializeStyles"])([serialized, 'label:' + labelFromStack + ';']);
+    }
+  }
+
+  var rules = Object(_emotion_utils__WEBPACK_IMPORTED_MODULE_3__["insertStyles"])(cache, serialized, typeof type === 'string');
+  className += cache.key + "-" + serialized.name;
+  var newProps = {};
+
+  for (var key in props) {
+    if (hasOwnProperty.call(props, key) && key !== 'css' && key !== typePropName && ( false || key !== labelPropName)) {
+      newProps[key] = props[key];
+    }
+  }
+
+  newProps.ref = ref;
+  newProps.className = className;
+  var ele = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["createElement"])(type, newProps);
+
+  return ele;
+}; // eslint-disable-next-line no-undef
+
+
+var Emotion = /* #__PURE__ */withEmotionCache(function (props, cache, ref) {
+  if (typeof props.css === 'function') {
+    return /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ThemeContext.Consumer, null, function (theme) {
+      return render(cache, props, theme, ref);
+    });
+  }
+
+  return render(cache, props, null, ref);
+});
+
+if (true) {
+  Emotion.displayName = 'EmotionCssPropInternal';
+}
 
 
 
@@ -2667,6 +2723,68 @@ var getBox = function getBox(el) {
 
 
 
+
+/***/ }),
+
+/***/ "./node_modules/dom-helpers/esm/addClass.js":
+/*!**************************************************!*\
+  !*** ./node_modules/dom-helpers/esm/addClass.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return addClass; });
+/* harmony import */ var _hasClass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./hasClass */ "./node_modules/dom-helpers/esm/hasClass.js");
+
+function addClass(element, className) {
+  if (element.classList) element.classList.add(className);else if (!Object(_hasClass__WEBPACK_IMPORTED_MODULE_0__["default"])(element, className)) if (typeof element.className === 'string') element.className = element.className + " " + className;else element.setAttribute('class', (element.className && element.className.baseVal || '') + " " + className);
+}
+
+/***/ }),
+
+/***/ "./node_modules/dom-helpers/esm/hasClass.js":
+/*!**************************************************!*\
+  !*** ./node_modules/dom-helpers/esm/hasClass.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return hasClass; });
+function hasClass(element, className) {
+  if (element.classList) return !!className && element.classList.contains(className);
+  return (" " + (element.className.baseVal || element.className) + " ").indexOf(" " + className + " ") !== -1;
+}
+
+/***/ }),
+
+/***/ "./node_modules/dom-helpers/esm/removeClass.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/dom-helpers/esm/removeClass.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return removeClass; });
+function replaceClassName(origClass, classToRemove) {
+  return origClass.replace(new RegExp("(^|\\s)" + classToRemove + "(?:\\s|$)", 'g'), '$1').replace(/\s+/g, ' ').replace(/^\s*|\s*$/g, '');
+}
+
+function removeClass(element, className) {
+  if (element.classList) {
+    element.classList.remove(className);
+  } else if (typeof element.className === 'string') {
+    ;
+    element.className = replaceClassName(element.className, className);
+  } else {
+    element.setAttribute('class', replaceClassName(element.className && element.className.baseVal || '', className));
+  }
+}
 
 /***/ }),
 
@@ -20005,6 +20123,3128 @@ if (true) {
 
 /***/ }),
 
+/***/ "./node_modules/react-toast-notifications/dist/ToastContainer.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/react-toast-notifications/dist/ToastContainer.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ToastContainer = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _core = __webpack_require__(/*! @emotion/core */ "./node_modules/@emotion/core/dist/core.browser.esm.js");
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactTransitionGroup = __webpack_require__(/*! react-transition-group */ "./node_modules/react-transition-group/esm/index.js");
+
+var _ToastElement = __webpack_require__(/*! ./ToastElement */ "./node_modules/react-toast-notifications/dist/ToastElement.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+/** @jsx jsx */
+
+var placements = {
+  'top-left': { top: 0, left: 0 },
+  'top-center': { top: 0, left: '50%', transform: 'translateX(-50%)' },
+  'top-right': { top: 0, right: 0 },
+  'bottom-left': { bottom: 0, left: 0 },
+  'bottom-center': { bottom: 0, left: '50%', transform: 'translateX(-50%)' },
+  'bottom-right': { bottom: 0, right: 0 }
+};
+
+var ToastContainer = function ToastContainer(_ref) {
+  var hasToasts = _ref.hasToasts,
+      placement = _ref.placement,
+      props = _objectWithoutProperties(_ref, ['hasToasts', 'placement']);
+
+  return (0, _core.jsx)('div', _extends({
+    className: 'react-toast-notifications__container',
+    css: _extends({
+      boxSizing: 'border-box',
+      maxHeight: '100%',
+      overflowX: 'hidden',
+      overflowY: 'auto',
+      padding: _ToastElement.gutter,
+      pointerEvents: hasToasts ? null : 'none',
+      position: 'fixed',
+      zIndex: 1000
+    }, placements[placement])
+  }, props));
+};
+exports.ToastContainer = ToastContainer;
+
+/***/ }),
+
+/***/ "./node_modules/react-toast-notifications/dist/ToastController.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/react-toast-notifications/dist/ToastController.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ToastController = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactTransitionGroup = __webpack_require__(/*! react-transition-group */ "./node_modules/react-transition-group/esm/index.js");
+
+var _utils = __webpack_require__(/*! ./utils */ "./node_modules/react-toast-notifications/dist/utils.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var defaultAutoDismissTimeout = 5000;
+
+var TimerType = {
+  clear: _utils.NOOP,
+  pause: _utils.NOOP,
+  resume: _utils.NOOP
+};
+
+function Timer(callback, delay) {
+  var timerId = void 0;
+  var start = delay;
+  var remaining = delay;
+
+  this.clear = function () {
+    clearTimeout(timerId);
+  };
+
+  this.pause = function () {
+    clearTimeout(timerId);
+    remaining -= Date.now() - start;
+  };
+
+  this.resume = function () {
+    start = Date.now();
+    clearTimeout(timerId);
+    timerId = setTimeout(callback, remaining);
+  };
+
+  this.resume();
+}
+
+var ToastController = exports.ToastController = function (_Component) {
+  _inherits(ToastController, _Component);
+
+  function ToastController() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, ToastController);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ToastController.__proto__ || Object.getPrototypeOf(ToastController)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      isRunning: Boolean(_this.props.autoDismiss)
+    }, _this.startTimer = function () {
+      var _this$props = _this.props,
+          autoDismiss = _this$props.autoDismiss,
+          autoDismissTimeout = _this$props.autoDismissTimeout,
+          onDismiss = _this$props.onDismiss;
+
+
+      if (!autoDismiss) return;
+
+      _this.setState({ isRunning: true });
+      _this.timeout = new Timer(onDismiss, autoDismissTimeout);
+    }, _this.clearTimer = function () {
+      if (_this.timeout) _this.timeout.clear();
+    }, _this.onMouseEnter = function () {
+      _this.setState({ isRunning: false }, function () {
+        if (_this.timeout) _this.timeout.pause();
+      });
+    }, _this.onMouseLeave = function () {
+      _this.setState({ isRunning: true }, function () {
+        if (_this.timeout) _this.timeout.resume();
+      });
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(ToastController, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.startTimer();
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      if (prevProps.autoDismiss !== this.props.autoDismiss) {
+        var startOrClear = this.props.autoDismiss ? this.startTimer : this.clearTimer;
+
+        startOrClear();
+      }
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      this.clearTimer();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          autoDismiss = _props.autoDismiss,
+          autoDismissTimeout = _props.autoDismissTimeout,
+          Toast = _props.component,
+          props = _objectWithoutProperties(_props, ['autoDismiss', 'autoDismissTimeout', 'component']);
+
+      var isRunning = this.state.isRunning;
+
+      // NOTE: conditions here so methods can be clean
+
+      var handleMouseEnter = autoDismiss ? this.onMouseEnter : _utils.NOOP;
+      var handleMouseLeave = autoDismiss ? this.onMouseLeave : _utils.NOOP;
+
+      return _react2.default.createElement(Toast, _extends({
+        autoDismiss: autoDismiss,
+        autoDismissTimeout: autoDismissTimeout,
+        isRunning: isRunning,
+        onMouseEnter: handleMouseEnter,
+        onMouseLeave: handleMouseLeave
+      }, props));
+    }
+  }]);
+
+  return ToastController;
+}(_react.Component);
+
+ToastController.defaultProps = {
+  autoDismiss: false
+};
+
+/***/ }),
+
+/***/ "./node_modules/react-toast-notifications/dist/ToastElement.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/react-toast-notifications/dist/ToastElement.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.DefaultToast = exports.shrinkKeyframes = exports.toastWidth = exports.gutter = exports.borderRadius = undefined;
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _templateObject = _taggedTemplateLiteral(['from { height: 100%; } to { height: 0% }'], ['from { height: 100%; } to { height: 0% }']);
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _core = __webpack_require__(/*! @emotion/core */ "./node_modules/@emotion/core/dist/core.browser.esm.js");
+
+var _icons = __webpack_require__(/*! ./icons */ "./node_modules/react-toast-notifications/dist/icons.js");
+
+var _colors = __webpack_require__(/*! ./colors */ "./node_modules/react-toast-notifications/dist/colors.js");
+
+var colors = _interopRequireWildcard(_colors);
+
+var _utils = __webpack_require__(/*! ./utils */ "./node_modules/react-toast-notifications/dist/utils.js");
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+/** @jsx jsx */
+
+// common
+var borderRadius = exports.borderRadius = 4;
+var gutter = exports.gutter = 8;
+var toastWidth = exports.toastWidth = 360;
+var shrinkKeyframes = exports.shrinkKeyframes = (0, _core.keyframes)(_templateObject);
+
+// a11y helper
+var A11yText = function A11yText(_ref) {
+  var Tag = _ref.tag,
+      props = _objectWithoutProperties(_ref, ['tag']);
+
+  return (0, _core.jsx)(Tag, _extends({
+    css: {
+      border: 0,
+      clip: 'rect(1px, 1px, 1px, 1px)',
+      height: 1,
+      overflow: 'hidden',
+      padding: 0,
+      position: 'absolute',
+      whiteSpace: 'nowrap',
+      width: 1
+    }
+  }, props));
+};
+A11yText.defaultProps = {
+  tag: 'span'
+};
+
+// default appearances
+
+var appearances = {
+  success: {
+    icon: _icons.CheckIcon,
+    text: colors.G500,
+    fg: colors.G300,
+    bg: colors.G50
+  },
+  error: {
+    icon: _icons.FlameIcon,
+    text: colors.R500,
+    fg: colors.R300,
+    bg: colors.R50
+  },
+  warning: {
+    icon: _icons.AlertIcon,
+    text: colors.Y500,
+    fg: colors.Y300,
+    bg: colors.Y50
+  },
+  info: {
+    icon: _icons.InfoIcon,
+    text: colors.N400,
+    fg: colors.B200,
+    bg: 'white'
+  }
+};
+
+
+var Button = function Button(props) {
+  return (0, _core.jsx)('div', _extends({
+    role: 'button',
+    className: 'react-toast-notifications__toast__dismiss-button',
+    css: {
+      cursor: 'pointer',
+      flexShrink: 0,
+      opacity: 0.5,
+      padding: gutter + 'px ' + gutter * 1.5 + 'px',
+      transition: 'opacity 150ms',
+
+      ':hover': { opacity: 1 }
+    }
+  }, props));
+};
+
+var Content = function Content(props) {
+  return (0, _core.jsx)('div', _extends({
+    className: 'react-toast-notifications__toast__content',
+    css: {
+      flexGrow: 1,
+      fontSize: 14,
+      lineHeight: 1.4,
+      minHeight: 40,
+      padding: gutter + 'px ' + gutter * 1.5 + 'px'
+    }
+  }, props));
+};
+
+// NOTE: invoke animation when NOT `autoDismiss` with opacity of 0 to avoid a
+// paint bug in FireFox.
+// https://bugzilla.mozilla.org/show_bug.cgi?id=625289
+var Countdown = function Countdown(_ref2) {
+  var autoDismissTimeout = _ref2.autoDismissTimeout,
+      opacity = _ref2.opacity,
+      isRunning = _ref2.isRunning,
+      props = _objectWithoutProperties(_ref2, ['autoDismissTimeout', 'opacity', 'isRunning']);
+
+  return (0, _core.jsx)('div', _extends({
+    className: 'react-toast-notifications__toast__countdown',
+    css: {
+      animation: shrinkKeyframes + ' ' + autoDismissTimeout + 'ms linear',
+      animationPlayState: isRunning ? 'running' : 'paused',
+      backgroundColor: 'rgba(0,0,0,0.1)',
+      bottom: 0,
+      height: 0,
+      left: 0,
+      opacity: opacity,
+      position: 'absolute',
+      width: '100%'
+    }
+  }, props));
+};
+
+var Icon = function Icon(_ref3) {
+  var appearance = _ref3.appearance,
+      autoDismiss = _ref3.autoDismiss,
+      autoDismissTimeout = _ref3.autoDismissTimeout,
+      isRunning = _ref3.isRunning;
+
+  var meta = appearances[appearance];
+  var Glyph = meta.icon;
+
+  return (0, _core.jsx)(
+    'div',
+    {
+      className: 'react-toast-notifications__toast__icon-wrapper',
+      css: {
+        backgroundColor: meta.fg,
+        borderTopLeftRadius: borderRadius,
+        borderBottomLeftRadius: borderRadius,
+        color: meta.bg,
+        flexShrink: 0,
+        paddingBottom: gutter,
+        paddingTop: gutter,
+        position: 'relative',
+        overflow: 'hidden',
+        textAlign: 'center',
+        width: 30
+      }
+    },
+    (0, _core.jsx)(Countdown, {
+      opacity: autoDismiss ? 1 : 0,
+      autoDismissTimeout: autoDismissTimeout,
+      isRunning: isRunning
+    }),
+    (0, _core.jsx)(Glyph, {
+      className: 'react-toast-notifications__toast__icon',
+      css: { position: 'relative', zIndex: 1 }
+    })
+  );
+};
+
+// Transitions
+// ------------------------------
+
+function getTranslate(placement) {
+  var pos = placement.split('-');
+  var relevantPlacement = pos[1] === 'center' ? pos[0] : pos[1];
+  var translateMap = {
+    right: 'translate3d(120%, 0, 0)',
+    left: 'translate3d(-120%, 0, 0)',
+    bottom: 'translate3d(0, 120%, 0)',
+    top: 'translate3d(0, -120%, 0)'
+  };
+
+  return translateMap[relevantPlacement];
+}
+
+var toastStates = function toastStates(placement) {
+  return {
+    entering: { transform: getTranslate(placement) },
+    entered: { transform: 'translate3d(0,0,0)' },
+    exiting: { transform: 'scale(0.66)', opacity: 0 },
+    exited: { transform: 'scale(0.66)', opacity: 0 }
+  };
+};
+
+var ToastElement = function ToastElement(_ref4) {
+  var appearance = _ref4.appearance,
+      placement = _ref4.placement,
+      transitionDuration = _ref4.transitionDuration,
+      transitionState = _ref4.transitionState,
+      props = _objectWithoutProperties(_ref4, ['appearance', 'placement', 'transitionDuration', 'transitionState']);
+
+  var _useState = (0, _react.useState)('auto'),
+      _useState2 = _slicedToArray(_useState, 2),
+      height = _useState2[0],
+      setHeight = _useState2[1];
+
+  var elementRef = (0, _react.useRef)(null);
+
+  (0, _react.useEffect)(function () {
+    if (transitionState === 'entered') {
+      var el = elementRef.current;
+      setHeight(el.offsetHeight + gutter);
+    }
+    if (transitionState === 'exiting') {
+      setHeight(0);
+    }
+  }, [transitionState]);
+
+  return (0, _core.jsx)(
+    'div',
+    {
+      ref: elementRef,
+      style: { height: height },
+      css: {
+        transition: 'height ' + (transitionDuration - 100) + 'ms 100ms'
+      }
+    },
+    (0, _core.jsx)('div', _extends({
+      className: 'react-toast-notifications__toast react-toast-notifications__toast--' + appearance,
+      css: _extends({
+        backgroundColor: appearances[appearance].bg,
+        borderRadius: borderRadius,
+        boxShadow: '0 3px 8px rgba(0, 0, 0, 0.175)',
+        color: appearances[appearance].text,
+        display: 'flex',
+        marginBottom: gutter,
+        transition: 'transform ' + transitionDuration + 'ms cubic-bezier(0.2, 0, 0, 1), opacity ' + transitionDuration + 'ms',
+        width: toastWidth
+      }, toastStates(placement)[transitionState])
+    }, props))
+  );
+};
+
+// ==============================
+// DefaultToast
+// ==============================
+
+var DefaultToast = function DefaultToast(_ref5) {
+  var appearance = _ref5.appearance,
+      autoDismiss = _ref5.autoDismiss,
+      autoDismissTimeout = _ref5.autoDismissTimeout,
+      children = _ref5.children,
+      isRunning = _ref5.isRunning,
+      onDismiss = _ref5.onDismiss,
+      placement = _ref5.placement,
+      transitionDuration = _ref5.transitionDuration,
+      transitionState = _ref5.transitionState,
+      onMouseEnter = _ref5.onMouseEnter,
+      onMouseLeave = _ref5.onMouseLeave,
+      otherProps = _objectWithoutProperties(_ref5, ['appearance', 'autoDismiss', 'autoDismissTimeout', 'children', 'isRunning', 'onDismiss', 'placement', 'transitionDuration', 'transitionState', 'onMouseEnter', 'onMouseLeave']);
+
+  return (0, _core.jsx)(
+    ToastElement,
+    _extends({
+      appearance: appearance,
+      placement: placement,
+      transitionState: transitionState,
+      transitionDuration: transitionDuration,
+      onMouseEnter: onMouseEnter,
+      onMouseLeave: onMouseLeave
+    }, otherProps),
+    (0, _core.jsx)(Icon, {
+      appearance: appearance,
+      autoDismiss: autoDismiss,
+      autoDismissTimeout: autoDismissTimeout,
+      isRunning: isRunning
+    }),
+    (0, _core.jsx)(
+      Content,
+      null,
+      children
+    ),
+    onDismiss ? (0, _core.jsx)(
+      Button,
+      { onClick: onDismiss },
+      (0, _core.jsx)(_icons.CloseIcon, { className: 'react-toast-notifications__toast__dismiss-icon' }),
+      (0, _core.jsx)(
+        A11yText,
+        { className: 'react-toast-notifications__toast__dismiss-text' },
+        'Close'
+      )
+    ) : null
+  );
+};
+
+exports.DefaultToast = DefaultToast;
+DefaultToast.defaultProps = {
+  onDismiss: _utils.NOOP
+};
+
+/***/ }),
+
+/***/ "./node_modules/react-toast-notifications/dist/ToastProvider.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/react-toast-notifications/dist/ToastProvider.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.useToasts = exports.withToastManager = exports.ToastConsumer = exports.ToastProvider = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(/*! react-dom */ "react-dom");
+
+var _reactTransitionGroup = __webpack_require__(/*! react-transition-group */ "./node_modules/react-transition-group/esm/index.js");
+
+var _ToastController = __webpack_require__(/*! ./ToastController */ "./node_modules/react-toast-notifications/dist/ToastController.js");
+
+var _ToastContainer = __webpack_require__(/*! ./ToastContainer */ "./node_modules/react-toast-notifications/dist/ToastContainer.js");
+
+var _ToastElement = __webpack_require__(/*! ./ToastElement */ "./node_modules/react-toast-notifications/dist/ToastElement.js");
+
+var _utils = __webpack_require__(/*! ./utils */ "./node_modules/react-toast-notifications/dist/utils.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var defaultComponents = { Toast: _ToastElement.DefaultToast, ToastContainer: _ToastContainer.ToastContainer };
+
+// $FlowFixMe `createContext`
+var ToastContext = _react2.default.createContext();
+var Consumer = ToastContext.Consumer,
+    Provider = ToastContext.Provider;
+
+
+var canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+
+// Provider
+// ==============================
+
+var ToastProvider = exports.ToastProvider = function (_Component) {
+  _inherits(ToastProvider, _Component);
+
+  function ToastProvider() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, ToastProvider);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ToastProvider.__proto__ || Object.getPrototypeOf(ToastProvider)).call.apply(_ref, [this].concat(args))), _this), _this.state = { toasts: [] }, _this.has = function (id) {
+      if (!_this.state.toasts.length) {
+        return false;
+      }
+
+      return Boolean(_this.state.toasts.filter(function (t) {
+        return t.id === id;
+      }).length);
+    }, _this.onDismiss = function (id) {
+      var cb = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _utils.NOOP;
+      return function () {
+        cb(id);
+        _this.remove(id);
+      };
+    }, _this.add = function (content) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var cb = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _utils.NOOP;
+
+      var id = options.id || (0, _utils.generateUEID)();
+      var callback = function callback() {
+        return cb(id);
+      };
+
+      // bail if a toast exists with this ID
+      if (_this.has(id)) {
+        return;
+      }
+
+      // update the toast stack
+      _this.setState(function (state) {
+        var newToast = _extends({ content: content, id: id }, options);
+        var toasts = [].concat(_toConsumableArray(state.toasts), [newToast]);
+
+        return { toasts: toasts };
+      }, callback);
+
+      // consumer may want to do something with the generated ID (and not use the callback)
+      return id;
+    }, _this.remove = function (id) {
+      var cb = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _utils.NOOP;
+
+      var callback = function callback() {
+        return cb(id);
+      };
+
+      // bail if NO toasts exists with this ID
+      if (!_this.has(id)) {
+        return;
+      }
+
+      _this.setState(function (state) {
+        var toasts = state.toasts.filter(function (t) {
+          return t.id !== id;
+        });
+        return { toasts: toasts };
+      }, callback);
+    }, _this.removeAll = function () {
+      if (!_this.state.toasts.length) {
+        return;
+      }
+
+      _this.state.toasts.forEach(function (t) {
+        return _this.remove(t.id);
+      });
+    }, _this.update = function (id) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var cb = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _utils.NOOP;
+
+      var callback = function callback() {
+        return cb(id);
+      };
+
+      // bail if NO toasts exists with this ID
+      if (!_this.has(id)) {
+        return;
+      }
+
+      // update the toast stack
+      _this.setState(function (state) {
+        var old = state.toasts;
+        var i = old.findIndex(function (t) {
+          return t.id === id;
+        });
+        var updatedToast = _extends({}, old[i], options);
+        var toasts = [].concat(_toConsumableArray(old.slice(0, i)), [updatedToast], _toConsumableArray(old.slice(i + 1)));
+
+        return { toasts: toasts };
+      }, callback);
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  // Internal Helpers
+  // ------------------------------
+
+  // Public API
+  // ------------------------------
+
+  _createClass(ToastProvider, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var _props = this.props,
+          inheritedAutoDismiss = _props.autoDismiss,
+          autoDismissTimeout = _props.autoDismissTimeout,
+          children = _props.children,
+          components = _props.components,
+          placement = _props.placement,
+          transitionDuration = _props.transitionDuration;
+
+      var _defaultComponents$co = _extends({}, defaultComponents, components),
+          Toast = _defaultComponents$co.Toast,
+          ToastContainer = _defaultComponents$co.ToastContainer;
+
+      var add = this.add,
+          remove = this.remove,
+          removeAll = this.removeAll,
+          update = this.update;
+
+      var toasts = Object.freeze(this.state.toasts);
+
+      var hasToasts = Boolean(toasts.length);
+      var portalTarget = canUseDOM ? document.body : null; // appease flow
+
+      return _react2.default.createElement(
+        Provider,
+        { value: { add: add, remove: remove, removeAll: removeAll, update: update, toasts: toasts } },
+        children,
+        portalTarget ? (0, _reactDom.createPortal)(_react2.default.createElement(
+          ToastContainer,
+          { placement: placement, hasToasts: hasToasts },
+          _react2.default.createElement(
+            _reactTransitionGroup.TransitionGroup,
+            { component: null },
+            toasts.map(function (_ref2) {
+              var appearance = _ref2.appearance,
+                  autoDismiss = _ref2.autoDismiss,
+                  content = _ref2.content,
+                  id = _ref2.id,
+                  onDismiss = _ref2.onDismiss,
+                  unknownConsumerProps = _objectWithoutProperties(_ref2, ['appearance', 'autoDismiss', 'content', 'id', 'onDismiss']);
+
+              return _react2.default.createElement(
+                _reactTransitionGroup.Transition,
+                {
+                  appear: true,
+                  key: id,
+                  mountOnEnter: true,
+                  timeout: transitionDuration,
+                  unmountOnExit: true
+                },
+                function (transitionState) {
+                  return _react2.default.createElement(
+                    _ToastController.ToastController,
+                    _extends({
+                      appearance: appearance,
+                      autoDismiss: autoDismiss !== undefined ? autoDismiss : inheritedAutoDismiss,
+                      autoDismissTimeout: autoDismissTimeout,
+                      component: Toast,
+                      key: id,
+                      onDismiss: _this2.onDismiss(id, onDismiss),
+                      placement: placement,
+                      transitionDuration: transitionDuration,
+                      transitionState: transitionState
+                    }, unknownConsumerProps),
+                    content
+                  );
+                }
+              );
+            })
+          )
+        ), portalTarget) : _react2.default.createElement(ToastContainer, { placement: placement, hasToasts: hasToasts }) // keep ReactDOM.hydrate happy
+
+      );
+    }
+  }]);
+
+  return ToastProvider;
+}(_react.Component);
+
+ToastProvider.defaultProps = {
+  autoDismiss: false,
+  autoDismissTimeout: 5000,
+  components: defaultComponents,
+  placement: 'top-right',
+  transitionDuration: 220
+};
+var ToastConsumer = exports.ToastConsumer = function ToastConsumer(_ref3) {
+  var children = _ref3.children;
+  return _react2.default.createElement(
+    Consumer,
+    null,
+    function (context) {
+      return children(context);
+    }
+  );
+};
+
+var withToastManager = exports.withToastManager = function withToastManager(Comp
+// $FlowFixMe `forwardRef`
+) {
+  return _react2.default.forwardRef(function (props, ref) {
+    return _react2.default.createElement(
+      ToastConsumer,
+      null,
+      function (context) {
+        return _react2.default.createElement(Comp, _extends({ toastManager: context }, props, { ref: ref }));
+      }
+    );
+  });
+};
+
+var useToasts = exports.useToasts = function useToasts() {
+  var ctx = (0, _react.useContext)(ToastContext);
+
+  if (!ctx) {
+    throw Error('The `useToasts` hook must be called from a descendent of the `ToastProvider`.');
+  }
+
+  return {
+    addToast: ctx.add,
+    removeToast: ctx.remove,
+    removeAllToasts: ctx.removeAll,
+    updateToast: ctx.update,
+    toastStack: ctx.toasts
+  };
+};
+
+/***/ }),
+
+/***/ "./node_modules/react-toast-notifications/dist/colors.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/react-toast-notifications/dist/colors.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+// Reds
+var R50 = exports.R50 = '#FFEBE6';
+var R75 = exports.R75 = '#FFBDAD';
+var R100 = exports.R100 = '#FF8F73';
+var R200 = exports.R200 = '#FF7452';
+var R300 = exports.R300 = '#FF5630';
+var R400 = exports.R400 = '#DE350B';
+var R500 = exports.R500 = '#BF2600';
+
+// Yellows
+var Y50 = exports.Y50 = '#FFFAE6';
+var Y75 = exports.Y75 = '#FFF0B3';
+var Y100 = exports.Y100 = '#FFE380';
+var Y200 = exports.Y200 = '#FFC400';
+var Y300 = exports.Y300 = '#FFAB00';
+var Y400 = exports.Y400 = '#FF991F';
+var Y500 = exports.Y500 = '#FF8B00';
+
+// Greens
+var G50 = exports.G50 = '#E3FCEF';
+var G75 = exports.G75 = '#ABF5D1';
+var G100 = exports.G100 = '#79F2C0';
+var G200 = exports.G200 = '#57D9A3';
+var G300 = exports.G300 = '#36B37E';
+var G400 = exports.G400 = '#00875A';
+var G500 = exports.G500 = '#006644';
+
+// Blues
+var B50 = exports.B50 = '#DEEBFF';
+var B75 = exports.B75 = '#B3D4FF';
+var B100 = exports.B100 = '#4C9AFF';
+var B200 = exports.B200 = '#2684FF';
+var B300 = exports.B300 = '#0065FF';
+var B400 = exports.B400 = '#0052CC';
+var B500 = exports.B500 = '#0747A6';
+
+// Purples
+var P50 = exports.P50 = '#EAE6FF';
+var P75 = exports.P75 = '#C0B6F2';
+var P100 = exports.P100 = '#998DD9';
+var P200 = exports.P200 = '#8777D9';
+var P300 = exports.P300 = '#6554C0';
+var P400 = exports.P400 = '#5243AA';
+var P500 = exports.P500 = '#403294';
+
+// Teals
+var T50 = exports.T50 = '#E6FCFF';
+var T75 = exports.T75 = '#B3F5FF';
+var T100 = exports.T100 = '#79E2F2';
+var T200 = exports.T200 = '#00C7E6';
+var T300 = exports.T300 = '#00B8D9';
+var T400 = exports.T400 = '#00A3BF';
+var T500 = exports.T500 = '#008DA6';
+
+// Neutrals
+var N0 = exports.N0 = '#FFFFFF';
+var N10 = exports.N10 = '#FAFBFC';
+var N20 = exports.N20 = '#F4F5F7';
+var N30 = exports.N30 = '#EBECF0';
+var N40 = exports.N40 = '#DFE1E6';
+var N50 = exports.N50 = '#C1C7D0';
+var N60 = exports.N60 = '#B3BAC5';
+var N70 = exports.N70 = '#A5ADBA';
+var N80 = exports.N80 = '#97A0AF';
+var N90 = exports.N90 = '#8993A4';
+var N100 = exports.N100 = '#7A869A';
+var N200 = exports.N200 = '#6B778C';
+var N300 = exports.N300 = '#5E6C84';
+var N400 = exports.N400 = '#505F79';
+var N500 = exports.N500 = '#42526E';
+var N600 = exports.N600 = '#344563';
+var N700 = exports.N700 = '#253858';
+var N800 = exports.N800 = '#172B4D';
+
+// ATTENTION: update the tints if you update this
+var N900 = exports.N900 = '#091E42';
+
+// Each tint is made of N900 and an alpha channel
+var N10A = exports.N10A = 'rgba(9, 30, 66, 0.02)';
+var N20A = exports.N20A = 'rgba(9, 30, 66, 0.04)';
+var N30A = exports.N30A = 'rgba(9, 30, 66, 0.08)';
+var N40A = exports.N40A = 'rgba(9, 30, 66, 0.13)';
+var N50A = exports.N50A = 'rgba(9, 30, 66, 0.25)';
+var N60A = exports.N60A = 'rgba(9, 30, 66, 0.31)';
+var N70A = exports.N70A = 'rgba(9, 30, 66, 0.36)';
+var N80A = exports.N80A = 'rgba(9, 30, 66, 0.42)';
+var N90A = exports.N90A = 'rgba(9, 30, 66, 0.48)';
+var N100A = exports.N100A = 'rgba(9, 30, 66, 0.54)';
+var N200A = exports.N200A = 'rgba(9, 30, 66, 0.60)';
+var N300A = exports.N300A = 'rgba(9, 30, 66, 0.66)';
+var N400A = exports.N400A = 'rgba(9, 30, 66, 0.71)';
+var N500A = exports.N500A = 'rgba(9, 30, 66, 0.77)';
+var N600A = exports.N600A = 'rgba(9, 30, 66, 0.82)';
+var N700A = exports.N700A = 'rgba(9, 30, 66, 0.89)';
+var N800A = exports.N800A = 'rgba(9, 30, 66, 0.95)';
+
+/***/ }),
+
+/***/ "./node_modules/react-toast-notifications/dist/icons.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/react-toast-notifications/dist/icons.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.CloseIcon = exports.InfoIcon = exports.FlameIcon = exports.CheckIcon = exports.AlertIcon = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = __webpack_require__(/*! react */ "react");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function getDefaultProps(width) {
+  return {
+    'aria-hidden': true,
+    height: 16,
+    width: width,
+    viewBox: '0 0 ' + width + ' 16',
+    style: {
+      display: 'inline-block',
+      verticalAlign: 'text-top',
+      fill: 'currentColor'
+    }
+  };
+}
+
+var AlertIcon = exports.AlertIcon = function AlertIcon(props) {
+  return _react2.default.createElement(
+    'svg',
+    _extends({}, getDefaultProps(16), props),
+    _react2.default.createElement('path', {
+      fillRule: 'evenodd',
+      d: 'M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z'
+    })
+  );
+};
+var CheckIcon = exports.CheckIcon = function CheckIcon(props) {
+  return _react2.default.createElement(
+    'svg',
+    _extends({}, getDefaultProps(12), props),
+    _react2.default.createElement('path', { fillRule: 'evenodd', d: 'M12 5.5l-8 8-4-4L1.5 8 4 10.5 10.5 4 12 5.5z' })
+  );
+};
+var FlameIcon = exports.FlameIcon = function FlameIcon(props) {
+  return _react2.default.createElement(
+    'svg',
+    _extends({}, getDefaultProps(12), props),
+    _react2.default.createElement('path', {
+      fillRule: 'evenodd',
+      d: 'M5.05.01c.81 2.17.41 3.38-.52 4.31C3.55 5.37 1.98 6.15.9 7.68c-1.45 2.05-1.7 6.53 3.53 7.7-2.2-1.16-2.67-4.52-.3-6.61-.61 2.03.53 3.33 1.94 2.86 1.39-.47 2.3.53 2.27 1.67-.02.78-.31 1.44-1.13 1.81 3.42-.59 4.78-3.42 4.78-5.56 0-2.84-2.53-3.22-1.25-5.61-1.52.13-2.03 1.13-1.89 2.75.09 1.08-1.02 1.8-1.86 1.33-.67-.41-.66-1.19-.06-1.78C8.18 5.01 8.68 2.15 5.05.02L5.03 0l.02.01z'
+    })
+  );
+};
+var InfoIcon = exports.InfoIcon = function InfoIcon(props) {
+  return _react2.default.createElement(
+    'svg',
+    _extends({}, getDefaultProps(14), props),
+    _react2.default.createElement('path', {
+      fillRule: 'evenodd',
+      d: 'M6.3 5.71a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 8.01c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V8v.01zM7 2.32C3.86 2.32 1.3 4.86 1.3 8c0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 1c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z'
+    })
+  );
+};
+var CloseIcon = exports.CloseIcon = function CloseIcon(props) {
+  return _react2.default.createElement(
+    'svg',
+    _extends({}, getDefaultProps(14), props),
+    _react2.default.createElement('path', {
+      fillRule: 'evenodd',
+      d: 'M7.71 8.23l3.75 3.75-1.48 1.48-3.75-3.75-3.75 3.75L1 11.98l3.75-3.75L1 4.48 2.48 3l3.75 3.75L9.98 3l1.48 1.48-3.75 3.75z'
+    })
+  );
+};
+
+/***/ }),
+
+/***/ "./node_modules/react-toast-notifications/dist/index.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/react-toast-notifications/dist/index.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _ToastContainer = __webpack_require__(/*! ./ToastContainer */ "./node_modules/react-toast-notifications/dist/ToastContainer.js");
+
+Object.defineProperty(exports, 'DefaultToastContainer', {
+  enumerable: true,
+  get: function get() {
+    return _ToastContainer.ToastContainer;
+  }
+});
+
+var _ToastElement = __webpack_require__(/*! ./ToastElement */ "./node_modules/react-toast-notifications/dist/ToastElement.js");
+
+Object.defineProperty(exports, 'DefaultToast', {
+  enumerable: true,
+  get: function get() {
+    return _ToastElement.DefaultToast;
+  }
+});
+
+var _ToastProvider = __webpack_require__(/*! ./ToastProvider */ "./node_modules/react-toast-notifications/dist/ToastProvider.js");
+
+Object.defineProperty(exports, 'ToastConsumer', {
+  enumerable: true,
+  get: function get() {
+    return _ToastProvider.ToastConsumer;
+  }
+});
+Object.defineProperty(exports, 'ToastProvider', {
+  enumerable: true,
+  get: function get() {
+    return _ToastProvider.ToastProvider;
+  }
+});
+Object.defineProperty(exports, 'withToastManager', {
+  enumerable: true,
+  get: function get() {
+    return _ToastProvider.withToastManager;
+  }
+});
+Object.defineProperty(exports, 'useToasts', {
+  enumerable: true,
+  get: function get() {
+    return _ToastProvider.useToasts;
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-toast-notifications/dist/utils.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/react-toast-notifications/dist/utils.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.generateUEID = generateUEID;
+var NOOP = exports.NOOP = function NOOP() {};
+function generateUEID() {
+  var first = Math.random() * 46656 | 0;
+  var second = Math.random() * 46656 | 0;
+  first = ('000' + first.toString(36)).slice(-3);
+  second = ('000' + second.toString(36)).slice(-3);
+  return first + second;
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-transition-group/esm/CSSTransition.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/react-transition-group/esm/CSSTransition.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var dom_helpers_addClass__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! dom-helpers/addClass */ "./node_modules/dom-helpers/esm/addClass.js");
+/* harmony import */ var dom_helpers_removeClass__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! dom-helpers/removeClass */ "./node_modules/dom-helpers/esm/removeClass.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _Transition__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Transition */ "./node_modules/react-transition-group/esm/Transition.js");
+/* harmony import */ var _utils_PropTypes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./utils/PropTypes */ "./node_modules/react-transition-group/esm/utils/PropTypes.js");
+
+
+
+
+
+
+
+
+
+
+var _addClass = function addClass(node, classes) {
+  return node && classes && classes.split(' ').forEach(function (c) {
+    return Object(dom_helpers_addClass__WEBPACK_IMPORTED_MODULE_4__["default"])(node, c);
+  });
+};
+
+var removeClass = function removeClass(node, classes) {
+  return node && classes && classes.split(' ').forEach(function (c) {
+    return Object(dom_helpers_removeClass__WEBPACK_IMPORTED_MODULE_5__["default"])(node, c);
+  });
+};
+/**
+ * A transition component inspired by the excellent
+ * [ng-animate](https://docs.angularjs.org/api/ngAnimate) library, you should
+ * use it if you're using CSS transitions or animations. It's built upon the
+ * [`Transition`](https://reactcommunity.org/react-transition-group/transition)
+ * component, so it inherits all of its props.
+ *
+ * `CSSTransition` applies a pair of class names during the `appear`, `enter`,
+ * and `exit` states of the transition. The first class is applied and then a
+ * second `*-active` class in order to activate the CSS transition. After the
+ * transition, matching `*-done` class names are applied to persist the
+ * transition state.
+ *
+ * ```jsx
+ * function App() {
+ *   const [inProp, setInProp] = useState(false);
+ *   return (
+ *     <div>
+ *       <CSSTransition in={inProp} timeout={200} classNames="my-node">
+ *         <div>
+ *           {"I'll receive my-node-* classes"}
+ *         </div>
+ *       </CSSTransition>
+ *       <button type="button" onClick={() => setInProp(true)}>
+ *         Click to Enter
+ *       </button>
+ *     </div>
+ *   );
+ * }
+ * ```
+ *
+ * When the `in` prop is set to `true`, the child component will first receive
+ * the class `example-enter`, then the `example-enter-active` will be added in
+ * the next tick. `CSSTransition` [forces a
+ * reflow](https://github.com/reactjs/react-transition-group/blob/5007303e729a74be66a21c3e2205e4916821524b/src/CSSTransition.js#L208-L215)
+ * between before adding the `example-enter-active`. This is an important trick
+ * because it allows us to transition between `example-enter` and
+ * `example-enter-active` even though they were added immediately one after
+ * another. Most notably, this is what makes it possible for us to animate
+ * _appearance_.
+ *
+ * ```css
+ * .my-node-enter {
+ *   opacity: 0;
+ * }
+ * .my-node-enter-active {
+ *   opacity: 1;
+ *   transition: opacity 200ms;
+ * }
+ * .my-node-exit {
+ *   opacity: 1;
+ * }
+ * .my-node-exit-active {
+ *   opacity: 0;
+ *   transition: opacity 200ms;
+ * }
+ * ```
+ *
+ * `*-active` classes represent which styles you want to animate **to**, so it's
+ * important to add `transition` declaration only to them, otherwise transitions
+ * might not behave as intended! This might not be obvious when the transitions
+ * are symmetrical, i.e. when `*-enter-active` is the same as `*-exit`, like in
+ * the example above (minus `transition`), but it becomes apparent in more
+ * complex transitions.
+ *
+ * **Note**: If you're using the
+ * [`appear`](http://reactcommunity.org/react-transition-group/transition#Transition-prop-appear)
+ * prop, make sure to define styles for `.appear-*` classes as well.
+ */
+
+
+var CSSTransition = /*#__PURE__*/function (_React$Component) {
+  Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_2__["default"])(CSSTransition, _React$Component);
+
+  function CSSTransition() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
+    _this.appliedClasses = {
+      appear: {},
+      enter: {},
+      exit: {}
+    };
+
+    _this.onEnter = function (maybeNode, maybeAppearing) {
+      var _this$resolveArgument = _this.resolveArguments(maybeNode, maybeAppearing),
+          node = _this$resolveArgument[0],
+          appearing = _this$resolveArgument[1];
+
+      _this.removeClasses(node, 'exit');
+
+      _this.addClass(node, appearing ? 'appear' : 'enter', 'base');
+
+      if (_this.props.onEnter) {
+        _this.props.onEnter(maybeNode, maybeAppearing);
+      }
+    };
+
+    _this.onEntering = function (maybeNode, maybeAppearing) {
+      var _this$resolveArgument2 = _this.resolveArguments(maybeNode, maybeAppearing),
+          node = _this$resolveArgument2[0],
+          appearing = _this$resolveArgument2[1];
+
+      var type = appearing ? 'appear' : 'enter';
+
+      _this.addClass(node, type, 'active');
+
+      if (_this.props.onEntering) {
+        _this.props.onEntering(maybeNode, maybeAppearing);
+      }
+    };
+
+    _this.onEntered = function (maybeNode, maybeAppearing) {
+      var _this$resolveArgument3 = _this.resolveArguments(maybeNode, maybeAppearing),
+          node = _this$resolveArgument3[0],
+          appearing = _this$resolveArgument3[1];
+
+      var type = appearing ? 'appear' : 'enter';
+
+      _this.removeClasses(node, type);
+
+      _this.addClass(node, type, 'done');
+
+      if (_this.props.onEntered) {
+        _this.props.onEntered(maybeNode, maybeAppearing);
+      }
+    };
+
+    _this.onExit = function (maybeNode) {
+      var _this$resolveArgument4 = _this.resolveArguments(maybeNode),
+          node = _this$resolveArgument4[0];
+
+      _this.removeClasses(node, 'appear');
+
+      _this.removeClasses(node, 'enter');
+
+      _this.addClass(node, 'exit', 'base');
+
+      if (_this.props.onExit) {
+        _this.props.onExit(maybeNode);
+      }
+    };
+
+    _this.onExiting = function (maybeNode) {
+      var _this$resolveArgument5 = _this.resolveArguments(maybeNode),
+          node = _this$resolveArgument5[0];
+
+      _this.addClass(node, 'exit', 'active');
+
+      if (_this.props.onExiting) {
+        _this.props.onExiting(maybeNode);
+      }
+    };
+
+    _this.onExited = function (maybeNode) {
+      var _this$resolveArgument6 = _this.resolveArguments(maybeNode),
+          node = _this$resolveArgument6[0];
+
+      _this.removeClasses(node, 'exit');
+
+      _this.addClass(node, 'exit', 'done');
+
+      if (_this.props.onExited) {
+        _this.props.onExited(maybeNode);
+      }
+    };
+
+    _this.resolveArguments = function (maybeNode, maybeAppearing) {
+      return _this.props.nodeRef ? [_this.props.nodeRef.current, maybeNode] // here `maybeNode` is actually `appearing`
+      : [maybeNode, maybeAppearing];
+    };
+
+    _this.getClassNames = function (type) {
+      var classNames = _this.props.classNames;
+      var isStringClassNames = typeof classNames === 'string';
+      var prefix = isStringClassNames && classNames ? classNames + "-" : '';
+      var baseClassName = isStringClassNames ? "" + prefix + type : classNames[type];
+      var activeClassName = isStringClassNames ? baseClassName + "-active" : classNames[type + "Active"];
+      var doneClassName = isStringClassNames ? baseClassName + "-done" : classNames[type + "Done"];
+      return {
+        baseClassName: baseClassName,
+        activeClassName: activeClassName,
+        doneClassName: doneClassName
+      };
+    };
+
+    return _this;
+  }
+
+  var _proto = CSSTransition.prototype;
+
+  _proto.addClass = function addClass(node, type, phase) {
+    var className = this.getClassNames(type)[phase + "ClassName"];
+
+    var _this$getClassNames = this.getClassNames('enter'),
+        doneClassName = _this$getClassNames.doneClassName;
+
+    if (type === 'appear' && phase === 'done' && doneClassName) {
+      className += " " + doneClassName;
+    } // This is for to force a repaint,
+    // which is necessary in order to transition styles when adding a class name.
+
+
+    if (phase === 'active') {
+      /* eslint-disable no-unused-expressions */
+      node && node.scrollTop;
+    }
+
+    if (className) {
+      this.appliedClasses[type][phase] = className;
+
+      _addClass(node, className);
+    }
+  };
+
+  _proto.removeClasses = function removeClasses(node, type) {
+    var _this$appliedClasses$ = this.appliedClasses[type],
+        baseClassName = _this$appliedClasses$.base,
+        activeClassName = _this$appliedClasses$.active,
+        doneClassName = _this$appliedClasses$.done;
+    this.appliedClasses[type] = {};
+
+    if (baseClassName) {
+      removeClass(node, baseClassName);
+    }
+
+    if (activeClassName) {
+      removeClass(node, activeClassName);
+    }
+
+    if (doneClassName) {
+      removeClass(node, doneClassName);
+    }
+  };
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        _ = _this$props.classNames,
+        props = Object(_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(_this$props, ["classNames"]);
+
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_Transition__WEBPACK_IMPORTED_MODULE_7__["default"], Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props, {
+      onEnter: this.onEnter,
+      onEntered: this.onEntered,
+      onEntering: this.onEntering,
+      onExit: this.onExit,
+      onExiting: this.onExiting,
+      onExited: this.onExited
+    }));
+  };
+
+  return CSSTransition;
+}(react__WEBPACK_IMPORTED_MODULE_6___default.a.Component);
+
+CSSTransition.defaultProps = {
+  classNames: ''
+};
+CSSTransition.propTypes =  true ? Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({}, _Transition__WEBPACK_IMPORTED_MODULE_7__["default"].propTypes, {
+  /**
+   * The animation classNames applied to the component as it appears, enters,
+   * exits or has finished the transition. A single name can be provided, which
+   * will be suffixed for each stage, e.g. `classNames="fade"` applies:
+   *
+   * - `fade-appear`, `fade-appear-active`, `fade-appear-done`
+   * - `fade-enter`, `fade-enter-active`, `fade-enter-done`
+   * - `fade-exit`, `fade-exit-active`, `fade-exit-done`
+   *
+   * A few details to note about how these classes are applied:
+   *
+   * 1. They are _joined_ with the ones that are already defined on the child
+   *    component, so if you want to add some base styles, you can use
+   *    `className` without worrying that it will be overridden.
+   *
+   * 2. If the transition component mounts with `in={false}`, no classes are
+   *    applied yet. You might be expecting `*-exit-done`, but if you think
+   *    about it, a component cannot finish exiting if it hasn't entered yet.
+   *
+   * 2. `fade-appear-done` and `fade-enter-done` will _both_ be applied. This
+   *    allows you to define different behavior for when appearing is done and
+   *    when regular entering is done, using selectors like
+   *    `.fade-enter-done:not(.fade-appear-done)`. For example, you could apply
+   *    an epic entrance animation when element first appears in the DOM using
+   *    [Animate.css](https://daneden.github.io/animate.css/). Otherwise you can
+   *    simply use `fade-enter-done` for defining both cases.
+   *
+   * Each individual classNames can also be specified independently like:
+   *
+   * ```js
+   * classNames={{
+   *  appear: 'my-appear',
+   *  appearActive: 'my-active-appear',
+   *  appearDone: 'my-done-appear',
+   *  enter: 'my-enter',
+   *  enterActive: 'my-active-enter',
+   *  enterDone: 'my-done-enter',
+   *  exit: 'my-exit',
+   *  exitActive: 'my-active-exit',
+   *  exitDone: 'my-done-exit',
+   * }}
+   * ```
+   *
+   * If you want to set these classes using CSS Modules:
+   *
+   * ```js
+   * import styles from './styles.css';
+   * ```
+   *
+   * you might want to use camelCase in your CSS file, that way could simply
+   * spread them instead of listing them one by one:
+   *
+   * ```js
+   * classNames={{ ...styles }}
+   * ```
+   *
+   * @type {string | {
+   *  appear?: string,
+   *  appearActive?: string,
+   *  appearDone?: string,
+   *  enter?: string,
+   *  enterActive?: string,
+   *  enterDone?: string,
+   *  exit?: string,
+   *  exitActive?: string,
+   *  exitDone?: string,
+   * }}
+   */
+  classNames: _utils_PropTypes__WEBPACK_IMPORTED_MODULE_8__["classNamesShape"],
+
+  /**
+   * A `<Transition>` callback fired immediately after the 'enter' or 'appear' class is
+   * applied.
+   *
+   * **Note**: when `nodeRef` prop is passed, `node` is not passed.
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool)
+   */
+  onEnter: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func,
+
+  /**
+   * A `<Transition>` callback fired immediately after the 'enter-active' or
+   * 'appear-active' class is applied.
+   *
+   * **Note**: when `nodeRef` prop is passed, `node` is not passed.
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool)
+   */
+  onEntering: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func,
+
+  /**
+   * A `<Transition>` callback fired immediately after the 'enter' or
+   * 'appear' classes are **removed** and the `done` class is added to the DOM node.
+   *
+   * **Note**: when `nodeRef` prop is passed, `node` is not passed.
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool)
+   */
+  onEntered: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func,
+
+  /**
+   * A `<Transition>` callback fired immediately after the 'exit' class is
+   * applied.
+   *
+   * **Note**: when `nodeRef` prop is passed, `node` is not passed
+   *
+   * @type Function(node: HtmlElement)
+   */
+  onExit: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func,
+
+  /**
+   * A `<Transition>` callback fired immediately after the 'exit-active' is applied.
+   *
+   * **Note**: when `nodeRef` prop is passed, `node` is not passed
+   *
+   * @type Function(node: HtmlElement)
+   */
+  onExiting: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func,
+
+  /**
+   * A `<Transition>` callback fired immediately after the 'exit' classes
+   * are **removed** and the `exit-done` class is added to the DOM node.
+   *
+   * **Note**: when `nodeRef` prop is passed, `node` is not passed
+   *
+   * @type Function(node: HtmlElement)
+   */
+  onExited: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.func
+}) : undefined;
+/* harmony default export */ __webpack_exports__["default"] = (CSSTransition);
+
+/***/ }),
+
+/***/ "./node_modules/react-transition-group/esm/ReplaceTransition.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/react-transition-group/esm/ReplaceTransition.js ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-dom */ "react-dom");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _TransitionGroup__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./TransitionGroup */ "./node_modules/react-transition-group/esm/TransitionGroup.js");
+
+
+
+
+
+
+/**
+ * The `<ReplaceTransition>` component is a specialized `Transition` component
+ * that animates between two children.
+ *
+ * ```jsx
+ * <ReplaceTransition in>
+ *   <Fade><div>I appear first</div></Fade>
+ *   <Fade><div>I replace the above</div></Fade>
+ * </ReplaceTransition>
+ * ```
+ */
+
+var ReplaceTransition = /*#__PURE__*/function (_React$Component) {
+  Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(ReplaceTransition, _React$Component);
+
+  function ReplaceTransition() {
+    var _this;
+
+    for (var _len = arguments.length, _args = new Array(_len), _key = 0; _key < _len; _key++) {
+      _args[_key] = arguments[_key];
+    }
+
+    _this = _React$Component.call.apply(_React$Component, [this].concat(_args)) || this;
+
+    _this.handleEnter = function () {
+      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+      }
+
+      return _this.handleLifecycle('onEnter', 0, args);
+    };
+
+    _this.handleEntering = function () {
+      for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+        args[_key3] = arguments[_key3];
+      }
+
+      return _this.handleLifecycle('onEntering', 0, args);
+    };
+
+    _this.handleEntered = function () {
+      for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+        args[_key4] = arguments[_key4];
+      }
+
+      return _this.handleLifecycle('onEntered', 0, args);
+    };
+
+    _this.handleExit = function () {
+      for (var _len5 = arguments.length, args = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+        args[_key5] = arguments[_key5];
+      }
+
+      return _this.handleLifecycle('onExit', 1, args);
+    };
+
+    _this.handleExiting = function () {
+      for (var _len6 = arguments.length, args = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
+        args[_key6] = arguments[_key6];
+      }
+
+      return _this.handleLifecycle('onExiting', 1, args);
+    };
+
+    _this.handleExited = function () {
+      for (var _len7 = arguments.length, args = new Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {
+        args[_key7] = arguments[_key7];
+      }
+
+      return _this.handleLifecycle('onExited', 1, args);
+    };
+
+    return _this;
+  }
+
+  var _proto = ReplaceTransition.prototype;
+
+  _proto.handleLifecycle = function handleLifecycle(handler, idx, originalArgs) {
+    var _child$props;
+
+    var children = this.props.children;
+    var child = react__WEBPACK_IMPORTED_MODULE_3___default.a.Children.toArray(children)[idx];
+    if (child.props[handler]) (_child$props = child.props)[handler].apply(_child$props, originalArgs);
+
+    if (this.props[handler]) {
+      var maybeNode = child.props.nodeRef ? undefined : react_dom__WEBPACK_IMPORTED_MODULE_4___default.a.findDOMNode(this);
+      this.props[handler](maybeNode);
+    }
+  };
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        children = _this$props.children,
+        inProp = _this$props.in,
+        props = Object(_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(_this$props, ["children", "in"]);
+
+    var _React$Children$toArr = react__WEBPACK_IMPORTED_MODULE_3___default.a.Children.toArray(children),
+        first = _React$Children$toArr[0],
+        second = _React$Children$toArr[1];
+
+    delete props.onEnter;
+    delete props.onEntering;
+    delete props.onEntered;
+    delete props.onExit;
+    delete props.onExiting;
+    delete props.onExited;
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_TransitionGroup__WEBPACK_IMPORTED_MODULE_5__["default"], props, inProp ? react__WEBPACK_IMPORTED_MODULE_3___default.a.cloneElement(first, {
+      key: 'first',
+      onEnter: this.handleEnter,
+      onEntering: this.handleEntering,
+      onEntered: this.handleEntered
+    }) : react__WEBPACK_IMPORTED_MODULE_3___default.a.cloneElement(second, {
+      key: 'second',
+      onEnter: this.handleExit,
+      onEntering: this.handleExiting,
+      onEntered: this.handleExited
+    }));
+  };
+
+  return ReplaceTransition;
+}(react__WEBPACK_IMPORTED_MODULE_3___default.a.Component);
+
+ReplaceTransition.propTypes =  true ? {
+  in: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.bool.isRequired,
+  children: function children(props, propName) {
+    if (react__WEBPACK_IMPORTED_MODULE_3___default.a.Children.count(props[propName]) !== 2) return new Error("\"" + propName + "\" must be exactly two transition components.");
+    return null;
+  }
+} : undefined;
+/* harmony default export */ __webpack_exports__["default"] = (ReplaceTransition);
+
+/***/ }),
+
+/***/ "./node_modules/react-transition-group/esm/SwitchTransition.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/react-transition-group/esm/SwitchTransition.js ***!
+  \*********************************************************************/
+/*! exports provided: modes, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "modes", function() { return modes; });
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Transition__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Transition */ "./node_modules/react-transition-group/esm/Transition.js");
+/* harmony import */ var _TransitionGroupContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TransitionGroupContext */ "./node_modules/react-transition-group/esm/TransitionGroupContext.js");
+
+
+var _leaveRenders, _enterRenders;
+
+
+
+
+
+
+function areChildrenDifferent(oldChildren, newChildren) {
+  if (oldChildren === newChildren) return false;
+
+  if (react__WEBPACK_IMPORTED_MODULE_1___default.a.isValidElement(oldChildren) && react__WEBPACK_IMPORTED_MODULE_1___default.a.isValidElement(newChildren) && oldChildren.key != null && oldChildren.key === newChildren.key) {
+    return false;
+  }
+
+  return true;
+}
+/**
+ * Enum of modes for SwitchTransition component
+ * @enum { string }
+ */
+
+
+var modes = {
+  out: 'out-in',
+  in: 'in-out'
+};
+
+var callHook = function callHook(element, name, cb) {
+  return function () {
+    var _element$props;
+
+    element.props[name] && (_element$props = element.props)[name].apply(_element$props, arguments);
+    cb();
+  };
+};
+
+var leaveRenders = (_leaveRenders = {}, _leaveRenders[modes.out] = function (_ref) {
+  var current = _ref.current,
+      changeState = _ref.changeState;
+  return react__WEBPACK_IMPORTED_MODULE_1___default.a.cloneElement(current, {
+    in: false,
+    onExited: callHook(current, 'onExited', function () {
+      changeState(_Transition__WEBPACK_IMPORTED_MODULE_3__["ENTERING"], null);
+    })
+  });
+}, _leaveRenders[modes.in] = function (_ref2) {
+  var current = _ref2.current,
+      changeState = _ref2.changeState,
+      children = _ref2.children;
+  return [current, react__WEBPACK_IMPORTED_MODULE_1___default.a.cloneElement(children, {
+    in: true,
+    onEntered: callHook(children, 'onEntered', function () {
+      changeState(_Transition__WEBPACK_IMPORTED_MODULE_3__["ENTERING"]);
+    })
+  })];
+}, _leaveRenders);
+var enterRenders = (_enterRenders = {}, _enterRenders[modes.out] = function (_ref3) {
+  var children = _ref3.children,
+      changeState = _ref3.changeState;
+  return react__WEBPACK_IMPORTED_MODULE_1___default.a.cloneElement(children, {
+    in: true,
+    onEntered: callHook(children, 'onEntered', function () {
+      changeState(_Transition__WEBPACK_IMPORTED_MODULE_3__["ENTERED"], react__WEBPACK_IMPORTED_MODULE_1___default.a.cloneElement(children, {
+        in: true
+      }));
+    })
+  });
+}, _enterRenders[modes.in] = function (_ref4) {
+  var current = _ref4.current,
+      children = _ref4.children,
+      changeState = _ref4.changeState;
+  return [react__WEBPACK_IMPORTED_MODULE_1___default.a.cloneElement(current, {
+    in: false,
+    onExited: callHook(current, 'onExited', function () {
+      changeState(_Transition__WEBPACK_IMPORTED_MODULE_3__["ENTERED"], react__WEBPACK_IMPORTED_MODULE_1___default.a.cloneElement(children, {
+        in: true
+      }));
+    })
+  }), react__WEBPACK_IMPORTED_MODULE_1___default.a.cloneElement(children, {
+    in: true
+  })];
+}, _enterRenders);
+/**
+ * A transition component inspired by the [vue transition modes](https://vuejs.org/v2/guide/transitions.html#Transition-Modes).
+ * You can use it when you want to control the render between state transitions.
+ * Based on the selected mode and the child's key which is the `Transition` or `CSSTransition` component, the `SwitchTransition` makes a consistent transition between them.
+ *
+ * If the `out-in` mode is selected, the `SwitchTransition` waits until the old child leaves and then inserts a new child.
+ * If the `in-out` mode is selected, the `SwitchTransition` inserts a new child first, waits for the new child to enter and then removes the old child.
+ *
+ * **Note**: If you want the animation to happen simultaneously
+ * (that is, to have the old child removed and a new child inserted **at the same time**),
+ * you should use
+ * [`TransitionGroup`](https://reactcommunity.org/react-transition-group/transition-group)
+ * instead.
+ *
+ * ```jsx
+ * function App() {
+ *  const [state, setState] = useState(false);
+ *  return (
+ *    <SwitchTransition>
+ *      <CSSTransition
+ *        key={state ? "Goodbye, world!" : "Hello, world!"}
+ *        addEndListener={(node, done) => node.addEventListener("transitionend", done, false)}
+ *        classNames='fade'
+ *      >
+ *        <button onClick={() => setState(state => !state)}>
+ *          {state ? "Goodbye, world!" : "Hello, world!"}
+ *        </button>
+ *      </CSSTransition>
+ *    </SwitchTransition>
+ *  );
+ * }
+ * ```
+ *
+ * ```css
+ * .fade-enter{
+ *    opacity: 0;
+ * }
+ * .fade-exit{
+ *    opacity: 1;
+ * }
+ * .fade-enter-active{
+ *    opacity: 1;
+ * }
+ * .fade-exit-active{
+ *    opacity: 0;
+ * }
+ * .fade-enter-active,
+ * .fade-exit-active{
+ *    transition: opacity 500ms;
+ * }
+ * ```
+ */
+
+var SwitchTransition = /*#__PURE__*/function (_React$Component) {
+  Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(SwitchTransition, _React$Component);
+
+  function SwitchTransition() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
+    _this.state = {
+      status: _Transition__WEBPACK_IMPORTED_MODULE_3__["ENTERED"],
+      current: null
+    };
+    _this.appeared = false;
+
+    _this.changeState = function (status, current) {
+      if (current === void 0) {
+        current = _this.state.current;
+      }
+
+      _this.setState({
+        status: status,
+        current: current
+      });
+    };
+
+    return _this;
+  }
+
+  var _proto = SwitchTransition.prototype;
+
+  _proto.componentDidMount = function componentDidMount() {
+    this.appeared = true;
+  };
+
+  SwitchTransition.getDerivedStateFromProps = function getDerivedStateFromProps(props, state) {
+    if (props.children == null) {
+      return {
+        current: null
+      };
+    }
+
+    if (state.status === _Transition__WEBPACK_IMPORTED_MODULE_3__["ENTERING"] && props.mode === modes.in) {
+      return {
+        status: _Transition__WEBPACK_IMPORTED_MODULE_3__["ENTERING"]
+      };
+    }
+
+    if (state.current && areChildrenDifferent(state.current, props.children)) {
+      return {
+        status: _Transition__WEBPACK_IMPORTED_MODULE_3__["EXITING"]
+      };
+    }
+
+    return {
+      current: react__WEBPACK_IMPORTED_MODULE_1___default.a.cloneElement(props.children, {
+        in: true
+      })
+    };
+  };
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        children = _this$props.children,
+        mode = _this$props.mode,
+        _this$state = this.state,
+        status = _this$state.status,
+        current = _this$state.current;
+    var data = {
+      children: children,
+      current: current,
+      changeState: this.changeState,
+      status: status
+    };
+    var component;
+
+    switch (status) {
+      case _Transition__WEBPACK_IMPORTED_MODULE_3__["ENTERING"]:
+        component = enterRenders[mode](data);
+        break;
+
+      case _Transition__WEBPACK_IMPORTED_MODULE_3__["EXITING"]:
+        component = leaveRenders[mode](data);
+        break;
+
+      case _Transition__WEBPACK_IMPORTED_MODULE_3__["ENTERED"]:
+        component = current;
+    }
+
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_TransitionGroupContext__WEBPACK_IMPORTED_MODULE_4__["default"].Provider, {
+      value: {
+        isMounting: !this.appeared
+      }
+    }, component);
+  };
+
+  return SwitchTransition;
+}(react__WEBPACK_IMPORTED_MODULE_1___default.a.Component);
+
+SwitchTransition.propTypes =  true ? {
+  /**
+   * Transition modes.
+   * `out-in`: Current element transitions out first, then when complete, the new element transitions in.
+   * `in-out`: New element transitions in first, then when complete, the current element transitions out.
+   *
+   * @type {'out-in'|'in-out'}
+   */
+  mode: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.oneOf([modes.in, modes.out]),
+
+  /**
+   * Any `Transition` or `CSSTransition` component.
+   */
+  children: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.element.isRequired])
+} : undefined;
+SwitchTransition.defaultProps = {
+  mode: modes.out
+};
+/* harmony default export */ __webpack_exports__["default"] = (SwitchTransition);
+
+/***/ }),
+
+/***/ "./node_modules/react-transition-group/esm/Transition.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/react-transition-group/esm/Transition.js ***!
+  \***************************************************************/
+/*! exports provided: UNMOUNTED, EXITED, ENTERING, ENTERED, EXITING, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UNMOUNTED", function() { return UNMOUNTED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EXITED", function() { return EXITED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ENTERING", function() { return ENTERING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ENTERED", function() { return ENTERED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EXITING", function() { return EXITING; });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-dom */ "react-dom");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./config */ "./node_modules/react-transition-group/esm/config.js");
+/* harmony import */ var _utils_PropTypes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./utils/PropTypes */ "./node_modules/react-transition-group/esm/utils/PropTypes.js");
+/* harmony import */ var _TransitionGroupContext__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./TransitionGroupContext */ "./node_modules/react-transition-group/esm/TransitionGroupContext.js");
+
+
+
+
+
+
+
+
+var UNMOUNTED = 'unmounted';
+var EXITED = 'exited';
+var ENTERING = 'entering';
+var ENTERED = 'entered';
+var EXITING = 'exiting';
+/**
+ * The Transition component lets you describe a transition from one component
+ * state to another _over time_ with a simple declarative API. Most commonly
+ * it's used to animate the mounting and unmounting of a component, but can also
+ * be used to describe in-place transition states as well.
+ *
+ * ---
+ *
+ * **Note**: `Transition` is a platform-agnostic base component. If you're using
+ * transitions in CSS, you'll probably want to use
+ * [`CSSTransition`](https://reactcommunity.org/react-transition-group/css-transition)
+ * instead. It inherits all the features of `Transition`, but contains
+ * additional features necessary to play nice with CSS transitions (hence the
+ * name of the component).
+ *
+ * ---
+ *
+ * By default the `Transition` component does not alter the behavior of the
+ * component it renders, it only tracks "enter" and "exit" states for the
+ * components. It's up to you to give meaning and effect to those states. For
+ * example we can add styles to a component when it enters or exits:
+ *
+ * ```jsx
+ * import { Transition } from 'react-transition-group';
+ *
+ * const duration = 300;
+ *
+ * const defaultStyle = {
+ *   transition: `opacity ${duration}ms ease-in-out`,
+ *   opacity: 0,
+ * }
+ *
+ * const transitionStyles = {
+ *   entering: { opacity: 1 },
+ *   entered:  { opacity: 1 },
+ *   exiting:  { opacity: 0 },
+ *   exited:  { opacity: 0 },
+ * };
+ *
+ * const Fade = ({ in: inProp }) => (
+ *   <Transition in={inProp} timeout={duration}>
+ *     {state => (
+ *       <div style={{
+ *         ...defaultStyle,
+ *         ...transitionStyles[state]
+ *       }}>
+ *         I'm a fade Transition!
+ *       </div>
+ *     )}
+ *   </Transition>
+ * );
+ * ```
+ *
+ * There are 4 main states a Transition can be in:
+ *  - `'entering'`
+ *  - `'entered'`
+ *  - `'exiting'`
+ *  - `'exited'`
+ *
+ * Transition state is toggled via the `in` prop. When `true` the component
+ * begins the "Enter" stage. During this stage, the component will shift from
+ * its current transition state, to `'entering'` for the duration of the
+ * transition and then to the `'entered'` stage once it's complete. Let's take
+ * the following example (we'll use the
+ * [useState](https://reactjs.org/docs/hooks-reference.html#usestate) hook):
+ *
+ * ```jsx
+ * function App() {
+ *   const [inProp, setInProp] = useState(false);
+ *   return (
+ *     <div>
+ *       <Transition in={inProp} timeout={500}>
+ *         {state => (
+ *           // ...
+ *         )}
+ *       </Transition>
+ *       <button onClick={() => setInProp(true)}>
+ *         Click to Enter
+ *       </button>
+ *     </div>
+ *   );
+ * }
+ * ```
+ *
+ * When the button is clicked the component will shift to the `'entering'` state
+ * and stay there for 500ms (the value of `timeout`) before it finally switches
+ * to `'entered'`.
+ *
+ * When `in` is `false` the same thing happens except the state moves from
+ * `'exiting'` to `'exited'`.
+ */
+
+var Transition = /*#__PURE__*/function (_React$Component) {
+  Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__["default"])(Transition, _React$Component);
+
+  function Transition(props, context) {
+    var _this;
+
+    _this = _React$Component.call(this, props, context) || this;
+    var parentGroup = context; // In the context of a TransitionGroup all enters are really appears
+
+    var appear = parentGroup && !parentGroup.isMounting ? props.enter : props.appear;
+    var initialStatus;
+    _this.appearStatus = null;
+
+    if (props.in) {
+      if (appear) {
+        initialStatus = EXITED;
+        _this.appearStatus = ENTERING;
+      } else {
+        initialStatus = ENTERED;
+      }
+    } else {
+      if (props.unmountOnExit || props.mountOnEnter) {
+        initialStatus = UNMOUNTED;
+      } else {
+        initialStatus = EXITED;
+      }
+    }
+
+    _this.state = {
+      status: initialStatus
+    };
+    _this.nextCallback = null;
+    return _this;
+  }
+
+  Transition.getDerivedStateFromProps = function getDerivedStateFromProps(_ref, prevState) {
+    var nextIn = _ref.in;
+
+    if (nextIn && prevState.status === UNMOUNTED) {
+      return {
+        status: EXITED
+      };
+    }
+
+    return null;
+  } // getSnapshotBeforeUpdate(prevProps) {
+  //   let nextStatus = null
+  //   if (prevProps !== this.props) {
+  //     const { status } = this.state
+  //     if (this.props.in) {
+  //       if (status !== ENTERING && status !== ENTERED) {
+  //         nextStatus = ENTERING
+  //       }
+  //     } else {
+  //       if (status === ENTERING || status === ENTERED) {
+  //         nextStatus = EXITING
+  //       }
+  //     }
+  //   }
+  //   return { nextStatus }
+  // }
+  ;
+
+  var _proto = Transition.prototype;
+
+  _proto.componentDidMount = function componentDidMount() {
+    this.updateStatus(true, this.appearStatus);
+  };
+
+  _proto.componentDidUpdate = function componentDidUpdate(prevProps) {
+    var nextStatus = null;
+
+    if (prevProps !== this.props) {
+      var status = this.state.status;
+
+      if (this.props.in) {
+        if (status !== ENTERING && status !== ENTERED) {
+          nextStatus = ENTERING;
+        }
+      } else {
+        if (status === ENTERING || status === ENTERED) {
+          nextStatus = EXITING;
+        }
+      }
+    }
+
+    this.updateStatus(false, nextStatus);
+  };
+
+  _proto.componentWillUnmount = function componentWillUnmount() {
+    this.cancelNextCallback();
+  };
+
+  _proto.getTimeouts = function getTimeouts() {
+    var timeout = this.props.timeout;
+    var exit, enter, appear;
+    exit = enter = appear = timeout;
+
+    if (timeout != null && typeof timeout !== 'number') {
+      exit = timeout.exit;
+      enter = timeout.enter; // TODO: remove fallback for next major
+
+      appear = timeout.appear !== undefined ? timeout.appear : enter;
+    }
+
+    return {
+      exit: exit,
+      enter: enter,
+      appear: appear
+    };
+  };
+
+  _proto.updateStatus = function updateStatus(mounting, nextStatus) {
+    if (mounting === void 0) {
+      mounting = false;
+    }
+
+    if (nextStatus !== null) {
+      // nextStatus will always be ENTERING or EXITING.
+      this.cancelNextCallback();
+
+      if (nextStatus === ENTERING) {
+        this.performEnter(mounting);
+      } else {
+        this.performExit();
+      }
+    } else if (this.props.unmountOnExit && this.state.status === EXITED) {
+      this.setState({
+        status: UNMOUNTED
+      });
+    }
+  };
+
+  _proto.performEnter = function performEnter(mounting) {
+    var _this2 = this;
+
+    var enter = this.props.enter;
+    var appearing = this.context ? this.context.isMounting : mounting;
+
+    var _ref2 = this.props.nodeRef ? [appearing] : [react_dom__WEBPACK_IMPORTED_MODULE_4___default.a.findDOMNode(this), appearing],
+        maybeNode = _ref2[0],
+        maybeAppearing = _ref2[1];
+
+    var timeouts = this.getTimeouts();
+    var enterTimeout = appearing ? timeouts.appear : timeouts.enter; // no enter animation skip right to ENTERED
+    // if we are mounting and running this it means appear _must_ be set
+
+    if (!mounting && !enter || _config__WEBPACK_IMPORTED_MODULE_5__["default"].disabled) {
+      this.safeSetState({
+        status: ENTERED
+      }, function () {
+        _this2.props.onEntered(maybeNode);
+      });
+      return;
+    }
+
+    this.props.onEnter(maybeNode, maybeAppearing);
+    this.safeSetState({
+      status: ENTERING
+    }, function () {
+      _this2.props.onEntering(maybeNode, maybeAppearing);
+
+      _this2.onTransitionEnd(enterTimeout, function () {
+        _this2.safeSetState({
+          status: ENTERED
+        }, function () {
+          _this2.props.onEntered(maybeNode, maybeAppearing);
+        });
+      });
+    });
+  };
+
+  _proto.performExit = function performExit() {
+    var _this3 = this;
+
+    var exit = this.props.exit;
+    var timeouts = this.getTimeouts();
+    var maybeNode = this.props.nodeRef ? undefined : react_dom__WEBPACK_IMPORTED_MODULE_4___default.a.findDOMNode(this); // no exit animation skip right to EXITED
+
+    if (!exit || _config__WEBPACK_IMPORTED_MODULE_5__["default"].disabled) {
+      this.safeSetState({
+        status: EXITED
+      }, function () {
+        _this3.props.onExited(maybeNode);
+      });
+      return;
+    }
+
+    this.props.onExit(maybeNode);
+    this.safeSetState({
+      status: EXITING
+    }, function () {
+      _this3.props.onExiting(maybeNode);
+
+      _this3.onTransitionEnd(timeouts.exit, function () {
+        _this3.safeSetState({
+          status: EXITED
+        }, function () {
+          _this3.props.onExited(maybeNode);
+        });
+      });
+    });
+  };
+
+  _proto.cancelNextCallback = function cancelNextCallback() {
+    if (this.nextCallback !== null) {
+      this.nextCallback.cancel();
+      this.nextCallback = null;
+    }
+  };
+
+  _proto.safeSetState = function safeSetState(nextState, callback) {
+    // This shouldn't be necessary, but there are weird race conditions with
+    // setState callbacks and unmounting in testing, so always make sure that
+    // we can cancel any pending setState callbacks after we unmount.
+    callback = this.setNextCallback(callback);
+    this.setState(nextState, callback);
+  };
+
+  _proto.setNextCallback = function setNextCallback(callback) {
+    var _this4 = this;
+
+    var active = true;
+
+    this.nextCallback = function (event) {
+      if (active) {
+        active = false;
+        _this4.nextCallback = null;
+        callback(event);
+      }
+    };
+
+    this.nextCallback.cancel = function () {
+      active = false;
+    };
+
+    return this.nextCallback;
+  };
+
+  _proto.onTransitionEnd = function onTransitionEnd(timeout, handler) {
+    this.setNextCallback(handler);
+    var node = this.props.nodeRef ? this.props.nodeRef.current : react_dom__WEBPACK_IMPORTED_MODULE_4___default.a.findDOMNode(this);
+    var doesNotHaveTimeoutOrListener = timeout == null && !this.props.addEndListener;
+
+    if (!node || doesNotHaveTimeoutOrListener) {
+      setTimeout(this.nextCallback, 0);
+      return;
+    }
+
+    if (this.props.addEndListener) {
+      var _ref3 = this.props.nodeRef ? [this.nextCallback] : [node, this.nextCallback],
+          maybeNode = _ref3[0],
+          maybeNextCallback = _ref3[1];
+
+      this.props.addEndListener(maybeNode, maybeNextCallback);
+    }
+
+    if (timeout != null) {
+      setTimeout(this.nextCallback, timeout);
+    }
+  };
+
+  _proto.render = function render() {
+    var status = this.state.status;
+
+    if (status === UNMOUNTED) {
+      return null;
+    }
+
+    var _this$props = this.props,
+        children = _this$props.children,
+        _in = _this$props.in,
+        _mountOnEnter = _this$props.mountOnEnter,
+        _unmountOnExit = _this$props.unmountOnExit,
+        _appear = _this$props.appear,
+        _enter = _this$props.enter,
+        _exit = _this$props.exit,
+        _timeout = _this$props.timeout,
+        _addEndListener = _this$props.addEndListener,
+        _onEnter = _this$props.onEnter,
+        _onEntering = _this$props.onEntering,
+        _onEntered = _this$props.onEntered,
+        _onExit = _this$props.onExit,
+        _onExiting = _this$props.onExiting,
+        _onExited = _this$props.onExited,
+        _nodeRef = _this$props.nodeRef,
+        childProps = Object(_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(_this$props, ["children", "in", "mountOnEnter", "unmountOnExit", "appear", "enter", "exit", "timeout", "addEndListener", "onEnter", "onEntering", "onEntered", "onExit", "onExiting", "onExited", "nodeRef"]);
+
+    return (
+      /*#__PURE__*/
+      // allows for nested Transitions
+      react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_TransitionGroupContext__WEBPACK_IMPORTED_MODULE_7__["default"].Provider, {
+        value: null
+      }, typeof children === 'function' ? children(status, childProps) : react__WEBPACK_IMPORTED_MODULE_3___default.a.cloneElement(react__WEBPACK_IMPORTED_MODULE_3___default.a.Children.only(children), childProps))
+    );
+  };
+
+  return Transition;
+}(react__WEBPACK_IMPORTED_MODULE_3___default.a.Component);
+
+Transition.contextType = _TransitionGroupContext__WEBPACK_IMPORTED_MODULE_7__["default"];
+Transition.propTypes =  true ? {
+  /**
+   * A React reference to DOM element that need to transition:
+   * https://stackoverflow.com/a/51127130/4671932
+   *
+   *   - When `nodeRef` prop is used, `node` is not passed to callback functions
+   *      (e.g. `onEnter`) because user already has direct access to the node.
+   *   - When changing `key` prop of `Transition` in a `TransitionGroup` a new
+   *     `nodeRef` need to be provided to `Transition` with changed `key` prop
+   *     (see
+   *     [test/CSSTransition-test.js](https://github.com/reactjs/react-transition-group/blob/13435f897b3ab71f6e19d724f145596f5910581c/test/CSSTransition-test.js#L362-L437)).
+   */
+  nodeRef: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.shape({
+    current: typeof Element === 'undefined' ? prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.any : prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.instanceOf(Element)
+  }),
+
+  /**
+   * A `function` child can be used instead of a React element. This function is
+   * called with the current transition status (`'entering'`, `'entered'`,
+   * `'exiting'`, `'exited'`), which can be used to apply context
+   * specific props to a component.
+   *
+   * ```jsx
+   * <Transition in={this.state.in} timeout={150}>
+   *   {state => (
+   *     <MyComponent className={`fade fade-${state}`} />
+   *   )}
+   * </Transition>
+   * ```
+   */
+  children: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func.isRequired, prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.element.isRequired]).isRequired,
+
+  /**
+   * Show the component; triggers the enter or exit states
+   */
+  in: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.bool,
+
+  /**
+   * By default the child component is mounted immediately along with
+   * the parent `Transition` component. If you want to "lazy mount" the component on the
+   * first `in={true}` you can set `mountOnEnter`. After the first enter transition the component will stay
+   * mounted, even on "exited", unless you also specify `unmountOnExit`.
+   */
+  mountOnEnter: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.bool,
+
+  /**
+   * By default the child component stays mounted after it reaches the `'exited'` state.
+   * Set `unmountOnExit` if you'd prefer to unmount the component after it finishes exiting.
+   */
+  unmountOnExit: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.bool,
+
+  /**
+   * By default the child component does not perform the enter transition when
+   * it first mounts, regardless of the value of `in`. If you want this
+   * behavior, set both `appear` and `in` to `true`.
+   *
+   * > **Note**: there are no special appear states like `appearing`/`appeared`, this prop
+   * > only adds an additional enter transition. However, in the
+   * > `<CSSTransition>` component that first enter transition does result in
+   * > additional `.appear-*` classes, that way you can choose to style it
+   * > differently.
+   */
+  appear: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.bool,
+
+  /**
+   * Enable or disable enter transitions.
+   */
+  enter: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.bool,
+
+  /**
+   * Enable or disable exit transitions.
+   */
+  exit: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.bool,
+
+  /**
+   * The duration of the transition, in milliseconds.
+   * Required unless `addEndListener` is provided.
+   *
+   * You may specify a single timeout for all transitions:
+   *
+   * ```jsx
+   * timeout={500}
+   * ```
+   *
+   * or individually:
+   *
+   * ```jsx
+   * timeout={{
+   *  appear: 500,
+   *  enter: 300,
+   *  exit: 500,
+   * }}
+   * ```
+   *
+   * - `appear` defaults to the value of `enter`
+   * - `enter` defaults to `0`
+   * - `exit` defaults to `0`
+   *
+   * @type {number | { enter?: number, exit?: number, appear?: number }}
+   */
+  timeout: function timeout(props) {
+    var pt = _utils_PropTypes__WEBPACK_IMPORTED_MODULE_6__["timeoutsShape"];
+    if (!props.addEndListener) pt = pt.isRequired;
+
+    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    return pt.apply(void 0, [props].concat(args));
+  },
+
+  /**
+   * Add a custom transition end trigger. Called with the transitioning
+   * DOM node and a `done` callback. Allows for more fine grained transition end
+   * logic. Timeouts are still used as a fallback if provided.
+   *
+   * **Note**: when `nodeRef` prop is passed, `node` is not passed.
+   *
+   * ```jsx
+   * addEndListener={(node, done) => {
+   *   // use the css transitionend event to mark the finish of a transition
+   *   node.addEventListener('transitionend', done, false);
+   * }}
+   * ```
+   */
+  addEndListener: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func,
+
+  /**
+   * Callback fired before the "entering" status is applied. An extra parameter
+   * `isAppearing` is supplied to indicate if the enter stage is occurring on the initial mount
+   *
+   * **Note**: when `nodeRef` prop is passed, `node` is not passed.
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool) -> void
+   */
+  onEnter: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func,
+
+  /**
+   * Callback fired after the "entering" status is applied. An extra parameter
+   * `isAppearing` is supplied to indicate if the enter stage is occurring on the initial mount
+   *
+   * **Note**: when `nodeRef` prop is passed, `node` is not passed.
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool)
+   */
+  onEntering: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func,
+
+  /**
+   * Callback fired after the "entered" status is applied. An extra parameter
+   * `isAppearing` is supplied to indicate if the enter stage is occurring on the initial mount
+   *
+   * **Note**: when `nodeRef` prop is passed, `node` is not passed.
+   *
+   * @type Function(node: HtmlElement, isAppearing: bool) -> void
+   */
+  onEntered: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func,
+
+  /**
+   * Callback fired before the "exiting" status is applied.
+   *
+   * **Note**: when `nodeRef` prop is passed, `node` is not passed.
+   *
+   * @type Function(node: HtmlElement) -> void
+   */
+  onExit: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func,
+
+  /**
+   * Callback fired after the "exiting" status is applied.
+   *
+   * **Note**: when `nodeRef` prop is passed, `node` is not passed.
+   *
+   * @type Function(node: HtmlElement) -> void
+   */
+  onExiting: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func,
+
+  /**
+   * Callback fired after the "exited" status is applied.
+   *
+   * **Note**: when `nodeRef` prop is passed, `node` is not passed
+   *
+   * @type Function(node: HtmlElement) -> void
+   */
+  onExited: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func
+} : undefined; // Name the function so it is clearer in the documentation
+
+function noop() {}
+
+Transition.defaultProps = {
+  in: false,
+  mountOnEnter: false,
+  unmountOnExit: false,
+  appear: false,
+  enter: true,
+  exit: true,
+  onEnter: noop,
+  onEntering: noop,
+  onEntered: noop,
+  onExit: noop,
+  onExiting: noop,
+  onExited: noop
+};
+Transition.UNMOUNTED = UNMOUNTED;
+Transition.EXITED = EXITED;
+Transition.ENTERING = ENTERING;
+Transition.ENTERED = ENTERED;
+Transition.EXITING = EXITING;
+/* harmony default export */ __webpack_exports__["default"] = (Transition);
+
+/***/ }),
+
+/***/ "./node_modules/react-transition-group/esm/TransitionGroup.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/react-transition-group/esm/TransitionGroup.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/esm/assertThisInitialized */ "./node_modules/@babel/runtime/helpers/esm/assertThisInitialized.js");
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/esm/inheritsLoose */ "./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _TransitionGroupContext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./TransitionGroupContext */ "./node_modules/react-transition-group/esm/TransitionGroupContext.js");
+/* harmony import */ var _utils_ChildMapping__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./utils/ChildMapping */ "./node_modules/react-transition-group/esm/utils/ChildMapping.js");
+
+
+
+
+
+
+
+
+
+var values = Object.values || function (obj) {
+  return Object.keys(obj).map(function (k) {
+    return obj[k];
+  });
+};
+
+var defaultProps = {
+  component: 'div',
+  childFactory: function childFactory(child) {
+    return child;
+  }
+};
+/**
+ * The `<TransitionGroup>` component manages a set of transition components
+ * (`<Transition>` and `<CSSTransition>`) in a list. Like with the transition
+ * components, `<TransitionGroup>` is a state machine for managing the mounting
+ * and unmounting of components over time.
+ *
+ * Consider the example below. As items are removed or added to the TodoList the
+ * `in` prop is toggled automatically by the `<TransitionGroup>`.
+ *
+ * Note that `<TransitionGroup>`  does not define any animation behavior!
+ * Exactly _how_ a list item animates is up to the individual transition
+ * component. This means you can mix and match animations across different list
+ * items.
+ */
+
+var TransitionGroup = /*#__PURE__*/function (_React$Component) {
+  Object(_babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_3__["default"])(TransitionGroup, _React$Component);
+
+  function TransitionGroup(props, context) {
+    var _this;
+
+    _this = _React$Component.call(this, props, context) || this;
+
+    var handleExited = _this.handleExited.bind(Object(_babel_runtime_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__["default"])(_this)); // Initial children should all be entering, dependent on appear
+
+
+    _this.state = {
+      contextValue: {
+        isMounting: true
+      },
+      handleExited: handleExited,
+      firstRender: true
+    };
+    return _this;
+  }
+
+  var _proto = TransitionGroup.prototype;
+
+  _proto.componentDidMount = function componentDidMount() {
+    this.mounted = true;
+    this.setState({
+      contextValue: {
+        isMounting: false
+      }
+    });
+  };
+
+  _proto.componentWillUnmount = function componentWillUnmount() {
+    this.mounted = false;
+  };
+
+  TransitionGroup.getDerivedStateFromProps = function getDerivedStateFromProps(nextProps, _ref) {
+    var prevChildMapping = _ref.children,
+        handleExited = _ref.handleExited,
+        firstRender = _ref.firstRender;
+    return {
+      children: firstRender ? Object(_utils_ChildMapping__WEBPACK_IMPORTED_MODULE_7__["getInitialChildMapping"])(nextProps, handleExited) : Object(_utils_ChildMapping__WEBPACK_IMPORTED_MODULE_7__["getNextChildMapping"])(nextProps, prevChildMapping, handleExited),
+      firstRender: false
+    };
+  } // node is `undefined` when user provided `nodeRef` prop
+  ;
+
+  _proto.handleExited = function handleExited(child, node) {
+    var currentChildMapping = Object(_utils_ChildMapping__WEBPACK_IMPORTED_MODULE_7__["getChildMapping"])(this.props.children);
+    if (child.key in currentChildMapping) return;
+
+    if (child.props.onExited) {
+      child.props.onExited(node);
+    }
+
+    if (this.mounted) {
+      this.setState(function (state) {
+        var children = Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, state.children);
+
+        delete children[child.key];
+        return {
+          children: children
+        };
+      });
+    }
+  };
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        Component = _this$props.component,
+        childFactory = _this$props.childFactory,
+        props = Object(_babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_0__["default"])(_this$props, ["component", "childFactory"]);
+
+    var contextValue = this.state.contextValue;
+    var children = values(this.state.children).map(childFactory);
+    delete props.appear;
+    delete props.enter;
+    delete props.exit;
+
+    if (Component === null) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_TransitionGroupContext__WEBPACK_IMPORTED_MODULE_6__["default"].Provider, {
+        value: contextValue
+      }, children);
+    }
+
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_TransitionGroupContext__WEBPACK_IMPORTED_MODULE_6__["default"].Provider, {
+      value: contextValue
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(Component, props, children));
+  };
+
+  return TransitionGroup;
+}(react__WEBPACK_IMPORTED_MODULE_5___default.a.Component);
+
+TransitionGroup.propTypes =  true ? {
+  /**
+   * `<TransitionGroup>` renders a `<div>` by default. You can change this
+   * behavior by providing a `component` prop.
+   * If you use React v16+ and would like to avoid a wrapping `<div>` element
+   * you can pass in `component={null}`. This is useful if the wrapping div
+   * borks your css styles.
+   */
+  component: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.any,
+
+  /**
+   * A set of `<Transition>` components, that are toggled `in` and out as they
+   * leave. the `<TransitionGroup>` will inject specific transition props, so
+   * remember to spread them through if you are wrapping the `<Transition>` as
+   * with our `<Fade>` example.
+   *
+   * While this component is meant for multiple `Transition` or `CSSTransition`
+   * children, sometimes you may want to have a single transition child with
+   * content that you want to be transitioned out and in when you change it
+   * (e.g. routes, images etc.) In that case you can change the `key` prop of
+   * the transition child as you change its content, this will cause
+   * `TransitionGroup` to transition the child out and back in.
+   */
+  children: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.node,
+
+  /**
+   * A convenience prop that enables or disables appear animations
+   * for all children. Note that specifying this will override any defaults set
+   * on individual children Transitions.
+   */
+  appear: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.bool,
+
+  /**
+   * A convenience prop that enables or disables enter animations
+   * for all children. Note that specifying this will override any defaults set
+   * on individual children Transitions.
+   */
+  enter: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.bool,
+
+  /**
+   * A convenience prop that enables or disables exit animations
+   * for all children. Note that specifying this will override any defaults set
+   * on individual children Transitions.
+   */
+  exit: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.bool,
+
+  /**
+   * You may need to apply reactive updates to a child as it is exiting.
+   * This is generally done by using `cloneElement` however in the case of an exiting
+   * child the element has already been removed and not accessible to the consumer.
+   *
+   * If you do need to update a child as it leaves you can provide a `childFactory`
+   * to wrap every child, even the ones that are leaving.
+   *
+   * @type Function(child: ReactElement) -> ReactElement
+   */
+  childFactory: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.func
+} : undefined;
+TransitionGroup.defaultProps = defaultProps;
+/* harmony default export */ __webpack_exports__["default"] = (TransitionGroup);
+
+/***/ }),
+
+/***/ "./node_modules/react-transition-group/esm/TransitionGroupContext.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/react-transition-group/esm/TransitionGroupContext.js ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_0___default.a.createContext(null));
+
+/***/ }),
+
+/***/ "./node_modules/react-transition-group/esm/config.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/react-transition-group/esm/config.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  disabled: false
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-transition-group/esm/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/react-transition-group/esm/index.js ***!
+  \**********************************************************/
+/*! exports provided: CSSTransition, ReplaceTransition, SwitchTransition, TransitionGroup, Transition, config */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CSSTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CSSTransition */ "./node_modules/react-transition-group/esm/CSSTransition.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CSSTransition", function() { return _CSSTransition__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+/* harmony import */ var _ReplaceTransition__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ReplaceTransition */ "./node_modules/react-transition-group/esm/ReplaceTransition.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ReplaceTransition", function() { return _ReplaceTransition__WEBPACK_IMPORTED_MODULE_1__["default"]; });
+
+/* harmony import */ var _SwitchTransition__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SwitchTransition */ "./node_modules/react-transition-group/esm/SwitchTransition.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SwitchTransition", function() { return _SwitchTransition__WEBPACK_IMPORTED_MODULE_2__["default"]; });
+
+/* harmony import */ var _TransitionGroup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TransitionGroup */ "./node_modules/react-transition-group/esm/TransitionGroup.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TransitionGroup", function() { return _TransitionGroup__WEBPACK_IMPORTED_MODULE_3__["default"]; });
+
+/* harmony import */ var _Transition__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Transition */ "./node_modules/react-transition-group/esm/Transition.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Transition", function() { return _Transition__WEBPACK_IMPORTED_MODULE_4__["default"]; });
+
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./config */ "./node_modules/react-transition-group/esm/config.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "config", function() { return _config__WEBPACK_IMPORTED_MODULE_5__["default"]; });
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/react-transition-group/esm/utils/ChildMapping.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/react-transition-group/esm/utils/ChildMapping.js ***!
+  \***********************************************************************/
+/*! exports provided: getChildMapping, mergeChildMappings, getInitialChildMapping, getNextChildMapping */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getChildMapping", function() { return getChildMapping; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mergeChildMappings", function() { return mergeChildMappings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getInitialChildMapping", function() { return getInitialChildMapping; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getNextChildMapping", function() { return getNextChildMapping; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+/**
+ * Given `this.props.children`, return an object mapping key to child.
+ *
+ * @param {*} children `this.props.children`
+ * @return {object} Mapping of key to child
+ */
+
+function getChildMapping(children, mapFn) {
+  var mapper = function mapper(child) {
+    return mapFn && Object(react__WEBPACK_IMPORTED_MODULE_0__["isValidElement"])(child) ? mapFn(child) : child;
+  };
+
+  var result = Object.create(null);
+  if (children) react__WEBPACK_IMPORTED_MODULE_0__["Children"].map(children, function (c) {
+    return c;
+  }).forEach(function (child) {
+    // run the map function here instead so that the key is the computed one
+    result[child.key] = mapper(child);
+  });
+  return result;
+}
+/**
+ * When you're adding or removing children some may be added or removed in the
+ * same render pass. We want to show *both* since we want to simultaneously
+ * animate elements in and out. This function takes a previous set of keys
+ * and a new set of keys and merges them with its best guess of the correct
+ * ordering. In the future we may expose some of the utilities in
+ * ReactMultiChild to make this easy, but for now React itself does not
+ * directly have this concept of the union of prevChildren and nextChildren
+ * so we implement it here.
+ *
+ * @param {object} prev prev children as returned from
+ * `ReactTransitionChildMapping.getChildMapping()`.
+ * @param {object} next next children as returned from
+ * `ReactTransitionChildMapping.getChildMapping()`.
+ * @return {object} a key set that contains all keys in `prev` and all keys
+ * in `next` in a reasonable order.
+ */
+
+function mergeChildMappings(prev, next) {
+  prev = prev || {};
+  next = next || {};
+
+  function getValueForKey(key) {
+    return key in next ? next[key] : prev[key];
+  } // For each key of `next`, the list of keys to insert before that key in
+  // the combined list
+
+
+  var nextKeysPending = Object.create(null);
+  var pendingKeys = [];
+
+  for (var prevKey in prev) {
+    if (prevKey in next) {
+      if (pendingKeys.length) {
+        nextKeysPending[prevKey] = pendingKeys;
+        pendingKeys = [];
+      }
+    } else {
+      pendingKeys.push(prevKey);
+    }
+  }
+
+  var i;
+  var childMapping = {};
+
+  for (var nextKey in next) {
+    if (nextKeysPending[nextKey]) {
+      for (i = 0; i < nextKeysPending[nextKey].length; i++) {
+        var pendingNextKey = nextKeysPending[nextKey][i];
+        childMapping[nextKeysPending[nextKey][i]] = getValueForKey(pendingNextKey);
+      }
+    }
+
+    childMapping[nextKey] = getValueForKey(nextKey);
+  } // Finally, add the keys which didn't appear before any key in `next`
+
+
+  for (i = 0; i < pendingKeys.length; i++) {
+    childMapping[pendingKeys[i]] = getValueForKey(pendingKeys[i]);
+  }
+
+  return childMapping;
+}
+
+function getProp(child, prop, props) {
+  return props[prop] != null ? props[prop] : child.props[prop];
+}
+
+function getInitialChildMapping(props, onExited) {
+  return getChildMapping(props.children, function (child) {
+    return Object(react__WEBPACK_IMPORTED_MODULE_0__["cloneElement"])(child, {
+      onExited: onExited.bind(null, child),
+      in: true,
+      appear: getProp(child, 'appear', props),
+      enter: getProp(child, 'enter', props),
+      exit: getProp(child, 'exit', props)
+    });
+  });
+}
+function getNextChildMapping(nextProps, prevChildMapping, onExited) {
+  var nextChildMapping = getChildMapping(nextProps.children);
+  var children = mergeChildMappings(prevChildMapping, nextChildMapping);
+  Object.keys(children).forEach(function (key) {
+    var child = children[key];
+    if (!Object(react__WEBPACK_IMPORTED_MODULE_0__["isValidElement"])(child)) return;
+    var hasPrev = (key in prevChildMapping);
+    var hasNext = (key in nextChildMapping);
+    var prevChild = prevChildMapping[key];
+    var isLeaving = Object(react__WEBPACK_IMPORTED_MODULE_0__["isValidElement"])(prevChild) && !prevChild.props.in; // item is new (entering)
+
+    if (hasNext && (!hasPrev || isLeaving)) {
+      // console.log('entering', key)
+      children[key] = Object(react__WEBPACK_IMPORTED_MODULE_0__["cloneElement"])(child, {
+        onExited: onExited.bind(null, child),
+        in: true,
+        exit: getProp(child, 'exit', nextProps),
+        enter: getProp(child, 'enter', nextProps)
+      });
+    } else if (!hasNext && hasPrev && !isLeaving) {
+      // item is old (exiting)
+      // console.log('leaving', key)
+      children[key] = Object(react__WEBPACK_IMPORTED_MODULE_0__["cloneElement"])(child, {
+        in: false
+      });
+    } else if (hasNext && hasPrev && Object(react__WEBPACK_IMPORTED_MODULE_0__["isValidElement"])(prevChild)) {
+      // item hasn't changed transition states
+      // copy over the last transition props;
+      // console.log('unchanged', key)
+      children[key] = Object(react__WEBPACK_IMPORTED_MODULE_0__["cloneElement"])(child, {
+        onExited: onExited.bind(null, child),
+        in: prevChild.props.in,
+        exit: getProp(child, 'exit', nextProps),
+        enter: getProp(child, 'enter', nextProps)
+      });
+    }
+  });
+  return children;
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-transition-group/esm/utils/PropTypes.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/react-transition-group/esm/utils/PropTypes.js ***!
+  \********************************************************************/
+/*! exports provided: timeoutsShape, classNamesShape */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "timeoutsShape", function() { return timeoutsShape; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "classNamesShape", function() { return classNamesShape; });
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+
+var timeoutsShape =  true ? prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.shape({
+  enter: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+  exit: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number,
+  appear: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number
+}).isRequired]) : undefined;
+var classNamesShape =  true ? prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.shape({
+  enter: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  exit: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  active: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string
+}), prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.shape({
+  enter: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  enterDone: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  enterActive: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  exit: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  exitDone: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  exitActive: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string
+})]) : undefined;
+
+/***/ }),
+
 /***/ "./node_modules/redux/es/redux.js":
 /*!****************************************!*\
   !*** ./node_modules/redux/es/redux.js ***!
@@ -21387,17 +24627,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "react-dom");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/url */ "@wordpress/url");
-/* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_url__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./store */ "./src/scripts/store/index.js");
-/* harmony import */ var _views_pages_ScreenController__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./views/pages/ScreenController */ "./src/scripts/views/pages/ScreenController.js");
+/* harmony import */ var react_toast_notifications__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-toast-notifications */ "./node_modules/react-toast-notifications/dist/index.js");
+/* harmony import */ var react_toast_notifications__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_toast_notifications__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/url */ "@wordpress/url");
+/* harmony import */ var _wordpress_url__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_url__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./store */ "./src/scripts/store/index.js");
+/* harmony import */ var _views_pages_ScreenController__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./views/pages/ScreenController */ "./src/scripts/views/pages/ScreenController.js");
 
 
 /**
  * External Dependancies
  */
+
 
 
 
@@ -21417,12 +24660,15 @@ __webpack_require__.r(__webpack_exports__);
 
 var App = function App() {
   // Preload state.
-  Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_5__["useSelect"])(function (select) {
-    return select(_store__WEBPACK_IMPORTED_MODULE_6__["STORE_KEY"]).getSidebars();
+  Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_6__["useSelect"])(function (select) {
+    return select(_store__WEBPACK_IMPORTED_MODULE_7__["STORE_KEY"]).getSidebars();
   });
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["BrowserRouter"], {
-    basename: Object(_wordpress_url__WEBPACK_IMPORTED_MODULE_4__["getPath"])(easy_custom_sidebars.admin_url)
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_views_pages_ScreenController__WEBPACK_IMPORTED_MODULE_7__["default"], null));
+    basename: Object(_wordpress_url__WEBPACK_IMPORTED_MODULE_5__["getPath"])(easy_custom_sidebars.admin_url)
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(react_toast_notifications__WEBPACK_IMPORTED_MODULE_4__["ToastProvider"], {
+    autoDismissTimeout: 4500,
+    placement: "bottom-right"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_views_pages_ScreenController__WEBPACK_IMPORTED_MODULE_8__["default"], null)));
 };
 
 react_dom__WEBPACK_IMPORTED_MODULE_2___default.a.render(Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(App, null), document.getElementById('ecs-root'));
@@ -23777,7 +27023,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 var AllCategoryPostsMetabox = function AllCategoryPostsMetabox(_ref) {
   var attachments = _ref.attachments,
-      setAttachments = _ref.setAttachments;
+      setAttachments = _ref.setAttachments,
+      openMetabox = _ref.openMetabox,
+      setOpenMetabox = _ref.setOpenMetabox;
+  var panelId = "ecs-metabox-all-category-posts";
+  var isActive = panelId === openMetabox;
   var taxonomies = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__["useSelect"])(function (select) {
     return select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).getTaxonomies();
   });
@@ -23792,7 +27042,15 @@ var AllCategoryPostsMetabox = function AllCategoryPostsMetabox(_ref) {
       slug = _taxonomies$category.slug;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelBody"], {
     title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__["__"])('All Posts In Category', 'easy-custom-sidebars'),
-    initialOpen: false
+    initialOpen: false,
+    opened: isActive,
+    onToggle: function onToggle() {
+      if (isActive) {
+        setOpenMetabox(false);
+      } else {
+        setOpenMetabox(panelId);
+      }
+    }
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(CategoryPosts, {
     name: name,
     slug: slug,
@@ -24145,10 +27403,22 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 var AuthorArchiveMetabox = function AuthorArchiveMetabox(_ref) {
   var attachments = _ref.attachments,
-      setAttachments = _ref.setAttachments;
+      setAttachments = _ref.setAttachments,
+      openMetabox = _ref.openMetabox,
+      setOpenMetabox = _ref.setOpenMetabox;
+  var panelId = "ecs-metabox-author-archives";
+  var isActive = panelId === openMetabox;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelBody"], {
     title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__["__"])('Author Archives', 'easy-custom-sidebars'),
-    initialOpen: false
+    initialOpen: false,
+    opened: isActive,
+    onToggle: function onToggle() {
+      if (isActive) {
+        setOpenMetabox(false);
+      } else {
+        setOpenMetabox(panelId);
+      }
+    }
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(AuthorArchiveUsers, {
     name: "Users",
     slug: "users",
@@ -24500,7 +27770,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 var PostTypesMetabox = function PostTypesMetabox(_ref) {
   var attachments = _ref.attachments,
-      setAttachments = _ref.setAttachments;
+      setAttachments = _ref.setAttachments,
+      openMetabox = _ref.openMetabox,
+      setOpenMetabox = _ref.setOpenMetabox;
   var posttypes = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__["useSelect"])(function (select) {
     return select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).getPostTypes();
   });
@@ -24513,10 +27785,20 @@ var PostTypesMetabox = function PostTypesMetabox(_ref) {
         name = _posttypes$posttypeNa.name,
         rest_base = _posttypes$posttypeNa.rest_base,
         slug = _posttypes$posttypeNa.slug;
+    var panelId = "ecs-metabox-posttype-".concat(slug);
+    var isActive = panelId === openMetabox;
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelBody"], {
       title: name,
       key: slug,
-      initialOpen: isFirstItem
+      initialOpen: isFirstItem,
+      opened: isActive,
+      onToggle: function onToggle() {
+        if (isActive) {
+          setOpenMetabox(false);
+        } else {
+          setOpenMetabox(panelId);
+        }
+      }
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(PostTypePosts, {
       name: name,
       slug: slug,
@@ -24899,7 +28181,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 var TaxonomiesMetabox = function TaxonomiesMetabox(_ref) {
   var attachments = _ref.attachments,
-      setAttachments = _ref.setAttachments;
+      setAttachments = _ref.setAttachments,
+      openMetabox = _ref.openMetabox,
+      setOpenMetabox = _ref.setOpenMetabox;
   var taxonomies = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__["useSelect"])(function (select) {
     return select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).getTaxonomies();
   });
@@ -24908,10 +28192,20 @@ var TaxonomiesMetabox = function TaxonomiesMetabox(_ref) {
         name = _taxonomies$taxonomyN.name,
         rest_base = _taxonomies$taxonomyN.rest_base,
         slug = _taxonomies$taxonomyN.slug;
+    var panelId = "ecs-metabox-taxonomy-".concat(slug);
+    var isActive = panelId === openMetabox;
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["PanelBody"], {
       title: name,
       key: slug,
-      initialOpen: false
+      initialOpen: false,
+      opened: isActive,
+      onToggle: function onToggle() {
+        if (isActive) {
+          setOpenMetabox(false);
+        } else {
+          setOpenMetabox(panelId);
+        }
+      }
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(TaxonomyTerms, {
       name: name,
       slug: slug,
@@ -25254,10 +28548,22 @@ __webpack_require__.r(__webpack_exports__);
 
 var TemplateHierarchyMetabox = function TemplateHierarchyMetabox(_ref) {
   var attachments = _ref.attachments,
-      setAttachments = _ref.setAttachments;
+      setAttachments = _ref.setAttachments,
+      openMetabox = _ref.openMetabox,
+      setOpenMetabox = _ref.setOpenMetabox;
+  var panelId = "ecs-metabox-template-hierarchy";
+  var isActive = panelId === openMetabox;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["PanelBody"], {
     title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Template Hierarchy', 'easy-custom-sidebars'),
-    initialOpen: false
+    initialOpen: false,
+    opened: isActive,
+    onToggle: function onToggle() {
+      if (isActive) {
+        setOpenMetabox(false);
+      } else {
+        setOpenMetabox(panelId);
+      }
+    }
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_2__["createElement"])(TemplateHierarchyTemplates, {
     attachments: attachments,
     setAttachments: setAttachments
@@ -25382,23 +28688,27 @@ var TemplateHierarchyActions = function TemplateHierarchyActions(props) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../store */ "./src/scripts/store/index.js");
-/* harmony import */ var _PostTypesMetabox__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PostTypesMetabox */ "./src/scripts/views/components/metaboxes/PostTypesMetabox.js");
-/* harmony import */ var _AllCategoryPostsMetabox__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./AllCategoryPostsMetabox */ "./src/scripts/views/components/metaboxes/AllCategoryPostsMetabox.js");
-/* harmony import */ var _TaxonomiesMetabox__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./TaxonomiesMetabox */ "./src/scripts/views/components/metaboxes/TaxonomiesMetabox.js");
-/* harmony import */ var _AuthorArchiveMetabox__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./AuthorArchiveMetabox */ "./src/scripts/views/components/metaboxes/AuthorArchiveMetabox.js");
-/* harmony import */ var _TemplateHierarchyMetabox__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./TemplateHierarchyMetabox */ "./src/scripts/views/components/metaboxes/TemplateHierarchyMetabox.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../store */ "./src/scripts/store/index.js");
+/* harmony import */ var _PostTypesMetabox__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PostTypesMetabox */ "./src/scripts/views/components/metaboxes/PostTypesMetabox.js");
+/* harmony import */ var _AllCategoryPostsMetabox__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./AllCategoryPostsMetabox */ "./src/scripts/views/components/metaboxes/AllCategoryPostsMetabox.js");
+/* harmony import */ var _TaxonomiesMetabox__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./TaxonomiesMetabox */ "./src/scripts/views/components/metaboxes/TaxonomiesMetabox.js");
+/* harmony import */ var _AuthorArchiveMetabox__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./AuthorArchiveMetabox */ "./src/scripts/views/components/metaboxes/AuthorArchiveMetabox.js");
+/* harmony import */ var _TemplateHierarchyMetabox__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./TemplateHierarchyMetabox */ "./src/scripts/views/components/metaboxes/TemplateHierarchyMetabox.js");
+
 
 
 /**
  * WordPress dependancies
  */
+
 
 
 /**
@@ -25415,30 +28725,46 @@ __webpack_require__.r(__webpack_exports__);
 var Metaboxes = function Metaboxes(_ref) {
   var attachments = _ref.attachments,
       setAttachments = _ref.setAttachments;
-  var metaboxesDetermined = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_1__["useSelect"])(function (select) {
-    select(_store__WEBPACK_IMPORTED_MODULE_3__["STORE_KEY"]).getPostTypes();
-    select(_store__WEBPACK_IMPORTED_MODULE_3__["STORE_KEY"]).getTaxonomies();
-    return [select(_store__WEBPACK_IMPORTED_MODULE_3__["STORE_KEY"]).hasFinishedResolution('getPostTypes'), select(_store__WEBPACK_IMPORTED_MODULE_3__["STORE_KEY"]).hasFinishedResolution('getTaxonomies')].every(function (called) {
+
+  var _useState = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["useState"])('ecs-metabox-posttype-post'),
+      _useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState, 2),
+      openMetabox = _useState2[0],
+      setOpenMetabox = _useState2[1];
+
+  var metaboxesDetermined = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_2__["useSelect"])(function (select) {
+    select(_store__WEBPACK_IMPORTED_MODULE_4__["STORE_KEY"]).getPostTypes();
+    select(_store__WEBPACK_IMPORTED_MODULE_4__["STORE_KEY"]).getTaxonomies();
+    return [select(_store__WEBPACK_IMPORTED_MODULE_4__["STORE_KEY"]).hasFinishedResolution('getPostTypes'), select(_store__WEBPACK_IMPORTED_MODULE_4__["STORE_KEY"]).hasFinishedResolution('getTaxonomies')].every(function (called) {
       return called;
     });
   });
-  return metaboxesDetermined && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Panel"], {
+  return metaboxesDetermined && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["Panel"], {
     className: "ecs-metaboxes"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_PostTypesMetabox__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_PostTypesMetabox__WEBPACK_IMPORTED_MODULE_5__["default"], {
     attachments: attachments,
-    setAttachments: setAttachments
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_AllCategoryPostsMetabox__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    setAttachments: setAttachments,
+    openMetabox: openMetabox,
+    setOpenMetabox: setOpenMetabox
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_AllCategoryPostsMetabox__WEBPACK_IMPORTED_MODULE_6__["default"], {
     attachments: attachments,
-    setAttachments: setAttachments
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_TaxonomiesMetabox__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    setAttachments: setAttachments,
+    openMetabox: openMetabox,
+    setOpenMetabox: setOpenMetabox
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_TaxonomiesMetabox__WEBPACK_IMPORTED_MODULE_7__["default"], {
     attachments: attachments,
-    setAttachments: setAttachments
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_AuthorArchiveMetabox__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    setAttachments: setAttachments,
+    openMetabox: openMetabox,
+    setOpenMetabox: setOpenMetabox
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_AuthorArchiveMetabox__WEBPACK_IMPORTED_MODULE_8__["default"], {
     attachments: attachments,
-    setAttachments: setAttachments
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_TemplateHierarchyMetabox__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    setAttachments: setAttachments,
+    openMetabox: openMetabox,
+    setOpenMetabox: setOpenMetabox
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_TemplateHierarchyMetabox__WEBPACK_IMPORTED_MODULE_9__["default"], {
     attachments: attachments,
-    setAttachments: setAttachments
+    setAttachments: setAttachments,
+    openMetabox: openMetabox,
+    setOpenMetabox: setOpenMetabox
   }));
 };
 
@@ -25563,18 +28889,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_beforeunload__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-beforeunload */ "./node_modules/react-beforeunload/lib/index.esm.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../store */ "./src/scripts/store/index.js");
-/* harmony import */ var _utils_getScreenLink__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../utils/getScreenLink */ "./src/scripts/utils/getScreenLink.js");
-/* harmony import */ var _utils_removeDuplicateAttachments__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../utils/removeDuplicateAttachments */ "./src/scripts/utils/removeDuplicateAttachments.js");
-/* harmony import */ var _components_loaders_CreateSidebarLoader__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/loaders/CreateSidebarLoader */ "./src/scripts/views/components/loaders/CreateSidebarLoader.js");
-/* harmony import */ var _components_metaboxes__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/metaboxes */ "./src/scripts/views/components/metaboxes/index.js");
-/* harmony import */ var _components_SidebarAttachments__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/SidebarAttachments */ "./src/scripts/views/components/SidebarAttachments.js");
+/* harmony import */ var react_toast_notifications__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-toast-notifications */ "./node_modules/react-toast-notifications/dist/index.js");
+/* harmony import */ var react_toast_notifications__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_toast_notifications__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../store */ "./src/scripts/store/index.js");
+/* harmony import */ var _utils_getScreenLink__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../utils/getScreenLink */ "./src/scripts/utils/getScreenLink.js");
+/* harmony import */ var _utils_removeDuplicateAttachments__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../utils/removeDuplicateAttachments */ "./src/scripts/utils/removeDuplicateAttachments.js");
+/* harmony import */ var _components_loaders_CreateSidebarLoader__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/loaders/CreateSidebarLoader */ "./src/scripts/views/components/loaders/CreateSidebarLoader.js");
+/* harmony import */ var _components_metaboxes__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/metaboxes */ "./src/scripts/views/components/metaboxes/index.js");
+/* harmony import */ var _components_SidebarAttachments__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../components/SidebarAttachments */ "./src/scripts/views/components/SidebarAttachments.js");
 
 
 
@@ -25583,6 +28911,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * External dependancies
  */
+
 
 
 /**
@@ -25605,6 +28934,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var CreateSidebar = function CreateSidebar(props) {
+  var _useToasts = Object(react_toast_notifications__WEBPACK_IMPORTED_MODULE_6__["useToasts"])(),
+      addToast = _useToasts.addToast;
+
   var _useState = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["useState"])(false),
       _useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default()(_useState, 2),
       isSaving = _useState2[0],
@@ -25636,15 +28968,15 @@ var CreateSidebar = function CreateSidebar(props) {
       setSidebarNameError = _useState12[1];
 
   var setUniqueAttachments = function setUniqueAttachments(newAttachments) {
-    return setAttachments(Object(_utils_removeDuplicateAttachments__WEBPACK_IMPORTED_MODULE_11__["default"])(newAttachments));
+    return setAttachments(Object(_utils_removeDuplicateAttachments__WEBPACK_IMPORTED_MODULE_12__["default"])(newAttachments));
   };
 
   var hasAttachments = function hasAttachments() {
     return attachments.length > 0;
   };
 
-  var defaultSidebars = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__["useSelect"])(function (select) {
-    return select(_store__WEBPACK_IMPORTED_MODULE_9__["STORE_KEY"]).getDefaultSidebars();
+  var defaultSidebars = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_8__["useSelect"])(function (select) {
+    return select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).getDefaultSidebars();
   });
   var defaultSidebarOptions = Object.keys(defaultSidebars).map(function (id) {
     return {
@@ -25653,14 +28985,14 @@ var CreateSidebar = function CreateSidebar(props) {
     };
   });
   defaultSidebarOptions.push({
-    label: replacementId ? Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('— Deactivate Sidebar —', 'easy-custom-sidebars') : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('— Select a Sidebar —', 'easy-custom-sidebars'),
+    label: replacementId ? Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('— Deactivate Sidebar —', 'easy-custom-sidebars') : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('— Select a Sidebar —', 'easy-custom-sidebars'),
     value: ''
   });
-  var dataLoaded = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__["useSelect"])(function (select) {
-    select(_store__WEBPACK_IMPORTED_MODULE_9__["STORE_KEY"]).getDefaultSidebars();
-    select(_store__WEBPACK_IMPORTED_MODULE_9__["STORE_KEY"]).getPostTypes();
-    select(_store__WEBPACK_IMPORTED_MODULE_9__["STORE_KEY"]).getTaxonomies();
-    return [select(_store__WEBPACK_IMPORTED_MODULE_9__["STORE_KEY"]).hasFinishedResolution('getPostTypes'), select(_store__WEBPACK_IMPORTED_MODULE_9__["STORE_KEY"]).hasFinishedResolution('getTaxonomies'), select(_store__WEBPACK_IMPORTED_MODULE_9__["STORE_KEY"]).hasFinishedResolution('getDefaultSidebars')].every(function (called) {
+  var dataLoaded = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_8__["useSelect"])(function (select) {
+    select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).getDefaultSidebars();
+    select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).getPostTypes();
+    select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).getTaxonomies();
+    return [select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).hasFinishedResolution('getPostTypes'), select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).hasFinishedResolution('getTaxonomies'), select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).hasFinishedResolution('getDefaultSidebars')].every(function (called) {
       return called;
     });
   });
@@ -25670,7 +29002,7 @@ var CreateSidebar = function CreateSidebar(props) {
     }
   }, [sidebarName]); // Create sidebar.
 
-  var _useDispatch = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__["useDispatch"])(_store__WEBPACK_IMPORTED_MODULE_9__["STORE_KEY"]),
+  var _useDispatch = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_8__["useDispatch"])(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]),
       createSidebar = _useDispatch.createSidebar;
 
   var createSidebarAndRedirect = /*#__PURE__*/function () {
@@ -25693,7 +29025,7 @@ var CreateSidebar = function CreateSidebar(props) {
               }
 
               if (!sidebarName) {
-                _context.next = 10;
+                _context.next = 11;
                 break;
               }
 
@@ -25709,11 +29041,16 @@ var CreateSidebar = function CreateSidebar(props) {
             case 7:
               newSidebar = _context.sent;
               resetSidebar();
-              props.history.push("".concat(Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_10__["default"])('edit', {
+              props.history.push("".concat(Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_11__["default"])('edit', {
                 sidebar: newSidebar.payload.sidebar.id
               })));
+              addToast(sprintf(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('%s has been created.', 'easy-custom-sidebars'), newSidebar.payload.sidebar.title.rendered), {
+                appearance: 'success',
+                autoDismiss: true,
+                placement: 'bottom-right'
+              });
 
-            case 10:
+            case 11:
             case "end":
               return _context.stop();
           }
@@ -25743,7 +29080,7 @@ var CreateSidebar = function CreateSidebar(props) {
 
   Object(react_beforeunload__WEBPACK_IMPORTED_MODULE_5__["useBeforeunload"])(function () {
     if (changesMade()) {
-      return Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('You have made changes to this sidebar that are not saved. Are you sure you want to leave this page?', 'easy-custom-sidebars');
+      return Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('You have made changes to this sidebar that are not saved. Are you sure you want to leave this page?', 'easy-custom-sidebars');
     }
   });
   return dataLoaded ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
@@ -25752,30 +29089,30 @@ var CreateSidebar = function CreateSidebar(props) {
     className: "row"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "col-12 mb-3"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Notice"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Notice"], {
     className: "m-0",
     status: "info",
     isDismissible: false
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('Create your new sidebar replacement below and click the create sidebar button to save your changes.', 'easy-custom-sidebars')), sidebarNameError && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Notice"], {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Create your new sidebar replacement below and click the create sidebar button to save your changes.', 'easy-custom-sidebars')), sidebarNameError && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Notice"], {
     className: "m-0 mt-2",
     status: "error",
     isDismissible: false
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('Please enter a valid name for your sidebar.', 'easy-custom-sidebars'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Please enter a valid name for your sidebar.', 'easy-custom-sidebars'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "col-12 col-md-5 col-xl-3 mb-4 mb-md-0"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_components_metaboxes__WEBPACK_IMPORTED_MODULE_13__["default"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_components_metaboxes__WEBPACK_IMPORTED_MODULE_14__["default"], {
     attachments: attachments,
     setAttachments: setUniqueAttachments
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "col"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Card"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Card"], {
     className: "ecs-settings"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["CardHeader"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["CardHeader"], {
     className: "d-block"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "row justify-content-between align-items-center"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "col-6"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["__experimentalInputControl"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["__experimentalInputControl"], {
     isFloatingLabel: true,
     className: "ecs-settings__sidebar-name",
     label: "Sidebar Name",
@@ -25785,16 +29122,16 @@ var CreateSidebar = function CreateSidebar(props) {
     }
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "col-auto"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Button"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Button"], {
     isBusy: isSaving,
     isPrimary: true,
     onClick: createSidebarAndRedirect
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('Create Sidebar', 'easy-custom-sidebars'))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["CardBody"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("h3", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('Sidebar Replacements', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("p", null, hasAttachments() ? Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])("Drag each item into the order you prefer. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below. Drag each item into the order you prefer.", 'easy-custom-sidebars') : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])("Add items from the column on the left. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below.", 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_components_SidebarAttachments__WEBPACK_IMPORTED_MODULE_14__["default"], {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Create Sidebar', 'easy-custom-sidebars'))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["CardBody"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("h3", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Sidebar Replacements', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("p", null, hasAttachments() ? Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])("Drag each item into the order you prefer. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below. Drag each item into the order you prefer.", 'easy-custom-sidebars') : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])("Add items from the column on the left. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below.", 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_components_SidebarAttachments__WEBPACK_IMPORTED_MODULE_15__["default"], {
     attachments: attachments,
     setAttachments: setUniqueAttachments
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["CardDivider"], {
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["CardDivider"], {
     className: "my-4"
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("h3", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('Sidebar Properties', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["SelectControl"], {
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("h3", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Sidebar Properties', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["SelectControl"], {
     className: "ecs-settings__replacement-id mb-3",
     label: "Sidebar to Replace",
     value: replacementId,
@@ -25802,7 +29139,7 @@ var CreateSidebar = function CreateSidebar(props) {
     onChange: function onChange(replacementId) {
       return setReplacementId(replacementId);
     }
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["TextareaControl"], {
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["TextareaControl"], {
     label: "Sidebar Description",
     className: "ecs-settings__description",
     help: "Description of the sidebar, displayed in the Widgets interface.",
@@ -25810,32 +29147,37 @@ var CreateSidebar = function CreateSidebar(props) {
     onChange: function onChange(description) {
       return setDescription(description);
     }
-  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["CardFooter"], {
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["CardFooter"], {
     className: "d-block"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "row justify-content-between"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "col-auto"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Button"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Button"], {
     isDestructive: true,
     onClick: function onClick() {
-      var confirmDelete = confirm(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])("You are about to permanently delete this sidebar. 'Cancel' to stop, 'OK' to delete.", 'easy-custom-sidebars'));
+      var confirmDelete = confirm(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])("You are about to permanently delete this sidebar. 'Cancel' to stop, 'OK' to delete.", 'easy-custom-sidebars'));
 
       if (confirmDelete === true) {
         resetSidebar();
+        addToast(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Your sidebar has been deleted.', 'easy-custom-sidebars'), {
+          appearance: 'info',
+          autoDismiss: false,
+          placement: 'bottom-right'
+        });
       }
     }
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('Delete Sidebar', 'easy-custom-sidebars'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Delete Sidebar', 'easy-custom-sidebars'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "col-auto"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Button"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Button"], {
     isBusy: isSaving,
     isPrimary: true,
     onClick: createSidebarAndRedirect
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('Create Sidebar', 'easy-custom-sidebars'))))))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Prompt"], {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Create Sidebar', 'easy-custom-sidebars'))))))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Prompt"], {
     when: changesMade(),
-    message: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('You have made changes to this sidebar that are not saved. Are you sure you want to leave this page?', 'easy-custom-sidebars'),
+    message: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('You have made changes to this sidebar that are not saved. Are you sure you want to leave this page?', 'easy-custom-sidebars'),
     beforeUnload: true
-  })) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_components_loaders_CreateSidebarLoader__WEBPACK_IMPORTED_MODULE_12__["default"], null);
+  })) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_components_loaders_CreateSidebarLoader__WEBPACK_IMPORTED_MODULE_13__["default"], null);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["withRouter"])(CreateSidebar));
@@ -25861,20 +29203,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_beforeunload__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-beforeunload */ "./node_modules/react-beforeunload/lib/index.esm.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../store */ "./src/scripts/store/index.js");
-/* harmony import */ var _utils_getQueryFromUrl__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../utils/getQueryFromUrl */ "./src/scripts/utils/getQueryFromUrl.js");
-/* harmony import */ var _utils_getScreenLink__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../utils/getScreenLink */ "./src/scripts/utils/getScreenLink.js");
-/* harmony import */ var _utils_removeDuplicateAttachments__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../utils/removeDuplicateAttachments */ "./src/scripts/utils/removeDuplicateAttachments.js");
-/* harmony import */ var _components_SidebarSelector__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../components/SidebarSelector */ "./src/scripts/views/components/SidebarSelector.js");
-/* harmony import */ var _components_loaders_EditSidebarsLoader__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/loaders/EditSidebarsLoader */ "./src/scripts/views/components/loaders/EditSidebarsLoader.js");
-/* harmony import */ var _components_metaboxes__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../components/metaboxes */ "./src/scripts/views/components/metaboxes/index.js");
-/* harmony import */ var _components_SidebarAttachments__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../components/SidebarAttachments */ "./src/scripts/views/components/SidebarAttachments.js");
+/* harmony import */ var react_toast_notifications__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-toast-notifications */ "./node_modules/react-toast-notifications/dist/index.js");
+/* harmony import */ var react_toast_notifications__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_toast_notifications__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../store */ "./src/scripts/store/index.js");
+/* harmony import */ var _utils_getQueryFromUrl__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../utils/getQueryFromUrl */ "./src/scripts/utils/getQueryFromUrl.js");
+/* harmony import */ var _utils_getScreenLink__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../utils/getScreenLink */ "./src/scripts/utils/getScreenLink.js");
+/* harmony import */ var _utils_removeDuplicateAttachments__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../utils/removeDuplicateAttachments */ "./src/scripts/utils/removeDuplicateAttachments.js");
+/* harmony import */ var _components_SidebarSelector__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../components/SidebarSelector */ "./src/scripts/views/components/SidebarSelector.js");
+/* harmony import */ var _components_loaders_EditSidebarsLoader__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../components/loaders/EditSidebarsLoader */ "./src/scripts/views/components/loaders/EditSidebarsLoader.js");
+/* harmony import */ var _components_metaboxes__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../components/metaboxes */ "./src/scripts/views/components/metaboxes/index.js");
+/* harmony import */ var _components_SidebarAttachments__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../components/SidebarAttachments */ "./src/scripts/views/components/SidebarAttachments.js");
 
 
 
@@ -25883,6 +29227,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * External dependancies
  */
+
 
 
 /**
@@ -25922,17 +29267,24 @@ var sortSidebarsByTitle = function sortSidebarsByTitle(sidebars) {
     return 0;
   });
 };
+/**
+ * Edit Sidebar Component.
+ */
+
 
 var EditSidebar = function EditSidebar(props) {
-  var hasFinishedResolution = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__["useSelect"])(function (select) {
-    select(_store__WEBPACK_IMPORTED_MODULE_9__["STORE_KEY"]).getPostTypes();
-    select(_store__WEBPACK_IMPORTED_MODULE_9__["STORE_KEY"]).getTaxonomies();
-    return [select(_store__WEBPACK_IMPORTED_MODULE_9__["STORE_KEY"]).hasFinishedResolution('getPostTypes'), select(_store__WEBPACK_IMPORTED_MODULE_9__["STORE_KEY"]).hasFinishedResolution('getTaxonomies'), select(_store__WEBPACK_IMPORTED_MODULE_9__["STORE_KEY"]).hasFinishedResolution('getSidebars')].every(function (called) {
+  var _useToasts = Object(react_toast_notifications__WEBPACK_IMPORTED_MODULE_6__["useToasts"])(),
+      addToast = _useToasts.addToast;
+
+  var hasFinishedResolution = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_8__["useSelect"])(function (select) {
+    select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).getPostTypes();
+    select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).getTaxonomies();
+    return [select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).hasFinishedResolution('getPostTypes'), select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).hasFinishedResolution('getTaxonomies'), select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).hasFinishedResolution('getSidebars')].every(function (called) {
       return called;
     });
   });
-  var defaultSidebars = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__["useSelect"])(function (select) {
-    return select(_store__WEBPACK_IMPORTED_MODULE_9__["STORE_KEY"]).getDefaultSidebars();
+  var defaultSidebars = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_8__["useSelect"])(function (select) {
+    return select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).getDefaultSidebars();
   });
   var defaultSidebarOptions = Object.keys(defaultSidebars).map(function (id) {
     return {
@@ -25941,13 +29293,13 @@ var EditSidebar = function EditSidebar(props) {
     };
   });
   defaultSidebarOptions.push({
-    label: replacementId ? Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('— Deactivate Sidebar —', 'easy-custom-sidebars') : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('— Select a Sidebar —', 'easy-custom-sidebars'),
+    label: replacementId ? Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('— Deactivate Sidebar —', 'easy-custom-sidebars') : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('— Select a Sidebar —', 'easy-custom-sidebars'),
     value: ''
   });
-  var allSidebars = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__["useSelect"])(function (select) {
-    return select(_store__WEBPACK_IMPORTED_MODULE_9__["STORE_KEY"]).getSidebars();
+  var allSidebars = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_8__["useSelect"])(function (select) {
+    return select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).getSidebars();
   });
-  var sidebarToEdit = Object(_utils_getQueryFromUrl__WEBPACK_IMPORTED_MODULE_10__["default"])('sidebar');
+  var sidebarToEdit = Object(_utils_getQueryFromUrl__WEBPACK_IMPORTED_MODULE_11__["default"])('sidebar');
 
   if (!sidebarToEdit && hasFinishedResolution) {
     var _sortSidebarsByTitle = sortSidebarsByTitle(allSidebars),
@@ -25961,18 +29313,15 @@ var EditSidebar = function EditSidebar(props) {
     var isMounted = true;
 
     if (hasFinishedResolution && Object.keys(allSidebars).length === 0) {
-      props.history.push(Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_11__["default"])('create'));
+      props.history.push(Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_12__["default"])('create'));
     }
 
     return function () {
       isMounted = false;
     };
-  }, [allSidebars]); // if (hasFinishedResolution && Object.keys(allSidebars).length === 0) {
-  //   props.history.push(getScreenLink('create'));
-  // }
-
-  var sidebar = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__["useSelect"])(function (select) {
-    return select(_store__WEBPACK_IMPORTED_MODULE_9__["STORE_KEY"]).getSidebar(sidebarToEdit);
+  }, [allSidebars]);
+  var sidebar = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_8__["useSelect"])(function (select) {
+    return select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).getSidebar(sidebarToEdit);
   });
 
   var _useState = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["useState"])(false),
@@ -26015,41 +29364,45 @@ var EditSidebar = function EditSidebar(props) {
   };
 
   var setUniqueAttachments = function setUniqueAttachments(newAttachments) {
-    setAttachments(Object(_utils_removeDuplicateAttachments__WEBPACK_IMPORTED_MODULE_12__["default"])(newAttachments));
+    setAttachments(Object(_utils_removeDuplicateAttachments__WEBPACK_IMPORTED_MODULE_13__["default"])(newAttachments));
     setChangesMade(true);
   }; // Sync saved attachment state.
 
 
-  var savedAttachments = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__["useSelect"])(function (select) {
-    return select(_store__WEBPACK_IMPORTED_MODULE_9__["STORE_KEY"]).getAttachmentsForSidebar(sidebarToEdit);
+  var savedAttachments = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_8__["useSelect"])(function (select) {
+    return select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).getAttachmentsForSidebar(sidebarToEdit);
+  });
+  var attachmentsLoaded = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_8__["useSelect"])(function (select) {
+    return select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).hasFinishedResolution('getAttachmentsForSidebar', [sidebarToEdit]);
   });
   Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {
     return setAttachments(savedAttachments);
   }, [savedAttachments.length]); // Sync state with saved sidebar.
 
   Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {
+    setIsSaving(false);
+    setChangesMade(false);
+
     if (Object.keys(sidebar).length > 0) {
       setSidebarName(sidebar.title.rendered);
       setDescription(sidebar.meta.sidebar_description);
       setReplacementId(sidebar.meta.sidebar_replacement_id);
-      setChangesMade(false);
     }
   }, [sidebar]);
   /**
    * Update Sidebar
    */
 
-  var _useDispatch = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__["useDispatch"])(_store__WEBPACK_IMPORTED_MODULE_9__["STORE_KEY"]),
+  var _useDispatch = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_8__["useDispatch"])(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]),
       updateSidebar = _useDispatch.updateSidebar;
 
   var updateSidebarAndRedirect = /*#__PURE__*/function () {
     var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      var updatedSidebar;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              if (!isSaving) {
+              if (!(isSaving || !attachmentsLoaded)) {
                 _context.next = 2;
                 break;
               }
@@ -26061,11 +29414,13 @@ var EditSidebar = function EditSidebar(props) {
                 setSidebarNameError(true);
               }
 
-              if (sidebarName) {
-                setIsSaving(true);
+              if (!sidebarName) {
+                _context.next = 8;
+                break;
               }
 
-              _context.next = 6;
+              setIsSaving(true);
+              _context.next = 7;
               return updateSidebar({
                 id: sidebarToEdit,
                 name: sidebarName,
@@ -26074,13 +29429,14 @@ var EditSidebar = function EditSidebar(props) {
                 replacementId: replacementId
               });
 
-            case 6:
-              updatedSidebar = _context.sent;
-              setIsSaving(false);
-              setChangesMade(false);
-              console.log("maybe show a toast here saying ".concat(sidebarName, " has been saved"), updatedSidebar);
+            case 7:
+              addToast(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["sprintf"])(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('%s has been updated.', 'easy-custom-sidebars'), sidebarName), {
+                appearance: 'success',
+                autoDismiss: true,
+                placement: 'bottom-right'
+              });
 
-            case 10:
+            case 8:
             case "end":
               return _context.stop();
           }
@@ -26097,7 +29453,7 @@ var EditSidebar = function EditSidebar(props) {
    */
 
 
-  var _useDispatch2 = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__["useDispatch"])(_store__WEBPACK_IMPORTED_MODULE_9__["STORE_KEY"]),
+  var _useDispatch2 = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_8__["useDispatch"])(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]),
       deleteSidebar = _useDispatch2.deleteSidebar;
 
   var deleteSidebarAndRedirect = /*#__PURE__*/function () {
@@ -26114,24 +29470,19 @@ var EditSidebar = function EditSidebar(props) {
               return _context2.abrupt("return");
 
             case 2:
-              if (!sidebarName) {
-                setSidebarNameError(true);
-              }
-
-              if (!sidebarName) {
-                _context2.next = 9;
-                break;
-              }
-
               setIsSaving(true);
-              setChangesMade(false);
-              _context2.next = 8;
+              _context2.next = 5;
               return deleteSidebar(sidebarToEdit);
 
-            case 8:
-              setIsSaving(false);
+            case 5:
+              props.history.push(Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_12__["default"])('edit'));
+              addToast(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["sprintf"])(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('%s has been deleted.', 'easy-custom-sidebars'), sidebarName), {
+                appearance: 'info',
+                autoDismiss: true,
+                placement: 'bottom-right'
+              });
 
-            case 9:
+            case 7:
             case "end":
               return _context2.stop();
           }
@@ -26150,7 +29501,7 @@ var EditSidebar = function EditSidebar(props) {
 
   Object(react_beforeunload__WEBPACK_IMPORTED_MODULE_5__["useBeforeunload"])(function () {
     if (changesMade) {
-      return Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('You have made changes to this sidebar that are not saved. Are you sure you want to leave this page?', 'easy-custom-sidebars');
+      return Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('You have made changes to this sidebar that are not saved. Are you sure you want to leave this page?', 'easy-custom-sidebars');
     }
   });
   return hasFinishedResolution ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
@@ -26159,24 +29510,30 @@ var EditSidebar = function EditSidebar(props) {
     className: "row"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "col-12 mb-3"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_components_SidebarSelector__WEBPACK_IMPORTED_MODULE_13__["default"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_components_SidebarSelector__WEBPACK_IMPORTED_MODULE_14__["default"], {
     selectedSidebarId: sidebarToEdit
-  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+  })), sidebarNameError && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+    className: "col-12 mb-3"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Notice"], {
+    className: "m-0",
+    status: "error",
+    isDismissible: false
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Please enter a valid name for your sidebar.', 'easy-custom-sidebars'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "col-12 col-md-5 col-xl-3 mb-4 mb-md-0"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_components_metaboxes__WEBPACK_IMPORTED_MODULE_15__["default"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_components_metaboxes__WEBPACK_IMPORTED_MODULE_16__["default"], {
     attachments: attachments,
     setAttachments: setUniqueAttachments
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "col"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Card"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Card"], {
     className: "ecs-settings"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["CardHeader"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["CardHeader"], {
     className: "d-block"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "row justify-content-between align-items-center"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "col-6"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["__experimentalInputControl"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["__experimentalInputControl"], {
     isFloatingLabel: true,
     className: "ecs-settings__sidebar-name",
     label: "Sidebar Name",
@@ -26187,40 +29544,40 @@ var EditSidebar = function EditSidebar(props) {
     }
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "col-auto"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Button"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Button"], {
     isBusy: isSaving,
     isPrimary: true,
     onClick: updateSidebarAndRedirect
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('Save Sidebar', 'easy-custom-sidebars'))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["CardBody"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("h3", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["sprintf"])(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('Sidebar Replacements for: %s'), sidebarName)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("p", null, hasAttachments() ? Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])("Drag each item into the order you prefer. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below. Drag each item into the order you prefer.", 'easy-custom-sidebars') : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])("Add items from the column on the left. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below.", 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_components_SidebarAttachments__WEBPACK_IMPORTED_MODULE_16__["default"], {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Save Sidebar', 'easy-custom-sidebars'))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["CardBody"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("h3", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["sprintf"])(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Sidebar Replacements for: %s'), sidebarName)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("p", null, hasAttachments() ? Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])("Drag each item into the order you prefer. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below. Drag each item into the order you prefer.", 'easy-custom-sidebars') : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])("Add items from the column on the left. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below.", 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_components_SidebarAttachments__WEBPACK_IMPORTED_MODULE_17__["default"], {
     attachments: attachments,
     setAttachments: setUniqueAttachments
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["CardDivider"], {
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["CardDivider"], {
     className: "my-4"
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("h3", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('Sidebar Properties', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["SelectControl"], {
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("h3", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Sidebar Properties', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["SelectControl"], {
     className: "ecs-settings__replacement-id mb-3",
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('Sidebar to Replace', 'easy-custom-sidebars'),
+    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Sidebar to Replace', 'easy-custom-sidebars'),
     value: replacementId,
     options: defaultSidebarOptions,
     onChange: function onChange(replacementId) {
       setReplacementId(replacementId);
       setChangesMade(true);
     }
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["TextareaControl"], {
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["TextareaControl"], {
     label: "Sidebar Description",
     className: "ecs-settings__description",
-    help: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('Description of the sidebar, displayed in the Widgets interface.', 'easy-custom-sidebars'),
+    help: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Description of the sidebar, displayed in the Widgets interface.', 'easy-custom-sidebars'),
     value: description,
     onChange: function onChange(description) {
       setDescription(description);
       setChangesMade(true);
     }
-  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["CardFooter"], {
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["CardFooter"], {
     className: "d-block"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "row justify-content-between"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "col-auto"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Button"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Button"], {
     isDestructive: true,
     onClick: function onClick() {
       var confirmDelete = confirm("You are about to permanently delete this sidebar. 'Cancel' to stop, 'OK' to delete.");
@@ -26229,17 +29586,17 @@ var EditSidebar = function EditSidebar(props) {
         deleteSidebarAndRedirect();
       }
     }
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('Delete Sidebar', 'easy-custom-sidebars'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Delete Sidebar', 'easy-custom-sidebars'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "col-auto"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Button"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Button"], {
     isBusy: isSaving,
     isPrimary: true,
     onClick: updateSidebarAndRedirect
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('Save Sidebar', 'easy-custom-sidebars'))))))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Prompt"], {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Save Sidebar', 'easy-custom-sidebars'))))))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Prompt"], {
     when: changesMade,
-    message: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('You have made changes to this sidebar that are not saved. Are you sure you want to leave this page?', 'easy-custom-sidebars'),
+    message: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('You have made changes to this sidebar that are not saved. Are you sure you want to leave this page?', 'easy-custom-sidebars'),
     beforeUnload: true
-  })) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_components_loaders_EditSidebarsLoader__WEBPACK_IMPORTED_MODULE_14__["default"], null);
+  })) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_components_loaders_EditSidebarsLoader__WEBPACK_IMPORTED_MODULE_15__["default"], null);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["withRouter"])(EditSidebar));

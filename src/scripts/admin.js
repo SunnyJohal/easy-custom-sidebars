@@ -4,6 +4,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { ToastProvider } from 'react-toast-notifications';
 
 /**
  * WordPress Dependancies
@@ -24,7 +25,9 @@ const App = () => {
 
   return (
     <Router basename={getPath(easy_custom_sidebars.admin_url)}>
-      <ScreenController />
+      <ToastProvider autoDismissTimeout={4500} placement="bottom-right">
+        <ScreenController />
+      </ToastProvider>
     </Router>
   );
 };

@@ -12,9 +12,23 @@ import { addQueryArgs } from '@wordpress/url';
  */
 import { STORE_KEY } from '../../../store';
 
-const TemplateHierarchyMetabox = ({ attachments, setAttachments }) => {
+const TemplateHierarchyMetabox = ({ attachments, setAttachments, openMetabox, setOpenMetabox }) => {
+  const panelId = `ecs-metabox-template-hierarchy`;
+  const isActive = panelId === openMetabox;
+
   return (
-    <PanelBody title={__('Template Hierarchy', 'easy-custom-sidebars')} initialOpen={false}>
+    <PanelBody
+      title={__('Template Hierarchy', 'easy-custom-sidebars')}
+      initialOpen={false}
+      opened={isActive}
+      onToggle={() => {
+        if (isActive) {
+          setOpenMetabox(false);
+        } else {
+          setOpenMetabox(panelId);
+        }
+      }}
+    >
       <TemplateHierarchyTemplates attachments={attachments} setAttachments={setAttachments} />
     </PanelBody>
   );

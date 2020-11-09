@@ -3,6 +3,7 @@
  */
 import { Prompt, withRouter } from 'react-router-dom';
 import { useBeforeunload } from 'react-beforeunload';
+import { useToasts } from 'react-toast-notifications';
 
 /**
  * WordPress dependancies
@@ -34,6 +35,7 @@ import Metaboxes from '../components/metaboxes';
 import SidebarAttachments from '../components/SidebarAttachments';
 
 const CreateSidebar = props => {
+  const { addToast } = useToasts();
   const [isSaving, setIsSaving] = useState(false);
   const [attachments, setAttachments] = useState([]);
   const [sidebarName, setSidebarName] = useState('');
@@ -93,6 +95,11 @@ const CreateSidebar = props => {
       const newSidebar = await createSidebar({ name: sidebarName, attachments, description, replacementId });
       resetSidebar();
       props.history.push(`${getScreenLink('edit', { sidebar: newSidebar.payload.sidebar.id })}`);
+      addToast(sprintf(__('%s has been created.', 'easy-custom-sidebars'), newSidebar.payload.sidebar.title.rendered), {
+        appearance: 'success',
+        autoDismiss: true,
+        placement: 'bottom-right'
+      });
     }
   };
 
@@ -222,6 +229,11 @@ const CreateSidebar = props => {
 
                         if (confirmDelete === true) {
                           resetSidebar();
+                          addToast(__('Your sidebar has been deleted.', 'easy-custom-sidebars'), {
+                            appearance: 'info',
+                            autoDismiss: false,
+                            placement: 'bottom-right'
+                          });
                         }
                       }}
                     >

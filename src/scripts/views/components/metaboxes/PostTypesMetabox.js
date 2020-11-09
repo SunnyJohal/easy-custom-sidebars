@@ -23,7 +23,7 @@ import sortItemsByTitle from '../../../utils/sortItemsByTitle';
 /**
  * All Posttypes Metabox
  */
-const PostTypesMetabox = ({ attachments, setAttachments }) => {
+const PostTypesMetabox = ({ attachments, setAttachments, openMetabox, setOpenMetabox }) => {
   const posttypes = useSelect(select => select(STORE_KEY).getPostTypes());
 
   const publicPosttypes = Object.keys(posttypes).filter(
@@ -33,9 +33,22 @@ const PostTypesMetabox = ({ attachments, setAttachments }) => {
   const metaboxes = publicPosttypes.map((posttypeName, i) => {
     const isFirstItem = i === 0;
     const { name, rest_base, slug } = posttypes[posttypeName];
-
+    const panelId = `ecs-metabox-posttype-${slug}`;
+    const isActive = panelId === openMetabox;
     return (
-      <PanelBody title={name} key={slug} initialOpen={isFirstItem}>
+      <PanelBody
+        title={name}
+        key={slug}
+        initialOpen={isFirstItem}
+        opened={isActive}
+        onToggle={() => {
+          if (isActive) {
+            setOpenMetabox(false);
+          } else {
+            setOpenMetabox(panelId);
+          }
+        }}
+      >
         <PostTypePosts
           name={name}
           slug={slug}

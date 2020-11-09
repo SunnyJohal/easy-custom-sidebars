@@ -23,16 +23,30 @@ import sortItemsByName from '../../../utils/sortItemsByName';
 /**
  * All Taxonomies Metabox
  */
-const TaxonomiesMetabox = ({ attachments, setAttachments }) => {
+const TaxonomiesMetabox = ({ attachments, setAttachments, openMetabox, setOpenMetabox }) => {
   const taxonomies = useSelect(select => {
     return select(STORE_KEY).getTaxonomies();
   });
 
   const metaboxes = Object.keys(taxonomies).map(taxonomyName => {
     const { name, rest_base, slug } = taxonomies[taxonomyName];
+    const panelId = `ecs-metabox-taxonomy-${slug}`;
+    const isActive = panelId === openMetabox;
 
     return (
-      <PanelBody title={name} key={slug} initialOpen={false}>
+      <PanelBody
+        title={name}
+        key={slug}
+        initialOpen={false}
+        opened={isActive}
+        onToggle={() => {
+          if (isActive) {
+            setOpenMetabox(false);
+          } else {
+            setOpenMetabox(panelId);
+          }
+        }}
+      >
         <TaxonomyTerms
           name={name}
           slug={slug}

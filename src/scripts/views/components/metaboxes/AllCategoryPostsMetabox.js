@@ -20,7 +20,10 @@ import { CheckboxControl, Spinner } from '@wordpress/components';
 import { STORE_KEY } from '../../../store';
 import sortItemsByName from '../../../utils/sortItemsByName';
 
-const AllCategoryPostsMetabox = ({ attachments, setAttachments }) => {
+const AllCategoryPostsMetabox = ({ attachments, setAttachments, openMetabox, setOpenMetabox }) => {
+  const panelId = `ecs-metabox-all-category-posts`;
+  const isActive = panelId === openMetabox;
+
   const taxonomies = useSelect(select => {
     return select(STORE_KEY).getTaxonomies();
   });
@@ -32,7 +35,18 @@ const AllCategoryPostsMetabox = ({ attachments, setAttachments }) => {
   const { name, rest_base, slug } = taxonomies.category;
 
   return (
-    <PanelBody title={__('All Posts In Category', 'easy-custom-sidebars')} initialOpen={false}>
+    <PanelBody
+      title={__('All Posts In Category', 'easy-custom-sidebars')}
+      initialOpen={false}
+      opened={isActive}
+      onToggle={() => {
+        if (isActive) {
+          setOpenMetabox(false);
+        } else {
+          setOpenMetabox(panelId);
+        }
+      }}
+    >
       <CategoryPosts
         name={name}
         slug={slug}

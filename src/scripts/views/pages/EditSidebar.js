@@ -3,6 +3,7 @@
  */
 import { Prompt, withRouter } from 'react-router-dom';
 import { useBeforeunload } from 'react-beforeunload';
+import { useToasts } from 'react-toast-notifications';
 
 /**
  * WordPress dependancies
@@ -19,7 +20,8 @@ import {
   CardFooter,
   __experimentalInputControl as InputControl,
   SelectControl,
-  TextareaControl
+  TextareaControl,
+  Notice
 } from '@wordpress/components';
 
 /**
@@ -51,7 +53,11 @@ const sortSidebarsByTitle = sidebars => {
   });
 };
 
+/**
+ * Edit Sidebar Component.
+ */
 const EditSidebar = props => {
+  const { addToast } = useToasts();
   const hasFinishedResolution = useSelect(select => {
     select(STORE_KEY).getPostTypes();
     select(STORE_KEY).getTaxonomies();
@@ -97,10 +103,6 @@ const EditSidebar = props => {
     };
   }, [allSidebars]);
 
-  // if (hasFinishedResolution && Object.keys(allSidebars).length === 0) {
-  //   props.history.push(getScreenLink('create'));
-  // }
-
   const sidebar = useSelect(select => select(STORE_KEY).getSidebar(sidebarToEdit));
   const [isSaving, setIsSaving] = useState(false);
   const [attachments, setAttachments] = useState([]);
@@ -118,15 +120,20 @@ const EditSidebar = props => {
 
   // Sync saved attachment state.
   const savedAttachments = useSelect(select => select(STORE_KEY).getAttachmentsForSidebar(sidebarToEdit));
+  const attachmentsLoaded = useSelect(select =>
+    select(STORE_KEY).hasFinishedResolution('getAttachmentsForSidebar', [sidebarToEdit])
+  );
   useEffect(() => setAttachments(savedAttachments), [savedAttachments.length]);
 
   // Sync state with saved sidebar.
   useEffect(() => {
+    setIsSaving(false);
+    setChangesMade(false);
+
     if (Object.keys(sidebar).length > 0) {
       setSidebarName(sidebar.title.rendered);
       setDescription(sidebar.meta.sidebar_description);
       setReplacementId(sidebar.meta.sidebar_replacement_id);
-      setChangesMade(false);
     }
   }, [sidebar]);
 
@@ -135,7 +142,7 @@ const EditSidebar = props => {
    */
   const { updateSidebar } = useDispatch(STORE_KEY);
   const updateSidebarAndRedirect = async () => {
-    if (isSaving) {
+    if (isSaving || !attachmentsLoaded) {
       return;
     }
 
@@ -145,18 +152,19 @@ const EditSidebar = props => {
 
     if (sidebarName) {
       setIsSaving(true);
+      await updateSidebar({
+        id: sidebarToEdit,
+        name: sidebarName,
+        attachments,
+        description,
+        replacementId
+      });
+      addToast(sprintf(__('%s has been updated.', 'easy-custom-sidebars'), sidebarName), {
+        appearance: 'success',
+        autoDismiss: true,
+        placement: 'bottom-right'
+      });
     }
-
-    const updatedSidebar = await updateSidebar({
-      id: sidebarToEdit,
-      name: sidebarName,
-      attachments,
-      description,
-      replacementId
-    });
-    setIsSaving(false);
-    setChangesMade(false);
-    console.log(`maybe show a toast here saying ${sidebarName} has been saved`, updatedSidebar);
   };
 
   /**
@@ -168,16 +176,14 @@ const EditSidebar = props => {
       return;
     }
 
-    if (!sidebarName) {
-      setSidebarNameError(true);
-    }
-
-    if (sidebarName) {
-      setIsSaving(true);
-      setChangesMade(false);
-      await deleteSidebar(sidebarToEdit);
-      setIsSaving(false);
-    }
+    setIsSaving(true);
+    await deleteSidebar(sidebarToEdit);
+    props.history.push(getScreenLink('edit'));
+    addToast(sprintf(__('%s has been deleted.', 'easy-custom-sidebars'), sidebarName), {
+      appearance: 'info',
+      autoDismiss: true,
+      placement: 'bottom-right'
+    });
   };
 
   /**
@@ -200,6 +206,14 @@ const EditSidebar = props => {
           <div className="col-12 mb-3">
             <SidebarSelector selectedSidebarId={sidebarToEdit} />
           </div>
+
+          {sidebarNameError && (
+            <div className="col-12 mb-3">
+              <Notice className="m-0" status="error" isDismissible={false}>
+                {__('Please enter a valid name for your sidebar.', 'easy-custom-sidebars')}
+              </Notice>
+            </div>
+          )}
 
           {/* Metaboxes */}
           <div className="col-12 col-md-5 col-xl-3 mb-4 mb-md-0">
