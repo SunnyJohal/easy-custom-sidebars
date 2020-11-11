@@ -91,6 +91,11 @@ export const defaultSidebarsReducer = (state = {}, action) => {
   }
 };
 
+/**
+ * PostType/Taxonomy Reducers
+ * @param {object} state
+ * @param {object} action
+ */
 export const postTypesReducer = (state = {}, action) => {
   switch (action.type) {
     case 'HYDRATE_POSTTYPES':
@@ -113,6 +118,11 @@ export const taxonomiesReducer = (state = {}, action) => {
   }
 };
 
+/**
+ * Metabox Reducers
+ * @param {object} state
+ * @param {object} action
+ */
 const initialMetaboxState = {
   posttypes: {},
   taxonomies: {},

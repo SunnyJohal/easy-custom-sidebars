@@ -14,12 +14,40 @@ namespace ECS\Admin;
 use ECS\Setup;
 
 /**
+ * About Page Redirect
+ *
+ * Redirects the user to the about page once
+ * when they have upgraded or activated the
+ * plugin for the first time.
+ *
+ * @since 2.0.0
+ */
+function maybe_redirect_to_about_page() {
+	$about_page     = 'admin.php?page=easy-custom-sidebars&screen=about';
+	$force_redirect = \intval( get_option( 'ecs_force_user_redirect', false ) ) === get_current_user_id();
+	$version        = get_option( 'ecs_version', false );
+	$latest_version = '2.0.0';
+
+	if ( wp_doing_ajax() ) {
+		return;
+	}
+
+	if ( $force_redirect || version_compare( $version, $latest_version ) === -1 ) {
+		update_option( 'ecs_force_user_redirect', false );
+		update_option( 'ecs_version', $latest_version );
+		wp_safe_redirect( $about_page );
+		exit;
+	}
+}
+add_action( 'admin_init', __NAMESPACE__ . '\\maybe_redirect_to_about_page' );
+
+/**
  * Add Admin Plugin Settings Page
  */
 function add_plugin_settings_page() {
 	add_theme_page(
-		__( 'Theme Sidebars', 'easy-custom-sidebars' ),
-		__( 'Theme Sidebars', 'easy-custom-sidebars' ),
+		_x( 'Sidebar Replacements', 'The text to be displayed in the title tags of the page when the menu is selected.', 'easy-custom-sidebars' ),
+		_x( 'Sidebar Replacements', 'The text to be used for the menu.', 'easy-custom-sidebars' ),
 		'edit_theme_options',
 		'easy-custom-sidebars',
 		__NAMESPACE__ . '\\get_plugin_settings_page'
@@ -49,6 +77,22 @@ function get_plugin_settings_page() {
  * @since 2.0.0
  */
 function enqueue_admin_scripts() {
+	$show_admin_pointer = get_option( 'ecs_show_admin_pointer', false );
+
+	if ( $show_admin_pointer && ! is_plugin_settings_page() ) {
+		wp_enqueue_style( 'wp-pointer' );
+		wp_enqueue_script( 'wp-pointer' );
+
+		$pointer_asset = include plugin_dir_path( __FILE__ ) . '../dist/admin.asset.php';
+		wp_enqueue_script(
+			'easy-custom-sidebars/pointer',
+			Setup\get_plugin_src_url() . 'dist/pointer.js',
+			$pointer_asset['dependencies'],
+			$pointer_asset['version'],
+			true
+		);
+	}
+
 	if ( is_plugin_settings_page() ) {
 		$admin_asset = include plugin_dir_path( __FILE__ ) . '../dist/admin.asset.php';
 

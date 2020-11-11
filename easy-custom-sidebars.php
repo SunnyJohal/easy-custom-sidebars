@@ -90,5 +90,22 @@ function load_file( $file_name ) {
 
 // Refresh permalinks when plugin is
 // activated and deactivated.
-register_activation_hook( __FILE__, 'flush_rewrite_rules' );
-register_deactivation_hook( __FILE__, 'flush_rewrite_rules' );
+register_activation_hook(
+	__FILE__,
+	function() {
+		update_option( 'ecs_version', '2.0.0' );
+		update_option( 'ecs_force_user_redirect', get_current_user_id() );
+		update_option( 'ecs_show_admin_pointer', true );
+		flush_rewrite_rules();
+	}
+);
+
+register_deactivation_hook(
+	__FILE__,
+	function() {
+		delete_option( 'ecs_version' );
+		delete_option( 'ecs_force_user_redirect' );
+		delete_option( 'ecs_show_admin_pointer' );
+		flush_rewrite_rules();
+	}
+);

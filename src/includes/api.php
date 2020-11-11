@@ -124,6 +124,28 @@ add_action(
 );
 
 /**
+ * POST: Dismiss Admin WP Pointer
+ */
+add_action(
+	'rest_api_init',
+	function() {
+		register_rest_route(
+			'easy-custom-sidebars/v1',
+			'/hide-pointer',
+			[
+				'methods'             => 'POST',
+				'callback'            => function () {
+					return update_option( 'ecs_show_admin_pointer', false );
+				},
+				'permission_callback' => function() {
+					return current_user_can( 'edit_theme_options' );
+				},
+			]
+		);
+	}
+);
+
+/**
  * Add Taxonomies to the REST API.
  */
 add_filter(

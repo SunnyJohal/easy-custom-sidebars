@@ -88,7 +88,7 @@ const About = () => {
       {/* Get Started */}
       <div className="return-to-dashboard">
         <Link to="/themes.php?page=easy-custom-sidebars">
-          {__(`Go to Appearance → Theme Sidebars`, 'easy-custom-sidebars')}
+          {__(`Go to Appearance → Sidebar Replacements`, 'easy-custom-sidebars')}
         </Link>
       </div>
     </div>

@@ -7,7 +7,7 @@ import { NavLink, withRouter } from 'react-router-dom';
  * WordPress dependancies
  */
 import { __ } from '@wordpress/i18n';
-import { getQueryArg } from '@wordpress/url';
+import { addQueryArgs, getQueryArg } from '@wordpress/url';
 
 /**
  * Internal dependances
@@ -22,9 +22,10 @@ const isActive = (_, location, screen) => {
 const Nav = props => {
   return (
     <>
-      <h1 className="wp-heading-inline">{__('Sidebars', 'easy-custom-sidebars')}</h1>
-      <a className="page-title-action hide-if-no-customize ml-2" href="#">
-        {__('Manage with Live Preview', 'easy-custom-sidebars')}
+      <h1 className="wp-heading-inline">{__('Sidebar Replacements', 'easy-custom-sidebars')}</h1>
+
+      <a className="page-title-action hide-if-no-customize ml-2" href={`${easy_custom_sidebars.admin_url}widgets.php`}>
+        {__('Manage Widgets', 'easy-custom-sidebars')}
       </a>
 
       <hr className="wp-header-end" />

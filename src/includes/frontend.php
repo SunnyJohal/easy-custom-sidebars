@@ -86,6 +86,9 @@ add_action('wp_body_open', function() {
 		]
 	);
 
+	$version_check = version_compare( '1.2.0', '2.0.0' );
+	echo "<h1>{$version_check}</h1>";
+
 	while ($all_sidebars->have_posts()) {
 		$all_sidebars->the_post();
 		echo '<h1>' . get_the_ID() . '</h1>';

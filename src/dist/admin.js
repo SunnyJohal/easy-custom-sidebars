@@ -17101,7 +17101,7 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(__webpack_require__(/*! react */ "react"));
 
-var _core = __webpack_require__(/*! @emotion/core */ "./node_modules/@emotion/core/dist/core.browser.esm.js");
+var _core = __webpack_require__(/*! @emotion/core */ "./node_modules/react-loading-skeleton/node_modules/@emotion/core/dist/core.browser.esm.js");
 
 var _skeleton = __webpack_require__(/*! ./skeleton */ "./node_modules/react-loading-skeleton/lib/skeleton.js");
 
@@ -17186,7 +17186,7 @@ exports.skeletonStyles = exports.skeletonKeyframes = exports.defaultHighlightCol
 
 var _react = _interopRequireDefault(__webpack_require__(/*! react */ "react"));
 
-var _core = __webpack_require__(/*! @emotion/core */ "./node_modules/@emotion/core/dist/core.browser.esm.js");
+var _core = __webpack_require__(/*! @emotion/core */ "./node_modules/react-loading-skeleton/node_modules/@emotion/core/dist/core.browser.esm.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17276,6 +17276,414 @@ Skeleton.defaultProps = {
   height: null,
   circle: false
 };
+
+/***/ }),
+
+/***/ "./node_modules/react-loading-skeleton/node_modules/@emotion/core/dist/core.browser.esm.js":
+/*!*************************************************************************************************!*\
+  !*** ./node_modules/react-loading-skeleton/node_modules/@emotion/core/dist/core.browser.esm.js ***!
+  \*************************************************************************************************/
+/*! exports provided: css, CacheProvider, ClassNames, Global, ThemeContext, jsx, keyframes, withEmotionCache */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CacheProvider", function() { return CacheProvider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClassNames", function() { return ClassNames; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Global", function() { return Global; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ThemeContext", function() { return ThemeContext; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "jsx", function() { return jsx; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "keyframes", function() { return keyframes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "withEmotionCache", function() { return withEmotionCache; });
+/* harmony import */ var _babel_runtime_helpers_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/inheritsLoose */ "./node_modules/@babel/runtime/helpers/inheritsLoose.js");
+/* harmony import */ var _babel_runtime_helpers_inheritsLoose__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inheritsLoose__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _emotion_cache__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @emotion/cache */ "./node_modules/@emotion/cache/dist/cache.browser.esm.js");
+/* harmony import */ var _emotion_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @emotion/utils */ "./node_modules/@emotion/utils/dist/utils.browser.esm.js");
+/* harmony import */ var _emotion_serialize__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @emotion/serialize */ "./node_modules/@emotion/serialize/dist/serialize.browser.esm.js");
+/* harmony import */ var _emotion_sheet__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @emotion/sheet */ "./node_modules/@emotion/sheet/dist/sheet.browser.esm.js");
+/* harmony import */ var _emotion_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @emotion/css */ "./node_modules/@emotion/css/dist/css.browser.esm.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "css", function() { return _emotion_css__WEBPACK_IMPORTED_MODULE_6__["default"]; });
+
+
+
+
+
+
+
+
+
+
+var EmotionCacheContext = Object(react__WEBPACK_IMPORTED_MODULE_1__["createContext"])( // we're doing this to avoid preconstruct's dead code elimination in this one case
+// because this module is primarily intended for the browser and node
+// but it's also required in react native and similar environments sometimes
+// and we could have a special build just for that
+// but this is much easier and the native packages
+// might use a different theme context in the future anyway
+typeof HTMLElement !== 'undefined' ? Object(_emotion_cache__WEBPACK_IMPORTED_MODULE_2__["default"])() : null);
+var ThemeContext = Object(react__WEBPACK_IMPORTED_MODULE_1__["createContext"])({});
+var CacheProvider = EmotionCacheContext.Provider;
+
+var withEmotionCache = function withEmotionCache(func) {
+  var render = function render(props, ref) {
+    return Object(react__WEBPACK_IMPORTED_MODULE_1__["createElement"])(EmotionCacheContext.Consumer, null, function (cache) {
+      return func(props, cache, ref);
+    });
+  }; // $FlowFixMe
+
+
+  return Object(react__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(render);
+};
+
+// thus we only need to replace what is a valid character for JS, but not for CSS
+
+var sanitizeIdentifier = function sanitizeIdentifier(identifier) {
+  return identifier.replace(/\$/g, '-');
+};
+
+var typePropName = '__EMOTION_TYPE_PLEASE_DO_NOT_USE__';
+var labelPropName = '__EMOTION_LABEL_PLEASE_DO_NOT_USE__';
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+var render = function render(cache, props, theme, ref) {
+  var cssProp = theme === null ? props.css : props.css(theme); // so that using `css` from `emotion` and passing the result to the css prop works
+  // not passing the registered cache to serializeStyles because it would
+  // make certain babel optimisations not possible
+
+  if (typeof cssProp === 'string' && cache.registered[cssProp] !== undefined) {
+    cssProp = cache.registered[cssProp];
+  }
+
+  var type = props[typePropName];
+  var registeredStyles = [cssProp];
+  var className = '';
+
+  if (typeof props.className === 'string') {
+    className = Object(_emotion_utils__WEBPACK_IMPORTED_MODULE_3__["getRegisteredStyles"])(cache.registered, registeredStyles, props.className);
+  } else if (props.className != null) {
+    className = props.className + " ";
+  }
+
+  var serialized = Object(_emotion_serialize__WEBPACK_IMPORTED_MODULE_4__["serializeStyles"])(registeredStyles);
+
+  if ( true && serialized.name.indexOf('-') === -1) {
+    var labelFromStack = props[labelPropName];
+
+    if (labelFromStack) {
+      serialized = Object(_emotion_serialize__WEBPACK_IMPORTED_MODULE_4__["serializeStyles"])([serialized, 'label:' + labelFromStack + ';']);
+    }
+  }
+
+  var rules = Object(_emotion_utils__WEBPACK_IMPORTED_MODULE_3__["insertStyles"])(cache, serialized, typeof type === 'string');
+  className += cache.key + "-" + serialized.name;
+  var newProps = {};
+
+  for (var key in props) {
+    if (hasOwnProperty.call(props, key) && key !== 'css' && key !== typePropName && ( false || key !== labelPropName)) {
+      newProps[key] = props[key];
+    }
+  }
+
+  newProps.ref = ref;
+  newProps.className = className;
+  var ele = Object(react__WEBPACK_IMPORTED_MODULE_1__["createElement"])(type, newProps);
+
+  return ele;
+};
+
+var Emotion =
+/* #__PURE__ */
+withEmotionCache(function (props, cache, ref) {
+  // use Context.read for the theme when it's stable
+  if (typeof props.css === 'function') {
+    return Object(react__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ThemeContext.Consumer, null, function (theme) {
+      return render(cache, props, theme, ref);
+    });
+  }
+
+  return render(cache, props, null, ref);
+});
+
+if (true) {
+  Emotion.displayName = 'EmotionCssPropInternal';
+} // $FlowFixMe
+
+
+var jsx = function jsx(type, props) {
+  var args = arguments;
+
+  if (props == null || !hasOwnProperty.call(props, 'css')) {
+    // $FlowFixMe
+    return react__WEBPACK_IMPORTED_MODULE_1__["createElement"].apply(undefined, args);
+  }
+
+  if ( true && typeof props.css === 'string' && // check if there is a css declaration
+  props.css.indexOf(':') !== -1) {
+    throw new Error("Strings are not allowed as css prop values, please wrap it in a css template literal from '@emotion/css' like this: css`" + props.css + "`");
+  }
+
+  var argsLength = args.length;
+  var createElementArgArray = new Array(argsLength);
+  createElementArgArray[0] = Emotion;
+  var newProps = {};
+
+  for (var key in props) {
+    if (hasOwnProperty.call(props, key)) {
+      newProps[key] = props[key];
+    }
+  }
+
+  newProps[typePropName] = type;
+
+  if (true) {
+    var error = new Error();
+
+    if (error.stack) {
+      // chrome
+      var match = error.stack.match(/at (?:Object\.|Module\.|)jsx.*\n\s+at (?:Object\.|)([A-Z][A-Za-z$]+) /);
+
+      if (!match) {
+        // safari and firefox
+        match = error.stack.match(/.*\n([A-Z][A-Za-z$]+)@/);
+      }
+
+      if (match) {
+        newProps[labelPropName] = sanitizeIdentifier(match[1]);
+      }
+    }
+  }
+
+  createElementArgArray[1] = newProps;
+
+  for (var i = 2; i < argsLength; i++) {
+    createElementArgArray[i] = args[i];
+  } // $FlowFixMe
+
+
+  return react__WEBPACK_IMPORTED_MODULE_1__["createElement"].apply(null, createElementArgArray);
+};
+
+var warnedAboutCssPropForGlobal = false;
+var Global =
+/* #__PURE__ */
+withEmotionCache(function (props, cache) {
+  if ( true && !warnedAboutCssPropForGlobal && ( // check for className as well since the user is
+  // probably using the custom createElement which
+  // means it will be turned into a className prop
+  // $FlowFixMe I don't really want to add it to the type since it shouldn't be used
+  props.className || props.css)) {
+    console.error("It looks like you're using the css prop on Global, did you mean to use the styles prop instead?");
+    warnedAboutCssPropForGlobal = true;
+  }
+
+  var styles = props.styles;
+
+  if (typeof styles === 'function') {
+    return Object(react__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ThemeContext.Consumer, null, function (theme) {
+      var serialized = Object(_emotion_serialize__WEBPACK_IMPORTED_MODULE_4__["serializeStyles"])([styles(theme)]);
+      return Object(react__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerGlobal, {
+        serialized: serialized,
+        cache: cache
+      });
+    });
+  }
+
+  var serialized = Object(_emotion_serialize__WEBPACK_IMPORTED_MODULE_4__["serializeStyles"])([styles]);
+  return Object(react__WEBPACK_IMPORTED_MODULE_1__["createElement"])(InnerGlobal, {
+    serialized: serialized,
+    cache: cache
+  });
+});
+
+// maintain place over rerenders.
+// initial render from browser, insertBefore context.sheet.tags[0] or if a style hasn't been inserted there yet, appendChild
+// initial client-side render from SSR, use place of hydrating tag
+var InnerGlobal =
+/*#__PURE__*/
+function (_React$Component) {
+  _babel_runtime_helpers_inheritsLoose__WEBPACK_IMPORTED_MODULE_0___default()(InnerGlobal, _React$Component);
+
+  function InnerGlobal(props, context, updater) {
+    return _React$Component.call(this, props, context, updater) || this;
+  }
+
+  var _proto = InnerGlobal.prototype;
+
+  _proto.componentDidMount = function componentDidMount() {
+    this.sheet = new _emotion_sheet__WEBPACK_IMPORTED_MODULE_5__["StyleSheet"]({
+      key: this.props.cache.key + "-global",
+      nonce: this.props.cache.sheet.nonce,
+      container: this.props.cache.sheet.container
+    }); // $FlowFixMe
+
+    var node = document.querySelector("style[data-emotion-" + this.props.cache.key + "=\"" + this.props.serialized.name + "\"]");
+
+    if (node !== null) {
+      this.sheet.tags.push(node);
+    }
+
+    if (this.props.cache.sheet.tags.length) {
+      this.sheet.before = this.props.cache.sheet.tags[0];
+    }
+
+    this.insertStyles();
+  };
+
+  _proto.componentDidUpdate = function componentDidUpdate(prevProps) {
+    if (prevProps.serialized.name !== this.props.serialized.name) {
+      this.insertStyles();
+    }
+  };
+
+  _proto.insertStyles = function insertStyles$1() {
+    if (this.props.serialized.next !== undefined) {
+      // insert keyframes
+      Object(_emotion_utils__WEBPACK_IMPORTED_MODULE_3__["insertStyles"])(this.props.cache, this.props.serialized.next, true);
+    }
+
+    if (this.sheet.tags.length) {
+      // if this doesn't exist then it will be null so the style element will be appended
+      var element = this.sheet.tags[this.sheet.tags.length - 1].nextElementSibling;
+      this.sheet.before = element;
+      this.sheet.flush();
+    }
+
+    this.props.cache.insert("", this.props.serialized, this.sheet, false);
+  };
+
+  _proto.componentWillUnmount = function componentWillUnmount() {
+    this.sheet.flush();
+  };
+
+  _proto.render = function render() {
+
+    return null;
+  };
+
+  return InnerGlobal;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
+
+var keyframes = function keyframes() {
+  var insertable = _emotion_css__WEBPACK_IMPORTED_MODULE_6__["default"].apply(void 0, arguments);
+  var name = "animation-" + insertable.name; // $FlowFixMe
+
+  return {
+    name: name,
+    styles: "@keyframes " + name + "{" + insertable.styles + "}",
+    anim: 1,
+    toString: function toString() {
+      return "_EMO_" + this.name + "_" + this.styles + "_EMO_";
+    }
+  };
+};
+
+var classnames = function classnames(args) {
+  var len = args.length;
+  var i = 0;
+  var cls = '';
+
+  for (; i < len; i++) {
+    var arg = args[i];
+    if (arg == null) continue;
+    var toAdd = void 0;
+
+    switch (typeof arg) {
+      case 'boolean':
+        break;
+
+      case 'object':
+        {
+          if (Array.isArray(arg)) {
+            toAdd = classnames(arg);
+          } else {
+            toAdd = '';
+
+            for (var k in arg) {
+              if (arg[k] && k) {
+                toAdd && (toAdd += ' ');
+                toAdd += k;
+              }
+            }
+          }
+
+          break;
+        }
+
+      default:
+        {
+          toAdd = arg;
+        }
+    }
+
+    if (toAdd) {
+      cls && (cls += ' ');
+      cls += toAdd;
+    }
+  }
+
+  return cls;
+};
+
+function merge(registered, css, className) {
+  var registeredStyles = [];
+  var rawClassName = Object(_emotion_utils__WEBPACK_IMPORTED_MODULE_3__["getRegisteredStyles"])(registered, registeredStyles, className);
+
+  if (registeredStyles.length < 2) {
+    return className;
+  }
+
+  return rawClassName + css(registeredStyles);
+}
+
+var ClassNames = withEmotionCache(function (props, context) {
+  return Object(react__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ThemeContext.Consumer, null, function (theme) {
+    var hasRendered = false;
+
+    var css = function css() {
+      if (hasRendered && "development" !== 'production') {
+        throw new Error('css can only be used during render');
+      }
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      var serialized = Object(_emotion_serialize__WEBPACK_IMPORTED_MODULE_4__["serializeStyles"])(args, context.registered);
+
+      {
+        Object(_emotion_utils__WEBPACK_IMPORTED_MODULE_3__["insertStyles"])(context, serialized, false);
+      }
+
+      return context.key + "-" + serialized.name;
+    };
+
+    var cx = function cx() {
+      if (hasRendered && "development" !== 'production') {
+        throw new Error('cx can only be used during render');
+      }
+
+      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+      }
+
+      return merge(context.registered, css, classnames(args));
+    };
+
+    var content = {
+      css: css,
+      cx: cx,
+      theme: theme
+    };
+    var ele = props.children(content);
+    hasRendered = true;
+
+    return ele;
+  });
+});
+
+
+
 
 /***/ }),
 
@@ -25216,6 +25624,12 @@ var defaultSidebarsReducer = function defaultSidebarsReducer() {
       return state;
   }
 };
+/**
+ * PostType/Taxonomy Reducers
+ * @param {object} state
+ * @param {object} action
+ */
+
 var postTypesReducer = function postTypesReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
@@ -25242,6 +25656,12 @@ var taxonomiesReducer = function taxonomiesReducer() {
       return state;
   }
 };
+/**
+ * Metabox Reducers
+ * @param {object} state
+ * @param {object} action
+ */
+
 var initialMetaboxState = {
   posttypes: {},
   taxonomies: {},
@@ -26138,10 +26558,10 @@ var _isActive = function isActive(_, location, screen) {
 var Nav = function Nav(props) {
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h1", {
     className: "wp-heading-inline"
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Sidebars', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Sidebar Replacements', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
     className: "page-title-action hide-if-no-customize ml-2",
-    href: "#"
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Manage with Live Preview', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("hr", {
+    href: "".concat(easy_custom_sidebars.admin_url, "widgets.php")
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Manage Widgets', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("hr", {
     className: "wp-header-end"
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "components-tab-panel__tabs my-3"
@@ -26330,25 +26750,34 @@ var SidebarAttachments = function SidebarAttachments(props) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../store */ "./src/scripts/store/index.js");
-/* harmony import */ var _utils_getScreenLink__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../utils/getScreenLink */ "./src/scripts/utils/getScreenLink.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "@babel/runtime/regenerator");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_toast_notifications__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-toast-notifications */ "./node_modules/react-toast-notifications/dist/index.js");
+/* harmony import */ var react_toast_notifications__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_toast_notifications__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../store */ "./src/scripts/store/index.js");
+/* harmony import */ var _utils_getScreenLink__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../utils/getScreenLink */ "./src/scripts/utils/getScreenLink.js");
+
+
 
 
 
 /**
  * External Dependancies
  */
+
 
 /**
  * WordPress dependencies
@@ -26394,82 +26823,139 @@ var SidebarRow = function SidebarRow(props) {
       sidebarTitle = props.sidebarTitle,
       sidebarReplacementId = props.sidebarReplacementId;
 
-  var _useState = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
-      _useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState, 2),
+  var _useState = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["useState"])(false),
+      _useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default()(_useState, 2),
       isSaving = _useState2[0],
       setIsSaving = _useState2[1];
 
-  var _useDispatch = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__["useDispatch"])(_store__WEBPACK_IMPORTED_MODULE_6__["STORE_KEY"]),
+  var defaultSidebars = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__["useSelect"])(function (select) {
+    return select(_store__WEBPACK_IMPORTED_MODULE_9__["STORE_KEY"]).getDefaultSidebars();
+  });
+
+  var _useToasts = Object(react_toast_notifications__WEBPACK_IMPORTED_MODULE_5__["useToasts"])(),
+      addToast = _useToasts.addToast;
+
+  var _useDispatch = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_7__["useDispatch"])(_store__WEBPACK_IMPORTED_MODULE_9__["STORE_KEY"]),
       updateSidebarReplacement = _useDispatch.updateSidebarReplacement,
       deleteSidebar = _useDispatch.deleteSidebar;
 
-  var defaultSidebars = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__["useSelect"])(function (select) {
-    return select(_store__WEBPACK_IMPORTED_MODULE_6__["STORE_KEY"]).getDefaultSidebars();
-  });
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "ecs-manage-sidebars__sidebar"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "row align-items-center"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "col-4"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h4", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("h4", {
     className: "ecs-manage-sidebars__sidebar-name mt-0 mb-1"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-    to: "".concat(Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_7__["default"])('edit', {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
+    to: "".concat(Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_10__["default"])('edit', {
       sidebar: sidebarId
     }))
-  }, sidebarTitle)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  }, sidebarTitle)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "ecs-manage-sidebars__sidebar-actions"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-    to: "".concat(Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_7__["default"])('edit', {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
+    to: "".concat(Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_10__["default"])('edit', {
       sidebar: sidebarId
     }))
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Edit', 'easy-custom-sidebars')), " |", ' ', Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("a", {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('Edit', 'easy-custom-sidebars')), " |", ' ', Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("a", {
     href: "#",
-    onClick: function onClick(e) {
-      e.preventDefault();
-      var userConfirmedDeletion = confirm(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])("Warning! You are about to permanently delete this sidebar. 'Cancel' to stop, 'OK' to delete.", 'easy-custom-sidebars'));
+    onClick: /*#__PURE__*/function () {
+      var _ref = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(event) {
+        var userConfirmedDeletion;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                event.preventDefault();
+                userConfirmedDeletion = confirm(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["_x"])("Warning! You are about to permanently delete this sidebar. 'Cancel' to stop, 'OK' to delete.", 'User confirmation message to delete a sidebar.', 'easy-custom-sidebars'));
 
-      if (userConfirmedDeletion) {
-        setIsSaving(true);
-        deleteSidebar(sidebarId);
-      }
-    },
+                if (!userConfirmedDeletion) {
+                  _context.next = 7;
+                  break;
+                }
+
+                setIsSaving(true);
+                _context.next = 6;
+                return deleteSidebar(sidebarId);
+
+              case 6:
+                addToast(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["sprintf"])(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('%s has been deleted.', 'easy-custom-sidebars'), sidebarTitle), {
+                  appearance: 'info',
+                  autoDismiss: true,
+                  placement: 'bottom-right'
+                });
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function (_x2) {
+        return _ref.apply(this, arguments);
+      };
+    }(),
     disabled: isSaving
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Delete', 'easy-custom-sidebars')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('Delete', 'easy-custom-sidebars')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "col"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "row no-wrap align-items-center"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "col"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["SelectControl"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["SelectControl"], {
     style: {
       maxWidth: 400,
       width: '100%'
     },
     className: "ecs-settings__replacement-id",
-    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Sidebar to Replace', 'easy-custom-sidebars'),
+    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('Sidebar to Replace', 'easy-custom-sidebars'),
     hideLabelFromVision: true,
     value: sidebarReplacementId,
     options: getDefaultSidebarOptions(defaultSidebars, sidebarReplacementId),
     disabled: isSaving,
-    onChange: function onChange(replacementId) {
-      setIsSaving(true);
-      updateSidebarReplacement({
-        id: sidebarId,
-        replacementId: replacementId
-      }).then(function () {
-        setIsSaving(false);
-      });
-    }
-  })), isSaving && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+    onChange: /*#__PURE__*/function () {
+      var _ref2 = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(replacementId) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                setIsSaving(true);
+                _context2.next = 3;
+                return updateSidebarReplacement({
+                  id: sidebarId,
+                  replacementId: replacementId
+                });
+
+              case 3:
+                setIsSaving(false);
+                addToast(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["sprintf"])(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('%s has been updated.', 'easy-custom-sidebars'), sidebarTitle), {
+                  appearance: 'success',
+                  autoDismiss: true,
+                  placement: 'bottom-right'
+                });
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function (_x3) {
+        return _ref2.apply(this, arguments);
+      };
+    }()
+  })), isSaving && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "col-auto pl-0"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["Spinner"], null))))), appendDivider ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["CardDivider"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["Spinner"], null))))), appendDivider ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["CardDivider"], {
     className: "my-3"
   }) : null);
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(SidebarRow));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["withRouter"])(SidebarRow));
 
 /***/ }),
 
@@ -26592,9 +27078,9 @@ var SidebarSelector = function SidebarSelector(props) {
     }
   }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Select', 'easy-custom-sidebars'))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "col-12 col-sm-auto pl-sm-2"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("span", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('or', 'easy-custom-sidebars'), ' ', Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("span", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
     to: "".concat(Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_7__["default"])('create'))
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('create a new sidebar', 'easy-custom-sidebars'))))));
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('or create a new sidebar', 'easy-custom-sidebars'))))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(SidebarSelector));
@@ -26818,6 +27304,11 @@ var CreateSidebarLoader = function CreateSidebarLoader() {
     style: {
       marginBottom: 0
     }
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(react_loading_skeleton__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    height: 48,
+    style: {
+      marginBottom: 0
+    }
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "col"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(react_loading_skeleton__WEBPACK_IMPORTED_MODULE_1___default.a, {
@@ -26877,6 +27368,11 @@ var EditSidebarsLoader = function EditSidebarsLoader() {
     height: 164,
     style: {
       marginBottom: 1
+    }
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(react_loading_skeleton__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    height: 48,
+    style: {
+      marginBottom: 0
     }
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(react_loading_skeleton__WEBPACK_IMPORTED_MODULE_1___default.a, {
     height: 48,
@@ -28863,7 +29359,7 @@ var About = function About() {
     className: "return-to-dashboard"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     to: "/themes.php?page=easy-custom-sidebars"
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])("Go to Appearance \u2192 Theme Sidebars", 'easy-custom-sidebars'))));
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])("Go to Appearance \u2192 Sidebar Replacements", 'easy-custom-sidebars'))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (About);
@@ -29025,12 +29521,13 @@ var CreateSidebar = function CreateSidebar(props) {
               }
 
               if (!sidebarName) {
-                _context.next = 11;
+                _context.next = 18;
                 break;
               }
 
+              _context.prev = 4;
               setIsSaving(true);
-              _context.next = 7;
+              _context.next = 8;
               return createSidebar({
                 name: sidebarName,
                 attachments: attachments,
@@ -29038,24 +29535,36 @@ var CreateSidebar = function CreateSidebar(props) {
                 replacementId: replacementId
               });
 
-            case 7:
+            case 8:
               newSidebar = _context.sent;
               resetSidebar();
               props.history.push("".concat(Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_11__["default"])('edit', {
                 sidebar: newSidebar.payload.sidebar.id
               })));
-              addToast(sprintf(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('%s has been created.', 'easy-custom-sidebars'), newSidebar.payload.sidebar.title.rendered), {
+              addToast(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["sprintf"])(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('%s has been created.', 'easy-custom-sidebars'), newSidebar.payload.sidebar.title.rendered), {
                 appearance: 'success',
                 autoDismiss: true,
                 placement: 'bottom-right'
               });
+              _context.next = 18;
+              break;
 
-            case 11:
+            case 14:
+              _context.prev = 14;
+              _context.t0 = _context["catch"](4);
+              addToast(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["sprintf"])(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Unable to create %s. Please try again.', 'easy-custom-sidebars'), sidebarName), {
+                appearance: 'error',
+                autoDismiss: true,
+                placement: 'bottom-right'
+              });
+              setIsSaving(false);
+
+            case 18:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee);
+      }, _callee, null, [[4, 14]]);
     }));
 
     return function createSidebarAndRedirect() {
@@ -29126,7 +29635,7 @@ var CreateSidebar = function CreateSidebar(props) {
     isBusy: isSaving,
     isPrimary: true,
     onClick: createSidebarAndRedirect
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Create Sidebar', 'easy-custom-sidebars'))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["CardBody"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("h3", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Sidebar Replacements', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("p", null, hasAttachments() ? Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])("Drag each item into the order you prefer. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below. Drag each item into the order you prefer.", 'easy-custom-sidebars') : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])("Add items from the column on the left. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below.", 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_components_SidebarAttachments__WEBPACK_IMPORTED_MODULE_15__["default"], {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Create Sidebar', 'easy-custom-sidebars'))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["CardBody"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("h3", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Sidebar Replacements', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("p", null, hasAttachments() ? Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])("Drag each item into the order you prefer using the sort icon handle below. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below.", 'easy-custom-sidebars') : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])("Add items from the column on the left. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below.", 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_components_SidebarAttachments__WEBPACK_IMPORTED_MODULE_15__["default"], {
     attachments: attachments,
     setAttachments: setUniqueAttachments
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["CardDivider"], {
@@ -29156,7 +29665,7 @@ var CreateSidebar = function CreateSidebar(props) {
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Button"], {
     isDestructive: true,
     onClick: function onClick() {
-      var confirmDelete = confirm(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])("You are about to permanently delete this sidebar. 'Cancel' to stop, 'OK' to delete.", 'easy-custom-sidebars'));
+      var confirmDelete = confirm(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["_x"])("Warning! You are about to permanently delete this sidebar. 'Cancel' to stop, 'OK' to delete.", 'User confirmation message to delete a sidebar.', 'easy-custom-sidebars'));
 
       if (confirmDelete === true) {
         resetSidebar();
@@ -29415,12 +29924,13 @@ var EditSidebar = function EditSidebar(props) {
               }
 
               if (!sidebarName) {
-                _context.next = 8;
+                _context.next = 15;
                 break;
               }
 
+              _context.prev = 4;
               setIsSaving(true);
-              _context.next = 7;
+              _context.next = 8;
               return updateSidebar({
                 id: sidebarToEdit,
                 name: sidebarName,
@@ -29429,19 +29939,31 @@ var EditSidebar = function EditSidebar(props) {
                 replacementId: replacementId
               });
 
-            case 7:
+            case 8:
               addToast(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["sprintf"])(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('%s has been updated.', 'easy-custom-sidebars'), sidebarName), {
                 appearance: 'success',
                 autoDismiss: true,
                 placement: 'bottom-right'
               });
+              _context.next = 15;
+              break;
 
-            case 8:
+            case 11:
+              _context.prev = 11;
+              _context.t0 = _context["catch"](4);
+              addToast(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["sprintf"])(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Unable to save changes to %s. Please try again.', 'easy-custom-sidebars'), sidebarName), {
+                appearance: 'error',
+                autoDismiss: true,
+                placement: 'bottom-right'
+              });
+              setIsSaving(false);
+
+            case 15:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee);
+      }, _callee, null, [[4, 11]]);
     }));
 
     return function updateSidebarAndRedirect() {
@@ -29470,24 +29992,37 @@ var EditSidebar = function EditSidebar(props) {
               return _context2.abrupt("return");
 
             case 2:
+              _context2.prev = 2;
               setIsSaving(true);
-              _context2.next = 5;
+              _context2.next = 6;
               return deleteSidebar(sidebarToEdit);
 
-            case 5:
+            case 6:
               props.history.push(Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_12__["default"])('edit'));
               addToast(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["sprintf"])(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('%s has been deleted.', 'easy-custom-sidebars'), sidebarName), {
                 appearance: 'info',
                 autoDismiss: true,
                 placement: 'bottom-right'
               });
+              _context2.next = 14;
+              break;
 
-            case 7:
+            case 10:
+              _context2.prev = 10;
+              _context2.t0 = _context2["catch"](2);
+              addToast(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["sprintf"])(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Unable to delete %s. Please try again.', 'easy-custom-sidebars'), sidebarName), {
+                appearance: 'error',
+                autoDismiss: true,
+                placement: 'bottom-right'
+              });
+              setIsSaving(false);
+
+            case 14:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2);
+      }, _callee2, null, [[2, 10]]);
     }));
 
     return function deleteSidebarAndRedirect() {
@@ -29548,7 +30083,7 @@ var EditSidebar = function EditSidebar(props) {
     isBusy: isSaving,
     isPrimary: true,
     onClick: updateSidebarAndRedirect
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Save Sidebar', 'easy-custom-sidebars'))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["CardBody"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("h3", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["sprintf"])(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Sidebar Replacements for: %s'), sidebarName)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("p", null, hasAttachments() ? Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])("Drag each item into the order you prefer. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below. Drag each item into the order you prefer.", 'easy-custom-sidebars') : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])("Add items from the column on the left. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below.", 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_components_SidebarAttachments__WEBPACK_IMPORTED_MODULE_17__["default"], {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Save Sidebar', 'easy-custom-sidebars'))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["CardBody"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("h3", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["sprintf"])(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('Sidebar Replacements for: %s'), sidebarName)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("p", null, hasAttachments() ? Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])("Drag each item into the order you prefer using the sort icon handle below. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below.", 'easy-custom-sidebars') : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])("Add items from the column on the left. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below.", 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_components_SidebarAttachments__WEBPACK_IMPORTED_MODULE_17__["default"], {
     attachments: attachments,
     setAttachments: setUniqueAttachments
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["CardDivider"], {
@@ -29580,7 +30115,7 @@ var EditSidebar = function EditSidebar(props) {
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["Button"], {
     isDestructive: true,
     onClick: function onClick() {
-      var confirmDelete = confirm("You are about to permanently delete this sidebar. 'Cancel' to stop, 'OK' to delete.");
+      var confirmDelete = confirm(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["_x"])("Warning! You are about to permanently delete this sidebar. 'Cancel' to stop, 'OK' to delete.", 'User confirmation message to delete a sidebar.', 'easy-custom-sidebars'));
 
       if (confirmDelete === true) {
         deleteSidebarAndRedirect();
@@ -29612,27 +30147,36 @@ var EditSidebar = function EditSidebar(props) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../store */ "./src/scripts/store/index.js");
-/* harmony import */ var _utils_getScreenLink__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../utils/getScreenLink */ "./src/scripts/utils/getScreenLink.js");
-/* harmony import */ var _components_loaders_ManageSidebarsLoader__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/loaders/ManageSidebarsLoader */ "./src/scripts/views/components/loaders/ManageSidebarsLoader.js");
-/* harmony import */ var _components_SidebarRow__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/SidebarRow */ "./src/scripts/views/components/SidebarRow.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "@babel/runtime/regenerator");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_toast_notifications__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-toast-notifications */ "./node_modules/react-toast-notifications/dist/index.js");
+/* harmony import */ var react_toast_notifications__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_toast_notifications__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../store */ "./src/scripts/store/index.js");
+/* harmony import */ var _utils_getScreenLink__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../utils/getScreenLink */ "./src/scripts/utils/getScreenLink.js");
+/* harmony import */ var _components_loaders_ManageSidebarsLoader__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/loaders/ManageSidebarsLoader */ "./src/scripts/views/components/loaders/ManageSidebarsLoader.js");
+/* harmony import */ var _components_SidebarRow__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../components/SidebarRow */ "./src/scripts/views/components/SidebarRow.js");
+
+
 
 
 
 /**
  * External Dependancies
  */
+
 
 /**
  * WordPress dependancies
@@ -29651,23 +30195,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var ManageSidebars = function ManageSidebars(props) {
-  var _useState = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
-      _useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_useState, 2),
-      isDeleting = _useState2[0],
-      setIsDeleting = _useState2[1];
-
-  var hasFinishedResolution = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_5__["useSelect"])(function (select) {
-    return select(_store__WEBPACK_IMPORTED_MODULE_6__["STORE_KEY"]).hasFinishedResolution('getSidebars');
-  });
-
-  var _useDispatch = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_5__["useDispatch"])(_store__WEBPACK_IMPORTED_MODULE_6__["STORE_KEY"]),
-      deleteAllSidebars = _useDispatch.deleteAllSidebars;
-
-  var sidebars = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_5__["useSelect"])(function (select) {
-    return select(_store__WEBPACK_IMPORTED_MODULE_6__["STORE_KEY"]).getSidebars();
-  });
-  var sidebarList = Object.keys(sidebars).sort(function (a, b) {
+var sortSidebarsByTitle = function sortSidebarsByTitle(sidebars) {
+  return Object.keys(sidebars).sort(function (a, b) {
     var firstTitle = sidebars[a].title.rendered.toUpperCase();
     var secondTitle = sidebars[b].title.rendered.toUpperCase();
 
@@ -29680,9 +30209,35 @@ var ManageSidebars = function ManageSidebars(props) {
     }
 
     return 0;
-  }).map(function (id, index, arr) {
+  });
+};
+/**
+ * Manage Sidebars Component
+ */
+
+
+var ManageSidebars = function ManageSidebars(props) {
+  var _useState = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["useState"])(false),
+      _useState2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2___default()(_useState, 2),
+      isDeleting = _useState2[0],
+      setIsDeleting = _useState2[1];
+
+  var sidebars = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_8__["useSelect"])(function (select) {
+    return select(_store__WEBPACK_IMPORTED_MODULE_9__["STORE_KEY"]).getSidebars();
+  });
+  var sidebarReqCompleted = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_8__["useSelect"])(function (select) {
+    return select(_store__WEBPACK_IMPORTED_MODULE_9__["STORE_KEY"]).hasFinishedResolution('getSidebars');
+  });
+
+  var _useToasts = Object(react_toast_notifications__WEBPACK_IMPORTED_MODULE_5__["useToasts"])(),
+      addToast = _useToasts.addToast;
+
+  var _useDispatch = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_8__["useDispatch"])(_store__WEBPACK_IMPORTED_MODULE_9__["STORE_KEY"]),
+      deleteAllSidebars = _useDispatch.deleteAllSidebars;
+
+  var sidebarList = sortSidebarsByTitle(sidebars).map(function (id, index, arr) {
     var isLastItem = index === arr.length - 1;
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_components_SidebarRow__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_components_SidebarRow__WEBPACK_IMPORTED_MODULE_12__["default"], {
       key: id,
       sidebarId: id,
       sidebarTitle: sidebars[id].title.rendered,
@@ -29690,57 +30245,85 @@ var ManageSidebars = function ManageSidebars(props) {
       appendDivider: !isLastItem
     });
   });
-  return hasFinishedResolution ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["Card"], {
+  return sidebarReqCompleted ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["Card"], {
     className: "mb-3"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["CardBody"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["CardBody"], {
     className: "d-block py-0 px-3"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "row"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "col"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("span", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("p", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("span", {
     className: "d-inline-block mr-2"
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Manage your sidebar replacements here or', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["Button"], {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('Manage your sidebar replacements here or', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["Button"], {
     isPrimary: true,
     onClick: function onClick() {
-      props.history.push(Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_7__["default"])('create'));
+      return props.history.push(Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_10__["default"])('create'));
     }
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Create a new Sidebar', 'easy-custom-sidebars'))))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["Card"], {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["_x"])('Create a new Sidebar', 'Create sidebar button text on manage replacements screen.', 'easy-custom-sidebars'))))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["Card"], {
     className: "ecs-manage-sidebars"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["CardHeader"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["CardHeader"], {
     className: "d-block px-3"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "row"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "col-4"
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Sidebar', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('Sidebar', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "col"
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Default Sidebar to Replace', 'easy-custom-sidebar')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["CardBody"], {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('Default Sidebar to Replace', 'easy-custom-sidebar')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["CardBody"], {
     className: "px-3"
-  }, sidebarList.length === 0 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('No sidebars exist.', 'easy-custom-sidebars'), ' ', Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-    to: "".concat(Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_7__["default"])('create'))
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Create your first sidebar', 'easy-custom-sidebars'))), sidebarList)), Object.keys(sidebars).length > 0 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  }, sidebarList.length === 0 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('No sidebars exist.', 'easy-custom-sidebars'), ' ', Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
+    to: "".concat(Object(_utils_getScreenLink__WEBPACK_IMPORTED_MODULE_10__["default"])('create'))
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('Create your first sidebar', 'easy-custom-sidebars'))), sidebarList)), Object.keys(sidebars).length > 0 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])("div", {
     className: "ecs-manage-sidebars__actions d-flex align-items-center mt-3"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["Button"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["Button"], {
     isDestructive: true,
     className: "ecs-manage-sidebars__actions-delete",
-    onClick: function onClick() {
-      var userConfirmedDeletion = confirm(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])("Warning! You are about to permanently delete all sidebars. 'Cancel' to stop, 'OK' to delete.", 'easy-custom-sidebars'));
+    onClick: /*#__PURE__*/_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      var userConfirmedDeletion;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              userConfirmedDeletion = confirm(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["_x"])("Warning! You are about to permanently delete all sidebars. 'Cancel' to stop, 'OK' to delete.", 'User confirmation message to delete all sidebars.', 'easy-custom-sidebars'));
 
-      if (userConfirmedDeletion) {
-        setIsDeleting(true);
-        deleteAllSidebars().then(function () {
-          setIsDeleting(false);
-        }).catch(function (err) {
-          setIsDeleting(false);
-        });
-      }
-    },
+              if (!userConfirmedDeletion) {
+                _context.next = 13;
+                break;
+              }
+
+              setIsDeleting(true);
+              _context.prev = 3;
+              _context.next = 6;
+              return deleteAllSidebars();
+
+            case 6:
+              setIsDeleting(false);
+              addToast(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["__"])('All sidebars have been deleted.', 'easy-custom-sidebars'), {
+                appearance: 'info',
+                autoDismiss: true,
+                placement: 'bottom-right'
+              });
+              _context.next = 13;
+              break;
+
+            case 10:
+              _context.prev = 10;
+              _context.t0 = _context["catch"](3);
+              setIsDeleting(false);
+
+            case 13:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[3, 10]]);
+    })),
     disabled: isDeleting
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__["__"])('Delete All Sidebars', 'easy-custom-sidebars')), isDeleting && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__["Spinner"], null))) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_components_loaders_ManageSidebarsLoader__WEBPACK_IMPORTED_MODULE_8__["default"], null);
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__["_x"])('Delete All Sidebars', 'Button text to delete all sidebars.', 'easy-custom-sidebars')), isDeleting && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["Spinner"], null))) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__["createElement"])(_components_loaders_ManageSidebarsLoader__WEBPACK_IMPORTED_MODULE_11__["default"], null);
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(ManageSidebars));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["withRouter"])(ManageSidebars));
 
 /***/ }),
 

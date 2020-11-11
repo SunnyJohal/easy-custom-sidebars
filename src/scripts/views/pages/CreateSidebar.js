@@ -8,7 +8,7 @@ import { useToasts } from 'react-toast-notifications';
 /**
  * WordPress dependancies
  */
-import { __ } from '@wordpress/i18n';
+import { __, _x, sprintf } from '@wordpress/i18n';
 import { useState, useEffect } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import {
@@ -91,15 +91,27 @@ const CreateSidebar = props => {
     }
 
     if (sidebarName) {
-      setIsSaving(true);
-      const newSidebar = await createSidebar({ name: sidebarName, attachments, description, replacementId });
-      resetSidebar();
-      props.history.push(`${getScreenLink('edit', { sidebar: newSidebar.payload.sidebar.id })}`);
-      addToast(sprintf(__('%s has been created.', 'easy-custom-sidebars'), newSidebar.payload.sidebar.title.rendered), {
-        appearance: 'success',
-        autoDismiss: true,
-        placement: 'bottom-right'
-      });
+      try {
+        setIsSaving(true);
+        const newSidebar = await createSidebar({ name: sidebarName, attachments, description, replacementId });
+        resetSidebar();
+        props.history.push(`${getScreenLink('edit', { sidebar: newSidebar.payload.sidebar.id })}`);
+        addToast(
+          sprintf(__('%s has been created.', 'easy-custom-sidebars'), newSidebar.payload.sidebar.title.rendered),
+          {
+            appearance: 'success',
+            autoDismiss: true,
+            placement: 'bottom-right'
+          }
+        );
+      } catch (error) {
+        addToast(sprintf(__('Unable to create %s. Please try again.', 'easy-custom-sidebars'), sidebarName), {
+          appearance: 'error',
+          autoDismiss: true,
+          placement: 'bottom-right'
+        });
+        setIsSaving(false);
+      }
     }
   };
 
@@ -179,7 +191,7 @@ const CreateSidebar = props => {
                 <p>
                   {hasAttachments()
                     ? __(
-                        `Drag each item into the order you prefer. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below. Drag each item into the order you prefer.`,
+                        `Drag each item into the order you prefer using the sort icon handle below. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below.`,
                         'easy-custom-sidebars'
                       )
                     : __(
@@ -221,8 +233,9 @@ const CreateSidebar = props => {
                       isDestructive
                       onClick={() => {
                         const confirmDelete = confirm(
-                          __(
-                            `You are about to permanently delete this sidebar. 'Cancel' to stop, 'OK' to delete.`,
+                          _x(
+                            `Warning! You are about to permanently delete this sidebar. 'Cancel' to stop, 'OK' to delete.`,
+                            'User confirmation message to delete a sidebar.',
                             'easy-custom-sidebars'
                           )
                         );

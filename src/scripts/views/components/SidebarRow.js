@@ -2,11 +2,12 @@
  * External Dependancies
  */
 import { Link, withRouter } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
 
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __, _x, sprintf } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { useState } from '@wordpress/element';
 import { CardDivider, SelectControl, Spinner } from '@wordpress/components';
@@ -43,14 +44,10 @@ const getDefaultSidebarOptions = (defaultSidebars, sidebarReplacementId) => {
  */
 const SidebarRow = props => {
   const { appendDivider, sidebarId, sidebarTitle, sidebarReplacementId } = props;
-
   const [isSaving, setIsSaving] = useState(false);
-
+  const defaultSidebars = useSelect(select => select(STORE_KEY).getDefaultSidebars());
+  const { addToast } = useToasts();
   const { updateSidebarReplacement, deleteSidebar } = useDispatch(STORE_KEY);
-
-  const defaultSidebars = useSelect(select => {
-    return select(STORE_KEY).getDefaultSidebars();
-  });
 
   return (
     <div className="ecs-manage-sidebars__sidebar">
@@ -65,19 +62,25 @@ const SidebarRow = props => {
             <Link to={`${getScreenLink('edit', { sidebar: sidebarId })}`}>{__('Edit', 'easy-custom-sidebars')}</Link> |{' '}
             <a
               href="#"
-              onClick={e => {
-                e.preventDefault();
+              onClick={async event => {
+                event.preventDefault();
 
                 const userConfirmedDeletion = confirm(
-                  __(
+                  _x(
                     `Warning! You are about to permanently delete this sidebar. 'Cancel' to stop, 'OK' to delete.`,
+                    'User confirmation message to delete a sidebar.',
                     'easy-custom-sidebars'
                   )
                 );
 
                 if (userConfirmedDeletion) {
                   setIsSaving(true);
-                  deleteSidebar(sidebarId);
+                  await deleteSidebar(sidebarId);
+                  addToast(sprintf(__('%s has been deleted.', 'easy-custom-sidebars'), sidebarTitle), {
+                    appearance: 'info',
+                    autoDismiss: true,
+                    placement: 'bottom-right'
+                  });
                 }
               }}
               disabled={isSaving}
@@ -99,10 +102,14 @@ const SidebarRow = props => {
                 value={sidebarReplacementId}
                 options={getDefaultSidebarOptions(defaultSidebars, sidebarReplacementId)}
                 disabled={isSaving}
-                onChange={replacementId => {
+                onChange={async replacementId => {
                   setIsSaving(true);
-                  updateSidebarReplacement({ id: sidebarId, replacementId }).then(() => {
-                    setIsSaving(false);
+                  await updateSidebarReplacement({ id: sidebarId, replacementId });
+                  setIsSaving(false);
+                  addToast(sprintf(__('%s has been updated.', 'easy-custom-sidebars'), sidebarTitle), {
+                    appearance: 'success',
+                    autoDismiss: true,
+                    placement: 'bottom-right'
                   });
                 }}
               />

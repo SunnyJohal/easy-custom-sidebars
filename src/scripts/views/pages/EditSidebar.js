@@ -8,7 +8,7 @@ import { useToasts } from 'react-toast-notifications';
 /**
  * WordPress dependancies
  */
-import { __, sprintf } from '@wordpress/i18n';
+import { __, _x, sprintf } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { useState, useEffect } from '@wordpress/element';
 import {
@@ -70,7 +70,6 @@ const EditSidebar = props => {
   });
 
   const defaultSidebars = useSelect(select => select(STORE_KEY).getDefaultSidebars());
-
   let defaultSidebarOptions = Object.keys(defaultSidebars).map(id => {
     return {
       label: defaultSidebars[id].name,
@@ -151,19 +150,28 @@ const EditSidebar = props => {
     }
 
     if (sidebarName) {
-      setIsSaving(true);
-      await updateSidebar({
-        id: sidebarToEdit,
-        name: sidebarName,
-        attachments,
-        description,
-        replacementId
-      });
-      addToast(sprintf(__('%s has been updated.', 'easy-custom-sidebars'), sidebarName), {
-        appearance: 'success',
-        autoDismiss: true,
-        placement: 'bottom-right'
-      });
+      try {
+        setIsSaving(true);
+        await updateSidebar({
+          id: sidebarToEdit,
+          name: sidebarName,
+          attachments,
+          description,
+          replacementId
+        });
+        addToast(sprintf(__('%s has been updated.', 'easy-custom-sidebars'), sidebarName), {
+          appearance: 'success',
+          autoDismiss: true,
+          placement: 'bottom-right'
+        });
+      } catch (error) {
+        addToast(sprintf(__('Unable to save changes to %s. Please try again.', 'easy-custom-sidebars'), sidebarName), {
+          appearance: 'error',
+          autoDismiss: true,
+          placement: 'bottom-right'
+        });
+        setIsSaving(false);
+      }
     }
   };
 
@@ -176,14 +184,23 @@ const EditSidebar = props => {
       return;
     }
 
-    setIsSaving(true);
-    await deleteSidebar(sidebarToEdit);
-    props.history.push(getScreenLink('edit'));
-    addToast(sprintf(__('%s has been deleted.', 'easy-custom-sidebars'), sidebarName), {
-      appearance: 'info',
-      autoDismiss: true,
-      placement: 'bottom-right'
-    });
+    try {
+      setIsSaving(true);
+      await deleteSidebar(sidebarToEdit);
+      props.history.push(getScreenLink('edit'));
+      addToast(sprintf(__('%s has been deleted.', 'easy-custom-sidebars'), sidebarName), {
+        appearance: 'info',
+        autoDismiss: true,
+        placement: 'bottom-right'
+      });
+    } catch (err) {
+      addToast(sprintf(__('Unable to delete %s. Please try again.', 'easy-custom-sidebars'), sidebarName), {
+        appearance: 'error',
+        autoDismiss: true,
+        placement: 'bottom-right'
+      });
+      setIsSaving(false);
+    }
   };
 
   /**
@@ -252,7 +269,7 @@ const EditSidebar = props => {
                 <p>
                   {hasAttachments()
                     ? __(
-                        `Drag each item into the order you prefer. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below. Drag each item into the order you prefer.`,
+                        `Drag each item into the order you prefer using the sort icon handle below. Please ensure that any items added to this sidebar contain the default 'Sidebar to Replace' widget area selected in the sidebar properties below.`,
                         'easy-custom-sidebars'
                       )
                     : __(
@@ -300,7 +317,11 @@ const EditSidebar = props => {
                       isDestructive
                       onClick={() => {
                         const confirmDelete = confirm(
-                          `You are about to permanently delete this sidebar. 'Cancel' to stop, 'OK' to delete.`
+                          _x(
+                            `Warning! You are about to permanently delete this sidebar. 'Cancel' to stop, 'OK' to delete.`,
+                            'User confirmation message to delete a sidebar.',
+                            'easy-custom-sidebars'
+                          )
                         );
 
                         if (confirmDelete === true) {

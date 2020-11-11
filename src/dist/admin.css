@@ -4568,5 +4568,25 @@ html {
   background-color: #4ab866;
 }
 
+/* Toast: Warning */
+.react-toast-notifications__toast.react-toast-notifications__toast--warning {
+  background-color: #fef8ee;
+  color: #ff9a00;
+}
+
+.react-toast-notifications__toast--warning .react-toast-notifications__toast__icon-wrapper {
+  background-color: #f0b849;
+}
+
+/* Toast: Error */
+.react-toast-notifications__toast.react-toast-notifications__toast--error {
+  background-color: #f9e2e2;
+  color: #c62828;
+}
+
+.react-toast-notifications__toast--error .react-toast-notifications__toast__icon-wrapper {
+  background-color: #d94f4f;
+}
+
 
 /*# sourceMappingURL=admin.css.map*/

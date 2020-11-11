@@ -81,8 +81,7 @@ const SidebarSelector = props => {
 
         <div className="col-12 col-sm-auto pl-sm-2">
           <span>
-            {__('or', 'easy-custom-sidebars')}{' '}
-            <Link to={`${getScreenLink('create')}`}>{__('create a new sidebar', 'easy-custom-sidebars')}</Link>
+            <Link to={`${getScreenLink('create')}`}>{__('or create a new sidebar', 'easy-custom-sidebars')}</Link>
           </span>
         </div>
       </CardBody>

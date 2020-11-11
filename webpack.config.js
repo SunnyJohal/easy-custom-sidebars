@@ -5,7 +5,8 @@ const getAssetPath = file => `${process.cwd()}/src/scripts/${file}`;
 const getStylePath = file => `${process.cwd()}/src/styles/${file}`;
 
 const entry = {
-  admin: [getAssetPath('admin.js'), getStylePath('admin.css')]
+  admin: [getAssetPath('admin.js'), getStylePath('admin.css')],
+  pointer: [getAssetPath('pointer.js')]
 };
 
 module.exports = {

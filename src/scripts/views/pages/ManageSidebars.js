@@ -2,12 +2,13 @@
  * External Dependancies
  */
 import { Link, withRouter } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
 
 /**
  * WordPress dependancies
  */
-import { __ } from '@wordpress/i18n';
-import { Button, Card, CardBody, CardDivider, CardHeader, SelectControl, Spinner } from '@wordpress/components';
+import { __, _x } from '@wordpress/i18n';
+import { Button, Card, CardBody, CardHeader, Spinner } from '@wordpress/components';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { useState } from '@wordpress/element';
 
@@ -19,49 +20,48 @@ import getScreenLink from '../../utils/getScreenLink';
 import ManageSidebarsLoader from '../components/loaders/ManageSidebarsLoader';
 import SidebarRow from '../components/SidebarRow';
 
+const sortSidebarsByTitle = sidebars => {
+  return Object.keys(sidebars).sort((a, b) => {
+    const firstTitle = sidebars[a].title.rendered.toUpperCase();
+    const secondTitle = sidebars[b].title.rendered.toUpperCase();
+
+    if (firstTitle < secondTitle) {
+      return -1;
+    }
+
+    if (firstTitle > secondTitle) {
+      return 1;
+    }
+
+    return 0;
+  });
+};
+
+/**
+ * Manage Sidebars Component
+ */
 const ManageSidebars = props => {
   const [isDeleting, setIsDeleting] = useState(false);
-
-  const hasFinishedResolution = useSelect(select => {
-    return select(STORE_KEY).hasFinishedResolution('getSidebars');
-  });
-
+  const sidebars = useSelect(select => select(STORE_KEY).getSidebars());
+  const sidebarReqCompleted = useSelect(select => select(STORE_KEY).hasFinishedResolution('getSidebars'));
+  const { addToast } = useToasts();
   const { deleteAllSidebars } = useDispatch(STORE_KEY);
 
-  const sidebars = useSelect(select => {
-    return select(STORE_KEY).getSidebars();
+  const sidebarList = sortSidebarsByTitle(sidebars).map((id, index, arr) => {
+    const isLastItem = index === arr.length - 1;
+
+    return (
+      <SidebarRow
+        key={id}
+        sidebarId={id}
+        sidebarTitle={sidebars[id].title.rendered}
+        sidebarReplacementId={sidebars[id].meta.sidebar_replacement_id}
+        appendDivider={!isLastItem}
+      />
+    );
   });
 
-  const sidebarList = Object.keys(sidebars)
-    .sort((a, b) => {
-      const firstTitle = sidebars[a].title.rendered.toUpperCase();
-      const secondTitle = sidebars[b].title.rendered.toUpperCase();
-
-      if (firstTitle < secondTitle) {
-        return -1;
-      }
-
-      if (firstTitle > secondTitle) {
-        return 1;
-      }
-
-      return 0;
-    })
-    .map((id, index, arr) => {
-      const isLastItem = index === arr.length - 1;
-
-      return (
-        <SidebarRow
-          key={id}
-          sidebarId={id}
-          sidebarTitle={sidebars[id].title.rendered}
-          sidebarReplacementId={sidebars[id].meta.sidebar_replacement_id}
-          appendDivider={!isLastItem}
-        />
-      );
-    });
-
-  return hasFinishedResolution ? (
+  return sidebarReqCompleted ? (
     <div>
       {/* Admin UI Headers */}
       <Card className="mb-3">
@@ -72,13 +72,12 @@ const ManageSidebars = props => {
                 <span className="d-inline-block mr-2">
                   {__('Manage your sidebar replacements here or', 'easy-custom-sidebars')}
                 </span>
-                <Button
-                  isPrimary
-                  onClick={() => {
-                    props.history.push(getScreenLink('create'));
-                  }}
-                >
-                  {__('Create a new Sidebar', 'easy-custom-sidebars')}
+                <Button isPrimary onClick={() => props.history.push(getScreenLink('create'))}>
+                  {_x(
+                    'Create a new Sidebar',
+                    'Create sidebar button text on manage replacements screen.',
+                    'easy-custom-sidebars'
+                  )}
                 </Button>
               </p>
             </div>
@@ -110,28 +109,34 @@ const ManageSidebars = props => {
           <Button
             isDestructive
             className="ecs-manage-sidebars__actions-delete"
-            onClick={() => {
+            onClick={async () => {
               const userConfirmedDeletion = confirm(
-                __(
+                _x(
                   `Warning! You are about to permanently delete all sidebars. 'Cancel' to stop, 'OK' to delete.`,
+                  'User confirmation message to delete all sidebars.',
                   'easy-custom-sidebars'
                 )
               );
 
               if (userConfirmedDeletion) {
                 setIsDeleting(true);
-                deleteAllSidebars()
-                  .then(() => {
-                    setIsDeleting(false);
-                  })
-                  .catch(err => {
-                    setIsDeleting(false);
+
+                try {
+                  await deleteAllSidebars();
+                  setIsDeleting(false);
+                  addToast(__('All sidebars have been deleted.', 'easy-custom-sidebars'), {
+                    appearance: 'info',
+                    autoDismiss: true,
+                    placement: 'bottom-right'
                   });
+                } catch (error) {
+                  setIsDeleting(false);
+                }
               }
             }}
             disabled={isDeleting}
           >
-            {__('Delete All Sidebars', 'easy-custom-sidebars')}
+            {_x('Delete All Sidebars', 'Button text to delete all sidebars.', 'easy-custom-sidebars')}
           </Button>
           {isDeleting && <Spinner />}
         </div>

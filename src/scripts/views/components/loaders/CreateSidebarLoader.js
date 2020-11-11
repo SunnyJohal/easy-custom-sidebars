@@ -18,6 +18,7 @@ const CreateSidebarLoader = () => {
             <Skeleton height={164} style={{ marginBottom: 1 }} />
             <Skeleton height={48} style={{ marginBottom: 0 }} />
             <Skeleton height={48} style={{ marginBottom: 0 }} />
+            <Skeleton height={48} style={{ marginBottom: 0 }} />
           </div>
 
           {/* Sidebar settings placeholder */}
