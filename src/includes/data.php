@@ -341,6 +341,34 @@ function get_default_registered_sidebars() {
 }
 
 /**
+ * Get Custom Sidebar Replacements.
+ *
+ * Gets every custom sidebar replacement
+ * ordered by name.
+ *
+ * @return array sidebars.
+ */
+function get_custom_sidebar_replacements() {
+	global $wp_registered_sidebars;
+
+	$sidebar_replacements = array_filter(
+		$wp_registered_sidebars,
+		function ( $sidebar ) {
+			return ! empty( $sidebar['ecs_custom_sidebar'] );
+		}
+	);
+
+	usort(
+		$sidebar_replacements,
+		function() {
+			return $a['name'] - $b['name'];
+		}
+	);
+
+	return $sidebar_replacements;
+}
+
+/**
  * Delete All Sidebars
  *
  * @return boolean true after all sidebars have been deleted.

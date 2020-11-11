@@ -77,6 +77,7 @@ function get_plugin_settings_page() {
  * @since 2.0.0
  */
 function enqueue_admin_scripts() {
+	// Admin pointer.
 	$show_admin_pointer = get_option( 'ecs_show_admin_pointer', false );
 
 	if ( $show_admin_pointer && ! is_plugin_settings_page() ) {
@@ -93,6 +94,7 @@ function enqueue_admin_scripts() {
 		);
 	}
 
+	// Plugin settings.
 	if ( is_plugin_settings_page() ) {
 		$admin_asset = include plugin_dir_path( __FILE__ ) . '../dist/admin.asset.php';
 
