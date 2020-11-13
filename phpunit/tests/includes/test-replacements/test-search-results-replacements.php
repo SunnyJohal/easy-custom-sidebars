@@ -39,7 +39,10 @@ class ECS_Test_Search_Replacement extends WP_UnitTestCase {
 		$context     = 'is_search';
 		$replacement = Frontend\get_widget_area_replacement_id( 'example_sidebar', $context );
 
-		$this->assertEquals( $replacement, $sidebar_id );
+		$this->assertEquals(
+			$replacement,
+			Data\get_sidebar_id( $sidebar_id )
+		);
 	}
 
 	/**
@@ -94,8 +97,19 @@ class ECS_Test_Search_Replacement extends WP_UnitTestCase {
 		$context     = 'is_search';
 		$replacement = Frontend\get_widget_area_replacement_id( 'example_sidebar', $context );
 
-		$this->assertEquals( $replacement, $sidebar_two_id );
-		$this->assertNotEquals( $replacement, $sidebar_one_id );
-		$this->assertNotEquals( $replacement, $sidebar_three_id );
+		$this->assertEquals(
+			$replacement,
+			Data\get_sidebar_id( $sidebar_two_id )
+		);
+
+		$this->assertNotEquals(
+			$replacement,
+			Data\get_sidebar_id( $sidebar_one_id )
+		);
+
+		$this->assertNotEquals(
+			$replacement,
+			Data\get_sidebar_id( $sidebar_three_id )
+		);
 	}
 }

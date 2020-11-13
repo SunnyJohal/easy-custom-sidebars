@@ -117,7 +117,7 @@ function sidebar_replacements_determined() {
 function determine_sidebar_replacements( $default_widget_area_ids ) {
 	global $_ecs_all_replacements;
 
-	$current_context = get_current_frontend_context();
+	$current_context = apply_filters( 'ecs_current_frontend_context', get_current_frontend_context() );
 
 	$_ecs_all_replacements = array_reduce(
 		$default_widget_area_ids,
@@ -185,42 +185,42 @@ function get_current_frontend_context() {
 
 	// Template hierarchy.
 	if ( is_404() ) {
-		$context = 'is_404';
+		return 'is_404';
 	}
 
 	if ( is_search() ) {
-		$context = 'is_search';
+		return 'is_search';
 	}
 
 	if ( is_home() ) {
-		$context = 'is_home';
+		return 'is_home';
 	}
 
 	if ( is_author() ) {
-		$context = 'is_author';
+		return 'is_author';
 	}
 
 	if ( is_date() ) {
-		$context = 'is_date';
+		return 'is_date';
 	}
 
 	if ( ! is_home() && is_page() ) {
-		$context = 'is_page';
+		return 'is_page';
 	}
 
 	if ( is_single() ) {
-		$context = 'is_single';
+		return 'is_single';
 	}
 
 	if ( is_tax() || is_category() || is_tag() ) {
-		$context = 'is_taxonomy';
+		return 'is_taxonomy';
 	}
 
 	if ( is_archive() && ! is_category() && ! is_tax() && ! is_tag() ) {
-		$context = 'is_post_type_archive';
+		return 'is_post_type_archive';
 	}
 
-	return apply_filters( 'ecs_current_frontend_context', $context );
+	return $context;
 }
 
 /**
@@ -257,21 +257,19 @@ function get_all_sidebar_replacements() {
  */
 function detect_404_replacements( $replacement, $possible_replacement_id, $context, $attachments, $widget_area_id ) {
 	$template_attachments = wp_list_filter( $attachments, [ 'attachment_type' => 'template_hierarchy' ] );
-	$better_match_found   = $replacement['score'] > 10;
+	$replacement_score    = 10;
+	$better_match_found   = $replacement['score'] > $replacement_score;
 
-	if ( $better_match_found || empty( $template_attachments ) || ! 'is_404' === $context ) {
+	if ( $better_match_found || empty( $template_attachments ) || 'is_404' !== $context ) {
 		return $replacement;
 	}
 
 	$new_replacement = [
 		'id'    => $possible_replacement_id,
-		'score' => 10,
+		'score' => $replacement_score,
 	];
 
-	if (
-		'is_404' === $context &&
-		! empty( wp_list_filter( $template_attachments, [ 'data_type' => '404' ] ) )
-	) {
+	if ( ! empty( wp_list_filter( $template_attachments, [ 'data_type' => '404' ] ) ) ) {
 		return $new_replacement;
 	}
 
@@ -295,21 +293,19 @@ add_filter(
  */
 function detect_search_result_replacements( $replacement, $possible_replacement_id, $context, $attachments, $widget_area_id ) {
 	$template_attachments = wp_list_filter( $attachments, [ 'attachment_type' => 'template_hierarchy' ] );
-	$better_match_found   = $replacement['score'] > 10;
+	$replacement_score    = 10;
+	$better_match_found   = $replacement['score'] > $replacement_score;
 
-	if ( $better_match_found || empty( $template_attachments ) || ! 'is_404' === $context ) {
+	if ( $better_match_found || empty( $template_attachments ) || 'is_search' !== $context ) {
 		return $replacement;
 	}
 
 	$new_replacement = [
 		'id'    => $possible_replacement_id,
-		'score' => 10,
+		'score' => $replacement_score,
 	];
 
-	if (
-		'is_search' === $context &&
-		! empty( wp_list_filter( $template_attachments, [ 'data_type' => 'search_results' ] ) )
-	) {
+	if ( ! empty( wp_list_filter( $template_attachments, [ 'data_type' => 'search_results' ] ) ) ) {
 		return $new_replacement;
 	}
 
@@ -333,21 +329,19 @@ add_filter(
  */
 function detect_date_archive_replacements( $replacement, $possible_replacement_id, $context, $attachments, $widget_area_id ) {
 	$template_attachments = wp_list_filter( $attachments, [ 'attachment_type' => 'template_hierarchy' ] );
-	$better_match_found   = $replacement['score'] > 10;
+	$replacement_score    = 10;
+	$better_match_found   = $replacement['score'] > $replacement_score;
 
-	if ( $better_match_found || empty( $template_attachments ) || ! 'is_date' === $context ) {
+	if ( $better_match_found || empty( $template_attachments ) || 'is_date' !== $context ) {
 		return $replacement;
 	}
 
 	$new_replacement = [
 		'id'    => $possible_replacement_id,
-		'score' => 10,
+		'score' => $replacement_score,
 	];
 
-	if (
-		'is_date' === $context &&
-		! empty( wp_list_filter( $template_attachments, [ 'data_type' => 'date_archive' ] ) )
-	) {
+	if ( ! empty( wp_list_filter( $template_attachments, [ 'data_type' => 'date_archive' ] ) ) ) {
 		return $new_replacement;
 	}
 
@@ -371,7 +365,21 @@ add_filter(
  */
 function detect_author_archive_all_replacements( $replacement, $possible_replacement_id, $context, $attachments, $widget_area_id ) {
 	$template_attachments = wp_list_filter( $attachments, [ 'attachment_type' => 'template_hierarchy' ] );
-	$better_match_found   = $replacement['score'] > 10;
+	$replacement_score    = 10;
+	$better_match_found   = $replacement['score'] > $replacement_score;
+
+	if ( $better_match_found || empty( $template_attachments ) || 'is_author' !== $context ) {
+		return $replacement;
+	}
+
+	$new_replacement = [
+		'id'    => $possible_replacement_id,
+		'score' => $replacement_score,
+	];
+
+	if ( ! empty( wp_list_filter( $template_attachments, [ 'data_type' => 'author_archive_all' ] ) ) ) {
+		return $new_replacement;
+	}
 
 	return $replacement;
 }
@@ -379,5 +387,49 @@ add_filter(
 	'ecs_widget_area_replacement_id',
 	__NAMESPACE__ . '\\detect_author_archive_all_replacements',
 	10,
+	5
+);
+
+/**
+ * Detect Author Archive Single Replacements
+ *
+ * @param array  $replacement Current selected replacement metadata (if applicable).
+ * @param string $possible_replacement_id ID of possible sidebar replacement.
+ * @param string $context Current frontend context.
+ * @param array  $attachments Arr of custom sidebar replacement attachments.
+ * @param string $widget_area_id Original sidebar id.
+ */
+function detect_author_archive_replacements( $replacement, $possible_replacement_id, $context, $attachments, $widget_area_id ) {
+	$archive_attachments = wp_list_filter( $attachments, [ 'attachment_type' => 'author_archive' ] );
+	$replacement_score   = 20;
+	$better_match_found  = $replacement['score'] > $replacement_score;
+
+	if ( $better_match_found || empty( $archive_attachments ) || 'is_author' !== $context ) {
+		return $replacement;
+	}
+
+	$new_replacement = [
+		'id'    => $possible_replacement_id,
+		'score' => $replacement_score,
+	];
+
+	$author_archive_attachments = wp_list_filter(
+		$archive_attachments,
+		[
+			'id'        => get_queried_object_id(),
+			'data_type' => 'user',
+		]
+	);
+
+	if ( ! empty( $author_archive_attachments ) ) {
+		return $new_replacement;
+	}
+
+	return $replacement;
+}
+add_filter(
+	'ecs_widget_area_replacement_id',
+	__NAMESPACE__ . '\\detect_author_archive_replacements',
+	20,
 	5
 );

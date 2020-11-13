@@ -183,11 +183,12 @@ const AuthorArchiveUsers = props => {
             const newAttachments = items
               .filter(item => item.checked)
               .map(item => {
+                console.log('check this for the link', item);
                 return {
                   id: item.id,
                   title: item.name,
                   label: __('Author Archive', 'easy-custom-sidebars'),
-                  link: addQueryArgs(`${easy_custom_sidebars.admin_url}edit.php`, { taxonomy: slug }),
+                  link: item.link,
                   data_type: 'user',
                   attachment_type: 'author_archive'
                 };
@@ -211,7 +212,7 @@ const AuthorArchiveUsers = props => {
                   id: item.id,
                   title: item.name,
                   label: __('Author Archive', 'easy-custom-sidebars'),
-                  link: addQueryArgs(`${easy_custom_sidebars.admin_url}edit.php`, { taxonomy: slug }),
+                  link: item.link,
                   data_type: 'user',
                   attachment_type: 'author_archive'
                 };

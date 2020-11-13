@@ -28075,13 +28075,12 @@ var AuthorArchiveUsers = function AuthorArchiveUsers(props) {
       var newAttachments = items.filter(function (item) {
         return item.checked;
       }).map(function (item) {
+        console.log('check this for the link', item);
         return {
           id: item.id,
           title: item.name,
           label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__["__"])('Author Archive', 'easy-custom-sidebars'),
-          link: Object(_wordpress_url__WEBPACK_IMPORTED_MODULE_9__["addQueryArgs"])("".concat(easy_custom_sidebars.admin_url, "edit.php"), {
-            taxonomy: slug
-          }),
+          link: item.link,
           data_type: 'user',
           attachment_type: 'author_archive'
         };
@@ -28099,9 +28098,7 @@ var AuthorArchiveUsers = function AuthorArchiveUsers(props) {
           id: item.id,
           title: item.name,
           label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__["__"])('Author Archive', 'easy-custom-sidebars'),
-          link: Object(_wordpress_url__WEBPACK_IMPORTED_MODULE_9__["addQueryArgs"])("".concat(easy_custom_sidebars.admin_url, "edit.php"), {
-            taxonomy: slug
-          }),
+          link: item.link,
           data_type: 'user',
           attachment_type: 'author_archive'
         };
