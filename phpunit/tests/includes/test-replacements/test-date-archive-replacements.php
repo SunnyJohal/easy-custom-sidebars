@@ -1,9 +1,9 @@
 <?php
 /**
- * Test Replacement: Search Results Page
+ * Test Replacement: Date Archives
  *
  * Test that the right sidebar is selected
- * for the search results page context.
+ * for the date archive page context.
  *
  * @package Easy_Custom_Sidebars
  */
@@ -12,9 +12,9 @@ use ECS\Frontend as Frontend;
 use ECS\Data as Data;
 
 /**
- * Class ECS_Test_Search_Replacement
+ * Class ECS_Test_404_Replacement
  */
-class ECS_Test_Search_Replacement extends WP_UnitTestCase {
+class ECS_Test_Date_Archive_Replacement extends WP_UnitTestCase {
 	/**
 	 * Test Single Replacement.
 	 */
@@ -28,7 +28,7 @@ class ECS_Test_Search_Replacement extends WP_UnitTestCase {
 					'sidebar_attachments'    => [
 						[
 							'id'              => 0,
-							'data_type'       => 'search_results',
+							'data_type'       => 'date_archive',
 							'attachment_type' => 'template_hierarchy',
 						],
 					],
@@ -36,7 +36,7 @@ class ECS_Test_Search_Replacement extends WP_UnitTestCase {
 			]
 		);
 
-		$context     = 'is_search';
+		$context     = 'is_date';
 		$replacement = Frontend\get_widget_area_replacement_id( 'example_sidebar', $context );
 
 		$this->assertEquals( $replacement, $sidebar_id );
@@ -55,7 +55,7 @@ class ECS_Test_Search_Replacement extends WP_UnitTestCase {
 					'sidebar_attachments'    => [
 						[
 							'id'              => 0,
-							'data_type'       => 'search_results',
+							'data_type'       => 'date_archive',
 							'attachment_type' => 'template_hierarchy',
 						],
 					],
@@ -72,7 +72,7 @@ class ECS_Test_Search_Replacement extends WP_UnitTestCase {
 					'sidebar_attachments'    => [
 						[
 							'id'              => 0,
-							'data_type'       => 'search_results',
+							'data_type'       => 'date_archive',
 							'attachment_type' => 'template_hierarchy',
 						],
 					],
@@ -91,7 +91,7 @@ class ECS_Test_Search_Replacement extends WP_UnitTestCase {
 			]
 		);
 
-		$context     = 'is_search';
+		$context     = 'is_date';
 		$replacement = Frontend\get_widget_area_replacement_id( 'example_sidebar', $context );
 
 		$this->assertEquals( $replacement, $sidebar_two_id );

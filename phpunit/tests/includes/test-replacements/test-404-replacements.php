@@ -12,9 +12,9 @@ use ECS\Frontend as Frontend;
 use ECS\Data as Data;
 
 /**
- * Class ECS_Test_404_Replacment
+ * Class ECS_Test_404_Replacement
  */
-class ECS_Test_404_Replacment extends WP_UnitTestCase {
+class ECS_Test_404_Replacement extends WP_UnitTestCase {
 	/**
 	 * Test Single Replacement.
 	 */
@@ -43,7 +43,7 @@ class ECS_Test_404_Replacment extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test Multiple Replacments.
+	 * Test Multiple Replacements.
 	 */
 	public function test_replacement_multiple() {
 		$sidebar_one_id = self::factory()->post->create(

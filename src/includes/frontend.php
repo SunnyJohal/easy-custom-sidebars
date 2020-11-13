@@ -137,7 +137,7 @@ function determine_sidebar_replacements( $default_widget_area_ids ) {
 }
 
 /**
- * Get Widget Area Replacment.
+ * Get Widget Area Replacement.
  *
  * @param string $widget_area_id The unique identifier for the sidebar.
  * @param string $context The current frontend context for the user.
@@ -318,6 +318,44 @@ function detect_search_result_replacements( $replacement, $possible_replacement_
 add_filter(
 	'ecs_widget_area_replacement_id',
 	__NAMESPACE__ . '\\detect_search_result_replacements',
+	10,
+	5
+);
+
+/**
+ * Detect Search Result Replacements
+ *
+ * @param array  $replacement Current selected replacement metadata (if applicable).
+ * @param string $possible_replacement_id ID of possible sidebar replacement.
+ * @param string $context Current frontend context.
+ * @param array  $attachments Arr of custom sidebar replacement attachments.
+ * @param string $widget_area_id Original sidebar id.
+ */
+function detect_date_archive_replacements( $replacement, $possible_replacement_id, $context, $attachments, $widget_area_id ) {
+	$template_attachments = wp_list_filter( $attachments, [ 'attachment_type' => 'template_hierarchy' ] );
+	$better_match_found   = $replacement['score'] > 10;
+
+	if ( $better_match_found || empty( $template_attachments ) || ! 'is_date' === $context ) {
+		return $replacement;
+	}
+
+	$new_replacement = [
+		'id'    => $possible_replacement_id,
+		'score' => 10,
+	];
+
+	if (
+		'is_date' === $context &&
+		! empty( wp_list_filter( $template_attachments, [ 'data_type' => 'date_archive' ] ) )
+	) {
+		return $new_replacement;
+	}
+
+	return $replacement;
+}
+add_filter(
+	'ecs_widget_area_replacement_id',
+	__NAMESPACE__ . '\\detect_date_archive_replacements',
 	10,
 	5
 );
