@@ -12,7 +12,7 @@ use ECS\Frontend as Frontend;
 use ECS\Data as Data;
 
 /**
- * Class ECS_Test_404_Replacement
+ * Class ECS_Test_Date_Archive_Replacement
  */
 class ECS_Test_Date_Archive_Replacement extends WP_UnitTestCase {
 	/**

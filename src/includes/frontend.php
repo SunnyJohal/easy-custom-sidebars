@@ -171,7 +171,7 @@ function get_widget_area_replacement_id( $widget_area_id, $context ) {
 		);
 	}
 
-	return $replacement['id'];
+	return empty( $replacement['id'] ) ? false : Data\get_sidebar_id( $replacement['id'] );
 }
 
 /**
@@ -356,6 +356,28 @@ function detect_date_archive_replacements( $replacement, $possible_replacement_i
 add_filter(
 	'ecs_widget_area_replacement_id',
 	__NAMESPACE__ . '\\detect_date_archive_replacements',
+	10,
+	5
+);
+
+/**
+ * Detect Author Archive All Replacements
+ *
+ * @param array  $replacement Current selected replacement metadata (if applicable).
+ * @param string $possible_replacement_id ID of possible sidebar replacement.
+ * @param string $context Current frontend context.
+ * @param array  $attachments Arr of custom sidebar replacement attachments.
+ * @param string $widget_area_id Original sidebar id.
+ */
+function detect_author_archive_all_replacements( $replacement, $possible_replacement_id, $context, $attachments, $widget_area_id ) {
+	$template_attachments = wp_list_filter( $attachments, [ 'attachment_type' => 'template_hierarchy' ] );
+	$better_match_found   = $replacement['score'] > 10;
+
+	return $replacement;
+}
+add_filter(
+	'ecs_widget_area_replacement_id',
+	__NAMESPACE__ . '\\detect_author_archive_all_replacements',
 	10,
 	5
 );

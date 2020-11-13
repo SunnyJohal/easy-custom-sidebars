@@ -378,14 +378,15 @@ function delete_all_sidebars() {
 		[
 			'post_type'      => 'sidebar_instance',
 			'posts_per_page' => -1,
+			'fields'         => 'ids',
 		]
 	);
 
-	if ( $all_sidebars->have_posts() ) {
-		while ( $all_sidebars->have_posts() ) {
-			$all_sidebars->the_post();
-			wp_delete_post( get_the_ID(), true );
-		}
+	foreach ( $all_sidebars->posts as $sidebar_id ) {
+		wp_delete_post( $sidebar_id, true );
+	}
+
+	if ( ! empty( $custom_sidebars->posts ) ) {
 		wp_reset_postdata();
 	}
 

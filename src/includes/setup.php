@@ -30,14 +30,15 @@ function register_all_custom_sidebars() {
 			'posts_per_page' => -1,
 			'orderby'        => 'title',
 			'order'          => 'ASC',
+			'fields'         => 'ids',
 		]
 	);
 
-	if ( $custom_sidebars->have_posts() ) {
-		while ( $custom_sidebars->have_posts() ) {
-			$custom_sidebars->the_post();
-			register_sidebar( get_sidebar_args( get_the_ID() ) );
-		}
+	foreach ( $custom_sidebars->posts as $sidebar_id ) {
+		register_sidebar( get_sidebar_args( $sidebar_id ) );
+	}
+
+	if ( ! empty( $custom_sidebars->posts ) ) {
 		wp_reset_postdata();
 	}
 }
