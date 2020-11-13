@@ -247,7 +247,7 @@ function get_all_sidebar_replacements() {
 }
 
 /**
- * Detect Template Hierarchy Replacements
+ * Detect 404 Replacements
  *
  * @param array  $replacement Current selected replacement metadata (if applicable).
  * @param string $possible_replacement_id ID of possible sidebar replacement.
@@ -280,6 +280,44 @@ function detect_404_replacements( $replacement, $possible_replacement_id, $conte
 add_filter(
 	'ecs_widget_area_replacement_id',
 	__NAMESPACE__ . '\\detect_404_replacements',
+	10,
+	5
+);
+
+/**
+ * Detect Search Result Replacements
+ *
+ * @param array  $replacement Current selected replacement metadata (if applicable).
+ * @param string $possible_replacement_id ID of possible sidebar replacement.
+ * @param string $context Current frontend context.
+ * @param array  $attachments Arr of custom sidebar replacement attachments.
+ * @param string $widget_area_id Original sidebar id.
+ */
+function detect_search_result_replacements( $replacement, $possible_replacement_id, $context, $attachments, $widget_area_id ) {
+	$template_attachments = wp_list_filter( $attachments, [ 'attachment_type' => 'template_hierarchy' ] );
+	$better_match_found   = $replacement['score'] > 10;
+
+	if ( $better_match_found || empty( $template_attachments ) || ! 'is_404' === $context ) {
+		return $replacement;
+	}
+
+	$new_replacement = [
+		'id'    => $possible_replacement_id,
+		'score' => 10,
+	];
+
+	if (
+		'is_search' === $context &&
+		! empty( wp_list_filter( $template_attachments, [ 'data_type' => 'search_results' ] ) )
+	) {
+		return $new_replacement;
+	}
+
+	return $replacement;
+}
+add_filter(
+	'ecs_widget_area_replacement_id',
+	__NAMESPACE__ . '\\detect_search_result_replacements',
 	10,
 	5
 );
