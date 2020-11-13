@@ -360,8 +360,8 @@ function get_custom_sidebar_replacements() {
 
 	usort(
 		$sidebar_replacements,
-		function() {
-			return $a['name'] - $b['name'];
+		function( $a, $b ) {
+			return strnatcasecmp( $a['name'], $b['name'] );
 		}
 	);
 

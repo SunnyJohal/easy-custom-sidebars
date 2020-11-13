@@ -132,8 +132,6 @@ class ECS_Test_Data extends WP_UnitTestCase {
 		$this->assertIsArray(
 			Data\get_sidebar_attachments( self::$post_id )
 		);
-
-		// Sidebar with attachments.
 	}
 
 	/**
