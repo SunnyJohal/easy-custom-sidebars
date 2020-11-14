@@ -488,6 +488,31 @@ add_filter(
  * @param string $widget_area_id Original sidebar id.
  */
 function detect_taxonomy_term_replacements( $replacement, $possible_replacement_id, $context, $attachments, $widget_area_id ) {
+	$taxonomy_attachments = wp_list_filter( $attachments, [ 'attachment_type' => 'taxonomy' ] );
+	$replacement_score    = 20;
+	$better_match_found   = $replacement['score'] > $replacement_score;
+
+	if ( $better_match_found || empty( $taxonomy_attachments ) || 'is_taxonomy' !== $context ) {
+		return $replacement;
+	}
+
+	$new_replacement = [
+		'id'    => $possible_replacement_id,
+		'score' => $replacement_score,
+	];
+
+	$taxonomy_term_attachments = wp_list_filter(
+		$taxonomy_attachments,
+		[
+			'id'        => get_queried_object_id(),
+			'data_type' => get_queried_object()->taxonomy,
+		]
+	);
+
+	if ( ! empty( $taxonomy_term_attachments ) ) {
+		return $new_replacement;
+	}
+
 	return $replacement;
 }
 add_filter(
