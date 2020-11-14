@@ -611,3 +611,54 @@ add_filter(
 	20,
 	5
 );
+
+/**
+ * Detect Page Template Replacements
+ *
+ * @param array  $replacement Current selected replacement metadata (if applicable).
+ * @param string $possible_replacement_id ID of possible sidebar replacement.
+ * @param string $context Current frontend context.
+ * @param array  $attachments Arr of custom sidebar replacement attachments.
+ * @param string $widget_area_id Original sidebar id.
+ */
+function detect_page_template_replacements( $replacement, $possible_replacement_id, $context, $attachments, $widget_area_id ) {
+	$template_attachments = wp_list_filter( $attachments, [ 'attachment_type' => 'template_hierarchy' ] );
+	$replacement_score    = 30;
+	$better_match_found   = $replacement['score'] > $replacement_score;
+
+	if ( $better_match_found || empty( $template_attachments ) || 'is_page' !== $context ) {
+		return $replacement;
+	}
+
+	$new_replacement = [
+		'id'    => $possible_replacement_id,
+		'score' => $replacement_score,
+	];
+
+	$page_template = array_reduce(
+		\array_keys( wp_get_theme()->get_page_templates() ),
+		function( $current, $template ) {
+			return is_page_template( $template ) ? "page-template-{$template}" : $current;
+		},
+		false
+	);
+
+	$page_template_attachments = wp_list_filter(
+		$template_attachments,
+		[
+			'data_type' => $page_template,
+		]
+	);
+
+	if ( ! empty( $page_template_attachments ) ) {
+		return $new_replacement;
+	}
+
+	return $replacement;
+}
+add_filter(
+	'ecs_widget_area_replacement_id',
+	__NAMESPACE__ . '\\detect_page_template_replacements',
+	30,
+	5
+);
