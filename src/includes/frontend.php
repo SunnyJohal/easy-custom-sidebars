@@ -564,3 +564,50 @@ add_filter(
 	10,
 	5
 );
+
+/**
+ * Detect Posttype All Replacements
+ *
+ * @param array  $replacement Current selected replacement metadata (if applicable).
+ * @param string $possible_replacement_id ID of possible sidebar replacement.
+ * @param string $context Current frontend context.
+ * @param array  $attachments Arr of custom sidebar replacement attachments.
+ * @param string $widget_area_id Original sidebar id.
+ */
+function detect_posttype_all_replacements( $replacement, $possible_replacement_id, $context, $attachments, $widget_area_id ) {
+	$post_type_attachments = wp_list_filter( $attachments, [ 'attachment_type' => 'post_type_all' ] );
+	$replacement_score     = 20;
+	$better_match_found    = $replacement['score'] > $replacement_score;
+
+	if (
+		$better_match_found ||
+		empty( $post_type_attachments ) ||
+		! in_array( $context, [ 'is_single', 'is_page' ], true )
+	) {
+		return $replacement;
+	}
+
+	$new_replacement = [
+		'id'    => $possible_replacement_id,
+		'score' => $replacement_score,
+	];
+
+	$post_type_all_attachments = wp_list_filter(
+		$post_type_attachments,
+		[
+			'data_type' => get_queried_object()->post_type,
+		]
+	);
+
+	if ( ! empty( $post_type_all_attachments ) ) {
+		return $new_replacement;
+	}
+
+	return $replacement;
+}
+add_filter(
+	'ecs_widget_area_replacement_id',
+	__NAMESPACE__ . '\\detect_posttype_all_replacements',
+	20,
+	5
+);

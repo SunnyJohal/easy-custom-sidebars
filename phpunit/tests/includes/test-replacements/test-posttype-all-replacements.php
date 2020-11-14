@@ -1,9 +1,9 @@
 <?php
 /**
- * Test Replacement: Posttype Archive Replacement
+ * Test Replacement: Posttype All Replacement
  *
  * Test that the right sidebar is selected
- * for the all posttype archive condition.
+ * for the all posttype posts condition.
  *
  * @package Easy_Custom_Sidebars
  */
@@ -12,22 +12,9 @@ use ECS\Frontend as Frontend;
 use ECS\Data as Data;
 
 /**
- * Class ECS_Test_Posttype_Archive_Replacement
+ * Class ECS_Test_Posttype_All_Replacement
  */
-class ECS_Test_Posttype_Archive_Replacement extends WP_UnitTestCase {
-	/**
-	 * Setup before class tests are run.
-	 *
-	 * @param object $factory Factory obj for generating WordPress fixtures.
-	 */
-	public static function wpSetUpBeforeClass( $factory ) {
-		// Register posttype for tests.
-		register_post_type(
-			'ecs_test_posttype',
-			[ 'has_archive' => true ]
-		);
-	}
-
+class ECS_Test_Posttype_All_Replacement extends WP_UnitTestCase {
 	/**
 	 * Test Single Replacement.
 	 */
@@ -41,26 +28,60 @@ class ECS_Test_Posttype_Archive_Replacement extends WP_UnitTestCase {
 					'sidebar_attachments'    => [
 						[
 							'id'              => 1,
-							'data_type'       => 'ecs_test_posttype',
-							'attachment_type' => 'post_type_archive',
+							'data_type'       => 'post',
+							'attachment_type' => 'post_type_all',
 						],
 					],
 				],
 			]
 		);
 
-		$this->go_to( get_post_type_archive_link( 'ecs_test_posttype' ) );
+		$test_post = self::factory()->post->create();
+		$this->go_to( get_post_permalink( $test_post ) );
 
-		$context     = 'is_post_type_archive';
+		$context     = 'is_single';
 		$replacement = Frontend\get_widget_area_replacement_id( 'example_sidebar', $context );
 
 		$this->assertTrue(
-			post_type_exists( 'ecs_test_posttype' ),
+			is_singular(),
 			true
 		);
 
+		$this->assertEquals(
+			$replacement,
+			Data\get_sidebar_id( $sidebar_id )
+		);
+	}
+
+	/**
+	 * Test Single Replacement for Pages.
+	 */
+	public function test_replacement_page_single() {
+		$sidebar_id = self::factory()->post->create(
+			[
+				'post_type'  => 'sidebar_instance',
+				'post_title' => 'Single Sidebar',
+				'meta_input' => [
+					'sidebar_replacement_id' => 'example_sidebar',
+					'sidebar_attachments'    => [
+						[
+							'id'              => 1,
+							'data_type'       => 'page',
+							'attachment_type' => 'post_type_all',
+						],
+					],
+				],
+			]
+		);
+
+		$test_post = self::factory()->post->create( [ 'post_type' => 'page' ] );
+		$this->go_to( get_post_permalink( $test_post ) );
+
+		$context     = 'is_page';
+		$replacement = Frontend\get_widget_area_replacement_id( 'example_sidebar', $context );
+
 		$this->assertTrue(
-			is_post_type_archive( 'ecs_test_posttype' ),
+			is_singular(),
 			true
 		);
 
@@ -83,8 +104,8 @@ class ECS_Test_Posttype_Archive_Replacement extends WP_UnitTestCase {
 					'sidebar_attachments'    => [
 						[
 							'id'              => 1,
-							'data_type'       => 'ecs_test_posttype',
-							'attachment_type' => 'post_type_archive',
+							'data_type'       => 'post',
+							'attachment_type' => 'post_type_all',
 						],
 					],
 				],
@@ -100,8 +121,8 @@ class ECS_Test_Posttype_Archive_Replacement extends WP_UnitTestCase {
 					'sidebar_attachments'    => [
 						[
 							'id'              => 1,
-							'data_type'       => 'ecs_test_posttype',
-							'attachment_type' => 'post_type_archive',
+							'data_type'       => 'post',
+							'attachment_type' => 'post_type_all',
 						],
 					],
 				],
@@ -119,18 +140,14 @@ class ECS_Test_Posttype_Archive_Replacement extends WP_UnitTestCase {
 			]
 		);
 
-		$this->go_to( get_post_type_archive_link( 'ecs_test_posttype' ) );
+		$test_post = self::factory()->post->create();
+		$this->go_to( get_post_permalink( $test_post ) );
 
-		$context     = 'is_post_type_archive';
+		$context     = 'is_single';
 		$replacement = Frontend\get_widget_area_replacement_id( 'example_sidebar', $context );
 
 		$this->assertTrue(
-			post_type_exists( 'ecs_test_posttype' ),
-			true
-		);
-
-		$this->assertTrue(
-			is_post_type_archive( 'ecs_test_posttype' ),
+			is_singular(),
 			true
 		);
 
