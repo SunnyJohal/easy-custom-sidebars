@@ -652,7 +652,6 @@ class ECS_Test_Data_Attachments extends WP_UnitTestCase {
 
 	/**
 	 * Test attachments: Template Hierarchy Page Templates
-	 * @todo register page templates test.
 	 */
 	public function ignore_test_template_hierarchy_page_templates_attachment() {
 		$attachments = [

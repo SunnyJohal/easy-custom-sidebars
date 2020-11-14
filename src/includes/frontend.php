@@ -433,3 +433,239 @@ add_filter(
 	20,
 	5
 );
+
+
+/**
+ * Detect Taxonomy All Replacements
+ *
+ * @param array  $replacement Current selected replacement metadata (if applicable).
+ * @param string $possible_replacement_id ID of possible sidebar replacement.
+ * @param string $context Current frontend context.
+ * @param array  $attachments Arr of custom sidebar replacement attachments.
+ * @param string $widget_area_id Original sidebar id.
+ */
+function detect_taxonomy_all_replacements( $replacement, $possible_replacement_id, $context, $attachments, $widget_area_id ) {
+	$taxonomy_attachments = wp_list_filter( $attachments, [ 'attachment_type' => 'taxonomy_all' ] );
+	$replacement_score    = 10;
+	$better_match_found   = $replacement['score'] > $replacement_score;
+
+	if ( $better_match_found || empty( $taxonomy_attachments ) || 'is_taxonomy' !== $context ) {
+		return $replacement;
+	}
+
+	$new_replacement = [
+		'id'    => $possible_replacement_id,
+		'score' => $replacement_score,
+	];
+
+	$taxonomy_term_all_attachments = wp_list_filter(
+		$taxonomy_attachments,
+		[
+			'data_type' => get_queried_object()->taxonomy,
+		]
+	);
+
+	if ( ! empty( $taxonomy_term_all_attachments ) ) {
+		return $new_replacement;
+	}
+
+	return $replacement;
+}
+add_filter(
+	'ecs_widget_area_replacement_id',
+	__NAMESPACE__ . '\\detect_taxonomy_all_replacements',
+	10,
+	5
+);
+
+/**
+ * Detect Taxonomy Term Replacements
+ *
+ * @param array  $replacement Current selected replacement metadata (if applicable).
+ * @param string $possible_replacement_id ID of possible sidebar replacement.
+ * @param string $context Current frontend context.
+ * @param array  $attachments Arr of custom sidebar replacement attachments.
+ * @param string $widget_area_id Original sidebar id.
+ */
+function detect_taxonomy_term_replacements( $replacement, $possible_replacement_id, $context, $attachments, $widget_area_id ) {
+	return $replacement;
+}
+add_filter(
+	'ecs_widget_area_replacement_id',
+	__NAMESPACE__ . '\\detect_taxonomy_term_replacements',
+	20,
+	5
+);
+
+/**
+ * Detect All Page Replacements
+ *
+ * @param array  $replacement Current selected replacement metadata (if applicable).
+ * @param string $possible_replacement_id ID of possible sidebar replacement.
+ * @param string $context Current frontend context.
+ * @param array  $attachments Arr of custom sidebar replacement attachments.
+ * @param string $widget_area_id Original sidebar id.
+ */
+function detect_page_all_replacements( $replacement, $possible_replacement_id, $context, $attachments, $widget_area_id ) {
+	return $replacement;
+}
+add_filter(
+	'ecs_widget_area_replacement_id',
+	__NAMESPACE__ . '\\detect_page_all_replacements',
+	10,
+	5
+);
+
+/**
+ * Detect Page Template Replacements
+ *
+ * @param array  $replacement Current selected replacement metadata (if applicable).
+ * @param string $possible_replacement_id ID of possible sidebar replacement.
+ * @param string $context Current frontend context.
+ * @param array  $attachments Arr of custom sidebar replacement attachments.
+ * @param string $widget_area_id Original sidebar id.
+ */
+function detect_page_template_replacements( $replacement, $possible_replacement_id, $context, $attachments, $widget_area_id ) {
+	return $replacement;
+}
+add_filter(
+	'ecs_widget_area_replacement_id',
+	__NAMESPACE__ . '\\detect_page_template_replacements',
+	20,
+	5
+);
+
+/**
+ * Detect Single Page Replacements
+ *
+ * @param array  $replacement Current selected replacement metadata (if applicable).
+ * @param string $possible_replacement_id ID of possible sidebar replacement.
+ * @param string $context Current frontend context.
+ * @param array  $attachments Arr of custom sidebar replacement attachments.
+ * @param string $widget_area_id Original sidebar id.
+ */
+function detect_single_page_replacements( $replacement, $possible_replacement_id, $context, $attachments, $widget_area_id ) {
+	return $replacement;
+}
+add_filter(
+	'ecs_widget_area_replacement_id',
+	__NAMESPACE__ . '\\detect_single_page_replacements',
+	30,
+	5
+);
+
+/**
+ * Detect Index Page Replacements
+ *
+ * @param array  $replacement Current selected replacement metadata (if applicable).
+ * @param string $possible_replacement_id ID of possible sidebar replacement.
+ * @param string $context Current frontend context.
+ * @param array  $attachments Arr of custom sidebar replacement attachments.
+ * @param string $widget_area_id Original sidebar id.
+ */
+function detect_index_page_replacements( $replacement, $possible_replacement_id, $context, $attachments, $widget_area_id ) {
+	return $replacement;
+}
+add_filter(
+	'ecs_widget_area_replacement_id',
+	__NAMESPACE__ . '\\detect_index_page_replacements',
+	40,
+	5
+);
+
+/**
+ * Detect Posttype Archive Replacements
+ *
+ * @param array  $replacement Current selected replacement metadata (if applicable).
+ * @param string $possible_replacement_id ID of possible sidebar replacement.
+ * @param string $context Current frontend context.
+ * @param array  $attachments Arr of custom sidebar replacement attachments.
+ * @param string $widget_area_id Original sidebar id.
+ */
+function detect_post_archive_replacements( $replacement, $possible_replacement_id, $context, $attachments, $widget_area_id ) {
+	return $replacement;
+}
+add_filter(
+	'ecs_widget_area_replacement_id',
+	__NAMESPACE__ . '\\detect_post_archive_replacements',
+	10,
+	5
+);
+
+/**
+ * Detect All Posttype Posts Replacements
+ *
+ * @param array  $replacement Current selected replacement metadata (if applicable).
+ * @param string $possible_replacement_id ID of possible sidebar replacement.
+ * @param string $context Current frontend context.
+ * @param array  $attachments Arr of custom sidebar replacement attachments.
+ * @param string $widget_area_id Original sidebar id.
+ */
+function detect_all_posttype_post_replacements( $replacement, $possible_replacement_id, $context, $attachments, $widget_area_id ) {
+	return $replacement;
+}
+add_filter(
+	'ecs_widget_area_replacement_id',
+	__NAMESPACE__ . '\\detect_all_posttype_post_replacements',
+	20,
+	5
+);
+
+/**
+ * Detect Post Format Replacements
+ *
+ * @param array  $replacement Current selected replacement metadata (if applicable).
+ * @param string $possible_replacement_id ID of possible sidebar replacement.
+ * @param string $context Current frontend context.
+ * @param array  $attachments Arr of custom sidebar replacement attachments.
+ * @param string $widget_area_id Original sidebar id.
+ */
+function detect_post_format_replacements( $replacement, $possible_replacement_id, $context, $attachments, $widget_area_id ) {
+	return $replacement;
+}
+add_filter(
+	'ecs_widget_area_replacement_id',
+	__NAMESPACE__ . '\\detect_post_format_replacements',
+	30,
+	5
+);
+
+/**
+ * Detect All Posts in Category Replacements
+ *
+ * @param array  $replacement Current selected replacement metadata (if applicable).
+ * @param string $possible_replacement_id ID of possible sidebar replacement.
+ * @param string $context Current frontend context.
+ * @param array  $attachments Arr of custom sidebar replacement attachments.
+ * @param string $widget_area_id Original sidebar id.
+ */
+function detect_all_posts_in_category_replacements( $replacement, $possible_replacement_id, $context, $attachments, $widget_area_id ) {
+	return $replacement;
+}
+add_filter(
+	'ecs_widget_area_replacement_id',
+	__NAMESPACE__ . '\\detect_all_posts_in_category_replacements',
+	40,
+	5
+);
+
+/**
+ * Detect Single/Singular Replacements
+ *
+ * @param array  $replacement Current selected replacement metadata (if applicable).
+ * @param string $possible_replacement_id ID of possible sidebar replacement.
+ * @param string $context Current frontend context.
+ * @param array  $attachments Arr of custom sidebar replacement attachments.
+ * @param string $widget_area_id Original sidebar id.
+ */
+function detect_single_post_replacements( $replacement, $possible_replacement_id, $context, $attachments, $widget_area_id ) {
+	return $replacement;
+}
+add_filter(
+	'ecs_widget_area_replacement_id',
+	__NAMESPACE__ . '\\detect_single_post_replacements',
+	50,
+	5
+);
+
+

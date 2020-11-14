@@ -156,7 +156,7 @@ function get_sidebar_replacement_id( $post_id ) {
  * Get Sidebar Attachments
  *
  * @param int     $post_id ID of a 'sidebar_instance' post.
- * @param boolean $with_metadata This.
+ * @param boolean $with_metadata Adds additional metadata for each attachment.
  */
 function get_sidebar_attachments( $post_id, $with_metadata = false ) {
 	$attachments = get_post_meta( $post_id, 'sidebar_attachments', true );
