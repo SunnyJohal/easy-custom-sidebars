@@ -29,7 +29,7 @@ function prepare_sidebars_for_customizer() {
 
 	ob_start();
 
-	foreach ( $all_replacements as $id => $replacement_id ) {
+	foreach ( $all_replacements as $sidebar_id => $replacement_id ) {
 		dynamic_sidebar( $replacement_id );
 	}
 
