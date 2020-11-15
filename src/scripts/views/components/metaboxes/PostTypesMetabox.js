@@ -117,7 +117,7 @@ const PostTypePosts = props => {
       }
     ];
 
-    if (slug !== 'post') {
+    if (slug !== 'post' && slug !== 'page') {
       allItemsAttachment.push({
         id: 0,
         title: { rendered: sprintf(__('%s Archive', 'easy-custom-sidebars'), name) },

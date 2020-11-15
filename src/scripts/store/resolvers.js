@@ -229,7 +229,7 @@ export function* getTemplates() {
       ...Object.keys(allTemplates).map(slug => ({
         id: 0,
         title: sprintf(__('Page Template: %s', 'easy-custom-sidebars'), allTemplates[slug]),
-        data_type: slug
+        data_type: `page-template-${slug}`
       }))
     ];
 

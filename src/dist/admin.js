@@ -26269,7 +26269,7 @@ function getTemplates() {
             return {
               id: 0,
               title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["sprintf"])(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Page Template: %s', 'easy-custom-sidebars'), allTemplates[slug]),
-              data_type: slug
+              data_type: "page-template-".concat(slug)
             };
           })));
           return _context9.abrupt("return", Object(_actions__WEBPACK_IMPORTED_MODULE_5__["hydrateTemplates"])({
@@ -28398,7 +28398,7 @@ var PostTypePosts = function PostTypePosts(props) {
       checked: false
     }];
 
-    if (slug !== 'post') {
+    if (slug !== 'post' && slug !== 'page') {
       allItemsAttachment.push({
         id: 0,
         title: {
