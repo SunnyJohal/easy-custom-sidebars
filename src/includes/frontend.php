@@ -769,6 +769,23 @@ add_filter(
  * @param string $widget_area_id Original sidebar id.
  */
 function detect_index_replacements( $replacement, $possible_replacement_id, $context, $attachments, $widget_area_id ) {
+	$template_attachments = wp_list_filter( $attachments, [ 'attachment_type' => 'template_hierarchy' ] );
+	$replacement_score    = 60;
+	$better_match_found   = $replacement['score'] > $replacement_score;
+
+	if ( $better_match_found || empty( $template_attachments ) || 'is_home' !== $context ) {
+		return $replacement;
+	}
+
+	$new_replacement = [
+		'id'    => $possible_replacement_id,
+		'score' => $replacement_score,
+	];
+
+	if ( ! empty( wp_list_filter( $template_attachments, [ 'data_type' => 'index_page' ] ) ) ) {
+		return $new_replacement;
+	}
+
 	return $replacement;
 }
 add_filter(
