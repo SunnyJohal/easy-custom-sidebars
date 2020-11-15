@@ -641,7 +641,6 @@ function detect_page_template_replacements( $replacement, $possible_replacement_
 		},
 		false
 	);
-	\error_log( $page_template );
 
 	$page_template_attachments = wp_list_filter(
 		$template_attachments,
