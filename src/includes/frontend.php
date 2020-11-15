@@ -48,8 +48,7 @@ $_ecs_all_replacements = [];
 function maybe_swap_widgets( $sidebars_widgets ) {
 	if (
 		! registered_sidebars_exist() ||
-		! did_action( 'wp_head' ) ||
-		is_customize_preview()
+		! did_action( 'wp_head' )
 	) {
 		return $sidebars_widgets;
 	}
