@@ -14,9 +14,6 @@ namespace ECS\Customizer;
 use ECS\Data;
 use ECS\Frontend;
 
-$_ecs_dynamic_sidebar_data = false;
-$_ecs_active_sidebar_data  = false;
-
 /**
  * Prepare Custom Sidebars for Customizer
  *
