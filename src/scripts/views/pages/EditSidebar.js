@@ -69,21 +69,6 @@ const EditSidebar = props => {
     ].every(called => called);
   });
 
-  const defaultSidebars = useSelect(select => select(STORE_KEY).getDefaultSidebars());
-  let defaultSidebarOptions = Object.keys(defaultSidebars).map(id => {
-    return {
-      label: defaultSidebars[id].name,
-      value: id
-    };
-  });
-
-  defaultSidebarOptions.push({
-    label: replacementId
-      ? __('— Deactivate Sidebar —', 'easy-custom-sidebars')
-      : __('— Select a Sidebar —', 'easy-custom-sidebars'),
-    value: ''
-  });
-
   const allSidebars = useSelect(select => select(STORE_KEY).getSidebars());
   let sidebarToEdit = getQueryFromUrl('sidebar');
 
@@ -116,6 +101,21 @@ const EditSidebar = props => {
     setAttachments(removeDuplicateAttachments(newAttachments));
     setChangesMade(true);
   };
+
+  const defaultSidebars = useSelect(select => select(STORE_KEY).getDefaultSidebars());
+  let defaultSidebarOptions = Object.keys(defaultSidebars).map(id => {
+    return {
+      label: defaultSidebars[id].name,
+      value: id
+    };
+  });
+
+  defaultSidebarOptions.push({
+    label: replacementId
+      ? __('— Deactivate Sidebar —', 'easy-custom-sidebars')
+      : __('— Select a Sidebar —', 'easy-custom-sidebars'),
+    value: ''
+  });
 
   // Sync saved attachment state.
   const savedAttachments = useSelect(select => select(STORE_KEY).getAttachmentsForSidebar(sidebarToEdit));

@@ -29789,19 +29789,6 @@ var EditSidebar = function EditSidebar(props) {
       return called;
     });
   });
-  var defaultSidebars = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_8__["useSelect"])(function (select) {
-    return select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).getDefaultSidebars();
-  });
-  var defaultSidebarOptions = Object.keys(defaultSidebars).map(function (id) {
-    return {
-      label: defaultSidebars[id].name,
-      value: id
-    };
-  });
-  defaultSidebarOptions.push({
-    label: replacementId ? Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('— Deactivate Sidebar —', 'easy-custom-sidebars') : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('— Select a Sidebar —', 'easy-custom-sidebars'),
-    value: ''
-  });
   var allSidebars = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_8__["useSelect"])(function (select) {
     return select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).getSidebars();
   });
@@ -29872,8 +29859,21 @@ var EditSidebar = function EditSidebar(props) {
   var setUniqueAttachments = function setUniqueAttachments(newAttachments) {
     setAttachments(Object(_utils_removeDuplicateAttachments__WEBPACK_IMPORTED_MODULE_13__["default"])(newAttachments));
     setChangesMade(true);
-  }; // Sync saved attachment state.
+  };
 
+  var defaultSidebars = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_8__["useSelect"])(function (select) {
+    return select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).getDefaultSidebars();
+  });
+  var defaultSidebarOptions = Object.keys(defaultSidebars).map(function (id) {
+    return {
+      label: defaultSidebars[id].name,
+      value: id
+    };
+  });
+  defaultSidebarOptions.push({
+    label: replacementId ? Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('— Deactivate Sidebar —', 'easy-custom-sidebars') : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__["__"])('— Select a Sidebar —', 'easy-custom-sidebars'),
+    value: ''
+  }); // Sync saved attachment state.
 
   var savedAttachments = Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_8__["useSelect"])(function (select) {
     return select(_store__WEBPACK_IMPORTED_MODULE_10__["STORE_KEY"]).getAttachmentsForSidebar(sidebarToEdit);
