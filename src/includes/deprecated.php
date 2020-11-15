@@ -33,7 +33,7 @@ add_filter(
 			$attachments
 		);
 	},
-	10,
+	5,
 	3
 );
 
