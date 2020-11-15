@@ -662,3 +662,51 @@ add_filter(
 	30,
 	5
 );
+
+/**
+ * Detect Category Posts Replacements
+ *
+ * @param array  $replacement Current selected replacement metadata (if applicable).
+ * @param string $possible_replacement_id ID of possible sidebar replacement.
+ * @param string $context Current frontend context.
+ * @param array  $attachments Arr of custom sidebar replacement attachments.
+ * @param string $widget_area_id Original sidebar id.
+ */
+function detect_category_posts_replacements( $replacement, $possible_replacement_id, $context, $attachments, $widget_area_id ) {
+	$category_post_attachments = wp_list_filter( $attachments, [ 'attachment_type' => 'category_posts' ] );
+	$replacement_score         = 40;
+	$better_match_found        = $replacement['score'] > $replacement_score;
+
+	if (
+		$better_match_found ||
+		empty( $category_post_attachments ) ||
+		'is_single' !== $context ||
+		! is_singular( 'post' )
+	) {
+		return $replacement;
+	}
+
+	$new_replacement = [
+		'id'    => $possible_replacement_id,
+		'score' => $replacement_score,
+	];
+
+	$apply_attachment = array_filter(
+		$attachments,
+		function( $attachment ) {
+			return has_category( $attachment['id'] );
+		}
+	);
+
+	if ( ! empty( $apply_attachment ) ) {
+		return $new_replacement;
+	}
+
+	return $replacement;
+}
+add_filter(
+	'ecs_widget_area_replacement_id',
+	__NAMESPACE__ . '\\detect_category_posts_replacements',
+	40,
+	5
+);

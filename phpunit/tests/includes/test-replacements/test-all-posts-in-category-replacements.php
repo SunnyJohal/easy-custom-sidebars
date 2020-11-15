@@ -1,9 +1,9 @@
 <?php
 /**
- * Test Replacement: Page Template
+ * Test Replacement: All Posts in Category
  *
  * Test that the right sidebar is selected
- * for the page template condition.
+ * for the all category posts condition.
  *
  * @package Easy_Custom_Sidebars
  */
@@ -12,42 +12,15 @@ use ECS\Frontend as Frontend;
 use ECS\Data as Data;
 
 /**
- * Class ECS_Test_Page_Template_Replacements
+ * Class ECS_Test_Category_Post_Replacement
  */
-class ECS_Test_Page_Template_Replacements extends WP_UnitTestCase {
-	/**
-	 * ID of sidebar instance.
-	 *
-	 * @var string $sidebar_id
-	 */
-	protected static $template_slug;
-
-	/**
-	 * Setup before any class tests are run.
-	 *
-	 * @param object $factory Factory obj for generating WordPress fixtures.
-	 */
-	public static function wpSetUpBeforeClass( $factory ) {
-		self::$template_slug = 'templates/template-cover.php';
-
-		add_filter(
-			'theme_templates',
-			function( $post_templates, $theme_obj, $post, $post_type ) {
-				return [
-					'templates/template-cover.php'      => 'Cover Template',
-					'templates/template-full-width.php' => 'Full Width Template',
-				];
-			},
-			10,
-			4
-		);
-	}
-
+class ECS_Test_Category_Post_Replacement extends WP_UnitTestCase {
 	/**
 	 * Test Single Replacement.
 	 */
 	public function test_replacement_single() {
-		$sidebar_id = self::factory()->post->create(
+		$test_category = self::factory()->category->create_and_get();
+		$sidebar_id    = self::factory()->post->create(
 			[
 				'post_type'  => 'sidebar_instance',
 				'post_title' => 'Single Sidebar',
@@ -55,9 +28,9 @@ class ECS_Test_Page_Template_Replacements extends WP_UnitTestCase {
 					'sidebar_replacement_id' => 'example_sidebar',
 					'sidebar_attachments'    => [
 						[
-							'id'              => 0,
-							'data_type'       => 'page-template-' . self::$template_slug,
-							'attachment_type' => 'template_hierarchy',
+							'id'              => $test_category->term_id,
+							'data_type'       => 'category',
+							'attachment_type' => 'category_posts',
 						],
 					],
 				],
@@ -66,20 +39,21 @@ class ECS_Test_Page_Template_Replacements extends WP_UnitTestCase {
 
 		$test_post = self::factory()->post->create(
 			[
-				'post_type'  => 'page',
-				'meta_input' => [
-					'_wp_page_template' => self::$template_slug,
-				],
+				'post_category' => [ $test_category->term_id ],
 			]
 		);
+		$this->go_to( get_post_permalink( $test_post ) );
 
-		$this->go_to( get_permalink( $test_post ) );
+		$this->assertTrue(
+			has_category( $test_category->term_id, $test_post ),
+			true
+		);
 
-		$context     = 'is_page';
+		$context     = 'is_single';
 		$replacement = Frontend\get_widget_area_replacement_id( 'example_sidebar', $context );
 
 		$this->assertTrue(
-			is_page(),
+			is_singular(),
 			true
 		);
 
@@ -89,10 +63,12 @@ class ECS_Test_Page_Template_Replacements extends WP_UnitTestCase {
 		);
 	}
 
+
 	/**
 	 * Test Multiple Replacement.
 	 */
-	public function stest_replacement_multiple() {
+	public function test_replacement_multiple() {
+		$test_category  = self::factory()->category->create_and_get();
 		$sidebar_one_id = self::factory()->post->create(
 			[
 				'post_type'  => 'sidebar_instance',
@@ -101,9 +77,9 @@ class ECS_Test_Page_Template_Replacements extends WP_UnitTestCase {
 					'sidebar_replacement_id' => 'example_sidebar',
 					'sidebar_attachments'    => [
 						[
-							'id'              => 0,
-							'data_type'       => 'page-template-' . self::$template_slug,
-							'attachment_type' => 'template_hierarchy',
+							'id'              => $test_category->term_id,
+							'data_type'       => 'category',
+							'attachment_type' => 'category_posts',
 						],
 					],
 				],
@@ -118,9 +94,9 @@ class ECS_Test_Page_Template_Replacements extends WP_UnitTestCase {
 					'sidebar_replacement_id' => 'example_sidebar',
 					'sidebar_attachments'    => [
 						[
-							'id'              => 0,
-							'data_type'       => 'page-template-' . self::$template_slug,
-							'attachment_type' => 'template_hierarchy',
+							'id'              => $test_category->term_id,
+							'data_type'       => 'category',
+							'attachment_type' => 'category_posts',
 						],
 					],
 				],
@@ -140,20 +116,21 @@ class ECS_Test_Page_Template_Replacements extends WP_UnitTestCase {
 
 		$test_post = self::factory()->post->create(
 			[
-				'post_type'  => 'page',
-				'meta_input' => [
-					'_wp_page_template' => self::$template_slug,
-				],
+				'post_category' => [ $test_category->term_id ],
 			]
 		);
+		$this->go_to( get_post_permalink( $test_post ) );
 
-		$this->go_to( get_permalink( $test_post ) );
+		$this->assertTrue(
+			has_category( $test_category->term_id, $test_post ),
+			true
+		);
 
-		$context     = 'is_page';
+		$context     = 'is_single';
 		$replacement = Frontend\get_widget_area_replacement_id( 'example_sidebar', $context );
 
 		$this->assertTrue(
-			is_page(),
+			is_singular(),
 			true
 		);
 
