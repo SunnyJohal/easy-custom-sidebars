@@ -49,7 +49,7 @@ const WhatsNewContent = () => {
             source
           </span>
           <h2 className="is-smaller-heading">{__('Complete plugin rewrite', 'easy-custom-sidebars')}</h2>
-          <p>{__('The codebase has been completely rewritten and simplified.', 'easy-custom-sidebars')}</p>
+          <p>{__('The codebase has been completely rewritten, tested and simplified.', 'easy-custom-sidebars')}</p>
         </div>
 
         {/* Column */}
@@ -58,9 +58,7 @@ const WhatsNewContent = () => {
             speed
           </span>
           <h2 className="is-smaller-heading">{__('Big Performance Increase', 'easy-custom-sidebars')}</h2>
-          <p>
-            {__('To study how the program works and change it to make it do what you wish.', 'easy-custom-sidebars')}
-          </p>
+          <p>{__('New fast and efficent filter based frontend replacement query engine.', 'easy-custom-sidebars')}</p>
         </div>
 
         {/* Column */}

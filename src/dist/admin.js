@@ -27217,7 +27217,7 @@ var WhatsNewContent = function WhatsNewContent() {
     }
   }, "source"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h2", {
     className: "is-smaller-heading"
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Complete plugin rewrite', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('The codebase has been completely rewritten and simplified.', 'easy-custom-sidebars'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Complete plugin rewrite', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('The codebase has been completely rewritten, tested and simplified.', 'easy-custom-sidebars'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "column"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("span", {
     className: "material-icons mb-3",
@@ -27227,7 +27227,7 @@ var WhatsNewContent = function WhatsNewContent() {
     }
   }, "speed"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h2", {
     className: "is-smaller-heading"
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Big Performance Increase', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('To study how the program works and change it to make it do what you wish.', 'easy-custom-sidebars'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Big Performance Increase', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('New fast and efficent filter based frontend replacement query engine.', 'easy-custom-sidebars'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
     className: "column"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("span", {
     className: "material-icons mb-3",
