@@ -27144,7 +27144,7 @@ var CreditsContent = function CreditsContent() {
     alt: "Amit Kayasth"
   }), "Amit Kayasth"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
     className: "title"
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Developer', 'easy-custom-sidebars')))))));
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Release Lead', 'easy-custom-sidebars')))))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (CreditsContent);

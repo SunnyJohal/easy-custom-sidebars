@@ -35,7 +35,7 @@ const CreditsContent = () => {
                 />
                 Amit Kayasth
               </a>
-              <span className="title">{__('Developer', 'easy-custom-sidebars')}</span>
+              <span className="title">{__('Release Lead', 'easy-custom-sidebars')}</span>
             </li>
           </ul>
         </div>
