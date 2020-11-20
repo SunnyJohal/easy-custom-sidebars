@@ -98,6 +98,13 @@ function enqueue_admin_scripts() {
 	if ( is_plugin_settings_page() ) {
 		$admin_asset = include plugin_dir_path( __FILE__ ) . '../dist/admin.asset.php';
 
+		wp_enqueue_style(
+			'easy-custom-sidebars/icons',
+			'https://fonts.googleapis.com/icon?family=Material+Icons',
+			[],
+			'2.0.0'
+		);
+
 		// Admin css.
 		wp_enqueue_style(
 			'easy-custom-sidebars/admin',
@@ -120,7 +127,7 @@ function enqueue_admin_scripts() {
 
 		wp_add_inline_script(
 			'easy-custom-sidebars/admin',
-			'easy_custom_sidebars = { admin_url: "' . admin_url() . '", num_sidebars: ' . wp_count_posts( 'sidebar_instance' )->publish . ' }',
+			'easy_custom_sidebars = { admin_url: "' . admin_url() . '", num_sidebars: ' . wp_count_posts( 'sidebar_instance' )->publish . ', image_url: "' . plugins_url( 'easy-custom-sidebars' ) . '" }',
 			'before'
 		);
 

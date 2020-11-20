@@ -7,38 +7,80 @@ import { Button } from '@wordpress/components';
 const WhatsNewContent = () => {
   return (
     <>
-      {/* Banner */}
-      <div className="ecs-about__section is-feature has-accent-background-color">
-        <h1>{__('Replace any sidebar in your theme.', 'easy-custom-sidebars')}</h1>
+      {/* Theme Notice */}
+      <div className="ecs-about__section has-subtle-background-color is-feature pt-3 pb-5">
+        <img
+          style={{ maxWidth: 320 }}
+          src={`${easy_custom_sidebars.image_url}/src/images/main-pic.png`}
+          src="https://titaniumthemes.com/wp-content/plugins/titanium-coming-soon-template/img/main-pic.png"
+        />
+
+        <h1 style={{ fontSize: 30 }}>{__(`We're building something exciting.`, 'easy-custom-sidebars')}</h1>
 
         <p>
           {__(
-            `A simple and easy way to replace any widget area in your theme. You can even replace multiple different sidebars/widget areas on the same page.`,
+            `A beautifully designed WordPress theme with a first class gutenberg editing experience.`,
             'easy-custom-sidebars'
           )}
         </p>
+
+        <Button href="https://titaniumthemes.com" target="_blank" isPrimary className="mt-4">
+          {__('Find out more', 'easy-custom-sidebars')}
+        </Button>
       </div>
 
       <hr />
 
-      {/* Theme Notice */}
-      <div
-        className="ecs-about__section is-feature"
-        style={{
-          backgroundImage: 'url(https://miro.medium.com/max/1400/1*q5Go60AJCvjJan7Yl9i3yw.png)',
-          backgroundSize: 'cover'
-        }}
-      >
-        <div className="column" style={{ backgroundColor: 'rgba(255,255,255,0.8)' }}>
-          <h2>{__('Our new WordPress theme is almost ready!', 'easy-custom-sidebars')}</h2>
+      {/* New Features */}
+      <div className="about__section mb-0 pt-4 pb-0">
+        <div className="row">
+          <div className="col">
+            <h2 className="px-4 mt-3" style={{ fontSize: 30 }}>
+              {__(`What's new in this release.`, 'easy-custom-sidebars')}
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      <div className="about__section has-4-columns pt-3 pb-4">
+        {/* Column */}
+        <div className="column">
+          <span className="material-icons mb-3" style={{ color: '#9C27B0', fontSize: 48 }}>
+            source
+          </span>
+          <h2 className="is-smaller-heading">{__('Complete plugin rewrite', 'easy-custom-sidebars')}</h2>
+          <p>{__('The codebase has been completely rewritten and simplified.', 'easy-custom-sidebars')}</p>
+        </div>
+
+        {/* Column */}
+        <div className="column">
+          <span className="material-icons mb-3" style={{ color: '#3F51B5', fontSize: 48 }}>
+            speed
+          </span>
+          <h2 className="is-smaller-heading">{__('Big Performance Increase', 'easy-custom-sidebars')}</h2>
           <p>
-            {__('Want to know when we launch? Awesome! ', 'easy-custom-sidebars')}
-            <a href="https://titaniumthemes.com">{__('Visit our website', 'easy-custom-sidebars')}</a>
-            {__(' and enter your details and we will e-mail you as soon as we are ready.', 'easy-custom-sidebars')}
+            {__('To study how the program works and change it to make it do what you wish.', 'easy-custom-sidebars')}
           </p>
-          <Button href="https://titaniumthemes.com" target="_blank" isPrimary style={{ marginTop: 32 }}>
-            {__('Find out more', 'easy-custom-sidebars')}
-          </Button>
+        </div>
+
+        {/* Column */}
+        <div className="column">
+          <span className="material-icons mb-3" style={{ color: '#009688', fontSize: 48 }}>
+            computer
+          </span>
+          <h2 className="is-smaller-heading">{__('New Admin Screen', 'easy-custom-sidebars')}</h2>
+          <p>{__('React, javascript and WordPress REST API powered admin screen.', 'easy-custom-sidebars')}</p>
+        </div>
+
+        {/* Column */}
+        <div className="column">
+          <span className="material-icons mb-3" style={{ color: '#4CAF50', fontSize: 48 }}>
+            mood
+          </span>
+          <h2 className="is-smaller-heading">{__('Strong Usability Testing', 'easy-custom-sidebars')}</h2>
+          <p>
+            {__('The new User Interface has been designed and tested with a UX first design.', 'easy-custom-sidebars')}
+          </p>
         </div>
       </div>
     </>

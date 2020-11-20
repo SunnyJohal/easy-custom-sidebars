@@ -27087,36 +27087,6 @@ var SidebarSelector = function SidebarSelector(props) {
 
 /***/ }),
 
-/***/ "./src/scripts/views/components/about/AboutContent.js":
-/*!************************************************************!*\
-  !*** ./src/scripts/views/components/about/AboutContent.js ***!
-  \************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-
-
-/**
- * WordPress dependancies
- */
-
-
-var AboutContent = function AboutContent() {
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "about__section is-feature has-accent-background-color"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h1", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('About Content.', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])("More ways to make your pages come alive. With easier ways to get it all done and looking better than ever\u2014and\n    boosts in speed you can feel.", 'easy-custom-sidebars')));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (AboutContent);
-
-/***/ }),
-
 /***/ "./src/scripts/views/components/about/CreditsContent.js":
 /*!**************************************************************!*\
   !*** ./src/scripts/views/components/about/CreditsContent.js ***!
@@ -27139,41 +27109,45 @@ __webpack_require__.r(__webpack_exports__);
 
 var CreditsContent = function CreditsContent() {
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "ecs-about__section is-feature has-accent-background-color"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h1", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Credit Content.', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])("More ways to make your pages come alive. With easier ways to get it all done and looking better than ever\u2014and\n    boosts in speed you can feel.", 'easy-custom-sidebars'))));
+    className: "about__section"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "column has-subtle-background-color"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h2", {
+    className: "wp-people-group-title mb-5"
+  }, "Plugin developed by ", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+    href: "https://titaniumthemes.com"
+  }, "titanium themes"), "."), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("ul", {
+    className: "wp-people-group"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("li", {
+    className: "wp-person",
+    id: "wp-person-sunny"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+    href: "https://profiles.wordpress.org/sunny_johal/",
+    className: "web"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+    src: "https://secure.gravatar.com/avatar/c07075163051ae1230672f76222c5ed5?s=80&d=mm&r=g",
+    srcSet: "https://secure.gravatar.com/avatar/c07075163051ae1230672f76222c5ed5?s=160&d=mm&r=g 2x",
+    className: "gravatar",
+    alt: "Sunny Johal"
+  }), "Sunny Johal"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
+    className: "title"
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Release Lead', 'easy-custom-sidebars'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("li", {
+    className: "wp-person",
+    id: "wp-person-amit"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+    href: "https://profiles.wordpress.org/amit_kayasth/",
+    className: "web"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+    src: "https://secure.gravatar.com/avatar/a605686ad5c0fc2dc3b22fafc71a457c?s=80&d=mm&r=g",
+    srcSet: "https://secure.gravatar.com/avatar/a605686ad5c0fc2dc3b22fafc71a457c?s=160&d=mm&r=g 2x",
+    className: "gravatar",
+    alt: "Amit Kayasth"
+  }), "Amit Kayasth"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
+    className: "title"
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Developer', 'easy-custom-sidebars')))))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (CreditsContent);
-
-/***/ }),
-
-/***/ "./src/scripts/views/components/about/SupportContent.js":
-/*!**************************************************************!*\
-  !*** ./src/scripts/views/components/about/SupportContent.js ***!
-  \**************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-
-
-/**
- * WordPress dependancies
- */
-
-
-var SupportContent = function SupportContent() {
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "about__section is-feature has-accent-background-color"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h1", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Support Content.', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])("More ways to make your pages come alive. With easier ways to get it all done and looking better than ever\u2014and\n    boosts in speed you can feel.", 'easy-custom-sidebars')));
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (SupportContent);
 
 /***/ }),
 
@@ -27186,12 +27160,15 @@ var SupportContent = function SupportContent() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
+
 
 
 /**
@@ -27201,29 +27178,76 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var WhatsNewContent = function WhatsNewContent() {
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "ecs-about__section is-feature has-accent-background-color"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h1", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Replace any sidebar in your theme.', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])("A simple and easy way to replace any widget area in your theme. You can even replace multiple different sidebars/widget areas on the same page.", 'easy-custom-sidebars'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("hr", null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "ecs-about__section is-feature",
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+    className: "ecs-about__section has-subtle-background-color is-feature pt-3 pb-5"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("img", _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0___default()({
     style: {
-      backgroundImage: 'url(https://miro.medium.com/max/1400/1*q5Go60AJCvjJan7Yl9i3yw.png)',
-      backgroundSize: 'cover'
-    }
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "column",
+      maxWidth: 320
+    },
+    src: "".concat(easy_custom_sidebars.image_url, "/src/images/main-pic.png")
+  }, "src", "https://titaniumthemes.com/wp-content/plugins/titanium-coming-soon-template/img/main-pic.png")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h1", {
     style: {
-      backgroundColor: 'rgba(255,255,255,0.8)'
+      fontSize: 30
     }
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h2", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Our new WordPress theme is almost ready!', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Want to know when we launch? Awesome! ', 'easy-custom-sidebars'), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
-    href: "https://titaniumthemes.com"
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Visit our website', 'easy-custom-sidebars')), Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])(' and enter your details and we will e-mail you as soon as we are ready.', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__["Button"], {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])("We're building something exciting.", 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])("A beautifully designed WordPress theme with a first class gutenberg editing experience.", 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["Button"], {
     href: "https://titaniumthemes.com",
     target: "_blank",
     isPrimary: true,
+    className: "mt-4"
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Find out more', 'easy-custom-sidebars'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("hr", null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+    className: "about__section mb-0 pt-4 pb-0"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+    className: "row"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+    className: "col"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h2", {
+    className: "px-4 mt-3",
     style: {
-      marginTop: 32
+      fontSize: 30
     }
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])('Find out more', 'easy-custom-sidebars')))));
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])("What's new in this release.", 'easy-custom-sidebars'))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+    className: "about__section has-4-columns pt-3 pb-4"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+    className: "column"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("span", {
+    className: "material-icons mb-3",
+    style: {
+      color: '#9C27B0',
+      fontSize: 48
+    }
+  }, "source"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h2", {
+    className: "is-smaller-heading"
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Complete plugin rewrite', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('The codebase has been completely rewritten and simplified.', 'easy-custom-sidebars'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+    className: "column"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("span", {
+    className: "material-icons mb-3",
+    style: {
+      color: '#3F51B5',
+      fontSize: 48
+    }
+  }, "speed"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h2", {
+    className: "is-smaller-heading"
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Big Performance Increase', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('To study how the program works and change it to make it do what you wish.', 'easy-custom-sidebars'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+    className: "column"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("span", {
+    className: "material-icons mb-3",
+    style: {
+      color: '#009688',
+      fontSize: 48
+    }
+  }, "computer"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h2", {
+    className: "is-smaller-heading"
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('New Admin Screen', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('React, javascript and WordPress REST API powered admin screen.', 'easy-custom-sidebars'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+    className: "column"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("span", {
+    className: "material-icons mb-3",
+    style: {
+      color: '#4CAF50',
+      fontSize: 48
+    }
+  }, "mood"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h2", {
+    className: "is-smaller-heading"
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Strong Usability Testing', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('The new User Interface has been designed and tested with a UX first design.', 'easy-custom-sidebars')))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (WhatsNewContent);
@@ -27234,24 +27258,16 @@ var WhatsNewContent = function WhatsNewContent() {
 /*!*****************************************************!*\
   !*** ./src/scripts/views/components/about/index.js ***!
   \*****************************************************/
-/*! exports provided: AboutContent, CreditsContent, SupportContent, WhatsNewContent */
+/*! exports provided: CreditsContent, WhatsNewContent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AboutContent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AboutContent */ "./src/scripts/views/components/about/AboutContent.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "AboutContent", function() { return _AboutContent__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+/* harmony import */ var _CreditsContent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreditsContent */ "./src/scripts/views/components/about/CreditsContent.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CreditsContent", function() { return _CreditsContent__WEBPACK_IMPORTED_MODULE_0__["default"]; });
 
-/* harmony import */ var _CreditsContent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreditsContent */ "./src/scripts/views/components/about/CreditsContent.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CreditsContent", function() { return _CreditsContent__WEBPACK_IMPORTED_MODULE_1__["default"]; });
-
-/* harmony import */ var _SupportContent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SupportContent */ "./src/scripts/views/components/about/SupportContent.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SupportContent", function() { return _SupportContent__WEBPACK_IMPORTED_MODULE_2__["default"]; });
-
-/* harmony import */ var _WhatsNewContent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./WhatsNewContent */ "./src/scripts/views/components/about/WhatsNewContent.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WhatsNewContent", function() { return _WhatsNewContent__WEBPACK_IMPORTED_MODULE_3__["default"]; });
-
-
+/* harmony import */ var _WhatsNewContent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./WhatsNewContent */ "./src/scripts/views/components/about/WhatsNewContent.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WhatsNewContent", function() { return _WhatsNewContent__WEBPACK_IMPORTED_MODULE_1__["default"]; });
 
 
 
@@ -29307,11 +29323,6 @@ var AboutTabPanel = function AboutTabPanel() {
     className: 'ecs-tab',
     content: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_about__WEBPACK_IMPORTED_MODULE_4__["WhatsNewContent"], null)
   }, {
-    name: 'about',
-    title: 'About',
-    className: 'ecs-tab',
-    content: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_about__WEBPACK_IMPORTED_MODULE_4__["AboutContent"], null)
-  }, {
     name: 'credits',
     title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Credits', 'easy-custom-sidebars'),
     className: 'ecs-tab',
@@ -29320,7 +29331,13 @@ var AboutTabPanel = function AboutTabPanel() {
     name: 'support',
     title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Support', 'easy-custom-sidebars'),
     className: 'ecs-tab',
-    content: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_about__WEBPACK_IMPORTED_MODULE_4__["SupportContent"], null)
+    content: Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+      path: "/",
+      render: function render() {
+        window.location = 'https://wordpress.org/support/plugin/easy-custom-sidebars/';
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h1", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Redirecting to plugin support...', 'easy-custom-sidebars'));
+      }
+    })
   }, {
     name: 'get-started',
     title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Get Started', 'easy-custom-sidebars'),
@@ -29341,22 +29358,32 @@ var AboutTabPanel = function AboutTabPanel() {
 };
 
 var About = function About() {
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "ecs-about__container"
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "ecs-about__container container mt-5"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "ecs-about__header"
+    className: "ecs-about__header row align-items-center justify-content-center"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "ecs-about__header-title"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Easy Custom', 'easy-custom-sidebars'), " ", Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Sidebars', 'easy-custom-sidebars')))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "ecs-about__header-text"
+    className: "col-12"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "ecs-about__header-bg p-5"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "ecs-about__header-title pt-3"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('Easy Custom Sidebars', 'easy-custom-sidebars'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "ecs-about__header-text pt-3"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])('A sidebar replacement plugin built by ', 'easy-custom-sidebars'), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
     href: "https://titaniumthemes.com",
     target: "_blank"
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["_x"])('Titanium Themes', 'Plugin author', 'easy-custom-sidebars')), " | ".concat(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["_x"])('v2.0.0', 'Plugin version', 'easy-custom-sidebars'))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(AboutTabPanel, null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("hr", null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["_x"])('Titanium Themes', 'Plugin author', 'easy-custom-sidebars')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", null, "".concat(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["_x"])('v2.0.0', 'Plugin version', 'easy-custom-sidebars')))))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "row"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "col"
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(AboutTabPanel, null), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("hr", null))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "return-to-dashboard"
-  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
     to: "/themes.php?page=easy-custom-sidebars"
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])("Go to Appearance \u2192 Sidebar Replacements", 'easy-custom-sidebars'))));
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+    isPrimary: true
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__["__"])("Go to Appearance \u2192 Sidebar Replacements", 'easy-custom-sidebars'))))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (About);

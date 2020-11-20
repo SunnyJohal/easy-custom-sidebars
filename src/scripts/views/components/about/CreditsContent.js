@@ -6,16 +6,39 @@ import { __ } from '@wordpress/i18n';
 const CreditsContent = () => {
   return (
     <>
-      <div className="ecs-about__section is-feature has-accent-background-color">
-        <h1>{__('Credit Content.', 'easy-custom-sidebars')}</h1>
+      <div className="about__section">
+        <div className="column has-subtle-background-color">
+          <h2 className="wp-people-group-title mb-5">
+            Plugin developed by <a href="https://titaniumthemes.com">titanium themes</a>.
+          </h2>
+          <ul className="wp-people-group">
+            <li className="wp-person" id="wp-person-sunny">
+              <a href="https://profiles.wordpress.org/sunny_johal/" className="web">
+                <img
+                  src="https://secure.gravatar.com/avatar/c07075163051ae1230672f76222c5ed5?s=80&amp;d=mm&amp;r=g"
+                  srcSet="https://secure.gravatar.com/avatar/c07075163051ae1230672f76222c5ed5?s=160&amp;d=mm&amp;r=g 2x"
+                  className="gravatar"
+                  alt="Sunny Johal"
+                />
+                Sunny Johal
+              </a>
+              <span className="title">{__('Release Lead', 'easy-custom-sidebars')}</span>
+            </li>
 
-        <p>
-          {__(
-            `More ways to make your pages come alive. With easier ways to get it all done and looking better than ever—and
-    boosts in speed you can feel.`,
-            'easy-custom-sidebars'
-          )}
-        </p>
+            <li className="wp-person" id="wp-person-amit">
+              <a href="https://profiles.wordpress.org/amit_kayasth/" className="web">
+                <img
+                  src="https://secure.gravatar.com/avatar/a605686ad5c0fc2dc3b22fafc71a457c?s=80&amp;d=mm&amp;r=g"
+                  srcSet="https://secure.gravatar.com/avatar/a605686ad5c0fc2dc3b22fafc71a457c?s=160&amp;d=mm&amp;r=g 2x"
+                  className="gravatar"
+                  alt="Amit Kayasth"
+                />
+                Amit Kayasth
+              </a>
+              <span className="title">{__('Developer', 'easy-custom-sidebars')}</span>
+            </li>
+          </ul>
+        </div>
       </div>
     </>
   );
