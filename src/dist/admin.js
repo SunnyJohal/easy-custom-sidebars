@@ -28091,7 +28091,6 @@ var AuthorArchiveUsers = function AuthorArchiveUsers(props) {
       var newAttachments = items.filter(function (item) {
         return item.checked;
       }).map(function (item) {
-        console.log('check this for the link', item);
         return {
           id: item.id,
           title: item.name,

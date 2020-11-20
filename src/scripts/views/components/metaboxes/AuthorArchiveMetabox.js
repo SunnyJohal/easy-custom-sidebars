@@ -183,7 +183,6 @@ const AuthorArchiveUsers = props => {
             const newAttachments = items
               .filter(item => item.checked)
               .map(item => {
-                console.log('check this for the link', item);
                 return {
                   id: item.id,
                   title: item.name,
