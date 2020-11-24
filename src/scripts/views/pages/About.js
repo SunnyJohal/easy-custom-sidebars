@@ -75,7 +75,7 @@ const About = () => {
                   <a href="https://titaniumthemes.com" target="_blank">
                     {_x('Titanium Themes', 'Plugin author', 'easy-custom-sidebars')}
                   </a>
-                  <span>{`${_x('v2.0.0', 'Plugin version', 'easy-custom-sidebars')}`}</span>
+                  <span>{`${_x('v2.0.1', 'Plugin version', 'easy-custom-sidebars')}`}</span>
                 </p>
               </div>
             </div>

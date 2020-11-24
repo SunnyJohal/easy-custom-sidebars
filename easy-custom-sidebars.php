@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Easy Custom Sidebars
  * Description: Replace any sidebar/widget area in any WordPress theme (no coding required).
- * Version: 2.0.0
+ * Version: 2.0.1
  * Author: Titanium Themes
  * Author URI: https://titaniumthemes.com
  * Plugin URI: https://wordpress.org/plugins/easy-custom-sidebars/
@@ -14,7 +14,7 @@
  * @author      Sunny Johal - Titanium Themes <support@titaniumthemes.com>
  * @license     GPL-2.0+
  * @copyright   Copyright (c) 2020, Titanium Themes
- * @version     2.0.0
+ * @version     2.0.1
  */
 
 namespace ECS;
@@ -93,7 +93,7 @@ function load_file( $file_name ) {
 register_activation_hook(
 	__FILE__,
 	function() {
-		update_option( 'ecs_version', '2.0.0' );
+		update_option( 'ecs_version', '2.0.1' );
 		update_option( 'ecs_force_user_redirect', get_current_user_id() );
 		update_option( 'ecs_show_admin_pointer', true );
 		flush_rewrite_rules();

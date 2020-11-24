@@ -88,9 +88,9 @@ function get_sidebar_args( $post_id ) {
 		$args = wp_parse_args(
 			[
 				'before_widget' => '<div class="widget %2$s"><div class="widget-content">',
-				'after_widget'  => "</div></div>\n",
+				'after_widget'  => "</div></div>",
 				'before_title'  => '<h2 class="widget-title">',
-				'after_title'   => '</h2>\n',
+				'after_title'   => '</h2>',
 			],
 			$args
 		);
